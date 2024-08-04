@@ -7,11 +7,7 @@ import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubi
 import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/home_model.dart';
 
-import '../Features/home/data/repos/home_repo/home_repo.dart';
-import '../Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
-import '../Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
 import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import '../core/utils/funactions/set_up_service_locator.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -23,44 +19,32 @@ class ProductsScreen extends StatefulWidget {
 class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        final fetchProductsUseCase =
-            FetchProductsUseCase(getIt.get<HomeRepo>());
-
-        final fetchCategoriesUseCase =
-            FetchCategoriesUseCase(getIt.get<HomeRepo>());
-        return ShopCubit(fetchProductsUseCase, fetchCategoriesUseCase)
-          ..getHomeData()
-          ..getCategoriesData();
-      },
-      child: BlocConsumer<ShopCubit, ShopStates>(
-        listener: (context, state) {
-          if (state is ShopChangeFavoritesSuccessState) {
-            Fluttertoast.showToast(
-              msg: state.model.message!,
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: state.model.status! ? Colors.green : Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0,
-            );
-          }
-        },
-        builder: (context, state) {
-          return ConditionalBuilder(
-            condition: ShopCubit.get(context).homeModel != null &&
-                ShopCubit.get(context).categoriesModel != null,
-            builder: (context) {
-              var homeModel = ShopCubit.get(context).homeModel;
-              var categoryModel = ShopCubit.get(context).categoriesModel;
-              return screenBuilder(homeModel!, categoryModel!, context);
-            },
-            fallback: (context) => const Center(child: Text('Loading...')),
+    return BlocConsumer<ShopCubit, ShopStates>(
+      listener: (context, state) {
+        if (state is ShopChangeFavoritesSuccessState) {
+          Fluttertoast.showToast(
+            msg: state.model.message!,
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: state.model.status! ? Colors.green : Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
           );
-        },
-      ),
+        }
+      },
+      builder: (context, state) {
+        return ConditionalBuilder(
+          condition: ShopCubit.get(context).homeModel != null &&
+              ShopCubit.get(context).categoriesModel != null,
+          builder: (context) {
+            var homeModel = ShopCubit.get(context).homeModel;
+            var categoryModel = ShopCubit.get(context).categoriesModel;
+            return screenBuilder(homeModel!, categoryModel!, context);
+          },
+          fallback: (context) => const Center(child: Text('Loading...')),
+        );
+      },
     );
   }
 
@@ -212,7 +196,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
               ),
               IconButton(
                 onPressed: () {
-                  ShopCubit.get(context).changeFavorites(product.id!);
+                  //ShopCubit.get(context).changeFavorites(product.id);
                 },
                 icon: CircleAvatar(
                   backgroundColor: Colors.grey,

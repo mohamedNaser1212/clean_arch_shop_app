@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
+import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import 'package:shop_app/models/GetFavouritsModel.dart';
 import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/favoutits_model.dart';
 import 'package:shop_app/models/home_model.dart';
@@ -13,10 +13,12 @@ import 'package:shop_app/screens/products_screen.dart';
 import 'package:shop_app/screens/settings_screen.dart';
 
 import '../../../../../core/widgets/cache_helper.dart';
+import '../../../../../models/GetFavouritsModel.dart';
 import '../../../../../screens/login_screen.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
-  ShopCubit(this.fetchProductsUseCase, this.CategoriesUseCase)
+  ShopCubit(this.fetchProductsUseCase, this.CategoriesUseCase,
+      this.fetchFavouritesUseCase)
       : super(ShopInitialState());
 
   static ShopCubit get(context) => BlocProvider.of(context);
@@ -27,6 +29,9 @@ class ShopCubit extends Cubit<ShopStates> {
   List<DataModel>? categoriesModel;
   final FetchProductsUseCase fetchProductsUseCase;
   final FetchCategoriesUseCase CategoriesUseCase;
+
+  final FetchFavouritesUseCase fetchFavouritesUseCase;
+
   List<Widget> screens = [
     const ProductsScreen(),
     const CategoriesScreen(),
@@ -89,12 +94,23 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeFavoritesLoadingState());
   }
 
-  GetFavouritsModel? getFavouritesModel;
+  List<Product>? getFavouritesModel;
 
-  void getFavorites() {
+  void getFavorites() async {
     emit(ShopGetFavoritesLoadingState());
+    var result = await fetchFavouritesUseCase!.call();
+    result.fold(
+      (failure) {
+        print('Failed to fetch favorites: $failure');
+        emit(ShopGetFavoritesErrorState());
+      },
+      (favourites) {
+        getFavouritesModel = favourites;
 
-    // Here, you would implement API call logic for fetching favorites.
+        print('Fetched favorites: $getFavouritesModel');
+        emit(ShopGetFavoritesSuccessState());
+      },
+    );
   }
 
   void signOut(BuildContext context) {
@@ -111,7 +127,5 @@ class ShopCubit extends Cubit<ShopStates> {
   void updateUserData(
       {required String name, required String email, required String phone}) {
     emit(ShopUpdateUserDataLoadingState());
-
-    // Here, you would implement API call logic for updating user data.
   }
 }

@@ -53,7 +53,11 @@ class ShopChangeFavoritesSuccessState extends ShopStates {
 
 class ShopChangeFavoritesLoadingState extends ShopStates {}
 
-class ShopChangeFavoritesErrorState extends ShopStates {}
+class ShopChangeFavoritesErrorState extends ShopStates {
+  final String? error;
+
+  ShopChangeFavoritesErrorState([this.error]);
+}
 
 class ShopGetFavoritesSuccessState extends ShopStates {
   ShopGetFavoritesSuccessState();

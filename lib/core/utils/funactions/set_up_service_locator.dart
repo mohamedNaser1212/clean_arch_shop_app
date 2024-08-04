@@ -19,7 +19,14 @@ import 'package:shop_app/Features/home/presentation/manager/login_cubit/login_cu
 import 'package:shop_app/Features/home/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:shop_app/core/widgets/dio_helper.dart';
 
+import '../../../Features/home/data/data_sorces/get_favourites_data_source.dart';
 import '../../../Features/home/data/data_sorces/home_remote_data_source.dart';
+import '../../../Features/home/data/repos/favourites_repo/favourites_repo.dart';
+import '../../../Features/home/data/repos/favourites_repo/favourites_repo_impl.dart';
+import '../../../Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
+import '../../../Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
+import '../../../Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
+import '../../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -35,7 +42,6 @@ void setUpServiceLocator() {
       loginDataSource: LoginDataSourceImpl(getIt.get<ApiService>()),
     ),
   );
-
   getIt.registerSingleton<LoginUseCase>(
     LoginUseCase(getIt.get<LoginRepo>()),
   );
@@ -46,7 +52,6 @@ void setUpServiceLocator() {
       registerDataSource: RegisterDataSourceImpl(getIt.get<ApiService>()),
     ),
   );
-
   getIt.registerSingleton<RegisterUseCase>(
     RegisterUseCase(getIt.get<RegisterRepo>()),
   );
@@ -55,34 +60,49 @@ void setUpServiceLocator() {
   getIt.registerSingleton<HomeRemoteDataSource>(
     HomeRemoteDataSourceImpl(getIt.get<ApiService>()),
   );
-
   getIt.registerSingleton<HomeRepo>(
-    HomeRepoImpl(
-      HomeRemoteDataSourceImpl(getIt.get<ApiService>()),
-    ),
+    HomeRepoImpl(getIt.get<HomeRemoteDataSource>()),
   );
 
   // User Data dependencies
   getIt.registerSingleton<GetUserDataDataSource>(
     GetUserDataDataSourceImpl(apiService: getIt.get<ApiService>()),
   );
-
   getIt.registerSingleton<SuperGetUserDataRepo>(
     GetUserDataRepoImpl(
       getUserDataDataSource: getIt.get<GetUserDataDataSource>(),
     ),
   );
-
   getIt.registerSingleton<UserDataUseCase>(
     UserDataUseCase(
       getUserDataRepo: getIt.get<SuperGetUserDataRepo>(),
     ),
   );
 
+  // Favourites dependencies
+  getIt.registerSingleton<GetFavouritesDataSource>(
+    GetFavouritesDataSourceImpl(apiService: getIt.get<ApiService>()),
+  );
+  getIt.registerSingleton<FavouritesRepo>(
+    FavouritesRepoImpl(
+        getFavouritesDataSource: getIt.get<GetFavouritesDataSource>()),
+  );
+  // getIt.registerSingleton<FavouritesUseCase<GetFavouritsModel>>(
+  //   FetchFavouritesUseCase(favouritesRepo: getIt.get<FavouritesRepo>()),
+  // );
+
   // Cubits
   getIt.registerFactory(() => LoginCubit(getIt.get<LoginUseCase>()));
   getIt.registerFactory(() => RegisterCubit(getIt.get<RegisterUseCase>()));
-  getIt.registerFactory(() => UserDataCubit(
-        getUserDataUseCase: getIt.get<UserDataUseCase>(),
-      ));
+  getIt.registerFactory(
+      () => UserDataCubit(getUserDataUseCase: getIt.get<UserDataUseCase>()));
+  getIt.registerFactory(() {
+    final fetchProductsUseCase = FetchProductsUseCase(getIt.get<HomeRepo>());
+    final fetchCategoriesUseCase =
+        FetchCategoriesUseCase(getIt.get<HomeRepo>());
+    final fetchFavouritesUseCase =
+        FetchFavouritesUseCase(getIt.get<FavouritesRepo>());
+    return ShopCubit(
+        fetchProductsUseCase, fetchCategoriesUseCase, fetchFavouritesUseCase);
+  });
 }
