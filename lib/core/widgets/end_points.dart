@@ -6,3 +6,6 @@ const profileEndPoint = 'profile';
 const registerEndPoint = 'register';
 const updateProfileEndPoint = 'update-profile';
 const searchEndPoint = 'products/search';
+const kUserBox = 'user';
+const kProductsBox = 'products';
+const kCategoriesBox = 'categories';

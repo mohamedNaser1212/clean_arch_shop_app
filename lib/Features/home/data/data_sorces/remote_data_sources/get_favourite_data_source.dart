@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:shop_app/core/widgets/end_points.dart';
 
-import '../../../../core/errors/failure.dart';
-import '../../../../core/widgets/constants.dart';
-import '../../../../core/widgets/dio_helper.dart';
-import '../../../../core/widgets/end_points.dart';
-import '../../../../models/GetFavouritsModel.dart';
+import '../../../../../core/errors/failure.dart';
+import '../../../../../core/widgets/api_service.dart';
+import '../../../../../core/widgets/constants.dart';
+import '../../../../../models/GetFavouritsModel.dart';
 
 abstract class GetFavouritesDataSource {
   Future<Either<Failure, List<Product>>> getFavourites();

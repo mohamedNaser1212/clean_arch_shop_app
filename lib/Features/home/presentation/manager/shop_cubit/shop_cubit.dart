@@ -38,7 +38,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
   List<Widget> screens = [
     const ProductsScreen(),
-    const CategoriesScreen(),
+    CategoriesScreen(),
     const FavoritesScreen(),
     SettingsScreen(),
   ];

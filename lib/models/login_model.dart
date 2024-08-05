@@ -1,4 +1,4 @@
-import 'package:shop_app/Features/home/domain/entities/user_entity.dart';
+import 'package:shop_app/Features/home/domain/entities/user_entity/user_entity.dart';
 
 class LoginModel extends UserEntity {
   bool? status;

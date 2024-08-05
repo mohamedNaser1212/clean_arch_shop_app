@@ -7,10 +7,9 @@ class ApiService {
 
   ApiService(this._dio, this.baseUrl);
 
-  // Private method to create options with headers
   Options _createOptions({Map<String, dynamic>? headers, String? token}) {
     final options = Options(headers: headers ?? {});
-    options.headers!['lang'] = langHeader; // Add language header
+    options.headers!['lang'] = langHeader;
     if (token != null) {
       options.headers!['Authorization'] = 'Bearer $token';
     }
@@ -39,7 +38,7 @@ class ApiService {
     return response.data;
   }
 
-  Future<Response> put({
+  Future<Map<String, dynamic>> put({
     required String endPoint,
     required Map<String, dynamic> data,
     Map<String, dynamic>? headers,
@@ -51,7 +50,7 @@ class ApiService {
     return response.data;
   }
 
-  Future<Response> delete({
+  Future<Map<String, dynamic>> delete({
     required String endPoint,
     Map<String, dynamic>? headers,
     String? token,

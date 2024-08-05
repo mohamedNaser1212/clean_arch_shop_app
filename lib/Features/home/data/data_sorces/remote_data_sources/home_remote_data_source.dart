@@ -2,7 +2,7 @@ import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/home_model.dart';
 
-import '../../../../core/widgets/dio_helper.dart';
+import '../../../../../core/widgets/api_service.dart';
 
 abstract class HomeRemoteDataSource {
   Future<List<ProductModel>> fetchProducts();
@@ -74,7 +74,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 // import 'package:shop_app/models/categories_model.dart';
 // import 'package:shop_app/models/home_model.dart';
 //
-// import '../../../../core/widgets/dio_helper.dart';
+// import '../../../../core/widgets/api_service.dart';
 //
 // abstract class HomeRemoteDataSource {
 //   Future<List<ProductModel>> fetchProducts();

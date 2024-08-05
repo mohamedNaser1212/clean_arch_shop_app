@@ -70,10 +70,10 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         Text(
                           'LOGIN Screen',
-                          style:
-                              Theme.of(context).textTheme.headline4?.copyWith(
-                                    color: Colors.black,
-                                  ),
+                          // style:
+                          //     Theme.of(context).textTheme.headline4?.copyWith(
+                          //           color: Colors.black,
+                          //         ),
                         ),
                         Text(
                           'login now to browse our hot offers',

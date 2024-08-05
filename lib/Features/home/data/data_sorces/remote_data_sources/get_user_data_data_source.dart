@@ -1,8 +1,8 @@
 import 'package:shop_app/core/widgets/constants.dart';
+import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/models/login_model.dart';
 
-import '../../../../core/widgets/dio_helper.dart';
-import '../../../../core/widgets/end_points.dart';
+import '../../../../../core/widgets/api_service.dart';
 
 abstract class GetUserDataDataSource {
   Future<LoginModel> getUserData();

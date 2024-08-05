@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:shop_app/models/categories_model.dart';
+
+Widget categoryItem(DataModel item, BuildContext context, double? itemHeight,
+    double? itemWidth) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      width: itemWidth,
+      height: itemHeight,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.deepOrange[100],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image(
+              width: itemHeight! / 1.2,
+              height: itemHeight / 1.2,
+              fit: BoxFit.cover,
+              image: NetworkImage(
+                '${item.image}',
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              '${item.name}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white70,
+                fontSize: 24,
+              ),
+            ),
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_forward_ios_rounded)),
+        ],
+      ),
+    ),
+  );
+}

@@ -1,6 +1,6 @@
-import '../../../../core/widgets/dio_helper.dart';
-import '../../../../models/api_request_model/api_request_model.dart';
-import '../../../../models/login_model.dart';
+import '../../../../../core/widgets/api_service.dart';
+import '../../../../../models/api_request_model/api_request_model.dart';
+import '../../../../../models/login_model.dart';
 
 abstract class LoginDataSource {
   Future<LoginModel> login({required String email, required String password});

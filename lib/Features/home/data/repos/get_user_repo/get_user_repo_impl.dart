@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/models/login_model.dart';
 
-import '../../data_sorces/get_user_data_data_source.dart';
+import '../../data_sorces/remote_data_sources/get_user_data_data_source.dart';
 import 'get_user_repo.dart';
 
 class GetUserDataRepoImpl implements SuperGetUserDataRepo {

@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/models/GetFavouritsModel.dart';
 
-import '../../data_sorces/get_favourites_data_source.dart';
+import '../../data_sorces/remote_data_sources/get_favourite_data_source.dart';
 import 'favourites_repo.dart';
 
 class FavouritesRepoImpl extends FavouritesRepo {

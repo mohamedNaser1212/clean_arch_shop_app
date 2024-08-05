@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:shop_app/models/login_model.dart';
 
 import '../../../../../core/errors/failure.dart';
-import '../../data_sorces/login_data_source.dart';
+import '../../data_sorces/remote_data_sources/login_data_source.dart';
 import 'login_repo.dart';
 
 class LoginRepoImpl implements LoginRepo {
