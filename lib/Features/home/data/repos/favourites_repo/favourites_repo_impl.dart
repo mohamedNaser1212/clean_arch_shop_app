@@ -20,6 +20,16 @@ class FavouritesRepoImpl extends FavouritesRepo {
     }
   }
 
+  @override
+  Future<Either<Failure, bool>> toggleFavourite(num productId) async {
+    try {
+      final result = await getFavouritesDataSource.toggleFavourite(productId);
+      return result;
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   // @override
   // Future<Either GetFavourites() async{
   //

@@ -8,6 +8,8 @@ import '../../../../models/GetFavouritsModel.dart';
 
 abstract class GetFavouritesDataSource {
   Future<Either<Failure, List<Product>>> getFavourites();
+
+  Future<Either<Failure, bool>> toggleFavourite(num productId);
 }
 
 class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
@@ -18,10 +20,6 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
 
   @override
   Future<Either<Failure, List<Product>>> getFavourites() async {
-    if (_cachedFavourites.isNotEmpty) {
-      return Right(_cachedFavourites);
-    }
-
     try {
       final response = await apiService.get(
         endPoint: favoritesEndPoint,
@@ -36,6 +34,34 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
     } catch (e) {
       print('Error fetching favourites: $e');
       return Left(ServerFailure('Error fetching favourites: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> toggleFavourite(num productId) async {
+    try {
+      final response = await apiService.post(
+        endPoint: favoritesEndPoint,
+        headers: {'Authorization': token},
+        data: {'product_id': productId},
+      );
+
+      final isFavourite = response['status'];
+      if (isFavourite) {
+        _cachedFavourites.add(
+          Product.fromJson({
+            'id': productId,
+            // Assuming you have other fields to add
+          }),
+        );
+      } else {
+        _cachedFavourites.removeWhere((product) => product.id == productId);
+      }
+
+      return Right(isFavourite);
+    } catch (e) {
+      print('Error toggling favourite: $e');
+      return Left(ServerFailure('Error toggling favourite: $e'));
     }
   }
 }

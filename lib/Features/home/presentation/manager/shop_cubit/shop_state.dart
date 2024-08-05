@@ -63,7 +63,11 @@ class ShopGetFavoritesSuccessState extends ShopStates {
   ShopGetFavoritesSuccessState();
 }
 
-class ShopGetFavoritesErrorState extends ShopStates {}
+class ShopGetFavoritesErrorState extends ShopStates {
+  final String error;
+
+  ShopGetFavoritesErrorState(this.error);
+}
 
 class ShopGetFavoritesLoadingState extends ShopStates {}
 
@@ -84,3 +88,19 @@ class ShopUpdateUserDataSuccessState extends ShopStates {
 }
 
 class ShopUpdateUserDataErrorState extends ShopStates {}
+
+class ShopToggleFavoriteLoadingState extends ShopStates {}
+
+class ShopToggleFavoriteSuccessState extends ShopStates {
+  final bool isFavourite;
+
+  ShopToggleFavoriteSuccessState(this.isFavourite);
+}
+
+class ShopUpdateSelectedProductState extends ShopStates {}
+
+class ShopToggleFavoriteErrorState extends ShopStates {
+  final String error;
+
+  ShopToggleFavoriteErrorState(this.error);
+}

@@ -102,7 +102,9 @@ void setUpServiceLocator() {
         FetchCategoriesUseCase(getIt.get<HomeRepo>());
     final fetchFavouritesUseCase =
         FetchFavouritesUseCase(getIt.get<FavouritesRepo>());
-    return ShopCubit(
-        fetchProductsUseCase, fetchCategoriesUseCase, fetchFavouritesUseCase);
+    final fetchFavourites = ToggleFavouriteUseCase(getIt.get<FavouritesRepo>());
+
+    return ShopCubit(fetchProductsUseCase, fetchCategoriesUseCase,
+        fetchFavouritesUseCase, fetchFavourites);
   });
 }

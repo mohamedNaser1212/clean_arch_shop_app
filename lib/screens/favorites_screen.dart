@@ -6,8 +6,19 @@ import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubi
 import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import '../models/GetFavouritsModel.dart';
 
-class FavoritesScreen extends StatelessWidget {
+class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
+
+  @override
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  @override
+  void initState() {
+    super.initState();
+    ShopCubit.get(context).getFavorites();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +27,18 @@ class FavoritesScreen extends StatelessWidget {
       builder: (context, state) {
         var favoritesModel = ShopCubit.get(context).getFavouritesModel;
         if (favoritesModel == null || favoritesModel.isEmpty) {
-          print('No Favorites');
-          return Center(child: CircularProgressIndicator());
+          return const Center(
+            child: Text('Sorry, there are no favourites to show'),
+          );
         }
         return ConditionalBuilder(
-          condition: state is! ShopGetFavoritesLoadingState,
+          condition: state is! ShopGetFavoritesLoadingState &&
+              state is! ShopToggleFavoriteLoadingState,
           builder: (context) => ListView.separated(
             itemBuilder: (context, index) =>
                 buildFavItem(context, favoritesModel[index]),
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: favoritesModel!.length,
+            itemCount: favoritesModel.length,
           ),
           fallback: (context) => const Center(
             child: CircularProgressIndicator(),
@@ -36,9 +49,7 @@ class FavoritesScreen extends StatelessWidget {
   }
 
   Widget buildFavItem(BuildContext context, Product model) {
-    // var product = model.product;
-    // if (product == null) return SizedBox();
-
+    var isFavourite = ShopCubit.get(context).favorites[model.id] ?? false;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
@@ -49,23 +60,24 @@ class FavoritesScreen extends StatelessWidget {
               alignment: AlignmentDirectional.bottomStart,
               children: [
                 Image(
-                  image: NetworkImage(model.image!),
+                  image: NetworkImage(model.image ?? ''),
                   fit: BoxFit.cover,
                   width: 120,
                   height: 120,
                 ),
-                Container(
-                  color: Theme.of(context).primaryColor,
-                  padding: const EdgeInsets.all(2),
-                  child: const Text(
-                    'DISCOUNT',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                if (model.discount != 0)
+                  Container(
+                    color: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.all(2),
+                    child: const Text(
+                      'DISCOUNT',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
             const SizedBox(width: 10),
@@ -75,7 +87,7 @@ class FavoritesScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    model.name!,
+                    model.name ?? 'Unknown',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -87,7 +99,7 @@ class FavoritesScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${model.price!.round()}',
+                        '${model.price?.round() ?? 0}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -97,7 +109,7 @@ class FavoritesScreen extends StatelessWidget {
                       const SizedBox(width: 5),
                       if (model.discount != 0)
                         Text(
-                          '\$${model.oldPrice!.round()}',
+                          '\$${model.oldPrice?.round() ?? 0}',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -112,19 +124,15 @@ class FavoritesScreen extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {
-                // ShopCubit.get(context).changeFavorites(model.product!.id!);
+              onPressed: () async {
+                await ShopCubit.get(context).toggleFavourite(model.id ?? 0);
+                print('Toggled from Favourite $isFavourite');
               },
               icon: CircleAvatar(
-                backgroundColor:
-                    // ShopCubit.get(context).favorites[model.product!.id!]!
-                    //     ? Colors.amber
-                    //     :
-
-                    Colors.grey,
+                backgroundColor: isFavourite ? Colors.red : Colors.grey,
                 radius: 15,
-                child: const Icon(
-                  Icons.favorite_border,
+                child: Icon(
+                  isFavourite ? Icons.favorite : Icons.favorite_border,
                   size: 15,
                   color: Colors.white,
                 ),

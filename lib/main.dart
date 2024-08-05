@@ -54,10 +54,13 @@ class MyApp extends StatelessWidget {
             FetchCategoriesUseCase(getIt.get<HomeRepo>());
         final fetchFavouritesUseCase =
             FetchFavouritesUseCase(getIt.get<FavouritesRepo>());
+        final fetchFavourites =
+            ToggleFavouriteUseCase(getIt.get<FavouritesRepo>());
         return ShopCubit(
           fetchProductsUseCase,
           fetchCategoriesUseCase,
           fetchFavouritesUseCase,
+          fetchFavourites,
         )
           ..getHomeData()
           ..getCategoriesData()

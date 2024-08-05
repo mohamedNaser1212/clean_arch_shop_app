@@ -17,11 +17,15 @@ import '../../../../../models/GetFavouritsModel.dart';
 import '../../../../../screens/login_screen.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
-  ShopCubit(this.fetchProductsUseCase, this.CategoriesUseCase,
-      this.fetchFavouritesUseCase)
-      : super(ShopInitialState());
+  ShopCubit(
+    this.fetchProductsUseCase,
+    this.CategoriesUseCase,
+    this.fetchFavouritesUseCase,
+    this.toggleFavouriteUseCase,
+  ) : super(ShopInitialState());
 
   static ShopCubit get(context) => BlocProvider.of(context);
+
   bool _isDataLoaded = false;
   int currentIndex = 0;
 
@@ -29,8 +33,8 @@ class ShopCubit extends Cubit<ShopStates> {
   List<DataModel>? categoriesModel;
   final FetchProductsUseCase fetchProductsUseCase;
   final FetchCategoriesUseCase CategoriesUseCase;
-
   final FetchFavouritesUseCase fetchFavouritesUseCase;
+  final ToggleFavouriteUseCase toggleFavouriteUseCase;
 
   List<Widget> screens = [
     const ProductsScreen(),
@@ -94,19 +98,38 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeFavoritesLoadingState());
   }
 
-  List<Product>? getFavouritesModel;
+  List<Product> getFavouritesModel = [];
 
-  void getFavorites() async {
+  toggleFavourite(num productId) async {
+    final isFavourite = favorites[productId] ?? false;
+    favorites[productId] = !isFavourite;
+    emit(ShopToggleFavoriteLoadingState());
+    final result = await toggleFavouriteUseCase(productId);
+    result.fold(
+      (failure) {
+        emit(ShopToggleFavoriteErrorState(failure.toString()));
+      },
+      (isFavourite) async {
+        favorites[productId] = isFavourite;
+        _selectedProductId = isFavourite ? productId : null;
+        await getFavorites();
+        emit(ShopToggleFavoriteSuccessState(isFavourite));
+      },
+    );
+  }
+
+  getFavorites() async {
     emit(ShopGetFavoritesLoadingState());
-    var result = await fetchFavouritesUseCase!.call();
+    var result = await fetchFavouritesUseCase.call();
     result.fold(
       (failure) {
         print('Failed to fetch favorites: $failure');
-        emit(ShopGetFavoritesErrorState());
+        emit(ShopGetFavoritesErrorState(failure.message));
       },
       (favourites) {
         getFavouritesModel = favourites;
-
+        // Update local state to reflect favorites
+        favorites = {for (var p in favourites) p.id!: true};
         print('Fetched favorites: $getFavouritesModel');
         emit(ShopGetFavoritesSuccessState());
       },
@@ -124,8 +147,38 @@ class ShopCubit extends Cubit<ShopStates> {
     });
   }
 
-  void updateUserData(
-      {required String name, required String email, required String phone}) {
+  num? _selectedProductId;
+
+  num? get selectedProductId => _selectedProductId;
+
+  // void toggleFavourite(num productId) async {
+  //   final isFavourite = favorites[productId] ?? false;
+  //   favorites[productId] = !isFavourite;
+  //   emit(ShopToggleFavoriteLoadingState());
+  //   final result = await toggleFavouriteUseCase(productId);
+  //   result.fold(
+  //     (failure) {
+  //       emit(ShopToggleFavoriteErrorState(failure.toString()));
+  //     },
+  //     (isFavourite) {
+  //       favorites[productId] = isFavourite;
+  //       _selectedProductId = isFavourite ? productId : null;
+  //       getFavorites();
+  //       emit(ShopToggleFavoriteSuccessState(isFavourite));
+  //     },
+  //   );
+  // }
+
+  void setSelectedProductId(num? productId) {
+    _selectedProductId = productId;
+    emit(ShopUpdateSelectedProductState());
+  }
+
+  void updateUserData({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
     emit(ShopUpdateUserDataLoadingState());
   }
 }

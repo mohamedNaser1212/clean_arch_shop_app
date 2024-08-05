@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/super_fetch_favourites_use_case.dart';
 
 import '../../../../../core/errors/failure.dart';
 import '../../../../../models/GetFavouritsModel.dart';
@@ -14,4 +13,18 @@ class FetchFavouritesUseCase extends FavouritesUseCase<Product> {
   Future<Either<Failure, List<Product>>> call() async {
     return await favouritesRepo.GetFavourites();
   }
+}
+
+class ToggleFavouriteUseCase {
+  final FavouritesRepo favouritesRepo;
+
+  ToggleFavouriteUseCase(this.favouritesRepo);
+
+  Future<Either<Failure, bool>> call(num productId) async {
+    return await favouritesRepo.toggleFavourite(productId);
+  }
+}
+
+abstract class FavouritesUseCase<T> {
+  Future<Either<Failure, List<T>>> call();
 }
