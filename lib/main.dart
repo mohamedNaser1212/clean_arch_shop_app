@@ -4,6 +4,7 @@ import 'package:shop_app/Features/onBoarding/onboarding_screen.dart';
 import 'package:shop_app/core/utils/funactions/set_up_service_locator.dart';
 import 'package:shop_app/core/widgets/cache_helper.dart';
 import 'package:shop_app/core/widgets/constants.dart';
+import 'package:shop_app/core/widgets/old_dio_helper.dart';
 import 'package:shop_app/cubit/bloc_observer.dart';
 import 'package:shop_app/screens/layout_screen.dart';
 import 'package:shop_app/screens/login_screen.dart';
@@ -19,6 +20,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
+  DioHelper.init();
   setUpServiceLocator();
   Widget? startingScreen = start_page();
 

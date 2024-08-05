@@ -6,19 +6,8 @@ import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubi
 import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import '../models/GetFavouritsModel.dart';
 
-class FavoritesScreen extends StatefulWidget {
+class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
-
-  @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
-}
-
-class _FavoritesScreenState extends State<FavoritesScreen> {
-  @override
-  void initState() {
-    super.initState();
-    ShopCubit.get(context).getFavorites();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +15,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         var favoritesModel = ShopCubit.get(context).getFavouritesModel;
-        if (favoritesModel == null || favoritesModel.isEmpty) {
+        if (favoritesModel.isEmpty) {
           return const Center(
             child: Text('Sorry, there are no favourites to show'),
           );

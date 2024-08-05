@@ -12,7 +12,7 @@ class LoginModel extends UserEntity {
           phone: data?.phone ?? '',
         );
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) {
+  factory LoginModel.fromJson(dynamic json) {
     return LoginModel(
       status: json['status'],
       message: json['message'],

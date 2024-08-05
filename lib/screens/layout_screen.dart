@@ -24,7 +24,7 @@ class LayoutScreen extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  navigateTo(context: context, screen: const SearchScreen());
+                  navigateTo(context: context, screen: SearchScreen());
                 },
                 icon: const Icon(
                   Icons.search,

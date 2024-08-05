@@ -51,7 +51,6 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
         _cachedFavourites.add(
           Product.fromJson({
             'id': productId,
-            // Assuming you have other fields to add
           }),
         );
       } else {

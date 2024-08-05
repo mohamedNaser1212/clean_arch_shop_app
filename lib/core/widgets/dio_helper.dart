@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class ApiService {
   final Dio _dio;
   final String baseUrl;
-  final String langHeader = 'en'; // Default language header
+  final String langHeader = 'en';
 
   ApiService(this._dio, this.baseUrl);
 
@@ -39,7 +39,7 @@ class ApiService {
     return response.data;
   }
 
-  Future<Map<String, dynamic>> put({
+  Future<Response> put({
     required String endPoint,
     required Map<String, dynamic> data,
     Map<String, dynamic>? headers,
@@ -51,13 +51,27 @@ class ApiService {
     return response.data;
   }
 
-  Future<Map<String, dynamic>> delete({
+  Future<Response> delete({
     required String endPoint,
     Map<String, dynamic>? headers,
     String? token,
   }) async {
     var options = _createOptions(headers: headers, token: token);
     var response = await _dio.delete('$baseUrl$endPoint', options: options);
+    return response.data;
+  }
+
+  Future<Response> responsePost({
+    required String endPoint,
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? headers,
+    String? token,
+  }) async {
+    var options = _createOptions(
+      headers: headers,
+    );
+    var response =
+        await _dio.post('$baseUrl$endPoint', data: data, options: options);
     return response.data;
   }
 }
