@@ -25,3 +25,5 @@ TextEditingController emailController=TextEditingController();
 TextEditingController passwordController=TextEditingController();
 
 String token='';
+
+Color defaultColor=Colors.white;

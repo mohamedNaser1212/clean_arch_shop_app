@@ -3,7 +3,7 @@ import 'package:shop_app/Features/home/domain/entities/products_entity/product_e
 import 'package:shop_app/core/utils/funactions/save_products.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/models/categories_model.dart';
-import 'package:shop_app/models/home_model.dart';
+import 'package:shop_app/models/new_get_home_data.dart';
 
 import '../../../../../core/utils/funactions/save_categories.dart';
 import '../../../../../core/widgets/api_service.dart';
@@ -38,7 +38,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   List<ProductEntity> getProductsList(Map<String, dynamic> data) {
     List<ProductEntity> products = [];
     for (var productMap in data['products']) {
-      products.add(ProductModel.fromJson(productMap));
+      products.add(Products.fromJson(productMap));
     }
     return products;
   }

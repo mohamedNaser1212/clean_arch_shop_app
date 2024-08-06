@@ -4,9 +4,9 @@ import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/core/utils/funactions/save_favourites.dart';
 import 'package:shop_app/core/widgets/api_service.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
-import 'package:shop_app/models/GetFavouritsModel.dart';
 
 import '../../../../../core/widgets/constants.dart';
+import '../../../../../models/new_favourites_model.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 
 abstract class GetFavouritesDataSource {
@@ -28,13 +28,14 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
         headers: {'Authorization': token},
       );
 
-      final favouritesModel = GetFavouritsModel.fromJson(response);
+      final favouritesModel = NewFavouritesModel.fromJson(response);
       _cachedFavourites = favouritesModel.data?.data
               ?.map((item) => FavouritesEntity(
                     id: item.product!.id,
                     name: item.product!.name,
                     price: item.product!.price,
                     oldPrice: item.product!.oldPrice,
+                    description: item.product!.description,
                     discount: item.product!.discount,
                     image: item.product!.image,
                   ))
@@ -62,7 +63,6 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
 
         final isFavourite = response['status'];
 
-        // Update the cached favorites list
         if (isFavourite) {
           _cachedFavourites.removeWhere((product) => product.id == productId);
         } else {
@@ -78,6 +78,7 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
               price: product.price,
               oldPrice: product.oldPrice,
               discount: product.discount,
+              description: product.description,
               image: product.image,
             ),
           );

@@ -6,6 +6,7 @@ import 'package:shop_app/screens/search_screen.dart';
 
 import '../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
+import '../core/widgets/constants.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});
@@ -20,14 +21,15 @@ class LayoutScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text('Shop App'),
+            title: Text('Shop App', style: TextStyle(color: defaultColor)),
             actions: [
               IconButton(
                 onPressed: () {
                   navigateTo(context: context, screen: SearchScreen());
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.search,
+                  color: defaultColor,
                 ),
               ),
               IconButton(
@@ -37,8 +39,9 @@ class LayoutScreen extends StatelessWidget {
                     screen: LoginScreen(),
                   );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.logout,
+                  color: defaultColor,
                 ),
               ),
             ],

@@ -16,6 +16,8 @@ class FavouritesEntity {
   final String? image;
   @HiveField(5)
   final String? name;
+  @HiveField(6)
+  final String? description;
 
   FavouritesEntity({
     this.id,
@@ -24,6 +26,7 @@ class FavouritesEntity {
     this.discount,
     this.image,
     this.name,
+    this.description,
   });
 
   factory FavouritesEntity.fromJson(Map<String, dynamic> json) {
@@ -33,6 +36,7 @@ class FavouritesEntity {
       oldPrice: json['old_price'],
       discount: json['discount'],
       image: json['image'],
+      description: json['description'],
       name: json['name'],
     );
   }

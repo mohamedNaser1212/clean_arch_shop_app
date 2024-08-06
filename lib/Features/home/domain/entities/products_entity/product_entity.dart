@@ -16,6 +16,10 @@ class ProductEntity {
   final num oldPrice;
   @HiveField(5)
   final String image;
+  @HiveField(6)
+  final List<String> images;
+  @HiveField(7)
+  final String? description;
 
   ProductEntity({
     required this.id,
@@ -24,6 +28,8 @@ class ProductEntity {
     required this.oldPrice,
     required this.price,
     required this.image,
+    required this.images,
+    this.description,
   });
 
   factory ProductEntity.fromJson(Map<String, dynamic> json) {
@@ -32,8 +38,10 @@ class ProductEntity {
       name: json['name'] as String,
       discount: json['discount'] as num,
       price: json['price'] as num,
-      oldPrice: json['oldPrice'] as num,
+      oldPrice: json['old_price'] as num,
       image: json['image'] as String,
+      images: List<String>.from(json['images']),
+      description: json['description'] as String?,
     );
   }
 
@@ -43,8 +51,10 @@ class ProductEntity {
       'name': name,
       'discount': discount,
       'price': price,
-      'oldPrice': oldPrice,
+      'old_price': oldPrice,
       'image': image,
+      'images': images,
+      'description': description,
     };
   }
 }
