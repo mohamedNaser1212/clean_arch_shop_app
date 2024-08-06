@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/categories_model.dart';
 
-Widget categoryItem(DataModel item, BuildContext context, double? itemHeight,
-    double? itemWidth) {
+import '../../Features/home/domain/entities/categories_entity/categories_entity.dart';
+
+Widget categoryItem(CategoriesEntity item, BuildContext context,
+    double? itemHeight, double? itemWidth) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -21,15 +23,14 @@ Widget categoryItem(DataModel item, BuildContext context, double? itemHeight,
               width: itemHeight! / 1.2,
               height: itemHeight / 1.2,
               fit: BoxFit.cover,
-              image: NetworkImage(
-                '${item.image}',
-              ),
+              image: CachedNetworkImageProvider(
+                  item.image), // Fixing mixed content
             ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              '${item.name}',
+              item.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../models/categories_model.dart';
+import '../../Features/home/domain/entities/categories_entity/categories_entity.dart';
 import 'category_item.dart';
 
-Widget categoriesItemBuilder(List<DataModel> categoryModel,
+Widget categoriesItemBuilder(List<CategoriesEntity> categoryModel,
     BuildContext context, double itemHeight, double itemWidth) {
   return Padding(
     padding: const EdgeInsets.all(12.0),
@@ -20,8 +20,8 @@ Widget categoriesItemBuilder(List<DataModel> categoryModel,
             ),
           ),
           const SizedBox(height: 10),
-          Container(
-            height: itemHeight * 7, // Adjust height if needed
+          SizedBox(
+            height: itemHeight * 7,
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
@@ -31,7 +31,6 @@ Widget categoriesItemBuilder(List<DataModel> categoryModel,
               itemCount: categoryModel.length,
             ),
           ),
-          const SizedBox(height: 10),
         ],
       ),
     ),

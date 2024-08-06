@@ -4,9 +4,7 @@ import 'package:shop_app/Features/home/domain/use_case/categories_use_case/fetch
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/favoutits_model.dart';
-import 'package:shop_app/models/home_model.dart';
 import 'package:shop_app/screens/categries_screen.dart';
 import 'package:shop_app/screens/favorites_screen.dart';
 import 'package:shop_app/screens/products_screen.dart';
@@ -15,30 +13,30 @@ import 'package:shop_app/screens/settings_screen.dart';
 import '../../../../../core/widgets/cache_helper.dart';
 import '../../../../../models/GetFavouritsModel.dart';
 import '../../../../../screens/login_screen.dart';
+import '../../../domain/entities/categories_entity/categories_entity.dart';
+import '../../../domain/entities/products_entity/product_entity.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit(
     this.fetchProductsUseCase,
-    this.CategoriesUseCase,
+    this.categoriesUseCase,
     this.fetchFavouritesUseCase,
     this.toggleFavouriteUseCase,
   ) : super(ShopInitialState());
 
   static ShopCubit get(context) => BlocProvider.of(context);
-
-  bool _isDataLoaded = false;
   int currentIndex = 0;
 
-  List<ProductModel>? homeModel;
-  List<DataModel>? categoriesModel;
+  List<ProductEntity>? homeModel;
+  List<CategoriesEntity>? categoriesModel;
   final FetchProductsUseCase fetchProductsUseCase;
-  final FetchCategoriesUseCase CategoriesUseCase;
+  final FetchCategoriesUseCase categoriesUseCase;
   final FetchFavouritesUseCase fetchFavouritesUseCase;
   final ToggleFavouriteUseCase toggleFavouriteUseCase;
 
   List<Widget> screens = [
     const ProductsScreen(),
-    CategoriesScreen(),
+    const CategoriesScreen(),
     const FavoritesScreen(),
     SettingsScreen(),
   ];
@@ -62,6 +60,7 @@ class ShopCubit extends Cubit<ShopStates> {
   void getHomeData() async {
     emit(ShopLoadingHomeDataState());
     final result = await fetchProductsUseCase.call();
+
     result.fold(
       (failure) {
         print('Failed to fetch products: $failure');
@@ -70,14 +69,14 @@ class ShopCubit extends Cubit<ShopStates> {
       (products) {
         homeModel = products;
         print('Fetched products: $homeModel');
-        emit(ShopSuccessHomeDataState());
+        emit(ShopSuccessHomeDataState(products));
       },
     );
   }
 
   void getCategoriesData() async {
     emit(ShopLoadingCategoriesDataState());
-    final result = await CategoriesUseCase.call();
+    final result = await categoriesUseCase.call();
     result.fold(
       (failure) {
         print('Failed to fetch categories: $failure');

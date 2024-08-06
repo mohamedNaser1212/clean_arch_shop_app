@@ -25,4 +25,26 @@ class ProductEntity {
     required this.price,
     required this.image,
   });
+
+  factory ProductEntity.fromJson(Map<String, dynamic> json) {
+    return ProductEntity(
+      id: json['id'] as num,
+      name: json['name'] as String,
+      discount: json['discount'] as num,
+      price: json['price'] as num,
+      oldPrice: json['oldPrice'] as num,
+      image: json['image'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'discount': discount,
+      'price': price,
+      'oldPrice': oldPrice,
+      'image': image,
+    };
+  }
 }

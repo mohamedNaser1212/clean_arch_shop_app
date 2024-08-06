@@ -1,3 +1,5 @@
+import '../Features/home/domain/entities/favourites_entity/favourites_entity.dart';
+
 class GetFavouritsModel {
   GetFavouritsModel.fromJson(dynamic json) {
     status = json['status'];
@@ -54,7 +56,30 @@ class DataItems {
   Product? product;
 }
 
-class Product {
+class Product extends FavouritesEntity {
+  num? id;
+  num? price;
+  num? oldPrice;
+  num? discount;
+  String? image;
+  String? name;
+  String? description;
+
+  Product(
+      {this.id,
+      this.price,
+      this.oldPrice,
+      this.discount,
+      this.image,
+      this.name,
+      this.description})
+      : super(
+          id: id,
+          image: image,
+          name: name,
+          price: price,
+        );
+
   Product.fromJson(dynamic json) {
     id = json['id'];
     price = json['price'];
@@ -64,11 +89,4 @@ class Product {
     name = json['name'];
     description = json['description'];
   }
-  num? id;
-  num? price;
-  num? oldPrice;
-  num? discount;
-  String? image;
-  String? name;
-  String? description;
 }

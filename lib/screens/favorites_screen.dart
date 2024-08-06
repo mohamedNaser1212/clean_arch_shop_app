@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 
 import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
@@ -29,8 +30,9 @@ class FavoritesScreen extends StatelessWidget {
             separatorBuilder: (context, index) => const Divider(),
             itemCount: favoritesModel.length,
           ),
-          fallback: (context) => const Center(
-            child: CircularProgressIndicator(),
+          fallback: (context) => Center(
+            child:
+                LoadingAnimationWidget.waveDots(color: Colors.grey, size: 90),
           ),
         );
       },

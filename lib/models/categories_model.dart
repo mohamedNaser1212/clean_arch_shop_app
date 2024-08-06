@@ -1,3 +1,5 @@
+import '../Features/home/domain/entities/categories_entity/categories_entity.dart';
+
 class CategoriesModel {
   bool? status;
   CategoriesDataModel? data;
@@ -20,14 +22,24 @@ class CategoriesDataModel {
   }
 }
 
-class DataModel {
+class DataModel extends CategoriesEntity {
   num? id;
-  String? name;
-  String? image;
 
-  DataModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    image = json['image'];
+  DataModel({
+    required this.id,
+    required String name,
+    required String image,
+  }) : super(name: name, image: image);
+
+  DataModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        super(name: json['name'], image: json['image']);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image,
+    };
   }
 }

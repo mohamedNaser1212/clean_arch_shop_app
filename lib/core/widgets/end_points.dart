@@ -9,3 +9,4 @@ const searchEndPoint = 'products/search';
 const kUserBox = 'user';
 const kProductsBox = 'products';
 const kCategoriesBox = 'categories';
+const kFavouritesBox = 'favourites';

@@ -30,6 +30,8 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
       _cachedFavourites =
           favouritesModel.data!.data!.map((item) => item.product!).toList();
 
+      //  saveFavourites(, boxName)
+
       return Right(_cachedFavourites);
     } catch (e) {
       print('Error fetching favourites: $e');

@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
       print(failure.message);
     }, (loginModel) {
       print('Login Success');
-      print(loginModel.data!.name);
+      // print(loginModel.data!.name);
       emit(AppLoginSuccessState(loginModel));
     });
   }

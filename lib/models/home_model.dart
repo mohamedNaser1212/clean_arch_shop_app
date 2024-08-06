@@ -1,3 +1,5 @@
+import '../Features/home/domain/entities/products_entity/product_entity.dart';
+
 class HomeModel {
   bool? status;
   HomeDataModel? data;
@@ -32,26 +34,51 @@ class BannerModel {
   }
 }
 
-class ProductModel {
-  num? id;
-  num? price;
-  num? oldPrice;
-  num? discount;
-  String? image;
-  String? name;
+class ProductModel extends ProductEntity {
+  num id;
+  num price;
+  num oldPrice;
+  num discount;
+  String image;
+  String name;
   bool? inFavorite;
   bool? inCart;
 
-  ProductModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    price = json['price'];
-    oldPrice = json['old_price'];
-    discount = json['discount'];
-    image = json['image'];
-    name = json['name'];
-    inFavorite = json['in_favorites'];
-    inCart = json['in_cart'];
-  }
+  ProductModel({
+    required this.id,
+    required this.price,
+    required this.oldPrice,
+    required this.discount,
+    required this.image,
+    required this.name,
+    required this.inFavorite,
+    required this.inCart,
+  }) : super(
+          id: id!,
+          name: name!,
+          discount: discount!,
+          oldPrice: oldPrice!,
+          price: price!,
+          image: image!,
+        );
+
+  ProductModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        price = json['price'],
+        oldPrice = json['old_price'],
+        discount = json['discount'],
+        image = json['image'],
+        name = json['name'],
+        inFavorite = json['in_favorites'],
+        inCart = json['in_cart'],
+        super(
+          id: json['id'],
+          name: json['name'],
+          discount: json['discount'],
+          oldPrice: json['old_price'],
+          price: json['price'],
+          image: json['image'],
+        );
 
   Map<String, dynamic> toJson() {
     return {

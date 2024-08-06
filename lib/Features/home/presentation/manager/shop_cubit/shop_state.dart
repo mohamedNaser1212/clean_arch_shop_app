@@ -1,7 +1,8 @@
+import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 import 'package:shop_app/models/login_model.dart';
 
-import '../../../../../models/categories_model.dart';
 import '../../../../../models/favoutits_model.dart';
+import '../../../domain/entities/categories_entity/categories_entity.dart';
 
 abstract class ShopStates {}
 
@@ -10,9 +11,9 @@ class ShopInitialState extends ShopStates {}
 class ShopChangeBottomNavState extends ShopStates {}
 
 class ShopSuccessHomeDataState extends ShopStates {
-  // final List<ProductModel> products;
-  //
-  // ShopSuccessHomeDataState(this.products);
+  final List<ProductEntity> products;
+
+  ShopSuccessHomeDataState(this.products);
 }
 
 class ShopLoadingHomeDataState extends ShopStates {}
@@ -24,7 +25,7 @@ class ShopErrorHomeDataState extends ShopStates {
 }
 
 class ShopSuccessCategoriesDataState extends ShopStates {
-  final List<DataModel> categories;
+  final List<CategoriesEntity> categories;
 
   ShopSuccessCategoriesDataState(this.categories);
 }
