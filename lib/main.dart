@@ -11,6 +11,7 @@ import 'Features/home/data/repos/favourites_repo/favourites_repo.dart';
 import 'Features/home/data/repos/home_repo/home_repo.dart';
 import 'Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
 import 'Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
+import 'Features/home/domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
 import 'Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
 import 'Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'bloc_observer/bloc_observer.dart';

@@ -32,6 +32,7 @@ import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubi
 import 'package:shop_app/core/widgets/api_service.dart';
 
 import '../../../Features/home/data/data_sorces/remote_data_sources/get_user_data_data_source.dart';
+import '../../../Features/home/domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
 
 final getIt = GetIt.instance;
 

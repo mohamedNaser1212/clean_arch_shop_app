@@ -4,17 +4,20 @@ import 'package:shop_app/Features/home/domain/use_case/categories_use_case/fetch
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import 'package:shop_app/models/favoutits_model.dart';
-import 'package:shop_app/screens/categries_screen.dart';
 import 'package:shop_app/screens/favorites_screen.dart';
 import 'package:shop_app/screens/products_screen.dart';
 import 'package:shop_app/screens/settings_screen.dart';
 
+import '../../../../../core/utils/funactions/save_favourites.dart';
 import '../../../../../core/widgets/cache_helper.dart';
-import '../../../../../models/GetFavouritsModel.dart';
+import '../../../../../core/widgets/end_points.dart';
+import '../../../../../models/favoutits_model.dart';
+import '../../../../../screens/categries_screen.dart';
 import '../../../../../screens/login_screen.dart';
 import '../../../domain/entities/categories_entity/categories_entity.dart';
+import '../../../domain/entities/favourites_entity/favourites_entity.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
+import '../../../domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit(
@@ -97,13 +100,13 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeFavoritesLoadingState());
   }
 
-  List<Product> getFavouritesModel = [];
+  List<FavouritesEntity> getFavouritesModel = [];
 
-  toggleFavourite(num productId) async {
+  Future<void> toggleFavourite(num productId) async {
     final isFavourite = favorites[productId] ?? false;
     favorites[productId] = !isFavourite;
     emit(ShopToggleFavoriteLoadingState());
-    final result = await toggleFavouriteUseCase(productId);
+    final result = await toggleFavouriteUseCase.call(productId);
     result.fold(
       (failure) {
         emit(ShopToggleFavoriteErrorState(failure.toString()));
@@ -117,9 +120,20 @@ class ShopCubit extends Cubit<ShopStates> {
     );
   }
 
-  getFavorites() async {
+  Future<void> getFavorites() async {
     emit(ShopGetFavoritesLoadingState());
-    var result = await fetchFavouritesUseCase.call();
+
+    // Fetch from local storage first
+    final localFavourites = await loadFavourites(kFavouritesBox);
+    if (localFavourites.isNotEmpty) {
+      getFavouritesModel = localFavourites;
+      favorites = {for (var p in localFavourites) p.id!: true};
+      emit(ShopGetFavoritesSuccessState());
+      return;
+    }
+
+    // Fetch from remote if local storage is empty
+    final result = await fetchFavouritesUseCase.call();
     result.fold(
       (failure) {
         print('Failed to fetch favorites: $failure');
@@ -127,7 +141,6 @@ class ShopCubit extends Cubit<ShopStates> {
       },
       (favourites) {
         getFavouritesModel = favourites;
-        // Update local state to reflect favorites
         favorites = {for (var p in favourites) p.id!: true};
         print('Fetched favorites: $getFavouritesModel');
         emit(ShopGetFavoritesSuccessState());
@@ -149,24 +162,6 @@ class ShopCubit extends Cubit<ShopStates> {
   num? _selectedProductId;
 
   num? get selectedProductId => _selectedProductId;
-
-  // void toggleFavourite(num productId) async {
-  //   final isFavourite = favorites[productId] ?? false;
-  //   favorites[productId] = !isFavourite;
-  //   emit(ShopToggleFavoriteLoadingState());
-  //   final result = await toggleFavouriteUseCase(productId);
-  //   result.fold(
-  //     (failure) {
-  //       emit(ShopToggleFavoriteErrorState(failure.toString()));
-  //     },
-  //     (isFavourite) {
-  //       favorites[productId] = isFavourite;
-  //       _selectedProductId = isFavourite ? productId : null;
-  //       getFavorites();
-  //       emit(ShopToggleFavoriteSuccessState(isFavourite));
-  //     },
-  //   );
-  // }
 
   void setSelectedProductId(num? productId) {
     _selectedProductId = productId;

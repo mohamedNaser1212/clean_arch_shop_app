@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
+import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
 
-import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import '../models/GetFavouritsModel.dart';
+import '../Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
@@ -15,8 +15,8 @@ class FavoritesScreen extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var favoritesModel = ShopCubit.get(context).getFavouritesModel;
-        if (favoritesModel.isEmpty) {
+        var favouritesModel = ShopCubit.get(context).getFavouritesModel;
+        if (favouritesModel.isEmpty) {
           return const Center(
             child: Text('Sorry, there are no favourites to show'),
           );
@@ -26,9 +26,9 @@ class FavoritesScreen extends StatelessWidget {
               state is! ShopToggleFavoriteLoadingState,
           builder: (context) => ListView.separated(
             itemBuilder: (context, index) =>
-                buildFavItem(context, favoritesModel[index]),
+                buildFavItem(context, favouritesModel[index]),
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: favoritesModel.length,
+            itemCount: favouritesModel.length,
           ),
           fallback: (context) => Center(
             child:
@@ -39,8 +39,8 @@ class FavoritesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildFavItem(BuildContext context, Product model) {
-    var isFavourite = ShopCubit.get(context).favorites[model.id] ?? false;
+  Widget buildFavItem(BuildContext context, FavouritesEntity model) {
+    var isFavourite = ShopCubit.get(context).favorites[model.id!] ?? false;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
@@ -116,8 +116,8 @@ class FavoritesScreen extends StatelessWidget {
             ),
             IconButton(
               onPressed: () async {
-                await ShopCubit.get(context).toggleFavourite(model.id ?? 0);
-                print('Toggled from Favourite $isFavourite');
+                await ShopCubit.get(context).toggleFavourite(model.id!);
+                print('Toggled Favourite $isFavourite');
               },
               icon: CircleAvatar(
                 backgroundColor: isFavourite ? Colors.red : Colors.grey,
