@@ -11,7 +11,7 @@ import '../../../domain/entities/products_entity/product_entity.dart';
 
 abstract class GetFavouritesDataSource {
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites();
-  Future<Either<Failure, bool>> toggleFavourite(num productId);
+  Future<Either<Failure, bool>> toggleFavourites(List<num> productIds);
 }
 
 class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
@@ -51,43 +51,45 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
   }
 
   @override
-  Future<Either<Failure, bool>> toggleFavourite(num productId) async {
+  Future<Either<Failure, bool>> toggleFavourites(List<num> productIds) async {
     try {
-      final response = await apiService.post(
-        endPoint: favoritesEndPoint,
-        headers: {'Authorization': token},
-        data: {'product_id': productId},
-      );
-
-      final isFavourite = response['status'];
-
-      // Update the cached favorites list
-      if (isFavourite) {
-        _cachedFavourites.removeWhere((product) => product.id == productId);
-      } else {
-        final productResponse = await apiService.get(
-          endPoint: 'products/$productId',
+      for (var productId in productIds) {
+        final response = await apiService.post(
+          endPoint: favoritesEndPoint,
           headers: {'Authorization': token},
+          data: {'product_id': productId},
         );
-        final product = ProductEntity.fromJson(productResponse);
-        _cachedFavourites.add(
-          FavouritesEntity(
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            oldPrice: product.oldPrice,
-            discount: product.discount,
-            image: product.image,
-          ),
-        );
+
+        final isFavourite = response['status'];
+
+        // Update the cached favorites list
+        if (isFavourite) {
+          _cachedFavourites.removeWhere((product) => product.id == productId);
+        } else {
+          final productResponse = await apiService.get(
+            endPoint: 'products/$productId',
+            headers: {'Authorization': token},
+          );
+          final product = ProductEntity.fromJson(productResponse);
+          _cachedFavourites.add(
+            FavouritesEntity(
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              oldPrice: product.oldPrice,
+              discount: product.discount,
+              image: product.image,
+            ),
+          );
+        }
       }
 
       await saveFavourites(_cachedFavourites, kFavouritesBox);
 
-      return Right(isFavourite);
+      return Right(true);
     } catch (e) {
-      print('Error toggling favourite: $e');
-      return Left(ServerFailure('Error toggling favourite: $e'));
+      print('Error toggling favourites: $e');
+      return Left(ServerFailure('Error toggling favourites: $e'));
     }
   }
 }

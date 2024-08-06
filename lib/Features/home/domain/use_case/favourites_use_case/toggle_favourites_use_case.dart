@@ -8,7 +8,7 @@ class ToggleFavouriteUseCase {
 
   ToggleFavouriteUseCase(this.favouritesRepo);
 
-  Future<Either<Failure, bool>> call(num productId) async {
-    return await favouritesRepo.toggleFavourite(productId);
+  Future<Either<Failure, bool>> call(List<num> productIds) async {
+    return await favouritesRepo.toggleFavourite(productIds);
   }
 }

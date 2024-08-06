@@ -76,7 +76,7 @@ class ProductItem extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                ShopCubit.get(context).toggleFavourite(product.id);
+                ShopCubit.get(context).toggleFavourite([product.id!]);
               },
               icon: CircleAvatar(
                 backgroundColor: isFavourite ? Colors.red : Colors.grey,

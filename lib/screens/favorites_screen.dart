@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,11 +51,20 @@ class FavoritesScreen extends StatelessWidget {
             Stack(
               alignment: AlignmentDirectional.bottomStart,
               children: [
-                Image(
-                  image: NetworkImage(model.image ?? ''),
+                CachedNetworkImage(
+                  imageUrl: model.image ?? '',
                   fit: BoxFit.cover,
                   width: 120,
                   height: 120,
+                  placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
                 ),
                 if (model.discount != 0)
                   Container(
@@ -115,15 +125,14 @@ class FavoritesScreen extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () async {
-                await ShopCubit.get(context).toggleFavourite(model.id!);
-                print('Toggled Favourite $isFavourite');
+              onPressed: () {
+                ShopCubit.get(context).toggleFavourite([model.id!]);
               },
               icon: CircleAvatar(
                 backgroundColor: isFavourite ? Colors.red : Colors.grey,
                 radius: 15,
-                child: Icon(
-                  isFavourite ? Icons.favorite : Icons.favorite_border,
+                child: const Icon(
+                  Icons.favorite,
                   size: 15,
                   color: Colors.white,
                 ),

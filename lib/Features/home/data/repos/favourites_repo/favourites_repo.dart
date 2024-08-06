@@ -5,5 +5,5 @@ import '../../../../../core/errors/failure.dart';
 
 abstract class FavouritesRepo {
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites();
-  Future<Either<Failure, bool>> toggleFavourite(num productId);
+  Future<Either<Failure, bool>> toggleFavourite(List<num> productIds);
 }

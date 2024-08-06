@@ -95,27 +95,32 @@ class ShopCubit extends Cubit<ShopStates> {
 
   ChangeFavouriteModel? changeFavouriteModel;
 
-  void changeFavorites(num productId) {
-    favorites[productId] = !(favorites[productId] ?? false);
+  void changeFavorites(List<num> productIds) {
+    for (var productId in productIds) {
+      favorites[productId] = !(favorites[productId] ?? false);
+    }
     emit(ShopChangeFavoritesLoadingState());
   }
 
   List<FavouritesEntity> getFavouritesModel = [];
 
-  Future<void> toggleFavourite(num productId) async {
-    final isFavourite = favorites[productId] ?? false;
-    favorites[productId] = !isFavourite;
+  Future<void> toggleFavourite(List<num> productIds) async {
+    final updatedFavorites = <num, bool>{};
+    for (var productId in productIds) {
+      final isFavourite = favorites[productId] ?? false;
+      updatedFavorites[productId] = !isFavourite;
+    }
     emit(ShopToggleFavoriteLoadingState());
-    final result = await toggleFavouriteUseCase.call(productId);
+
+    final result = await toggleFavouriteUseCase.call(productIds);
     result.fold(
       (failure) {
         emit(ShopToggleFavoriteErrorState(failure.toString()));
       },
-      (isFavourite) async {
-        favorites[productId] = isFavourite;
-        _selectedProductId = isFavourite ? productId : null;
+      (isFavouriteList) async {
+        favorites.addAll(updatedFavorites);
         await getFavorites();
-        emit(ShopToggleFavoriteSuccessState(isFavourite));
+        emit(ShopToggleFavoriteSuccessState(isFavouriteList));
       },
     );
   }
