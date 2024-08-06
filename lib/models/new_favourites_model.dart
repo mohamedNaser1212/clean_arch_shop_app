@@ -147,6 +147,8 @@ class FavouriteProduct extends FavouritesEntity {
     image = json['image'];
     name = json['name'];
     description = json['description'];
+    print('FavouriteProduct.fromJson: $json');
+    print('FavouriteProduct.fromJson: $description');
   }
   num? id;
   num? price;

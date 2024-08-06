@@ -35,7 +35,8 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
                     name: item.product!.name,
                     price: item.product!.price,
                     oldPrice: item.product!.oldPrice,
-                    description: item.product!.description,
+                    description:
+                        item.product!.description ?? 'No description available',
                     discount: item.product!.discount,
                     image: item.product!.image,
                   ))
@@ -78,7 +79,7 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
               price: product.price,
               oldPrice: product.oldPrice,
               discount: product.discount,
-              description: product.description,
+              description: product.description ?? 'No description available',
               image: product.image,
             ),
           );
