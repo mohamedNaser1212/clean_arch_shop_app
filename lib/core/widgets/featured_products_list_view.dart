@@ -5,11 +5,15 @@ import '../../Features/home/domain/entities/products_entity/product_entity.dart'
 
 class FeaturedProductsListView extends StatelessWidget {
   const FeaturedProductsListView(
-      {Key? key, required this.products, required this.isFavourite})
+      {Key? key,
+      required this.products,
+      required this.isFavourite,
+      required this.isCart})
       : super(key: key);
 
   final List<ProductEntity> products;
   final bool isFavourite;
+  final bool isCart;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,6 +26,7 @@ class FeaturedProductsListView extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: ProductItem(
+              isCart: isCart,
               product: product,
               isFavourite: isFavourite,
             ),

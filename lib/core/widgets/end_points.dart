@@ -10,3 +10,6 @@ const kUserBox = 'user';
 const kProductsBox = 'products';
 const kCategoriesBox = 'categories';
 const kFavouritesBox = 'favourites';
+const kCartBox = 'carts';
+const cartEndPoint = 'carts';
+const kAddToCartBox = 'addToCart';

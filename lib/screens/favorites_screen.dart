@@ -2,12 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import 'package:shop_app/screens/products_details_screen.dart';
 
-import '../Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import '../core/widgets/reusable_widgets.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -16,7 +17,19 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ShopChangeFavoritesSuccessState) {
+          Fluttertoast.showToast(
+            msg: state.model.message!,
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: state.model.status! ? Colors.green : Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+        }
+      },
       builder: (context, state) {
         var favouritesModel = ShopCubit.get(context).getFavouritesModel;
         if (favouritesModel.isEmpty) {
@@ -44,13 +57,17 @@ class FavoritesScreen extends StatelessWidget {
 
   Widget buildFavItem(BuildContext context, FavouritesEntity model) {
     var isFavourite = ShopCubit.get(context).favorites[model.id!] ?? false;
-    print(model.description);
+    var isCart = ShopCubit.get(context).carts[model.id!] ?? false;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
         onTap: () {
           navigateTo(
-              context: context, screen: ProductsDetailsScreen(model: model));
+            context: context,
+            screen: ProductsDetailsScreen(
+              model: model,
+            ),
+          );
         },
         child: Container(
           height: 120,
@@ -129,21 +146,41 @@ class FavoritesScreen extends StatelessWidget {
                           ),
                       ],
                     ),
+                    const SizedBox(height: 3),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            ShopCubit.get(context).toggleFavourite([model.id!]);
+                          },
+                          icon: CircleAvatar(
+                            backgroundColor:
+                                isFavourite ? Colors.red : Colors.grey,
+                            radius: 15,
+                            child: const Icon(
+                              Icons.favorite,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            ShopCubit.get(context).toggleCart([model.id!]);
+                          },
+                          icon: CircleAvatar(
+                            backgroundColor: isCart ? Colors.red : Colors.grey,
+                            radius: 15,
+                            child: const Icon(
+                              Icons.add_shopping_cart,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  ShopCubit.get(context).toggleFavourite([model.id!]);
-                },
-                icon: CircleAvatar(
-                  backgroundColor: isFavourite ? Colors.red : Colors.grey,
-                  radius: 15,
-                  child: const Icon(
-                    Icons.favorite,
-                    size: 15,
-                    color: Colors.white,
-                  ),
                 ),
               ),
             ],

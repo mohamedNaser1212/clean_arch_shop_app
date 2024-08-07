@@ -7,12 +7,9 @@ import 'package:shop_app/core/widgets/cache_helper.dart';
 import 'package:shop_app/core/widgets/constants.dart';
 import 'package:shop_app/core/widgets/old_dio_helper.dart';
 
-import 'Features/home/data/repos/favourites_repo/favourites_repo.dart';
-import 'Features/home/data/repos/home_repo/home_repo.dart';
-import 'Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
-import 'Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
-import 'Features/home/domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
-import 'Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
+import 'Features/home/presentation/manager/get_user_data_cubit/get_user_data_cubit.dart';
+import 'Features/home/presentation/manager/login_cubit/login_cubit.dart';
+import 'Features/home/presentation/manager/register_cubit/register_cubit.dart';
 import 'Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'bloc_observer/bloc_observer.dart';
 import 'core/utils/funactions/hive_open_boxes.dart';
@@ -41,26 +38,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        final fetchProductsUseCase =
-            FetchProductsUseCase(getIt.get<HomeRepo>());
-        final fetchCategoriesUseCase =
-            FetchCategoriesUseCase(getIt.get<HomeRepo>());
-        final fetchFavouritesUseCase =
-            FetchFavouritesUseCase(getIt.get<FavouritesRepo>());
-        final fetchFavourites =
-            ToggleFavouriteUseCase(getIt.get<FavouritesRepo>());
-        return ShopCubit(
-          fetchProductsUseCase,
-          fetchCategoriesUseCase,
-          fetchFavouritesUseCase,
-          fetchFavourites,
-        )
-          ..getHomeData()
-          ..getCategoriesData()
-          ..getFavorites();
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<ShopCubit>()
+            ..getHomeData()
+            ..getCategoriesData()
+            ..getFavorites()
+            ..getCartItems(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<LoginCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<RegisterCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<UserDataCubit>(),
+        ),
+      ],
       child: MaterialApp(
         home: startingScreen,
         theme: lightTheme,

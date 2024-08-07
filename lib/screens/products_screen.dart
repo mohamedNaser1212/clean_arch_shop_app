@@ -32,6 +32,7 @@ class ProductsScreen extends StatelessWidget {
       builder: (context, state) {
         final homeModel = ShopCubit.get(context).homeModel;
         final categoryModel = ShopCubit.get(context).categoriesModel;
+        final cartModel = ShopCubit.get(context).cartModel;
 
         if (homeModel == null || categoryModel == null) {
           return Center(
@@ -85,10 +86,14 @@ class ProductsScreen extends StatelessWidget {
                     children: List.generate(
                       homeModel.length,
                       (index) => ProductItem(
-                          product: homeModel[index],
-                          isFavourite: ShopCubit.get(context)
-                                  .favorites[homeModel[index].id] ??
-                              false),
+                        product: homeModel[index],
+                        isFavourite: ShopCubit.get(context)
+                                .favorites[homeModel[index].id] ??
+                            false,
+                        isCart: cartModel != null &&
+                            index < cartModel.length &&
+                            ShopCubit.get(context).carts[cartModel[index].id]!,
+                      ),
                     ),
                   ),
                 ),

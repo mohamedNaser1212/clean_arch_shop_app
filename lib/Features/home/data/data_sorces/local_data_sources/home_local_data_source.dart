@@ -3,12 +3,14 @@ import 'package:shop_app/Features/home/domain/entities/categories_entity/categor
 import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 
 import '../../../../../core/widgets/end_points.dart';
+import '../../../domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 
 abstract class HomeLocalDataSource {
   List<ProductEntity> fetchProducts();
   List<CategoriesEntity> fetchCategories();
   List<FavouritesEntity> fetchFavourites();
+  List<AddToCartEntity> fetchCartItems();
 }
 
 class HomeLocalDataSourceImpl extends HomeLocalDataSource {
@@ -29,5 +31,11 @@ class HomeLocalDataSourceImpl extends HomeLocalDataSource {
   List<FavouritesEntity> fetchFavourites() {
     var favouritesBox = Hive.box<FavouritesEntity>(kFavouritesBox);
     return favouritesBox.values.toList();
+  }
+
+  @override
+  List<AddToCartEntity> fetchCartItems() {
+    var cartBox = Hive.box<AddToCartEntity>(kAddToCartBox);
+    return cartBox.values.toList();
   }
 }

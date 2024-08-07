@@ -7,19 +7,25 @@ import '../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import '../../screens/products_details_screen.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem(
-      {Key? key, required this.product, required this.isFavourite})
-      : super(key: key);
+  const ProductItem({
+    Key? key,
+    required this.product,
+    required this.isFavourite,
+    required this.isCart,
+  }) : super(key: key);
 
   final ProductEntity product;
   final bool isFavourite;
+  final bool isCart;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         navigateTo(
-            context: context, screen: ProductsDetailsScreen(model: product));
+          context: context,
+          screen: ProductsDetailsScreen(model: product),
+        );
       },
       child: Container(
         color: Colors.white,
@@ -81,23 +87,40 @@ class ProductItem extends StatelessWidget {
                           color: Colors.grey,
                         ),
                       ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () {
-                        ShopCubit.get(context).toggleFavourite([product.id]);
-                      },
-                      icon: CircleAvatar(
-                        backgroundColor: isFavourite ? Colors.red : Colors.grey,
-                        radius: 15,
-                        child: const Icon(
-                          Icons.favorite,
-                          size: 15,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      ShopCubit.get(context).toggleFavourite([product.id]);
+                    },
+                    icon: CircleAvatar(
+                      backgroundColor: isFavourite ? Colors.red : Colors.grey,
+                      radius: 15,
+                      child: const Icon(
+                        Icons.favorite,
+                        size: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      ShopCubit.get(context).toggleCart([product.id]);
+                    },
+                    icon: CircleAvatar(
+                      backgroundColor: isCart ? Colors.red : Colors.grey,
+                      radius: 15,
+                      child: const Icon(
+                        Icons.shopping_cart,
+                        size: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

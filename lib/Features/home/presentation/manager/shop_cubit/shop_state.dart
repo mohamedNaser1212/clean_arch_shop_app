@@ -105,3 +105,65 @@ class ShopToggleFavoriteErrorState extends ShopStates {
 
   ShopToggleFavoriteErrorState(this.error);
 }
+
+class ShopGetCartItemsSuccessState extends ShopStates {}
+
+class ShopGetCartItemsErrorState extends ShopStates {
+  final String error;
+
+  ShopGetCartItemsErrorState(this.error);
+}
+
+class ShopGetCartItemsLoadingState extends ShopStates {}
+
+class ShopAddCartItemsSuccessState extends ShopStates {
+  final bool isAdded;
+
+  ShopAddCartItemsSuccessState(this.isAdded);
+}
+
+class ShopAddCartItemsErrorState extends ShopStates {
+  final String error;
+
+  ShopAddCartItemsErrorState(this.error);
+}
+
+class ShopAddCartItemsLoadingState extends ShopStates {}
+
+class ShopChangeCartSuccessState extends ShopStates {}
+
+class ShopChangeCartLoadingState extends ShopStates {}
+
+class ShopChangeCartErrorState extends ShopStates {
+  final String? error;
+
+  ShopChangeCartErrorState([this.error]);
+}
+
+class ShopChangeCartItemsSuccessState extends ShopStates {
+  final bool isAdded;
+
+  ShopChangeCartItemsSuccessState(this.isAdded);
+}
+
+class ShopChangeCartItemsErrorState extends ShopStates {
+  final String error;
+
+  ShopChangeCartItemsErrorState(this.error);
+}
+
+class ShopChangeCartItemsLoadingState extends ShopStates {}
+
+class ShopRemoveCartItemsSuccessState extends ShopStates {
+  final bool isRemoved;
+
+  ShopRemoveCartItemsSuccessState(this.isRemoved);
+}
+
+class ShopRemoveCartItemsErrorState extends ShopStates {
+  final String error;
+
+  ShopRemoveCartItemsErrorState(this.error);
+}
+
+class ShopRemoveCartItemsLoadingState extends ShopStates {}
