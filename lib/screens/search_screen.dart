@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/manager/search_cubit/search_cubit.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
+import 'package:shop_app/screens/products_details_screen.dart';
 
 import '../Features/home/domain/use_case/search_use_case/fetch_search_use_case.dart';
 import '../core/utils/funactions/set_up_service_locator.dart';
@@ -56,51 +57,63 @@ class SearchScreen extends StatelessWidget {
                     else if (state is SearchSuccessState)
                       Expanded(
                         child: ListView.separated(
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              children: [
-                                Image(
-                                  image: NetworkImage(
-                                    SearchCubit.get(context)
-                                        .searchResults![index]
-                                        .image!,
-                                  ),
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              navigateTo(
+                                context: context,
+                                screen: ProductsDetailsScreen(
+                                  model: SearchCubit.get(context)
+                                      .searchResults![index],
                                 ),
-                                const SizedBox(width: 10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width: 200,
-                                      child: Text(
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  Image(
+                                    image: NetworkImage(
+                                      SearchCubit.get(context)
+                                          .searchResults![index]
+                                          .image!,
+                                    ),
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: 200,
+                                        child: Text(
+                                          SearchCubit.get(context)
+                                              .searchResults![index]
+                                              .name!,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
                                         SearchCubit.get(context)
                                             .searchResults![index]
-                                            .name!,
-                                        maxLines: 1,
+                                            .price
+                                            .toString(),
                                         style: const TextStyle(
                                           fontSize: 20,
-                                          overflow: TextOverflow.ellipsis,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      SearchCubit.get(context)
-                                          .searchResults![index]
-                                          .price
-                                          .toString(),
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           separatorBuilder: (context, index) => const Divider(),

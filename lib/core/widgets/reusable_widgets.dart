@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/utils/styles/text_styles.dart';
 
 import 'cache_helper.dart';
 
@@ -25,10 +26,8 @@ Widget reusableElevatedButton({
       ),
       onPressed: function,
       child: Text(
-        label.toUpperCase(),
-        style: TextStyle(
-          color: textColor,
-        ),
+        label,
+        style: Styles.textStyle20.copyWith(color: textColor),
       ),
     ),
   );

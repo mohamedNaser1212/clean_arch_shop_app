@@ -57,42 +57,46 @@ class ProductItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 3),
-              Row(
-                children: [
-                  Text(
-                    '${product.price.round()}',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  if (product.discount != 0)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
                     Text(
-                      '${product.oldPrice.round()}',
+                      '${product.price.round()}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        decoration: TextDecoration.lineThrough,
-                        color: Colors.grey,
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
-                ],
-              ),
-              IconButton(
-                onPressed: () {
-                  ShopCubit.get(context).toggleFavourite([product.id!]);
-                },
-                icon: CircleAvatar(
-                  backgroundColor: isFavourite ? Colors.red : Colors.grey,
-                  radius: 15,
-                  child: const Icon(
-                    Icons.favorite,
-                    size: 15,
-                    color: Colors.white,
-                  ),
+                    const SizedBox(width: 5),
+                    if (product.discount != 0)
+                      Text(
+                        '${product.oldPrice.round()}',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          decoration: TextDecoration.lineThrough,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        ShopCubit.get(context).toggleFavourite([product.id]);
+                      },
+                      icon: CircleAvatar(
+                        backgroundColor: isFavourite ? Colors.red : Colors.grey,
+                        radius: 15,
+                        child: const Icon(
+                          Icons.favorite,
+                          size: 15,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

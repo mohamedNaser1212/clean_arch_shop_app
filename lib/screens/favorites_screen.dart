@@ -49,7 +49,6 @@ class FavoritesScreen extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
         onTap: () {
-          print(model.description ?? 'No description available');
           navigateTo(
               context: context, screen: ProductsDetailsScreen(model: model));
         },
