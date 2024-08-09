@@ -115,7 +115,6 @@ class Products extends ProductEntity {
           price: price,
           description: description,
           image: image,
-          images: images,
         );
 
   Products.fromJson(Map<String, dynamic> json)
@@ -130,7 +129,6 @@ class Products extends ProductEntity {
           price: json['price'],
           image: json['image'],
           description: json['description'],
-          images: List<String>.from(json['images']),
         );
 
   String? description;

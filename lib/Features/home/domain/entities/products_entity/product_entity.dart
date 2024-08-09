@@ -16,9 +16,8 @@ class ProductEntity {
   final num oldPrice;
   @HiveField(5)
   final String image;
+
   @HiveField(6)
-  final List<String> images;
-  @HiveField(7)
   final String? description;
 
   ProductEntity({
@@ -28,7 +27,6 @@ class ProductEntity {
     required this.oldPrice,
     required this.price,
     required this.image,
-    required this.images,
     this.description,
   });
 
@@ -40,7 +38,6 @@ class ProductEntity {
       price: json['price'] as num,
       oldPrice: json['old_price'] as num,
       image: json['image'] as String,
-      images: List<String>.from(json['images']),
       description: json['description'] as String?,
     );
   }
@@ -53,7 +50,6 @@ class ProductEntity {
       'price': price,
       'old_price': oldPrice,
       'image': image,
-      'images': images,
       'description': description,
     };
   }

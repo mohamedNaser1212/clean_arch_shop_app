@@ -23,8 +23,7 @@ class ProductEntityAdapter extends TypeAdapter<ProductEntity> {
       oldPrice: fields[4] as num,
       price: fields[3] as num,
       image: fields[5] as String,
-      images: (fields[6] as List).cast<String>(),
-      description: fields[7] as String?,
+      description: fields[6] as String?,
     );
   }
 
@@ -45,8 +44,6 @@ class ProductEntityAdapter extends TypeAdapter<ProductEntity> {
       ..writeByte(5)
       ..write(obj.image)
       ..writeByte(6)
-      ..write(obj.images)
-      ..writeByte(7)
       ..write(obj.description);
   }
 
