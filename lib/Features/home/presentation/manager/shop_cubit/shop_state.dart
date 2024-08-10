@@ -1,7 +1,7 @@
-import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 import 'package:shop_app/models/login_model.dart';
 
 import '../../../../../models/favoutits_model.dart';
+import '../../../../../models/new_get_home_data.dart';
 import '../../../domain/entities/categories_entity/categories_entity.dart';
 
 abstract class ShopStates {}
@@ -11,7 +11,7 @@ class ShopInitialState extends ShopStates {}
 class ShopChangeBottomNavState extends ShopStates {}
 
 class ShopSuccessHomeDataState extends ShopStates {
-  final List<ProductEntity> products;
+  final List<Products> products;
 
   ShopSuccessHomeDataState(this.products);
 }
@@ -93,9 +93,15 @@ class ShopUpdateUserDataErrorState extends ShopStates {}
 class ShopToggleFavoriteLoadingState extends ShopStates {}
 
 class ShopToggleFavoriteSuccessState extends ShopStates {
-  final bool isFavourite;
+  final ChangeFavouriteModel isFavourite;
 
   ShopToggleFavoriteSuccessState(this.isFavourite);
+}
+
+class ShopChangeFavoriteSuccessState extends ShopStates {
+  // final bool isFavourite;
+  //
+  // ShopToggleFavoriteSuccessState(this.isFavourite);
 }
 
 class ShopUpdateSelectedProductState extends ShopStates {}

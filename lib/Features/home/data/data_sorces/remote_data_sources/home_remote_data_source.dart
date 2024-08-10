@@ -1,15 +1,12 @@
 import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
-import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
-import 'package:shop_app/core/utils/funactions/save_products.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/new_get_home_data.dart';
 
-import '../../../../../core/utils/funactions/save_categories.dart';
 import '../../../../../core/widgets/api_service.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<List<ProductEntity>> fetchFeaturedProducts();
+  Future<List<Products>> fetchFeaturedProducts();
 
   Future<List<CategoriesEntity>> fetchCategories();
 }
@@ -20,10 +17,10 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   HomeRemoteDataSourceImpl(this.apiService);
 
   @override
-  Future<List<ProductEntity>> fetchFeaturedProducts() async {
+  Future<List<Products>> fetchFeaturedProducts() async {
     var data = await apiService.get(endPoint: homeEndPoint);
-    List<ProductEntity> products = getProductsList(data['data']);
-    saveproductsData(products, kProductsBox);
+    List<Products> products = getProductsList(data['data']);
+    //  saveproductsData(products, kProductsBox);
     return products;
   }
 
@@ -31,12 +28,12 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   Future<List<CategoriesEntity>> fetchCategories() async {
     var data = await apiService.get(endPoint: categoriesEndPoint);
     List<CategoriesEntity> categories = getCategoriesList(data['data']);
-    saveCategoriesData(categories, kCategoriesBox);
+    //saveCategoriesData(categories, kCategoriesBox);
     return categories;
   }
 
-  List<ProductEntity> getProductsList(Map<String, dynamic> data) {
-    List<ProductEntity> products = [];
+  List<Products> getProductsList(Map<String, dynamic> data) {
+    List<Products> products = [];
     for (var productMap in data['products']) {
       products.add(Products.fromJson(productMap));
     }

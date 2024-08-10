@@ -1,16 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import 'package:shop_app/core/utils/styles/text_styles.dart';
-import 'package:shop_app/core/widgets/reusable_widgets.dart';
+import 'package:shop_app/models/new_get_home_data.dart';
 
-import '../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../core/widgets/constants.dart';
+import '../core/widgets/end_points.dart';
 
 class ProductsDetailsScreen extends StatelessWidget {
   final dynamic model;
@@ -19,7 +17,7 @@ class ProductsDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isProduct = model is ProductEntity;
+    final isProduct = model is Products;
 
     final image = model.image;
     final name = model.name;
@@ -43,7 +41,7 @@ class ProductsDetailsScreen extends StatelessWidget {
       },
       builder: (context, state) {
         final cubit = ShopCubit.get(context);
-        final isInCart = cubit.carts[model.id] ?? false;
+        final isInCart = carts[model.id] ?? false;
 
         return Scaffold(
           appBar: AppBar(
@@ -160,44 +158,6 @@ class ProductsDetailsScreen extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          bottomNavigationBar: ConditionalBuilder(
-            condition: state is! ShopAddCartItemsLoadingState,
-            builder: (context) => Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: isInCart
-                    ? reusableElevatedButton(
-                        label: 'Remove from Cart',
-                        function: () {
-                          cubit.toggleCart([model.id]);
-                        },
-                      )
-                    : reusableElevatedButton(
-                        label: 'Add to Cart',
-                        function: () {
-                          cubit.toggleCart([model.id]);
-                        },
-                      ),
-              ),
-            ),
-            fallback: (context) => Center(
-              child: LoadingAnimationWidget.waveDots(
-                color: Colors.grey,
-                size: 90,
-              ),
-            ),
           ),
         );
       },

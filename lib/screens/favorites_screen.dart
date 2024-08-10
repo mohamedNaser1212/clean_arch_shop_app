@@ -18,13 +18,14 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
-        if (state is ShopChangeFavoritesSuccessState) {
+        if (state is ShopToggleFavoriteSuccessState) {
           Fluttertoast.showToast(
-            msg: state.model.message!,
+            msg: state.isFavourite.message!,
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            backgroundColor: state.model.status! ? Colors.green : Colors.red,
+            backgroundColor:
+                state.isFavourite.status! ? Colors.green : Colors.red,
             textColor: Colors.white,
             fontSize: 16.0,
           );
@@ -69,7 +70,7 @@ class FavoritesScreen extends StatelessWidget {
             ),
           );
         },
-        child: Container(
+        child: SizedBox(
           height: 120,
           child: Row(
             children: [
@@ -151,7 +152,7 @@ class FavoritesScreen extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            ShopCubit.get(context).toggleFavourite([model.id!]);
+                            ShopCubit.get(context).changeFavourite(model.id!);
                           },
                           icon: CircleAvatar(
                             backgroundColor:
@@ -164,20 +165,20 @@ class FavoritesScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            ShopCubit.get(context).toggleCart([model.id!]);
-                          },
-                          icon: CircleAvatar(
-                            backgroundColor: isCart ? Colors.red : Colors.grey,
-                            radius: 15,
-                            child: const Icon(
-                              Icons.add_shopping_cart,
-                              size: 15,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                        // IconButton(
+                        //   onPressed: () {
+                        //     ShopCubit.get(context).toggleCart([model.id!]);
+                        //   },
+                        //   icon: CircleAvatar(
+                        //     backgroundColor: isCart ? Colors.red : Colors.grey,
+                        //     radius: 15,
+                        //     child: const Icon(
+                        //       Icons.add_shopping_cart,
+                        //       size: 15,
+                        //       color: Colors.white,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],

@@ -1,13 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/core/errors/failure.dart';
-import 'package:shop_app/core/utils/funactions/save_favourites.dart';
 import 'package:shop_app/core/widgets/api_service.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 
 import '../../../../../core/widgets/constants.dart';
 import '../../../../../models/new_favourites_model.dart';
-import '../../../domain/entities/products_entity/product_entity.dart';
+import '../../../../../models/new_get_home_data.dart';
 
 abstract class GetFavouritesDataSource {
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites();
@@ -43,7 +42,7 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
               .toList() ??
           [];
 
-      await saveFavourites(_cachedFavourites, kFavouritesBox);
+      // await saveFavourites(_cachedFavourites, kFavouritesBox);
 
       return Right(_cachedFavourites);
     } catch (e) {
@@ -71,7 +70,7 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
             endPoint: 'products/$productId',
             headers: {'Authorization': token},
           );
-          final product = ProductEntity.fromJson(productResponse);
+          final product = Products.fromJson(productResponse);
           _cachedFavourites.add(
             FavouritesEntity(
               id: product.id,
@@ -86,7 +85,7 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
         }
       }
 
-      await saveFavourites(_cachedFavourites, kFavouritesBox);
+      // await saveFavourites(_cachedFavourites, kFavouritesBox);
 
       return Right(true);
     } catch (e) {

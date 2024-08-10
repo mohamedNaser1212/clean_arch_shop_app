@@ -12,21 +12,19 @@ import 'Features/home/presentation/manager/login_cubit/login_cubit.dart';
 import 'Features/home/presentation/manager/register_cubit/register_cubit.dart';
 import 'Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'bloc_observer/bloc_observer.dart';
-import 'core/utils/funactions/hive_open_boxes.dart';
-import 'core/utils/funactions/hive_register_adapter.dart';
 
 void main() async {
   await Hive.initFlutter();
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
 
-  HiveRegisterAdapters();
+  // HiveRegisterAdapters();
 
   await CacheHelper.init();
   DioHelper.init();
   setUpServiceLocator();
   Widget? startingScreen = startPage();
-  await hiveOpenBoxes();
+  //await hiveOpenBoxes();
 
   runApp(MyApp(startingScreen: startingScreen!));
 }
@@ -41,12 +39,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => getIt<ShopCubit>()
-            ..getHomeData()
-            ..getCategoriesData()
-            ..getFavorites()
-            ..getCartItems(),
-        ),
+            create: (context) => getIt<ShopCubit>()
+              ..getHomeData()
+              ..getCategoriesData()
+              ..getFavorites()),
         BlocProvider(
           create: (context) => getIt<LoginCubit>(),
         ),

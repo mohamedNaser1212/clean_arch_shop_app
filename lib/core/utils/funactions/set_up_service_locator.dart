@@ -1,13 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shop_app/Features/home/data/data_sorces/local_data_sources/home_local_data_source.dart';
-import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/add_to_cart_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/get_favourite_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/home_remote_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/login_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/register_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/search_data_source.dart';
-import 'package:shop_app/Features/home/data/repos/add_to_cart/add_to_cart_repo_impl.dart';
 import 'package:shop_app/Features/home/data/repos/favourites_repo/favourites_repo.dart';
 import 'package:shop_app/Features/home/data/repos/favourites_repo/favourites_repo_impl.dart';
 import 'package:shop_app/Features/home/data/repos/get_user_repo/get_user_repo.dart';
@@ -20,8 +18,6 @@ import 'package:shop_app/Features/home/data/repos/register_repo/register_repo.da
 import 'package:shop_app/Features/home/data/repos/register_repo/register_repo_impl.dart';
 import 'package:shop_app/Features/home/data/repos/search_repo/search_repo.dart';
 import 'package:shop_app/Features/home/data/repos/search_repo/search_repo_impl.dart';
-import 'package:shop_app/Features/home/domain/use_case/add_to_cart/add_to_cart_use_case.dart';
-import 'package:shop_app/Features/home/domain/use_case/add_to_cart/fetch_cart_items_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/get_user_data_use_case/get_user_data_use_case.dart';
@@ -36,7 +32,6 @@ import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubi
 import 'package:shop_app/core/widgets/api_service.dart';
 
 import '../../../Features/home/data/data_sorces/remote_data_sources/get_user_data_data_source.dart';
-import '../../../Features/home/data/repos/add_to_cart/add_to_cart_repo.dart';
 import '../../../Features/home/domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
 
 final getIt = GetIt.instance;
@@ -118,18 +113,6 @@ void setUpServiceLocator() {
   );
 
   // Add to Cart dependencies
-  getIt.registerSingleton<AddToCartRemoteDataSource>(
-    AddToCartRemoteDataSourceImpl(apiService: getIt.get<ApiService>()),
-  );
-  getIt.registerSingleton<AddToCartRepo>(
-    AddToCartRepoImpl(getIt.get<AddToCartRemoteDataSource>()),
-  );
-  getIt.registerSingleton<fetchCarItemsUseCase>(
-    fetchCarItemsUseCase(getIt.get<AddToCartRepo>()),
-  );
-  getIt.registerSingleton<AddToCartUseCase>(
-    AddToCartUseCase(getIt.get<AddToCartRepo>()),
-  );
 
   // Cubits
   getIt.registerFactory(() => LoginCubit(getIt.get<LoginUseCase>()));
@@ -143,16 +126,12 @@ void setUpServiceLocator() {
         FetchFavouritesUseCase(getIt<FavouritesRepo>());
     final toggleFavouriteUseCase =
         ToggleFavouriteUseCase(getIt<FavouritesRepo>());
-    final fetchCartItemsUseCase = fetchCarItemsUseCase(getIt<AddToCartRepo>());
-    final addToCartUseCase = AddToCartUseCase(getIt<AddToCartRepo>());
 
     return ShopCubit(
       fetchProductsUseCase,
       fetchCategoriesUseCase,
       fetchFavouritesUseCase,
       toggleFavouriteUseCase,
-      addToCartUseCase,
-      fetchCartItemsUseCase,
     );
   });
 }

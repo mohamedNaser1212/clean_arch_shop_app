@@ -1,7 +1,8 @@
 import 'package:hive/hive.dart';
-import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 
-void saveproductsData(List<ProductEntity> products, String boxName) {
-  var box = Hive.box<ProductEntity>(boxName);
+import '../../../models/new_get_home_data.dart';
+
+void saveproductsData(List<Products> products, String boxName) {
+  var box = Hive.box<Products>(boxName);
   box.addAll(products);
 }

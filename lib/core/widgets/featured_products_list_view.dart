@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/widgets/product_item.dart';
 
-import '../../Features/home/domain/entities/products_entity/product_entity.dart';
+import '../../models/new_get_home_data.dart';
 
 class FeaturedProductsListView extends StatelessWidget {
   const FeaturedProductsListView(
@@ -11,7 +11,7 @@ class FeaturedProductsListView extends StatelessWidget {
       required this.isCart})
       : super(key: key);
 
-  final List<ProductEntity> products;
+  final List<Products> products;
   final bool isFavourite;
   final bool isCart;
   @override
@@ -26,9 +26,7 @@ class FeaturedProductsListView extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: ProductItem(
-              isCart: isCart,
               product: product,
-              isFavourite: isFavourite,
             ),
           );
         },

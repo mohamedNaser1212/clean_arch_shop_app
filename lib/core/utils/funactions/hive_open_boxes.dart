@@ -4,10 +4,8 @@ import 'package:shop_app/Features/home/domain/entities/categories_entity/categor
 import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 
-import '../../../Features/home/domain/entities/products_entity/product_entity.dart';
-
 Future<void> hiveOpenBoxes() async {
-  await Hive.openBox<ProductEntity>(kProductsBox);
+  //await Hive.openBox<Products>(kProductsBox);
   await Hive.openBox<CategoriesEntity>(kCategoriesBox);
   await Hive.openBox<FavouritesEntity>(kFavouritesBox);
   await Hive.openBox<AddToCartEntity>(kCartBox);

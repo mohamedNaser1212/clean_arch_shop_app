@@ -17,13 +17,14 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
-        if (state is ShopChangeFavoritesSuccessState) {
+        if (state is ShopToggleFavoriteSuccessState) {
           Fluttertoast.showToast(
-            msg: state.model.message!,
+            msg: state.isFavourite.message!,
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            backgroundColor: state.model.status! ? Colors.green : Colors.red,
+            backgroundColor:
+                state.isFavourite.status! ? Colors.green : Colors.red,
             textColor: Colors.white,
             fontSize: 16.0,
           );
@@ -87,12 +88,6 @@ class ProductsScreen extends StatelessWidget {
                       homeModel.length,
                       (index) => ProductItem(
                         product: homeModel[index],
-                        isFavourite: ShopCubit.get(context)
-                                .favorites[homeModel[index].id] ??
-                            false,
-                        isCart: cartModel != null &&
-                            index < cartModel.length &&
-                            ShopCubit.get(context).carts[cartModel[index].id]!,
                       ),
                     ),
                   ),
