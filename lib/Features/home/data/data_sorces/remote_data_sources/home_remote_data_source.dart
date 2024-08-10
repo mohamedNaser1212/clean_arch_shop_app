@@ -1,12 +1,13 @@
 import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
-import 'package:shop_app/models/categories_model.dart';
-import 'package:shop_app/models/new_get_home_data.dart';
 
+import '../../../../../core/utils/funactions/save_categories.dart';
+import '../../../../../core/utils/funactions/save_products.dart';
 import '../../../../../core/widgets/api_service.dart';
+import '../../../domain/entities/products_entity/product_entity.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<List<Products>> fetchFeaturedProducts();
+  Future<List<ProductEntity>> fetchFeaturedProducts();
 
   Future<List<CategoriesEntity>> fetchCategories();
 }
@@ -17,25 +18,35 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   HomeRemoteDataSourceImpl(this.apiService);
 
   @override
-  Future<List<Products>> fetchFeaturedProducts() async {
-    var data = await apiService.get(endPoint: homeEndPoint);
-    List<Products> products = getProductsList(data['data']);
-    //  saveproductsData(products, kProductsBox);
-    return products;
+  Future<List<ProductEntity>> fetchFeaturedProducts() async {
+    try {
+      var data = await apiService.get(endPoint: homeEndPoint);
+      List<ProductEntity> products = getProductsList(data['data']);
+      saveProductsData(products, kProductsBox);
+      return products;
+    } catch (e) {
+      print('Error fetching featured products: $e');
+      return await loadProducts(kProductsBox);
+    }
   }
 
   @override
   Future<List<CategoriesEntity>> fetchCategories() async {
-    var data = await apiService.get(endPoint: categoriesEndPoint);
-    List<CategoriesEntity> categories = getCategoriesList(data['data']);
-    //saveCategoriesData(categories, kCategoriesBox);
-    return categories;
+    try {
+      var data = await apiService.get(endPoint: categoriesEndPoint);
+      List<CategoriesEntity> categories = getCategoriesList(data['data']);
+      saveCategoriesData(categories, kCategoriesBox);
+      return categories;
+    } catch (e) {
+      print('Error fetching categories: $e');
+      return await loadCategories(kCategoriesBox);
+    }
   }
 
-  List<Products> getProductsList(Map<String, dynamic> data) {
-    List<Products> products = [];
+  List<ProductEntity> getProductsList(Map<String, dynamic> data) {
+    List<ProductEntity> products = [];
     for (var productMap in data['products']) {
-      products.add(Products.fromJson(productMap));
+      products.add(ProductEntity.fromJson(productMap));
     }
     return products;
   }
@@ -43,7 +54,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   List<CategoriesEntity> getCategoriesList(Map<String, dynamic> data) {
     List<CategoriesEntity> categories = [];
     for (var categoryMap in data['data']) {
-      categories.add(DataModel.fromJson(categoryMap));
+      categories.add(CategoriesEntity.fromJson(categoryMap));
     }
     return categories;
   }

@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
+import 'package:hive/hive.dart';
 import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/core/widgets/api_service.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 
+import '../../../../../core/utils/funactions/save_favourites.dart';
 import '../../../../../core/widgets/constants.dart';
-import '../../../../../core/widgets/old_dio_helper.dart';
 import '../../../../../models/favoutits_model.dart';
 import '../../../../../models/new_favourites_model.dart';
 
@@ -30,8 +31,13 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
       );
 
       final favouritesModel = NewFavouritesModel.fromJson(response);
+
+      // Use a Set to ensure unique product IDs
+      final Set<num> uniqueIds = {};
       _cachedFavourites = favouritesModel.data?.data
-              ?.map((item) => FavouritesEntity(
+              ?.map((item) {
+                if (item.product != null && uniqueIds.add(item.product!.id!)) {
+                  return FavouritesEntity(
                     id: item.product!.id,
                     name: item.product!.name,
                     price: item.product!.price,
@@ -40,16 +46,21 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
                         item.product!.description ?? 'No description available',
                     discount: item.product!.discount,
                     image: item.product!.image,
-                  ))
+                  );
+                }
+                return null; // If the item is a duplicate, return null
+              })
+              .where((item) => item != null) // Filter out the nulls
+              .cast<FavouritesEntity>()
               .toList() ??
           [];
 
-      // await saveFavourites(_cachedFavourites, kFavouritesBox);
+      await saveFavourites(_cachedFavourites, kFavouritesBox);
 
       return Right(_cachedFavourites);
     } catch (e) {
       print('Error fetching favourites: $e');
-      return Left(ServerFailure('Error fetching favourites: $e'));
+      return Right(await loadFavourites(kFavouritesBox));
     }
   }
 
@@ -57,35 +68,36 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
   Future<Either<Failure, bool>> toggleFavourites(num productIds) async {
     try {
       favorites?[productIds] = !(favorites?[productIds] ?? false);
-      //emit(ShopChangeFavoriteSuccessState());
-      DioHelper.postData(
-        url: favoritesEndPoint,
+
+      final response = await apiService.post(
+        endPoint: favoritesEndPoint,
         data: {
           'product_id': productIds,
         },
-        token: token,
-      ).then((value) {
-        changeFavouriteModel = ChangeFavouriteModel.fromJson(value.data);
-        print(favorites.toString());
+        headers: {'Authorization': token},
+      );
+      changeFavouriteModel = ChangeFavouriteModel.fromJson(response);
 
-        print(value.data);
-        if (changeFavouriteModel!.status == false) {
-          favorites?[productIds] = !(favorites?[productIds] ?? false);
-          print(favorites.toString());
-        } else {
-          getFavourites();
-        }
-        //   emit(ShopToggleFavoriteSuccessState(changeFavouriteModel!));
-      }).catchError((error) {
+      if (changeFavouriteModel!.status == false) {
         favorites?[productIds] = !(favorites?[productIds] ?? false);
-
-        //  emit(ShopToggleFavoriteErrorState(error.toString()));
-      });
+      } else {
+        // Only add the product if it's not already in the favorites list
+        if (favorites?[productIds] == true &&
+            !_cachedFavourites.any((fav) => fav.id == productIds)) {
+          await getFavourites(); // Refresh favourites
+        }
+      }
 
       return Right(true);
     } catch (e) {
       print('Error toggling favourites: $e');
+      favorites?[productIds] = !(favorites?[productIds] ?? false);
       return Left(ServerFailure('Error toggling favourites: $e'));
     }
+  }
+
+  Future<List<FavouritesEntity>> loadFavourites(String boxName) async {
+    var box = await Hive.openBox<FavouritesEntity>(boxName);
+    return box.values.toList();
   }
 }

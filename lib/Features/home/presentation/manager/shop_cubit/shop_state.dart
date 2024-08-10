@@ -1,8 +1,8 @@
 import 'package:shop_app/models/login_model.dart';
 
 import '../../../../../models/favoutits_model.dart';
-import '../../../../../models/new_get_home_data.dart';
 import '../../../domain/entities/categories_entity/categories_entity.dart';
+import '../../../domain/entities/products_entity/product_entity.dart';
 
 abstract class ShopStates {}
 
@@ -11,7 +11,7 @@ class ShopInitialState extends ShopStates {}
 class ShopChangeBottomNavState extends ShopStates {}
 
 class ShopSuccessHomeDataState extends ShopStates {
-  final List<Products> products;
+  final List<ProductEntity> products;
 
   ShopSuccessHomeDataState(this.products);
 }

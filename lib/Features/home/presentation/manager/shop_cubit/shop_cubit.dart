@@ -14,12 +14,12 @@ import 'package:shop_app/screens/settings_screen.dart';
 import '../../../../../core/widgets/cache_helper.dart';
 import '../../../../../core/widgets/constants.dart';
 import '../../../../../core/widgets/end_points.dart';
-import '../../../../../models/new_get_home_data.dart';
 import '../../../../../screens/categries_screen.dart';
 import '../../../../../screens/login_screen.dart';
 import '../../../domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
 import '../../../domain/entities/categories_entity/categories_entity.dart';
 import '../../../domain/entities/favourites_entity/favourites_entity.dart';
+import '../../../domain/entities/products_entity/product_entity.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit(
@@ -33,7 +33,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
   int currentIndex = 0;
 
-  List<Products>? homeModel;
+  List<ProductEntity>? homeModel;
   List<CategoriesEntity>? categoriesModel;
   List<AddToCartEntity>? cartModel;
 

@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
+import '../../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
-import '../../models/new_get_home_data.dart';
 import '../../screens/products_details_screen.dart';
 
 class ProductItem extends StatelessWidget {
@@ -12,7 +12,7 @@ class ProductItem extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  final Products product;
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {

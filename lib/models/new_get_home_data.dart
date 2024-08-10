@@ -1,3 +1,5 @@
+import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
+
 class NewGetHomeData {
   NewGetHomeData({
     this.status,
@@ -91,27 +93,49 @@ class Data {
   }
 }
 
-class Products {
-  Products.fromJson(Map<String, dynamic> json) {
-    inFavorites = json['in_favorites'];
-    inCart = json['in_cart'];
-    id = json['id'];
-    price = json['price'];
-    oldPrice = json['old_price'];
-    discount = json['discount'];
-    image = json['image'];
-    name = json['name'];
-    images = List<String>.from(json['images']);
-  }
+class Products extends ProductEntity {
+  Products({
+    required this.description,
+    required this.inFavorites,
+    required this.inCart,
+    required num id,
+    required num price,
+    required num oldPrice,
+    required num discount,
+    required String image,
+    required String name,
+    required List<String> images,
+  }) : super(
+          id: id,
+          name: name,
+          discount: discount,
+          oldPrice: oldPrice,
+          price: price,
+          image: image,
+          images: images,
+          description: description,
+          inFavorites: inFavorites,
+          inCart: inCart,
+        );
 
-  String? description;
-  bool? inFavorites;
-  bool? inCart;
-  num? id;
-  num? price;
-  num? oldPrice;
-  num? discount;
-  String? image;
-  String? name;
-  List<String> images = [];
+  Products.fromJson(Map<String, dynamic> json)
+      : description = json['description'],
+        inFavorites = json['in_favorites'],
+        inCart = json['in_cart'],
+        super(
+          id: json['id'],
+          name: json['name'],
+          discount: json['discount'],
+          price: json['price'],
+          oldPrice: json['old_price'],
+          image: json['image'],
+          images: List<String>.from(json['images']),
+          description: json['description'],
+          inFavorites: json['in_favorites'],
+          inCart: json['in_cart'],
+        );
+
+  String description;
+  bool inFavorites;
+  bool inCart;
 }

@@ -13,4 +13,20 @@ class CategoriesEntity {
     required this.name,
     required this.image,
   });
+
+  // Factory constructor to create a CategoriesEntity from JSON
+  factory CategoriesEntity.fromJson(Map<String, dynamic> json) {
+    return CategoriesEntity(
+      name: json['name'] as String,
+      image: json['image'] as String,
+    );
+  }
+
+  // Method to convert CategoriesEntity to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'image': image,
+    };
+  }
 }
