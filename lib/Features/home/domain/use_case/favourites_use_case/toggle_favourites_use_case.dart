@@ -11,6 +11,6 @@ class ToggleFavouriteUseCase {
 
   Future<Either<Failure, bool>> call(
       num productIds, BuildContext context) async {
-    return await favouritesRepo.toggleFavourite(productIds, context);
+    return await favouritesRepo.toggleFavourite(productIds);
   }
 }

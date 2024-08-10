@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/core/widgets/api_service.dart';
@@ -12,8 +11,7 @@ import '../../../../../models/new_favourites_model.dart';
 
 abstract class GetFavouritesDataSource {
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites();
-  Future<Either<Failure, bool>> toggleFavourites(
-      num productIds, BuildContext context);
+  Future<Either<Failure, bool>> toggleFavourites(num productIds);
 }
 
 class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
@@ -56,8 +54,7 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
   }
 
   @override
-  Future<Either<Failure, bool>> toggleFavourites(
-      num productIds, BuildContext context) async {
+  Future<Either<Failure, bool>> toggleFavourites(num productIds) async {
     try {
       favorites?[productIds] = !(favorites?[productIds] ?? false);
       //emit(ShopChangeFavoriteSuccessState());

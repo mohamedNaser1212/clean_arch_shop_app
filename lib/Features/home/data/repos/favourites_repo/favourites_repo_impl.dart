@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/core/errors/failure.dart';
 
@@ -22,11 +21,9 @@ class FavouritesRepoImpl extends FavouritesRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> toggleFavourite(
-      num productIds, BuildContext context) async {
+  Future<Either<Failure, bool>> toggleFavourite(num productIds) async {
     try {
-      final result =
-          await getFavouritesDataSource.toggleFavourites(productIds, context);
+      final result = await getFavouritesDataSource.toggleFavourites(productIds);
       return result;
     } catch (e) {
       return Left(ServerFailure(e.toString()));
