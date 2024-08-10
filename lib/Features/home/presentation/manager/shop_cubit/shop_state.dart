@@ -99,9 +99,9 @@ class ShopToggleFavoriteSuccessState extends ShopStates {
 }
 
 class ShopChangeFavoriteSuccessState extends ShopStates {
-  // final bool isFavourite;
-  //
-  // ShopToggleFavoriteSuccessState(this.isFavourite);
+  final bool isFavourite;
+
+  ShopChangeFavoriteSuccessState(this.isFavourite);
 }
 
 class ShopUpdateSelectedProductState extends ShopStates {}

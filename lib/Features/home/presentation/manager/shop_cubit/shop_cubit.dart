@@ -120,7 +120,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
   void changeFavourite(num productId) {
     favorites[productId] = !(favorites[productId] ?? false);
-    emit(ShopChangeFavoriteSuccessState());
+    emit(ShopChangeFavoriteSuccessState(true));
     DioHelper.postData(
       url: favoritesEndPoint,
       data: {

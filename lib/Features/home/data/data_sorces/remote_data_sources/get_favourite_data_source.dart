@@ -1,21 +1,25 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/core/widgets/api_service.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 
 import '../../../../../core/widgets/constants.dart';
+import '../../../../../core/widgets/old_dio_helper.dart';
+import '../../../../../models/favoutits_model.dart';
 import '../../../../../models/new_favourites_model.dart';
-import '../../../../../models/new_get_home_data.dart';
 
 abstract class GetFavouritesDataSource {
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites();
-  Future<Either<Failure, bool>> toggleFavourites(List<num> productIds);
+  Future<Either<Failure, bool>> toggleFavourites(
+      num productIds, BuildContext context);
 }
 
 class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
   final ApiService apiService;
   List<FavouritesEntity> _cachedFavourites = [];
+  ChangeFavouriteModel? changeFavouriteModel;
 
   GetFavouritesDataSourceImpl({required this.apiService});
 
@@ -52,40 +56,34 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
   }
 
   @override
-  Future<Either<Failure, bool>> toggleFavourites(List<num> productIds) async {
+  Future<Either<Failure, bool>> toggleFavourites(
+      num productIds, BuildContext context) async {
     try {
-      for (var productId in productIds) {
-        final response = await apiService.post(
-          endPoint: favoritesEndPoint,
-          headers: {'Authorization': token},
-          data: {'product_id': productId},
-        );
+      favorites?[productIds] = !(favorites?[productIds] ?? false);
+      //emit(ShopChangeFavoriteSuccessState());
+      DioHelper.postData(
+        url: favoritesEndPoint,
+        data: {
+          'product_id': productIds,
+        },
+        token: token,
+      ).then((value) {
+        changeFavouriteModel = ChangeFavouriteModel.fromJson(value.data);
+        print(favorites.toString());
 
-        final isFavourite = response['status'];
-
-        if (isFavourite) {
-          _cachedFavourites.removeWhere((product) => product.id == productId);
+        print(value.data);
+        if (changeFavouriteModel!.status == false) {
+          favorites?[productIds] = !(favorites?[productIds] ?? false);
+          print(favorites.toString());
         } else {
-          final productResponse = await apiService.get(
-            endPoint: 'products/$productId',
-            headers: {'Authorization': token},
-          );
-          final product = Products.fromJson(productResponse);
-          _cachedFavourites.add(
-            FavouritesEntity(
-              id: product.id,
-              name: product.name,
-              price: product.price,
-              oldPrice: product.oldPrice,
-              discount: product.discount,
-              description: product.description ?? 'No description available',
-              image: product.image,
-            ),
-          );
+          getFavourites();
         }
-      }
+        //   emit(ShopToggleFavoriteSuccessState(changeFavouriteModel!));
+      }).catchError((error) {
+        favorites?[productIds] = !(favorites?[productIds] ?? false);
 
-      // await saveFavourites(_cachedFavourites, kFavouritesBox);
+        //  emit(ShopToggleFavoriteErrorState(error.toString()));
+      });
 
       return Right(true);
     } catch (e) {
