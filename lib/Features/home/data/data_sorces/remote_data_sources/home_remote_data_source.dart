@@ -25,7 +25,6 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       saveProductsData(products, kProductsBox);
       return products;
     } catch (e) {
-      // Check if the data is already loaded to avoid multiple loadings
       var cachedProducts = await loadProducts(kProductsBox);
       if (cachedProducts.isNotEmpty) {
         return cachedProducts;
