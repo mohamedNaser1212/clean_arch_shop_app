@@ -28,7 +28,7 @@ class ProductsScreen extends StatelessWidget {
             textColor: Colors.white,
             fontSize: 16.0,
           );
-        } else if (state is ShopGetCartItemsSuccessState) {
+        } else if (state is ShopChangeCartSuccessState) {
           Fluttertoast.showToast(
             msg: 'done',
             toastLength: Toast.LENGTH_LONG,
