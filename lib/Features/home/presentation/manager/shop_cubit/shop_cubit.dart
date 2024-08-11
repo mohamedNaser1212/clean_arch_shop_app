@@ -82,7 +82,7 @@ class ShopCubit extends Cubit<ShopStates> {
     final result = await fetchProductsUseCase.call();
 
     homeModel?.forEach((element) {
-      favorites?.addAll({
+      favorites.addAll({
         element.id: element.inFavorites!,
       });
       carts.addAll({
@@ -129,7 +129,7 @@ class ShopCubit extends Cubit<ShopStates> {
   ChangeCartModel? changeCartModel;
 
   void changeCarts(num prodId) {
-    carts?[prodId] = !(carts?[prodId] ?? false);
+    carts[prodId] = !(carts[prodId] ?? false);
     emit(ShopChangeCartSuccessState());
     DioHelper.postData(
       url: cartEndPoint,
@@ -142,14 +142,14 @@ class ShopCubit extends Cubit<ShopStates> {
       print(carts.toString());
       print(value.data);
       if (changeCartModel!.status == false) {
-        carts?[prodId] = !(carts?[prodId] ?? false);
+        carts[prodId] = !(carts[prodId] ?? false);
         print(carts.toString());
       } else {
         getCartItems();
       }
       emit(ShopChangeCartSuccessState());
     }).catchError((error) {
-      carts?[prodId] = !(carts?[prodId] ?? false);
+      carts[prodId] = !(carts[prodId] ?? false);
       emit(ShopChangeCartErrorState(error.toString()));
     });
   }
@@ -176,7 +176,7 @@ class ShopCubit extends Cubit<ShopStates> {
   ChangeFavouriteModel? changeFavouriteModel;
 
   Future<void> changeFavourite(num productId) async {
-    favorites?[productId] = !(favorites?[productId] ?? false);
+    favorites[productId] = !(favorites[productId] ?? false);
     emit(ShopChangeFavoriteSuccessState(true));
     final result = await toggleFavouriteUseCase.call(productId);
     result.fold(
@@ -185,7 +185,7 @@ class ShopCubit extends Cubit<ShopStates> {
         emit(ShopToggleFavoriteErrorState(failure.toString()));
       },
       (isFavourite) async {
-        favorites?[productId] = !(favorites?[productId] ?? false);
+        favorites[productId] = !(favorites[productId] ?? false);
         await getFavorites();
         emit(ShopChangeFavoriteSuccessState(isFavourite));
       },
