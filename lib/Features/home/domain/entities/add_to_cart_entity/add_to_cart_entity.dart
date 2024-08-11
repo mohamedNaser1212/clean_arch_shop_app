@@ -5,39 +5,39 @@ part 'add_to_cart_entity.g.dart';
 @HiveType(typeId: 3)
 class AddToCartEntity {
   @HiveField(0)
-  final dynamic id;
+  final num? id;
   @HiveField(1)
-  final dynamic name;
+  final num? price;
   @HiveField(2)
-  final dynamic price;
+  final num? oldPrice;
   @HiveField(3)
-  final dynamic image;
+  final num? discount;
   @HiveField(4)
-  final dynamic quantity;
+  final String? image;
   @HiveField(5)
-  final dynamic description;
+  final String? name;
   @HiveField(6)
-  final dynamic oldPrice;
+  final String? description;
 
   AddToCartEntity({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.image,
-    required this.quantity,
-    required this.description,
-    required this.oldPrice,
+    this.id,
+    this.price,
+    this.oldPrice,
+    this.discount,
+    this.image,
+    this.name,
+    this.description,
   });
 
   factory AddToCartEntity.fromJson(Map<String, dynamic> json) {
     return AddToCartEntity(
-      id: json['id'] ?? 0,
-      name: json['name'] ?? '',
+      id: json['id'],
       price: json['price'],
-      image: json['image'] ?? '',
-      quantity: json['quantity'],
-      description: json['description'] ?? 'No description available',
       oldPrice: json['old_price'],
+      discount: json['discount'],
+      image: json['image'],
+      description: json['description'],
+      name: json['name'],
     );
   }
 }

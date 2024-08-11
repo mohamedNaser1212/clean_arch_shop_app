@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/home/domain/use_case/carts_use_case/fetch_cart_use_case.dart';
+import 'package:shop_app/Features/home/domain/use_case/carts_use_case/toggle_cart_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import 'package:shop_app/core/widgets/old_dio_helper.dart';
+import 'package:shop_app/models/changeCartModel.dart';
 import 'package:shop_app/models/favoutits_model.dart';
 import 'package:shop_app/screens/favorites_screen.dart';
 import 'package:shop_app/screens/products_screen.dart';
@@ -27,6 +30,8 @@ class ShopCubit extends Cubit<ShopStates> {
     this.categoriesUseCase,
     this.fetchFavouritesUseCase,
     this.toggleFavouriteUseCase,
+    this.addToCartUseCase,
+    this.fetchCarUseCase,
   ) : super(ShopInitialState());
 
   static ShopCubit get(context) => BlocProvider.of(context);
@@ -41,6 +46,8 @@ class ShopCubit extends Cubit<ShopStates> {
   final FetchCategoriesUseCase categoriesUseCase;
   final FetchFavouritesUseCase fetchFavouritesUseCase;
   final ToggleFavouriteUseCase toggleFavouriteUseCase;
+  final ToggleCartUseCase addToCartUseCase;
+  final FetchCartUseCase fetchCarUseCase;
 
   List<Widget> screens = [
     const ProductsScreen(),
@@ -67,19 +74,23 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeBottomNavState());
   }
 
-  Map<num, bool> favorites = {};
-  Map<num, bool> carts = {};
+  // Map<num, bool> favorites = {};
+  // Map<num, bool> carts = {};
 
   void getHomeData() async {
     emit(ShopLoadingHomeDataState());
     final result = await fetchProductsUseCase.call();
 
     homeModel?.forEach((element) {
-      favorites.addAll({
-        element.id!: element.inFavorites!,
+      favorites?.addAll({
+        element.id: element.inFavorites!,
+      });
+      carts.addAll({
+        element.id: element.inCart!,
       });
     });
     print(favorites.toString());
+    print(carts.toString());
 
     result.fold(
       (failure) {
@@ -114,36 +125,71 @@ class ShopCubit extends Cubit<ShopStates> {
     );
   }
 
+  List<AddToCartEntity> getCartModel = [];
+  ChangeCartModel? changeCartModel;
+
+  void changeCarts(num prodId) {
+    carts?[prodId] = !(carts?[prodId] ?? false);
+    emit(ShopChangeCartSuccessState());
+    DioHelper.postData(
+      url: cartEndPoint,
+      data: {
+        'product_id': prodId,
+      },
+      token: token,
+    ).then((value) {
+      changeCartModel = ChangeCartModel.fromJson(value.data);
+      print(carts.toString());
+      print(value.data);
+      if (changeCartModel!.status == false) {
+        carts?[prodId] = !(carts?[prodId] ?? false);
+        print(carts.toString());
+      } else {
+        getCartItems();
+      }
+      emit(ShopChangeCartSuccessState());
+    }).catchError((error) {
+      carts?[prodId] = !(carts?[prodId] ?? false);
+      emit(ShopChangeCartErrorState(error.toString()));
+    });
+  }
+
+  Future<void> getCartItems() async {
+    emit(ShopGetCartItemsLoadingState());
+    final result = await fetchCarUseCase.call();
+    result.fold(
+      (failure) {
+        print('Failed to fetch cart items: $failure');
+        emit(ShopGetCartItemsErrorState(failure.toString()));
+      },
+      (cartItems) {
+        cartModel = cartItems;
+        print('Fetched cart items: $cartModel');
+        carts = {for (var p in cartItems) p.id!: true};
+        emit(ShopGetCartItemsSuccessState());
+      },
+    );
+  }
+
   List<FavouritesEntity> getFavouritesModel = [];
 
   ChangeFavouriteModel? changeFavouriteModel;
 
-  void changeFavourite(num productId) {
-    favorites[productId] = !(favorites[productId] ?? false);
+  Future<void> changeFavourite(num productId) async {
+    favorites?[productId] = !(favorites?[productId] ?? false);
     emit(ShopChangeFavoriteSuccessState(true));
-    DioHelper.postData(
-      url: favoritesEndPoint,
-      data: {
-        'product_id': productId,
+    final result = await toggleFavouriteUseCase.call(productId);
+    result.fold(
+      (failure) {
+        print('Failed to add/remove favorite items: $failure');
+        emit(ShopToggleFavoriteErrorState(failure.toString()));
       },
-      token: token,
-    ).then((value) {
-      changeFavouriteModel = ChangeFavouriteModel.fromJson(value.data);
-      print(favorites.toString());
-
-      print(value.data);
-      if (changeFavouriteModel!.status == false) {
-        favorites[productId] = !(favorites[productId] ?? false);
-        print(favorites.toString());
-      } else {
-        getFavorites();
-      }
-      emit(ShopToggleFavoriteSuccessState(changeFavouriteModel!));
-    }).catchError((error) {
-      favorites[productId] = !(favorites[productId] ?? false);
-
-      emit(ShopToggleFavoriteErrorState(error.toString()));
-    });
+      (isFavourite) async {
+        favorites?[productId] = !(favorites?[productId] ?? false);
+        await getFavorites();
+        emit(ShopChangeFavoriteSuccessState(isFavourite));
+      },
+    );
   }
 
   // Future<void> toggleFavourite(List<num> productIds) async {

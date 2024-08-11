@@ -17,13 +17,13 @@ class AddToCartEntityAdapter extends TypeAdapter<AddToCartEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AddToCartEntity(
-      id: fields[0] as dynamic,
-      name: fields[1] as dynamic,
-      price: fields[2] as dynamic,
-      image: fields[3] as dynamic,
-      quantity: fields[4] as dynamic,
-      description: fields[5] as dynamic,
-      oldPrice: fields[6] as dynamic,
+      id: fields[0] as num?,
+      price: fields[1] as num?,
+      oldPrice: fields[2] as num?,
+      discount: fields[3] as num?,
+      image: fields[4] as String?,
+      name: fields[5] as String?,
+      description: fields[6] as String?,
     );
   }
 
@@ -34,17 +34,17 @@ class AddToCartEntityAdapter extends TypeAdapter<AddToCartEntity> {
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.name)
-      ..writeByte(2)
       ..write(obj.price)
+      ..writeByte(2)
+      ..write(obj.oldPrice)
       ..writeByte(3)
-      ..write(obj.image)
+      ..write(obj.discount)
       ..writeByte(4)
-      ..write(obj.quantity)
+      ..write(obj.image)
       ..writeByte(5)
-      ..write(obj.description)
+      ..write(obj.name)
       ..writeByte(6)
-      ..write(obj.oldPrice);
+      ..write(obj.description);
   }
 
   @override

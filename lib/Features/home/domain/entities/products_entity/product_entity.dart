@@ -35,7 +35,7 @@ class ProductEntity {
     required this.images,
     this.description,
     required this.inFavorites,
-    this.inCart,
+    required this.inCart,
   });
 
   factory ProductEntity.fromJson(Map<String, dynamic> json) {
@@ -49,7 +49,7 @@ class ProductEntity {
       images: List<String>.from(json['images']),
       description: json['description'] as String?,
       inFavorites: json['in_favorites'] as bool,
-      inCart: json['in_cart'] as bool?,
+      inCart: json['in_cart'] as bool,
     );
   }
 

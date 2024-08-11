@@ -5,6 +5,7 @@ import 'package:shop_app/core/widgets/reusable_widgets.dart';
 import '../../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import '../../screens/products_details_screen.dart';
+import 'end_points.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -93,10 +94,9 @@ class ProductItem extends StatelessWidget {
                       ShopCubit.get(context).changeFavourite(product.id!);
                     },
                     icon: CircleAvatar(
-                      backgroundColor:
-                          ShopCubit.get(context).favorites[product.id] ?? false
-                              ? Colors.red
-                              : Colors.grey,
+                      backgroundColor: favorites?[product.id] ?? false
+                          ? Colors.red
+                          : Colors.grey,
                       radius: 15,
                       child: const Icon(
                         Icons.favorite,
@@ -105,20 +105,21 @@ class ProductItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //     ShopCubit.get(context).toggleCart([product.id]);
-                  //   },
-                  //   icon: CircleAvatar(
-                  //     backgroundColor: isCart ? Colors.red : Colors.grey,
-                  //     radius: 15,
-                  //     child: const Icon(
-                  //       Icons.shopping_cart,
-                  //       size: 15,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
-                  // ),
+                  IconButton(
+                    onPressed: () {
+                      ShopCubit.get(context).changeCarts(product.id);
+                    },
+                    icon: CircleAvatar(
+                      backgroundColor:
+                          carts[product.id] ?? false ? Colors.red : Colors.grey,
+                      radius: 15,
+                      child: const Icon(
+                        Icons.shopping_cart,
+                        size: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],

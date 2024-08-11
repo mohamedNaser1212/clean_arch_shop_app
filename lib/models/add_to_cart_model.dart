@@ -1,164 +1,113 @@
 import 'package:shop_app/Features/home/domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
 
 class AddToCartModel {
-  AddToCartModel({
-    this.status,
-    this.message,
-    this.data,
-  });
+  bool? status;
+  String? message;
+  CartData? data;
 
-  factory AddToCartModel.fromJson(Map<String, dynamic> json) {
-    return AddToCartModel(
-      status: json['status'],
-      message: json['message'],
-      data: json['data'] != null ? CartData.fromJson(json['data']) : null,
-    );
+  AddToCartModel({this.status, this.message, this.data});
+
+  AddToCartModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'] ?? '';
+    data = json['data'] != null ? CartData.fromJson(json['data']) : null;
   }
 
-  final bool? status;
-  final String? message;
-  final CartData? data;
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['status'] = status;
-    map['message'] = message;
-    if (data != null) {
-      map['data'] = data?.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
     }
-    return map;
+    return data;
   }
 }
 
 class CartData {
-  CartData({
-    this.cartItems,
-    this.subTotal,
-    this.total,
-  });
+  List<CartItem> cartItems = [];
 
-  factory CartData.fromJson(Map<String, dynamic> json) {
-    return CartData(
-      cartItems: json['cart_items'] != null
-          ? (json['cart_items'] as List)
-              .map((item) => CartItem.fromJson(item))
-              .toList()
-          : [],
-      subTotal: json['sub_total'] is String
-          ? double.tryParse(json['sub_total']) ?? 0.0
-          : json['sub_total']?.toDouble(),
-      total: json['total'] is String
-          ? double.tryParse(json['total']) ?? 0.0
-          : json['total']?.toDouble(),
-    );
+  CartData.fromJson(Map<String, dynamic> json) {
+    if (json['cart_items'] != null) {
+      json['cart_items'].forEach((v) {
+        cartItems.add(CartItem.fromJson(v));
+      });
+    }
   }
 
-  final List<CartItem>? cartItems;
-  final num? subTotal;
-  final num? total;
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (cartItems != null) {
-      map['cart_items'] = cartItems?.map((item) => item.toJson()).toList();
-    }
-    map['sub_total'] = subTotal;
-    map['total'] = total;
-    return map;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['cart_items'] = cartItems.map((v) => v.toJson()).toList();
+    return data;
   }
 }
 
-class CartItem extends AddToCartEntity {
-  CartItem({
-    required num id,
-    required String quantity,
-    required AddToCartProduct product,
+class CartItem {
+  num? id;
+  num? quantity;
+  AddToCartProduct? product;
+
+  CartItem({this.id, this.quantity, this.product});
+
+  CartItem.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    quantity = json['quantity'];
+    product = json['product'] != null
+        ? AddToCartProduct.fromJson(json['product'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['quantity'] = quantity;
+    if (product != null) {
+      data['product'] = product!.toJson();
+    }
+    return data;
+  }
+}
+
+class AddToCartProduct extends AddToCartEntity {
+  AddToCartProduct({
+    num? id,
+    num? price,
+    num? oldPrice,
+    num? discount,
+    String? image,
+    String? name,
+    String? description,
   }) : super(
           id: id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          quantity: quantity,
-          description: product.description,
-          oldPrice: product.oldPrice,
+          price: price,
+          oldPrice: oldPrice,
+          discount: discount,
+          image: image,
+          name: name,
+          description: description,
         );
-
-  factory CartItem.fromJson(Map<String, dynamic> json) {
-    return CartItem(
-      id: json['id'] ?? 0,
-      quantity: json['quantity'] is String
-          ? int.tryParse(json['quantity']) ?? 0
-          : json['quantity'],
-      product: json['product'] != null
-          ? AddToCartProduct.fromJson(json['product'])
-          : AddToCartProduct(
-              id: 0,
-              price: 0,
-              oldPrice: 0,
-              discount: 0,
-              image: '',
-              name: '',
-              description: '',
-            ),
-    );
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['quantity'] = quantity;
-    // map['product'] = product.toJson();
-    return map;
-  }
-}
-
-class AddToCartProduct {
-  AddToCartProduct({
-    required this.id,
-    required this.price,
-    required this.oldPrice,
-    required this.discount,
-    required this.image,
-    required this.name,
-    required this.description,
-  });
 
   factory AddToCartProduct.fromJson(Map<String, dynamic> json) {
     return AddToCartProduct(
-      id: json['id'] ?? 0,
-      price: json['price'] is String
-          ? double.tryParse(json['price']) ?? 0.0
-          : json['price']?.toDouble(),
-      oldPrice: json['old_price'] is String
-          ? double.tryParse(json['old_price']) ?? 0.0
-          : json['old_price']?.toDouble(),
-      discount: json['discount'] is String
-          ? double.tryParse(json['discount']) ?? 0.0
-          : json['discount']?.toDouble(),
-      image: json['image'] ?? '',
-      name: json['name'] ?? '',
-      description: json['description'] ?? '',
+      id: json['id'],
+      price: json['price'],
+      oldPrice: json['old_price'],
+      discount: json['discount'],
+      image: json['image'],
+      name: json['name'],
+      description: json['description'],
     );
   }
 
-  final num id;
-  final num price;
-  final num oldPrice;
-  final num discount;
-  final String image;
-  final String name;
-  final String description;
-
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['price'] = price;
-    map['old_price'] = oldPrice;
-    map['discount'] = discount;
-    map['image'] = image;
-    map['name'] = name;
-    map['description'] = description;
-    return map;
+    return {
+      'id': id,
+      'price': price,
+      'old_price': oldPrice,
+      'discount': discount,
+      'image': image,
+      'name': name,
+      'description': description,
+    };
   }
 }

@@ -13,5 +13,5 @@ const kFavouritesBox = 'favourites';
 const kCartBox = 'carts';
 const cartEndPoint = 'carts';
 const kAddToCartBox = 'addToCart';
-Map<num, bool>? favorites = {};
+Map<num, bool> favorites = {};
 Map<num, bool> carts = {};

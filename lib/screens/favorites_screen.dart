@@ -9,6 +9,7 @@ import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubi
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import 'package:shop_app/screens/products_details_screen.dart';
 
+import '../core/widgets/end_points.dart';
 import '../core/widgets/reusable_widgets.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -57,8 +58,8 @@ class FavoritesScreen extends StatelessWidget {
   }
 
   Widget buildFavItem(BuildContext context, FavouritesEntity model) {
-    var isFavourite = ShopCubit.get(context).favorites[model.id!] ?? false;
-    var isCart = ShopCubit.get(context).carts[model.id!] ?? false;
+    var isFavourite = favorites?[model.id!] ?? false;
+    var isCart = carts[model.id!] ?? false;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(

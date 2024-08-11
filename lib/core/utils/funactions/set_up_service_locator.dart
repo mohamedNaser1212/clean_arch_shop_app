@@ -6,6 +6,7 @@ import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/home
 import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/login_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/register_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sorces/remote_data_sources/search_data_source.dart';
+import 'package:shop_app/Features/home/data/repos/carts_repo/cart_repo.dart';
 import 'package:shop_app/Features/home/data/repos/favourites_repo/favourites_repo.dart';
 import 'package:shop_app/Features/home/data/repos/favourites_repo/favourites_repo_impl.dart';
 import 'package:shop_app/Features/home/data/repos/get_user_repo/get_user_repo.dart';
@@ -31,7 +32,11 @@ import 'package:shop_app/Features/home/presentation/manager/register_cubit/regis
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/core/widgets/api_service.dart';
 
+import '../../../Features/home/data/data_sorces/remote_data_sources/get_carts_data_source.dart';
 import '../../../Features/home/data/data_sorces/remote_data_sources/get_user_data_data_source.dart';
+import '../../../Features/home/data/repos/carts_repo/carts_repo_impl.dart';
+import '../../../Features/home/domain/use_case/carts_use_case/fetch_cart_use_case.dart';
+import '../../../Features/home/domain/use_case/carts_use_case/toggle_cart_use_case.dart';
 import '../../../Features/home/domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
 
 final getIt = GetIt.instance;
@@ -113,6 +118,12 @@ void setUpServiceLocator() {
   );
 
   // Add to Cart dependencies
+  getIt.registerSingleton<GetCartsDataSource>(
+    GetCartsDataSourceImpl(apiService: getIt.get<ApiService>()),
+  );
+  getIt.registerSingleton<CartRepo>(
+    CartsRepoImpl(getCartsDataSource: getIt.get<GetCartsDataSource>()),
+  );
 
   // Cubits
   getIt.registerFactory(() => LoginCubit(getIt.get<LoginUseCase>()));
@@ -126,12 +137,19 @@ void setUpServiceLocator() {
         FetchFavouritesUseCase(getIt<FavouritesRepo>());
     final toggleFavouriteUseCase =
         ToggleFavouriteUseCase(getIt<FavouritesRepo>());
+    final fetchCartUseCase = FetchCartUseCase(getIt<CartRepo>());
+
+    final toggleCartUseCase = ToggleCartUseCase(
+      cartRepo: getIt<CartRepo>(),
+    );
 
     return ShopCubit(
       fetchProductsUseCase,
       fetchCategoriesUseCase,
       fetchFavouritesUseCase,
       toggleFavouriteUseCase,
+      toggleCartUseCase,
+      fetchCartUseCase,
     );
   });
 }
