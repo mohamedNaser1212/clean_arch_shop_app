@@ -28,12 +28,21 @@ class ProductsScreen extends StatelessWidget {
             textColor: Colors.white,
             fontSize: 16.0,
           );
+        } else if (state is ShopGetCartItemsSuccessState) {
+          Fluttertoast.showToast(
+            msg: 'done',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
         }
       },
       builder: (context, state) {
         final homeModel = ShopCubit.get(context).homeModel;
         final categoryModel = ShopCubit.get(context).categoriesModel;
-        final cartModel = ShopCubit.get(context).cartModel;
 
         if (homeModel == null || categoryModel == null) {
           return Center(

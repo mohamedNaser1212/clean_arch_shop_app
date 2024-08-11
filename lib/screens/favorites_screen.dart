@@ -58,7 +58,7 @@ class FavoritesScreen extends StatelessWidget {
   }
 
   Widget buildFavItem(BuildContext context, FavouritesEntity model) {
-    var isFavourite = favorites?[model.id!] ?? false;
+    var isFavourite = favorites[model.id!] ?? false;
     var isCart = carts[model.id!] ?? false;
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -166,20 +166,20 @@ class FavoritesScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // IconButton(
-                        //   onPressed: () {
-                        //     ShopCubit.get(context).toggleCart([model.id!]);
-                        //   },
-                        //   icon: CircleAvatar(
-                        //     backgroundColor: isCart ? Colors.red : Colors.grey,
-                        //     radius: 15,
-                        //     child: const Icon(
-                        //       Icons.add_shopping_cart,
-                        //       size: 15,
-                        //       color: Colors.white,
-                        //     ),
-                        //   ),
-                        // ),
+                        IconButton(
+                          onPressed: () {
+                            ShopCubit.get(context).changeCarts(model.id!);
+                          },
+                          icon: CircleAvatar(
+                            backgroundColor: isCart ? Colors.red : Colors.grey,
+                            radius: 15,
+                            child: const Icon(
+                              Icons.add_shopping_cart,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],

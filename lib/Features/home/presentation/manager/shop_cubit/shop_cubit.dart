@@ -7,15 +7,14 @@ import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import 'package:shop_app/core/widgets/old_dio_helper.dart';
 import 'package:shop_app/models/changeCartModel.dart';
 import 'package:shop_app/models/favoutits_model.dart';
+import 'package:shop_app/screens/Cart_screen.dart';
 import 'package:shop_app/screens/favorites_screen.dart';
 import 'package:shop_app/screens/products_screen.dart';
 import 'package:shop_app/screens/settings_screen.dart';
 
 import '../../../../../core/widgets/cache_helper.dart';
-import '../../../../../core/widgets/constants.dart';
 import '../../../../../core/widgets/end_points.dart';
 import '../../../../../screens/categries_screen.dart';
 import '../../../../../screens/login_screen.dart';
@@ -53,8 +52,21 @@ class ShopCubit extends Cubit<ShopStates> {
     const ProductsScreen(),
     const CategoriesScreen(),
     const FavoritesScreen(),
+    const CartScreen(),
     SettingsScreen(),
   ];
+  num? get cartSubtotal {
+    if (cartModel == null) return 0;
+    return cartModel!.fold(
+      0,
+      (sum, item) => sum! + (item.price ?? 0) * (1),
+    );
+  }
+
+  num? get cartTotal {
+    if (cartModel == null) return 0;
+    return cartSubtotal; // Add any additional logic if necessary (e.g., shipping)
+  }
 
   List<BottomNavigationBarItem> get bottomNavigationBarItems {
     final items = [
@@ -63,6 +75,8 @@ class ShopCubit extends Cubit<ShopStates> {
           icon: Icon(Icons.apps), label: 'Categories'),
       const BottomNavigationBarItem(
           icon: Icon(Icons.favorite), label: 'Favorites'),
+      const BottomNavigationBarItem(
+          icon: Icon(Icons.add_shopping_cart), label: 'Carts'),
       const BottomNavigationBarItem(
           icon: Icon(Icons.settings), label: 'Settings'),
     ];
@@ -128,30 +142,21 @@ class ShopCubit extends Cubit<ShopStates> {
   List<AddToCartEntity> getCartModel = [];
   ChangeCartModel? changeCartModel;
 
-  void changeCarts(num prodId) {
+  void changeCarts(num prodId) async {
     carts[prodId] = !(carts[prodId] ?? false);
     emit(ShopChangeCartSuccessState());
-    DioHelper.postData(
-      url: cartEndPoint,
-      data: {
-        'product_id': prodId,
+    final result = await addToCartUseCase.call(prodId);
+    result.fold(
+      (failure) {
+        print('Failed to add/remove cart items: $failure');
+        emit(ShopAddCartItemsErrorState(failure.toString()));
       },
-      token: token,
-    ).then((value) {
-      changeCartModel = ChangeCartModel.fromJson(value.data);
-      print(carts.toString());
-      print(value.data);
-      if (changeCartModel!.status == false) {
+      (isAdded) async {
         carts[prodId] = !(carts[prodId] ?? false);
-        print(carts.toString());
-      } else {
-        getCartItems();
-      }
-      emit(ShopChangeCartSuccessState());
-    }).catchError((error) {
-      carts[prodId] = !(carts[prodId] ?? false);
-      emit(ShopChangeCartErrorState(error.toString()));
-    });
+        await getCartItems();
+        emit(ShopChangeCartSuccessState());
+      },
+    );
   }
 
   Future<void> getCartItems() async {
