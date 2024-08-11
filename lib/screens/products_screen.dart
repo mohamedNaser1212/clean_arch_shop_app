@@ -8,36 +8,20 @@ import 'package:shop_app/Features/home/domain/entities/categories_entity/categor
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
 
+import '../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../core/widgets/product_item.dart';
 
 class ProductsScreen extends StatelessWidget {
-  const ProductsScreen({super.key});
+  const ProductsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
         if (state is ShopToggleFavoriteSuccessState) {
-          Fluttertoast.showToast(
-            msg: state.isFavourite.message!,
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor:
-                state.isFavourite.status! ? Colors.green : Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
+          _showToast(state.isFavourite.message!, state.isFavourite.status!);
         } else if (state is ShopChangeCartSuccessState) {
-          Fluttertoast.showToast(
-            msg: 'done',
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
+          _showToast('Item added to cart', true);
         }
       },
       builder: (context, state) {
@@ -45,12 +29,7 @@ class ProductsScreen extends StatelessWidget {
         final categoryModel = ShopCubit.get(context).categoriesModel;
 
         if (homeModel == null || categoryModel == null) {
-          return Center(
-            child: LoadingAnimationWidget.waveDots(
-              color: Colors.white,
-              size: 120,
-            ),
-          );
+          return _buildLoadingIndicator();
         }
 
         return Padding(
@@ -60,47 +39,12 @@ class ProductsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Categories',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
+                _buildSectionTitle('Categories'),
                 const SizedBox(height: 10),
-                ConditionalBuilder(
-                  condition: ShopCubit.get(context).categoriesModel != null,
-                  builder: (context) {
-                    return buildCategoriesListView(categoryModel, context);
-                  },
-                  fallback: (context) =>
-                      const Center(child: Text('Loading...')),
-                ),
+                _buildCategoriesSection(context, categoryModel),
                 const SizedBox(height: 10),
-                const Text(
-                  'New Products',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                Container(
-                  color: Colors.grey[400],
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 1,
-                    crossAxisSpacing: 1,
-                    childAspectRatio: 1 / 1.90,
-                    children: List.generate(
-                      homeModel.length,
-                      (index) => ProductItem(
-                        product: homeModel[index],
-                      ),
-                    ),
-                  ),
-                ),
+                _buildSectionTitle('New Products'),
+                _buildProductsGrid(homeModel),
               ],
             ),
           ),
@@ -109,21 +53,59 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCategoriesListView(
-      List<CategoriesEntity> categoryModel, BuildContext context) {
-    return SizedBox(
-      height: 160,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) =>
-            categoryItem(categoryModel[index], context),
-        separatorBuilder: (context, index) => const SizedBox(width: 10),
-        itemCount: categoryModel.length,
+  Widget _buildLoadingIndicator() {
+    return Center(
+      child: LoadingAnimationWidget.waveDots(
+        color: Colors.white,
+        size: 120,
       ),
     );
   }
 
-  Widget categoryItem(CategoriesEntity category, BuildContext context) {
+  void _showToast(String message, bool success) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: success ? Colors.green : Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w900,
+      ),
+    );
+  }
+
+  Widget _buildCategoriesSection(
+      BuildContext context, List<CategoriesEntity> categories) {
+    return ConditionalBuilder(
+      condition: categories.isNotEmpty,
+      builder: (context) => _buildCategoriesListView(categories),
+      fallback: (context) => const Center(child: Text('Loading...')),
+    );
+  }
+
+  Widget _buildCategoriesListView(List<CategoriesEntity> categories) {
+    return SizedBox(
+      height: 160,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) => _buildCategoryItem(categories[index]),
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
+        itemCount: categories.length,
+      ),
+    );
+  }
+
+  Widget _buildCategoryItem(CategoriesEntity category) {
     return SizedBox(
       width: 120,
       child: Column(
@@ -142,6 +124,26 @@ class ProductsScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildProductsGrid(List<ProductEntity> products) {
+    return Container(
+      color: Colors.grey[400],
+      child: GridView.count(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 2,
+        mainAxisSpacing: 1,
+        crossAxisSpacing: 1,
+        childAspectRatio: 1 / 1.90,
+        children: List.generate(
+          products.length,
+          (index) => ProductItem(
+            product: products[index],
+          ),
+        ),
       ),
     );
   }

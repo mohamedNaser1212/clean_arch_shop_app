@@ -22,8 +22,7 @@ class CategoriesWidget extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: ShopCubit.get(context).homeModel != null &&
-              ShopCubit.get(context).categoriesModel != null,
+          condition: ShopCubit.get(context).categoriesModel != null,
           builder: (context) {
             var categoryModel = ShopCubit.get(context).categoriesModel;
             return categoriesItemBuilder(

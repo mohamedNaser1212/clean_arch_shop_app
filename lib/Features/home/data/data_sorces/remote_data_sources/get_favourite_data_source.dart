@@ -32,7 +32,6 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
 
       final favouritesModel = NewFavouritesModel.fromJson(response);
 
-      // Use a Set to ensure unique product IDs
       final Set<num> uniqueIds = {};
       _cachedFavourites = favouritesModel.data?.data
               ?.map((item) {

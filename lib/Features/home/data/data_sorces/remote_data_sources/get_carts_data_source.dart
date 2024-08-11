@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/Features/home/domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
+import 'package:shop_app/core/utils/funactions/save_carts.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/models/changeCartModel.dart';
 
@@ -51,10 +52,10 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
               .toList() ??
           [];
 
-      // await saveCart(_cachedCarts, kCartsBox);
+      await saveCarts(_cachedCarts, kCartBox);
       return Right(_cachedCarts);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Right(await loadCarts(kCartBox));
     }
   }
 

@@ -25,8 +25,14 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       saveProductsData(products, kProductsBox);
       return products;
     } catch (e) {
-      print('Error fetching featured products: $e');
-      return await loadProducts(kProductsBox);
+      // Check if the data is already loaded to avoid multiple loadings
+      var cachedProducts = await loadProducts(kProductsBox);
+      if (cachedProducts.isNotEmpty) {
+        return cachedProducts;
+      } else {
+        print('No cached products found');
+        return [];
+      }
     }
   }
 
@@ -38,8 +44,14 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       saveCategoriesData(categories, kCategoriesBox);
       return categories;
     } catch (e) {
-      print('Error fetching categories: $e');
-      return await loadCategories(kCategoriesBox);
+      // Check if the data is already loaded to avoid multiple loadings
+      var cachedCategories = await loadCategories(kCategoriesBox);
+      if (cachedCategories.isNotEmpty) {
+        return cachedCategories;
+      } else {
+        print('No cached categories found');
+        return [];
+      }
     }
   }
 

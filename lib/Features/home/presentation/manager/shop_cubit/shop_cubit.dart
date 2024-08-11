@@ -65,7 +65,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
   num? get cartTotal {
     if (cartModel == null) return 0;
-    return cartSubtotal; // Add any additional logic if necessary (e.g., shipping)
+    return cartSubtotal;
   }
 
   List<BottomNavigationBarItem> get bottomNavigationBarItems {
@@ -88,13 +88,10 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeBottomNavState());
   }
 
-  // Map<num, bool> favorites = {};
-  // Map<num, bool> carts = {};
-
   void getHomeData() async {
     emit(ShopLoadingHomeDataState());
     final result = await fetchProductsUseCase.call();
-
+    homeModel = [];
     homeModel?.forEach((element) {
       favorites.addAll({
         element.id: element.inFavorites!,
@@ -125,6 +122,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
   void getCategoriesData() async {
     emit(ShopLoadingCategoriesDataState());
+    categoriesModel = [];
     final result = await categoriesUseCase.call();
     result.fold(
       (failure) {

@@ -4,6 +4,7 @@ import '../../../Features/home/domain/entities/products_entity/product_entity.da
 
 void saveProductsData(List<ProductEntity> products, String boxName) {
   var box = Hive.box<ProductEntity>(boxName);
+  box.clear(); // Clear the box before adding new data
   box.addAll(products);
 }
 
