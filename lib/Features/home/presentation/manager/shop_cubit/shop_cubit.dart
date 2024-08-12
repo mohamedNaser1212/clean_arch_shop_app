@@ -14,6 +14,8 @@ import 'package:shop_app/screens/favorites_screen.dart';
 import 'package:shop_app/screens/products_screen.dart';
 import 'package:shop_app/screens/settings_screen.dart';
 
+import '../../../../../core/utils/funactions/save_categories.dart';
+import '../../../../../core/utils/funactions/save_products.dart';
 import '../../../../../core/widgets/cache_helper.dart';
 import '../../../../../core/widgets/end_points.dart';
 import '../../../../../screens/categries_screen.dart';
@@ -88,21 +90,20 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeBottomNavState());
   }
 
-  void getHomeData() async {
+  Future<void> getHomeData() async {
     emit(ShopLoadingHomeDataState());
-    final result = await fetchProductsUseCase.call();
-    homeModel = [];
-    homeModel?.forEach((element) {
-      favorites.addAll({
-        element.id: element.inFavorites!,
-      });
-      carts.addAll({
-        element.id: element.inCart!,
-      });
-    });
-    print(favorites.toString());
-    print(carts.toString());
 
+    // Try to fetch from cache first
+    final cachedProducts = await loadProducts(kProductsBox);
+    if (cachedProducts.isNotEmpty) {
+      homeModel = cachedProducts;
+      favorites = {for (var p in cachedProducts) p.id: p.inFavorites ?? false};
+      carts = {for (var p in cachedProducts) p.id: p.inCart ?? false};
+      emit(ShopSuccessHomeDataState(cachedProducts));
+    }
+
+    // Fetch from API if not available in cache
+    final result = await fetchProductsUseCase.call();
     result.fold(
       (failure) {
         print('Failed to fetch products: $failure');
@@ -110,19 +111,23 @@ class ShopCubit extends Cubit<ShopStates> {
       },
       (products) {
         homeModel = products;
-        print('Fetched products: $homeModel');
+        favorites = {for (var p in products) p.id: p.inFavorites ?? false};
+        carts = {for (var p in products) p.id: p.inCart ?? false};
+        saveProductsData(products, kProductsBox);
         emit(ShopSuccessHomeDataState(products));
       },
     );
   }
 
-  bool isInCart(num productId) {
-    return carts[productId] ?? false;
-  }
-
-  void getCategoriesData() async {
+  Future<void> getCategoriesData() async {
     emit(ShopLoadingCategoriesDataState());
-    categoriesModel = [];
+
+    final cachedCategories = await loadCategories(kCategoriesBox);
+    if (cachedCategories.isNotEmpty) {
+      categoriesModel = cachedCategories;
+      emit(ShopSuccessCategoriesDataState(categoriesModel!));
+    }
+
     final result = await categoriesUseCase.call();
     result.fold(
       (failure) {
@@ -131,18 +136,51 @@ class ShopCubit extends Cubit<ShopStates> {
       },
       (categories) {
         categoriesModel = categories;
-        print('Fetched categories: $categoriesModel');
+        saveCategoriesData(categories, kCategoriesBox);
         emit(ShopSuccessCategoriesDataState(categories));
       },
     );
   }
 
+  // void getCategoriesData() async {
+  //   emit(ShopLoadingCategoriesDataState());
+  //   categoriesModel = [];
+  //   final result = await categoriesUseCase.call();
+  //   result.fold(
+  //     (failure) {
+  //       print('Failed to fetch categories: $failure');
+  //       emit(ShopErrorCategoriesDataState());
+  //     },
+  //     (categories) {
+  //       categoriesModel = categories;
+  //       print('Fetched categories: $categoriesModel');
+  //       emit(ShopSuccessCategoriesDataState(categories));
+  //     },
+  //   );
+  // }
+
   List<AddToCartEntity> getCartModel = [];
   ChangeCartModel? changeCartModel;
 
-  void changeCarts(num prodId) async {
-    carts[prodId] = !(carts[prodId] ?? false);
-    emit(ShopChangeCartSuccessState());
+  Future<void> getCartItems() async {
+    emit(ShopGetCartItemsLoadingState());
+    final result = await fetchCarUseCase.call();
+    result.fold(
+      (failure) {
+        print('Failed to fetch cart items: $failure');
+        emit(ShopGetCartItemsErrorState(failure.toString()));
+      },
+      (cartItems) {
+        cartModel = cartItems;
+        carts = {for (var p in cartItems) p.id!: true};
+        emit(ShopGetCartItemsSuccessState());
+      },
+    );
+  }
+
+  Future<void> changeCarts(num prodId) async {
+    emit(ShopChangeCartLoadingState());
+
     final result = await addToCartUseCase.call(prodId);
     result.fold(
       (failure) {
@@ -157,140 +195,13 @@ class ShopCubit extends Cubit<ShopStates> {
     );
   }
 
-  Future<void> getCartItems() async {
-    emit(ShopGetCartItemsLoadingState());
-    final result = await fetchCarUseCase.call();
-    result.fold(
-      (failure) {
-        print('Failed to fetch cart items: $failure');
-        emit(ShopGetCartItemsErrorState(failure.toString()));
-      },
-      (cartItems) {
-        cartModel = cartItems;
-        print('Fetched cart items: $cartModel');
-        carts = {for (var p in cartItems) p.id!: true};
-        emit(ShopGetCartItemsSuccessState());
-      },
-    );
-  }
-
   List<FavouritesEntity> getFavouritesModel = [];
 
   ChangeFavouriteModel? changeFavouriteModel;
 
-  Future<void> changeFavourite(num productId) async {
-    favorites[productId] = !(favorites[productId] ?? false);
-    emit(ShopChangeFavoriteSuccessState(true));
-    final result = await toggleFavouriteUseCase.call(productId);
-    result.fold(
-      (failure) {
-        print('Failed to add/remove favorite items: $failure');
-        emit(ShopToggleFavoriteErrorState(failure.toString()));
-      },
-      (isFavourite) async {
-        favorites[productId] = !(favorites[productId] ?? false);
-        await getFavorites();
-        emit(ShopChangeFavoriteSuccessState(isFavourite));
-      },
-    );
-  }
-
-  // Future<void> toggleFavourite(List<num> productIds) async {
-  //   final updatedFavorites = <num, bool>{};
-  //   for (var productId in productIds) {
-  //     final isFavourite = favorites[productId] ?? false;
-  //     updatedFavorites[productId] = !isFavourite;
-  //   }
-  //   emit(ShopToggleFavoriteLoadingState());
-  //
-  //   final result = await toggleFavouriteUseCase.call(productIds);
-  //   result.fold(
-  //     (failure) {
-  //       emit(ShopToggleFavoriteErrorState(failure.toString()));
-  //     },
-  //     (isFavouriteList) async {
-  //       favorites.addAll(updatedFavorites);
-  //       await getFavorites();
-  //       emit(ShopToggleFavoriteSuccessState(isFavouriteList));
-  //     },
-  //   );
-  // }
-
-  // void toggleCart(List<num> ids) async {
-  //   emit(ShopAddCartItemsLoadingState());
-  //   final result = await addToCartUseCase
-  //       .call(ids); // Assuming you have an use case for adding to cart
-  //   result.fold(
-  //     (failure) {
-  //       emit(ShopAddCartItemsErrorState(failure.message));
-  //     },
-  //     (success) {
-  //       emit(ShopAddCartItemsSuccessState(success));
-  //       getCartItems();
-  //     },
-  //   );
-  // }
-  // Future<void> toggleCart(List<num> productIds) async {
-  //   final updatedCart = <num, bool>{};
-  //   for (var productId in productIds) {
-  //     final isAdded = carts[productId] ?? false;
-  //     updatedCart[productId] = !isAdded;
-  //   }
-  //   emit(ShopAddCartItemsLoadingState());
-  //
-  //   final result = await addToCartUseCase.call(productIds);
-  //   result.fold(
-  //     (failure) {
-  //       print('Failed to add/remove cart items: $failure');
-  //       emit(ShopAddCartItemsErrorState(failure.toString()));
-  //     },
-  //     (isAdded) async {
-  //       carts.addAll(updatedCart);
-  //       await saveCarts(cartModel!, kCartBox);
-  //       await getCartItems(); // Refresh cart items
-  //       emit(ShopAddCartItemsSuccessState(isAdded));
-  //     },
-  //   );
-  // }
-
-  // Future<void> getCartItems() async {
-  //   emit(ShopGetCartItemsLoadingState());
-  //
-  //   final localCartItems = await loadCarts(kCartBox);
-  //   if (localCartItems.isNotEmpty) {
-  //     cartModel = localCartItems;
-  //     carts = {for (var p in localCartItems) p.id: true};
-  //     emit(ShopGetCartItemsSuccessState());
-  //     return;
-  //   }
-  //
-  //   final result = await fetchCarUseCase.call();
-  //   result.fold(
-  //     (failure) {
-  //       print('Failed to fetch cart items: $failure');
-  //       emit(ShopGetCartItemsErrorState(failure.toString()));
-  //     },
-  //     (cartItems) {
-  //       cartModel = cartItems;
-  //       carts = {for (var p in cartItems) p.id: true};
-  //       emit(ShopGetCartItemsSuccessState());
-  //     },
-  //   );
-  // }
-
   Future<void> getFavorites() async {
     emit(ShopGetFavoritesLoadingState());
 
-    // Fetch from local storage first
-    // final localFavourites = await loadFavourites(kFavouritesBox);
-    //  if (localFavourites.isNotEmpty) {
-    //    getFavouritesModel = localFavourites;
-    //    favorites = {for (var p in localFavourites) p.id!: true};
-    //    emit(ShopGetFavoritesSuccessState());
-    //    return;
-    //  }
-
-    // Fetch from remote if local storage is empty
     final result = await fetchFavouritesUseCase.call();
     result.fold(
       (failure) {
@@ -302,6 +213,23 @@ class ShopCubit extends Cubit<ShopStates> {
         favorites = {for (var p in favourites) p.id!: true};
         print('Fetched favorites: $getFavouritesModel');
         emit(ShopGetFavoritesSuccessState());
+      },
+    );
+  }
+
+  Future<void> changeFavourite(num productId) async {
+    emit(ShopChangeFavoritesLoadingState());
+
+    final result = await toggleFavouriteUseCase.call(productId);
+    result.fold(
+      (failure) {
+        print('Failed to add/remove favorite items: $failure');
+        emit(ShopToggleFavoriteErrorState(failure.toString()));
+      },
+      (isFavourite) async {
+        favorites[productId] = !(favorites[productId] ?? false);
+        await getFavorites();
+        emit(ShopChangeFavoriteSuccessState(isFavourite));
       },
     );
   }

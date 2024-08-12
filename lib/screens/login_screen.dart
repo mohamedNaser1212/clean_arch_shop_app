@@ -1,9 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/core/widgets/cache_helper.dart';
-import 'package:shop_app/screens/layout_screen.dart';
 import 'package:shop_app/screens/register_screen.dart';
 
 import '../Features/home/data/repos/login_repo/login_repo.dart';
@@ -27,34 +24,34 @@ class LoginScreen extends StatelessWidget {
       ),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state is AppLoginSuccessState) {
-            if (state.loginModel.status!) {
-              Fluttertoast.showToast(
-                  msg: state.loginModel.message!,
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 5,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-              CacheHelper.saveData(
-                key: 'token',
-                value: state.loginModel.data!.token,
-              );
-              navigateAndFinish(context: context, screen: LayoutScreen());
-            } else {
-              print('before toast');
-              Fluttertoast.showToast(
-                  msg: state.loginModel.message!,
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 5,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-              print('after toast');
-            }
-          }
+          // if (state is AppLoginSuccessState) {
+          //   if (state.loginModel.status!) {
+          //     Fluttertoast.showToast(
+          //         msg: state.loginModel.message!,
+          //         toastLength: Toast.LENGTH_LONG,
+          //         gravity: ToastGravity.CENTER,
+          //         timeInSecForIosWeb: 5,
+          //         backgroundColor: Colors.green,
+          //         textColor: Colors.white,
+          //         fontSize: 16.0);
+          //     CacheHelper.saveData(
+          //       key: 'token',
+          //       value: state.loginModel.data!.token,
+          //     );
+          //     navigateAndFinish(context: context, screen: const LayoutScreen());
+          //   } else {
+          //     print('before toast');
+          //     Fluttertoast.showToast(
+          //         msg: state.loginModel.message!,
+          //         toastLength: Toast.LENGTH_LONG,
+          //         gravity: ToastGravity.CENTER,
+          //         timeInSecForIosWeb: 5,
+          //         backgroundColor: Colors.red,
+          //         textColor: Colors.white,
+          //         fontSize: 16.0);
+          //     print('after toast');
+          //   }
+          // }
         },
         builder: (context, state) {
           return Scaffold(
@@ -68,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'LOGIN Screen',
                           // style:
                           //     Theme.of(context).textTheme.headline4?.copyWith(
@@ -95,11 +92,11 @@ class LoginScreen extends StatelessWidget {
                             return null;
                           },
                           label: 'Email Address',
-                          prefix: Icon(Icons.email_outlined),
+                          prefix: const Icon(Icons.email_outlined),
                           onTap: () {},
                           //suffixPressed: () {  },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         reusableTextFormField(
@@ -120,6 +117,7 @@ class LoginScreen extends StatelessWidget {
                               LoginCubit.get(context).userLogin(
                                 email: emailController.text,
                                 password: passwordController.text,
+                                context: context,
                               );
                             }
                           },
@@ -129,7 +127,7 @@ class LoginScreen extends StatelessWidget {
                           //   LoginCubit.get(context).changePasswordVisibility();
                           // },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         ConditionalBuilder(
@@ -140,6 +138,7 @@ class LoginScreen extends StatelessWidget {
                                 LoginCubit.get(context).userLogin(
                                   email: emailController.text,
                                   password: passwordController.text,
+                                  context: context,
                                 );
                               }
                             },
@@ -149,7 +148,7 @@ class LoginScreen extends StatelessWidget {
                             radius: 20,
                           ),
                           fallback: (context) =>
-                              Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                         ),
                         const SizedBox(
                           height: 15,

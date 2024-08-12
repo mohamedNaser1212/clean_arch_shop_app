@@ -2,7 +2,6 @@ import 'package:shop_app/Features/home/domain/entities/categories_entity/categor
 import 'package:shop_app/core/widgets/end_points.dart';
 
 import '../../../../../core/utils/funactions/save_categories.dart';
-import '../../../../../core/utils/funactions/save_products.dart';
 import '../../../../../core/widgets/api_service.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 
@@ -22,16 +21,10 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     try {
       var data = await apiService.get(endPoint: homeEndPoint);
       List<ProductEntity> products = getProductsList(data['data']);
-      saveProductsData(products, kProductsBox);
       return products;
     } catch (e) {
-      var cachedProducts = await loadProducts(kProductsBox);
-      if (cachedProducts.isNotEmpty) {
-        return cachedProducts;
-      } else {
-        print('No cached products found');
-        return [];
-      }
+      print('Error fetching featured products: $e');
+      throw e;
     }
   }
 
@@ -43,14 +36,8 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       saveCategoriesData(categories, kCategoriesBox);
       return categories;
     } catch (e) {
-      // Check if the data is already loaded to avoid multiple loadings
-      var cachedCategories = await loadCategories(kCategoriesBox);
-      if (cachedCategories.isNotEmpty) {
-        return cachedCategories;
-      } else {
-        print('No cached categories found');
-        return [];
-      }
+      print('Error fetching categories: $e');
+      throw e; // Let the Cubit handle the error and caching
     }
   }
 

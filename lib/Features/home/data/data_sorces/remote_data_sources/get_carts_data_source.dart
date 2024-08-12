@@ -15,8 +15,8 @@ abstract class GetCartsDataSource {
 }
 
 class GetCartsDataSourceImpl implements GetCartsDataSource {
-  List<AddToCartEntity> _cachedCarts = [];
   final ApiService apiService;
+  List<AddToCartEntity> _cachedCarts = [];
   ChangeCartModel? changeCartModel;
 
   GetCartsDataSourceImpl({required this.apiService});
@@ -30,7 +30,6 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
       );
 
       final addToCartModel = AddToCartModel.fromJson(response);
-      final Set<num> uniqueIds = {};
       _cachedCarts = addToCartModel.data?.cartItems
               ?.map((item) {
                 if (item.product != null) {
@@ -62,31 +61,18 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
   @override
   Future<Either<Failure, bool>> toggleCarts(num productIds) async {
     try {
-      carts[productIds] = !(carts[productIds] ?? false);
       final response = await apiService.post(
         endPoint: 'carts',
         headers: {'Authorization': token},
         data: {'product_id': productIds},
       );
       changeCartModel = ChangeCartModel.fromJson(response);
-      if (changeCartModel!.status = false) {
-        carts[productIds] = !(carts[productIds] ?? false);
-      } else {
-        if (carts[productIds] == true &&
-            !_cachedCarts.any((cart) => cart.id == productIds)) {
-          await getCarts();
-        }
+      if (changeCartModel!.status == false) {
+        return Left(ServerFailure('Failed to toggle cart item'));
       }
-      return Right(carts[productIds] ?? false);
+      return Right(true);
     } catch (e) {
-      carts[productIds] = !(carts[productIds] ?? false);
       return Left(ServerFailure(e.toString()));
     }
   }
-
-//   Future<List<AddToCartEntity>> loadFavourites(String boxName) async {
-//     var box = await Hive.openBox<AddToCartEntity>(boxName);
-//     return box.values.toList();
-//   }
-// }
 }

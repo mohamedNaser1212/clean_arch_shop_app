@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:hive/hive.dart';
 import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/core/widgets/api_service.dart';
@@ -32,10 +31,9 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
 
       final favouritesModel = NewFavouritesModel.fromJson(response);
 
-      final Set<num> uniqueIds = {};
       _cachedFavourites = favouritesModel.data?.data
               ?.map((item) {
-                if (item.product != null && uniqueIds.add(item.product!.id!)) {
+                if (item.product != null) {
                   return FavouritesEntity(
                     id: item.product!.id,
                     name: item.product!.name,
@@ -47,9 +45,9 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
                     image: item.product!.image,
                   );
                 }
-                return null; // If the item is a duplicate, return null
+                return null;
               })
-              .where((item) => item != null) // Filter out the nulls
+              .where((item) => item != null)
               .cast<FavouritesEntity>()
               .toList() ??
           [];
@@ -66,8 +64,6 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
   @override
   Future<Either<Failure, bool>> toggleFavourites(num productIds) async {
     try {
-      favorites?[productIds] = !(favorites?[productIds] ?? false);
-
       final response = await apiService.post(
         endPoint: favoritesEndPoint,
         data: {
@@ -78,25 +74,13 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
       changeFavouriteModel = ChangeFavouriteModel.fromJson(response);
 
       if (changeFavouriteModel!.status == false) {
-        favorites?[productIds] = !(favorites?[productIds] ?? false);
+        return Left(ServerFailure('Failed to toggle favourite'));
       } else {
-        // Only add the product if it's not already in the favorites list
-        if (favorites?[productIds] == true &&
-            !_cachedFavourites.any((fav) => fav.id == productIds)) {
-          await getFavourites(); // Refresh favourites
-        }
+        return Right(true);
       }
-
-      return Right(true);
     } catch (e) {
       print('Error toggling favourites: $e');
-      favorites?[productIds] = !(favorites?[productIds] ?? false);
       return Left(ServerFailure('Error toggling favourites: $e'));
     }
-  }
-
-  Future<List<FavouritesEntity>> loadFavourites(String boxName) async {
-    var box = await Hive.openBox<FavouritesEntity>(boxName);
-    return box.values.toList();
   }
 }

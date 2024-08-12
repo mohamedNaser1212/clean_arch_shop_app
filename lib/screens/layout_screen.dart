@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
-import 'package:shop_app/screens/login_screen.dart';
 import 'package:shop_app/screens/search_screen.dart';
 
 import '../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
@@ -29,18 +28,6 @@ class LayoutScreen extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.search,
-                  color: defaultColor,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  signout(
-                    context: context,
-                    screen: LoginScreen(),
-                  );
-                },
-                icon: Icon(
-                  Icons.logout,
                   color: defaultColor,
                 ),
               ),

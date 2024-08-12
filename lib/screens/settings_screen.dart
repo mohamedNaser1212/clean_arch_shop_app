@@ -111,7 +111,7 @@ class SettingsScreen extends StatelessWidget {
                     color: Colors.blue,
                     child: MaterialButton(
                       onPressed: () {
-                        //  UserDataCubit.get(context).logout();
+                        UserDataCubit.get(context).signOut(context);
                       },
                       child: Text(
                         'LOGOUT',
