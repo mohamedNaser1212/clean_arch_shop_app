@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
-import 'package:shop_app/models/login_model.dart';
 
+import '../../../domain/entities/user_entity/user_entity.dart';
 import '../../data_sorces/remote_data_sources/get_user_data_data_source.dart';
 import 'get_user_repo.dart';
 
@@ -11,7 +11,7 @@ class GetUserDataRepoImpl implements SuperGetUserDataRepo {
   GetUserDataRepoImpl({required this.getUserDataDataSource});
 
   @override
-  Future<Either<Failure, LoginModel>> getUserData() async {
+  Future<Either<Failure, UserEntity>> getUserData() async {
     try {
       final userData = await getUserDataDataSource.getUserData();
       return Right(userData);
@@ -21,12 +21,13 @@ class GetUserDataRepoImpl implements SuperGetUserDataRepo {
   }
 
   @override
-  Future<Either<Failure, LoginModel>> UpdateUserData(
-      {required String name,
-      required String email,
-      required String phone}) async {
+  Future<Either<Failure, UserEntity>> UpdateUserData({
+    required String name,
+    required String email,
+    required String phone,
+  }) async {
     try {
-      final userData = await getUserDataDataSource.UpdateUserData(
+      final userData = await getUserDataDataSource.updateUserData(
           name: name, email: email, phone: phone);
       return Right(userData);
     } catch (error) {

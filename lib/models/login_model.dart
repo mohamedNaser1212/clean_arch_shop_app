@@ -5,18 +5,25 @@ class LoginModel extends UserEntity {
   String? message;
   UserData? data;
 
-  LoginModel({this.status, this.message, this.data})
-      : super(
-          name: data?.name ?? '',
-          email: data?.email ?? '',
-          phone: data?.phone ?? '',
-        );
+  LoginModel({
+    required String name,
+    required String email,
+    required String phone,
+    required String token,
+    this.status,
+    this.message,
+    this.data,
+  }) : super(name: name, email: email, phone: phone, token: token);
 
-  factory LoginModel.fromJson(dynamic json) {
+  factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
       status: json['status'],
       message: json['message'],
       data: json['data'] != null ? UserData.fromJson(json['data']) : null,
+      name: json['data']?['name'] ?? '',
+      email: json['data']?['email'] ?? '',
+      phone: json['data']?['phone'] ?? '',
+      token: json['data']?['token'] ?? '',
     );
   }
 }
@@ -31,15 +38,16 @@ class UserData {
   int? credit;
   String? token;
 
-  UserData(
-      {this.id,
-      this.name,
-      this.email,
-      this.phone,
-      this.image,
-      this.points,
-      this.credit,
-      this.token});
+  UserData({
+    this.id,
+    this.name,
+    this.email,
+    this.phone,
+    this.image,
+    this.points,
+    this.credit,
+    this.token,
+  });
 
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(

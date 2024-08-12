@@ -22,13 +22,13 @@ class SettingsScreen extends StatelessWidget {
             ..getUserData(),
       child: BlocConsumer<UserDataCubit, GetUserDataState>(
         listener: (context, state) {
-          if (state is GetUserDataError) {
+          if (state is UpdateUserDataError) {
             Fluttertoast.showToast(
               msg: 'could not get user data, please try again later',
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
-              backgroundColor: Colors.green,
+              backgroundColor: Colors.redAccent,
               textColor: Colors.white,
               fontSize: 16.0,
             );
@@ -47,9 +47,9 @@ class SettingsScreen extends StatelessWidget {
         builder: (context, state) {
           final model = UserDataCubit.get(context).userModel;
           if (model != null) {
-            nameController.text = model.data?.name ?? '';
-            emailController.text = model.data?.email ?? '';
-            phoneController.text = model.data?.phone ?? '';
+            nameController.text = model.name ?? '';
+            emailController.text = model.email ?? '';
+            phoneController.text = model.phone ?? '';
           }
           return Padding(
             padding: const EdgeInsets.all(20.0),

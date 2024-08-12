@@ -7,7 +7,7 @@ class GetUserDataInitial extends GetUserDataState {}
 class GetUserDataLoading extends GetUserDataState {}
 
 class GetUserDataSuccess extends GetUserDataState {
-  final LoginModel loginModel;
+  final UserEntity loginModel;
   GetUserDataSuccess(this.loginModel);
 }
 
@@ -17,7 +17,7 @@ class GetUserDataError extends GetUserDataState {
 }
 
 class UpdateUserDataSuccess extends GetUserDataState {
-  final LoginModel loginModel;
+  final UserEntity loginModel;
   UpdateUserDataSuccess(this.loginModel);
 }
 
