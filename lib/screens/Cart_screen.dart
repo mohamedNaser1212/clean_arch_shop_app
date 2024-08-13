@@ -178,6 +178,7 @@ import 'package:shop_app/screens/products_details_screen.dart';
 import '../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import '../core/widgets/reusable_widgets.dart';
+import '../payment_gate_way/stripe_payment/payment_manager.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -233,6 +234,12 @@ class CartScreen extends StatelessWidget {
                         color: Colors.red,
                       ),
                     ),
+                    const SizedBox(height: 8),
+                    reusableElevatedButton(
+                        label: 'CheckOut',
+                        function: () {
+                          PaymentManager.makePayment(total!.toInt(), 'EGP');
+                        })
                   ],
                 ),
               ),
