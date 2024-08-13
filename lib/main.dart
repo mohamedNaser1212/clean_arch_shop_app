@@ -46,10 +46,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) => getIt<ShopCubit>()
+              ..getCartItems()
               ..getHomeData()
               ..getCategoriesData()
-              ..getFavorites()
-              ..getCartItems()),
+              ..getFavorites()),
         BlocProvider(
           create: (context) => getIt<LoginCubit>(),
         ),

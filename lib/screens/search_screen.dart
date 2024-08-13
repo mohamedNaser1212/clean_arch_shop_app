@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/manager/search_cubit/search_cubit.dart';
-import 'package:shop_app/core/widgets/reusable_widgets.dart';
 import 'package:shop_app/screens/products_details_screen.dart';
 
 import '../Features/home/domain/use_case/search_use_case/fetch_search_use_case.dart';
 import '../core/utils/funactions/set_up_service_locator.dart';
+import '../core/widgets/reusable_widgets.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});

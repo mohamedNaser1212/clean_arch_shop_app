@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:shop_app/Features/home/domain/use_case/carts_use_case/fetch_cart_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/carts_use_case/toggle_cart_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
@@ -7,8 +8,6 @@ import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/toggle_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/products_use_case/fetch_products_use_case.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import 'package:shop_app/models/changeCartModel.dart';
-import 'package:shop_app/models/favoutits_model.dart';
 import 'package:shop_app/screens/Cart_screen.dart';
 import 'package:shop_app/screens/favorites_screen.dart';
 import 'package:shop_app/screens/products_screen.dart';
@@ -57,21 +56,15 @@ class ShopCubit extends Cubit<ShopStates> {
     const CartScreen(),
     SettingsScreen(),
   ];
-  num? get cartSubtotal {
-    if (cartModel == null) return 0;
-    return cartModel!.fold(
-      0,
-      (sum, item) => sum! + (item.price ?? 0) * (1),
-    );
+
+  num get cartSubtotal {
+    return cartModel?.fold(0, (sum, item) => sum! + (item.price ?? 0)) ?? 0;
   }
 
-  num? get cartTotal {
-    if (cartModel == null) return 0;
-    return cartSubtotal;
-  }
+  num get cartTotal => cartSubtotal;
 
   List<BottomNavigationBarItem> get bottomNavigationBarItems {
-    final items = [
+    return [
       const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
       const BottomNavigationBarItem(
           icon: Icon(Icons.apps), label: 'Categories'),
@@ -82,7 +75,6 @@ class ShopCubit extends Cubit<ShopStates> {
       const BottomNavigationBarItem(
           icon: Icon(Icons.settings), label: 'Settings'),
     ];
-    return items;
   }
 
   void changeScreen(int index) {
@@ -93,7 +85,6 @@ class ShopCubit extends Cubit<ShopStates> {
   Future<void> getHomeData() async {
     emit(ShopLoadingHomeDataState());
 
-    // Try to fetch from cache first
     final cachedProducts = await loadProducts(kProductsBox);
     if (cachedProducts.isNotEmpty) {
       homeModel = cachedProducts;
@@ -102,7 +93,6 @@ class ShopCubit extends Cubit<ShopStates> {
       emit(ShopSuccessHomeDataState(cachedProducts));
     }
 
-    // Fetch from API if not available in cache
     final result = await fetchProductsUseCase.call();
     result.fold(
       (failure) {
@@ -142,26 +132,6 @@ class ShopCubit extends Cubit<ShopStates> {
     );
   }
 
-  // void getCategoriesData() async {
-  //   emit(ShopLoadingCategoriesDataState());
-  //   categoriesModel = [];
-  //   final result = await categoriesUseCase.call();
-  //   result.fold(
-  //     (failure) {
-  //       print('Failed to fetch categories: $failure');
-  //       emit(ShopErrorCategoriesDataState());
-  //     },
-  //     (categories) {
-  //       categoriesModel = categories;
-  //       print('Fetched categories: $categoriesModel');
-  //       emit(ShopSuccessCategoriesDataState(categories));
-  //     },
-  //   );
-  // }
-
-  List<AddToCartEntity> getCartModel = [];
-  ChangeCartModel? changeCartModel;
-
   Future<void> getCartItems() async {
     emit(ShopGetCartItemsLoadingState());
     final result = await fetchCarUseCase.call();
@@ -195,10 +165,28 @@ class ShopCubit extends Cubit<ShopStates> {
     );
   }
 
+  Future<Box<AddToCartEntity>> _openCartBox() async {
+    if (!Hive.isBoxOpen(kCartBox)) {
+      return await Hive.openBox<AddToCartEntity>(kCartBox);
+    }
+    return Hive.box<AddToCartEntity>(kCartBox);
+  }
+
+  ProductEntity? product;
+
+  List<num> prodId = [];
+  Future<void> clearCartCache() async {
+    var box = await _openCartBox();
+    await box.clear();
+    prodId.clear();
+    carts.clear();
+
+    carts = {for (var p in cartModel!) p.id!: false};
+
+    emit(ShopCartClearedState());
+  }
+
   List<FavouritesEntity> getFavouritesModel = [];
-
-  ChangeFavouriteModel? changeFavouriteModel;
-
   Future<void> getFavorites() async {
     emit(ShopGetFavoritesLoadingState());
 
@@ -211,7 +199,6 @@ class ShopCubit extends Cubit<ShopStates> {
       (favourites) {
         getFavouritesModel = favourites;
         favorites = {for (var p in favourites) p.id!: true};
-        print('Fetched favorites: $getFavouritesModel');
         emit(ShopGetFavoritesSuccessState());
       },
     );

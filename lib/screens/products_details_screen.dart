@@ -28,17 +28,7 @@ class ProductsDetailsScreen extends StatelessWidget {
     final description = model.description ?? 'No description available';
 
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {
-        if (state is ShopAddCartItemsSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Added to Cart!')),
-          );
-        } else if (state is ShopRemoveCartItemsSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Removed from Cart!')),
-          );
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final cubit = ShopCubit.get(context);
         final isInCart = carts[model.id] ?? false;

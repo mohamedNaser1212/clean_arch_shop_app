@@ -77,6 +77,8 @@ class ShopGetUserDataSuccessState extends ShopStates {
   ShopGetUserDataSuccessState(this.userModel);
 }
 
+class ShopCartClearedState extends ShopStates {}
+
 class ShopGetUserDataErrorState extends ShopStates {}
 
 class ShopGetUserDataLoadingState extends ShopStates {}
