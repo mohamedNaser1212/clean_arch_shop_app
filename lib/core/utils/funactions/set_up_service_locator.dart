@@ -19,6 +19,7 @@ import 'package:shop_app/Features/home/data/repos/register_repo/register_repo.da
 import 'package:shop_app/Features/home/data/repos/register_repo/register_repo_impl.dart';
 import 'package:shop_app/Features/home/data/repos/search_repo/search_repo.dart';
 import 'package:shop_app/Features/home/data/repos/search_repo/search_repo_impl.dart';
+import 'package:shop_app/Features/home/domain/use_case/carts_use_case/remove_from_cart.dart';
 import 'package:shop_app/Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/get_user_data_use_case/get_user_data_use_case.dart';
@@ -143,6 +144,10 @@ void setUpServiceLocator() {
       cartRepo: getIt<CartRepo>(),
     );
 
+    final removeCartUseCase = RemoveFromCart(
+      getIt<CartRepo>(),
+    );
+
     return ShopCubit(
       fetchProductsUseCase,
       fetchCategoriesUseCase,
@@ -150,6 +155,7 @@ void setUpServiceLocator() {
       toggleFavouriteUseCase,
       toggleCartUseCase,
       fetchCartUseCase,
+      removeCartUseCase,
     );
   });
 }

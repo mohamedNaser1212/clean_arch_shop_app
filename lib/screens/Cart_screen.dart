@@ -14,7 +14,9 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        // Add any necessary listeners for specific states if required
+      },
       builder: (context, state) {
         var cartModel = ShopCubit.get(context).cartModel;
         var subtotal = ShopCubit.get(context).cartSubtotal;
@@ -42,7 +44,7 @@ class CartScreen extends StatelessWidget {
               CartCheckoutData(
                 subtotal: subtotal,
                 total: total,
-                cartModel: cartModel,
+                cartModel: cartModel, // Pass the cartModel to CartCheckoutData
               ),
             ],
           ),

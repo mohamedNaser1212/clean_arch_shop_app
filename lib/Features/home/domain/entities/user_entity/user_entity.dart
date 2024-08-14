@@ -11,8 +11,7 @@ class UserEntity {
   @HiveField(2)
   final String phone;
   @HiveField(3)
-  final String token; // Add this field if it's part of the API response
-
+  final String token;
   UserEntity({
     required this.name,
     required this.email,

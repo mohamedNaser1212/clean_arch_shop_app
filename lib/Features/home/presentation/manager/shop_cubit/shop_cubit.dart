@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:shop_app/Features/home/domain/use_case/carts_use_case/fetch_cart_use_case.dart';
+import 'package:shop_app/Features/home/domain/use_case/carts_use_case/remove_from_cart.dart';
 import 'package:shop_app/Features/home/domain/use_case/carts_use_case/toggle_cart_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/categories_use_case/fetch_categories_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/favourites_use_case/fetch_favourites_use_case.dart';
@@ -32,6 +34,7 @@ class ShopCubit extends Cubit<ShopStates> {
     this.toggleFavouriteUseCase,
     this.addToCartUseCase,
     this.fetchCarUseCase,
+    this.removeFromCartUseCase,
   ) : super(ShopInitialState());
 
   static ShopCubit get(context) => BlocProvider.of(context);
@@ -40,13 +43,14 @@ class ShopCubit extends Cubit<ShopStates> {
 
   List<ProductEntity>? homeModel;
   List<CategoriesEntity>? categoriesModel;
-  List<AddToCartEntity>? cartModel;
+  List<AddToCartEntity> cartModel = [];
 
   final FetchProductsUseCase fetchProductsUseCase;
   final FetchCategoriesUseCase categoriesUseCase;
   final FetchFavouritesUseCase fetchFavouritesUseCase;
   final ToggleFavouriteUseCase toggleFavouriteUseCase;
   final ToggleCartUseCase addToCartUseCase;
+  final RemoveFromCart removeFromCartUseCase;
   final FetchCartUseCase fetchCarUseCase;
 
   List<Widget> screens = [
@@ -165,26 +169,107 @@ class ShopCubit extends Cubit<ShopStates> {
     );
   }
 
-  Future<Box<AddToCartEntity>> _openCartBox() async {
-    if (!Hive.isBoxOpen(kCartBox)) {
-      return await Hive.openBox<AddToCartEntity>(kCartBox);
+  Future<bool> changeCartsList(List<num> prodIds) async {
+    emit(ShopChangeCartLoadingState());
+
+    try {
+      bool allRemoved = true;
+      for (var prodId in prodIds) {
+        final result = await removeFromCartUseCase.call(prodId);
+        if (result.isLeft()) {
+          print('Failed to remove item with id $prodId');
+          allRemoved = false;
+          // You can handle the failure scenario for individual items here if needed
+        }
+      }
+
+      if (allRemoved) {
+        // Refresh cart items after successful removal
+        await getCartItems();
+        emit(ShopChangeCartSuccessState());
+        return true;
+      } else {
+        emit(ShopAddCartItemsErrorState(
+            "Failed to remove some items from the cart"));
+        return false;
+      }
+    } catch (e) {
+      print('Error in changeCartsList: $e');
+      emit(ShopAddCartItemsErrorState(e.toString()));
+      return false;
     }
-    return Hive.box<AddToCartEntity>(kCartBox);
   }
+
+  // Future<bool> changeCartsList(List<AddToCartEntity> prodId) async {
+  //   emit(ShopChangeCartLoadingState());
+  //
+  //   try {
+  //     final result = await removeFromCartUseCase.call();
+  //     final bool success = result.fold(
+  //       (failure) {
+  //         print('Failed to remove cart items: $failure');
+  //         emit(ShopAddCartItemsErrorState(failure.toString()));
+  //         return false;
+  //       },
+  //       (isRemoved) {
+  //         return true;
+  //       },
+  //     );
+  //
+  //     return success;
+  //   } catch (e) {
+  //     print('Error in changeCartsList: $e');
+  //     emit(ShopAddCartItemsErrorState(e.toString()));
+  //     return false;
+  //   }
+  // }
+  //
+//  make a function to remove cart items from cach and server and from the product list
+//   Future<bool> changeCartsList(List<AddToCartEntity> prodId) async {
+//     emit(ShopChangeCartLoadingState());
+//
+//     try {
+//       final result =
+//           await removeFromCartUseCase.call(prodId.map((e) => e.id!).toList());
+//       final bool success = result.fold(
+//         (failure) {
+//           print('Failed to remove cart items: $failure');
+//           emit(ShopAddCartItemsErrorState(failure.toString()));
+//           return false;
+//         },
+//         (isRemoved) {
+//           return true;
+//         },
+//       );
+//
+//       return success;
+//     } catch (e) {
+//       print('Error in changeCartsList: $e');
+//       emit(ShopAddCartItemsErrorState(e.toString()));
+//       return false;
+//     }
+//   }
+
+  // Future<dynamic> changeCartsList(List<num> prodId) async {
+  //   emit(ShopChangeCartLoadingState());
+  //
+  //   final result = await addToCartUseCase.call(prodId);
+  //   result.fold(
+  //     (failure) {
+  //       print('Failed to add/remove cart items: $failure');
+  //       emit(ShopAddCartItemsErrorState(failure.toString()));
+  //     },
+  //     (isAdded) async {
+  //       for (var id in prodId) {
+  //         carts[id] = !(carts[id] ?? false);
+  //       }
+  //       await getCartItems();
+  //       emit(ShopChangeCartSuccessState());
+  //     },
+  //   );
+  // }
 
   ProductEntity? product;
-
-  List<num> prodId = [];
-  Future<void> clearCartCache() async {
-    var box = await _openCartBox();
-    await box.clear();
-    prodId.clear();
-    carts.clear();
-
-    carts = {for (var p in cartModel!) p.id!: false};
-
-    emit(ShopCartClearedState());
-  }
 
   List<FavouritesEntity> getFavouritesModel = [];
   Future<void> getFavorites() async {

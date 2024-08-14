@@ -115,7 +115,7 @@ class Products extends ProductEntity {
           images: images,
           description: description,
           inFavorites: inFavorites,
-          inCart: inCart,
+          inCart: inCart!,
         );
 
   Products.fromJson(Map<String, dynamic> json)
@@ -137,5 +137,5 @@ class Products extends ProductEntity {
 
   String description;
   bool inFavorites;
-  bool? inCart;
+  bool inCart;
 }

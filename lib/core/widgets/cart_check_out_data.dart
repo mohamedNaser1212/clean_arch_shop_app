@@ -7,13 +7,13 @@ import '../../payment_gate_way/stripe_payment/payment_manager.dart';
 class CartCheckoutData extends StatelessWidget {
   final num? subtotal;
   final num? total;
-  final List<AddToCartEntity> cartModel;
+  final List<AddToCartEntity>? cartModel;
 
   const CartCheckoutData({
     super.key,
     required this.subtotal,
     required this.total,
-    required this.cartModel,
+    this.cartModel, // Changed to nullable
   });
 
   @override
@@ -43,12 +43,14 @@ class CartCheckoutData extends StatelessWidget {
           reusableElevatedButton(
             label: 'CheckOut',
             function: () {
-              PaymentManager.makePayment(
-                total!.toInt(),
-                'EGP',
-                context,
-                cartModel,
-              );
+              if (cartModel != null) {
+                PaymentManager.makePayment(
+                  total!.toInt(),
+                  'EGP',
+                  context,
+                  cartModel!,
+                );
+              }
             },
           )
         ],

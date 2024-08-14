@@ -29,4 +29,15 @@ class CartsRepoImpl extends CartRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<AddToCartEntity>>> removeCarts(
+      num products) async {
+    try {
+      final result = await getCartsDataSource.removeCarts(products);
+      return result;
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

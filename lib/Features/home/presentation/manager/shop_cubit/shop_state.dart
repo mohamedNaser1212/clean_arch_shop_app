@@ -175,3 +175,19 @@ class ShopRemoveCartItemsErrorState extends ShopStates {
 }
 
 class ShopRemoveCartItemsLoadingState extends ShopStates {}
+
+class ShopCartItemsRemovedState extends ShopStates {}
+
+class ShopClearCartLoadingState extends ShopStates {}
+
+class ShopClearCartSuccessState extends ShopStates {
+  final bool isCleared;
+
+  ShopClearCartSuccessState(this.isCleared);
+}
+
+class ShopClearCartErrorState extends ShopStates {
+  final String error;
+
+  ShopClearCartErrorState(this.error);
+}
