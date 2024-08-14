@@ -13,35 +13,45 @@ class LayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        // Handle state changes if necessary
+      },
       builder: (context, state) {
         var cubit = ShopCubit.get(context);
 
         return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text('Shop App', style: TextStyle(color: defaultColor)),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  navigateTo(context: context, screen: SearchScreen());
-                },
-                icon: Icon(
-                  Icons.search,
-                  color: defaultColor,
-                ),
-              ),
-            ],
-          ),
+          appBar: _buildAppBar(context),
           body: cubit.screens[cubit.currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            items: cubit.bottomNavigationBarItems,
-            currentIndex: cubit.currentIndex,
-            onTap: (index) {
-              cubit.changeScreen(index);
-            },
-          ),
+          bottomNavigationBar: _buildBottomNavigationBar(cubit),
         );
+      },
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      title: Text('Shop App', style: TextStyle(color: defaultColor)),
+      actions: [
+        IconButton(
+          onPressed: () {
+            navigateTo(context: context, screen: SearchScreen());
+          },
+          icon: Icon(
+            Icons.search,
+            color: defaultColor,
+          ),
+        ),
+      ],
+    );
+  }
+
+  BottomNavigationBar _buildBottomNavigationBar(ShopCubit cubit) {
+    return BottomNavigationBar(
+      items: cubit.bottomNavigationBarItems,
+      currentIndex: cubit.currentIndex,
+      onTap: (index) {
+        cubit.changeScreen(index);
       },
     );
   }

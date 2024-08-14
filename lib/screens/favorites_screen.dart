@@ -29,27 +29,39 @@ class FavoritesScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        var favouritesModel = ShopCubit.get(context).getFavouritesModel;
-        if (favouritesModel.isEmpty) {
-          return const Center(
-            child: Text('Sorry, there are no favourites to show'),
-          );
-        }
-        return ConditionalBuilder(
-          condition: state is! ShopGetFavoritesLoadingState &&
-              state is! ShopToggleFavoriteLoadingState,
-          builder: (context) => ListView.separated(
-            itemBuilder: (context, index) =>
-                FavoriteItem(model: favouritesModel[index]),
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: favouritesModel.length,
-          ),
-          fallback: (context) => Center(
-            child:
-                LoadingAnimationWidget.waveDots(color: Colors.grey, size: 90),
-          ),
-        );
+        return _FavoritesScreenContent(state: state);
       },
+    );
+  }
+}
+
+class _FavoritesScreenContent extends StatelessWidget {
+  final ShopStates state;
+
+  const _FavoritesScreenContent({required this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    var favouritesModel = ShopCubit.get(context).getFavouritesModel;
+
+    if (favouritesModel.isEmpty) {
+      return const Center(
+        child: Text('Sorry, there are no favourites to show'),
+      );
+    }
+
+    return ConditionalBuilder(
+      condition: state is! ShopGetFavoritesLoadingState &&
+          state is! ShopToggleFavoriteLoadingState,
+      builder: (context) => ListView.separated(
+        itemBuilder: (context, index) =>
+            FavoriteItem(model: favouritesModel[index]),
+        separatorBuilder: (context, index) => const Divider(),
+        itemCount: favouritesModel.length,
+      ),
+      fallback: (context) => Center(
+        child: LoadingAnimationWidget.waveDots(color: Colors.grey, size: 90),
+      ),
     );
   }
 }

@@ -43,6 +43,7 @@ abstract class PaymentManager {
 
   static Future<String> _getClientSecret(String amount, String currency) async {
     Dio dio = Dio();
+
     var response = await dio.post(
       'https://api.stripe.com/v1/payment_intents',
       options: Options(

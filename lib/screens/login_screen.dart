@@ -11,9 +11,11 @@ import '../core/widgets/reusable_widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  var formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -23,158 +25,144 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       child: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
-          // if (state is AppLoginSuccessState) {
-          //   if (state.loginModel.status!) {
-          //     Fluttertoast.showToast(
-          //         msg: state.loginModel.message!,
-          //         toastLength: Toast.LENGTH_LONG,
-          //         gravity: ToastGravity.CENTER,
-          //         timeInSecForIosWeb: 5,
-          //         backgroundColor: Colors.green,
-          //         textColor: Colors.white,
-          //         fontSize: 16.0);
-          //     CacheHelper.saveData(
-          //       key: 'token',
-          //       value: state.loginModel.data!.token,
-          //     );
-          //     navigateAndFinish(context: context, screen: const LayoutScreen());
-          //   } else {
-          //     print('before toast');
-          //     Fluttertoast.showToast(
-          //         msg: state.loginModel.message!,
-          //         toastLength: Toast.LENGTH_LONG,
-          //         gravity: ToastGravity.CENTER,
-          //         timeInSecForIosWeb: 5,
-          //         backgroundColor: Colors.red,
-          //         textColor: Colors.white,
-          //         fontSize: 16.0);
-          //     print('after toast');
-          //   }
-          // }
-        },
+        listener: _loginListener,
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
-            body: Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'LOGIN Screen',
-                          // style:
-                          //     Theme.of(context).textTheme.headline4?.copyWith(
-                          //           color: Colors.black,
-                          //         ),
-                        ),
-                        Text(
-                          'login now to browse our hot offers',
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Colors.grey,
-                                  ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        reusableTextFormField(
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'please enter your email address';
-                            }
-                            return null;
-                          },
-                          label: 'Email Address',
-                          prefix: const Icon(Icons.email_outlined),
-                          onTap: () {},
-                          //suffixPressed: () {  },
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        reusableTextFormField(
-                          // suffix: LoginCubit.get(context).suffix,
-
-                          controller: passwordController,
-                          keyboardType: TextInputType.visiblePassword,
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'please enter your password';
-                            }
-                            return null;
-                          },
-                          label: 'Password',
-                          obscure: LoginCubit.get(context).isPassword,
-                          onSubmit: (value) {
-                            if (formKey.currentState!.validate()) {
-                              LoginCubit.get(context).userLogin(
-                                email: emailController.text,
-                                password: passwordController.text,
-                                context: context,
-                              );
-                            }
-                          },
-                          onTap: () {},
-                          prefix: const Icon(Icons.lock_outline),
-                          //   suffixPressed: () {
-                          //   LoginCubit.get(context).changePasswordVisibility();
-                          // },
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        ConditionalBuilder(
-                          condition: state is! AppLoginLoadingState,
-                          builder: (context) => reusableElevatedButton(
-                            function: () {
-                              if (formKey.currentState!.validate()) {
-                                LoginCubit.get(context).userLogin(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  context: context,
-                                );
-                              }
-                            },
-                            label: 'login',
-                            width: double.infinity,
-                            height: 50,
-                            radius: 20,
-                          ),
-                          fallback: (context) =>
-                              const Center(child: CircularProgressIndicator()),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Don\'t have an account?'),
-                            TextButton(
-                                onPressed: () {
-                                  navigateTo(
-                                      context: context,
-                                      screen: RegisterScreen());
-                                },
-                                child: const Text('Register Now')),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            body: _buildBody(context, state),
           );
         },
       ),
+    );
+  }
+
+  void _loginListener(BuildContext context, LoginState state) {
+    // Implement listener logic if needed
+  }
+
+  Widget _buildBody(BuildContext context, LoginState state) {
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(context),
+                const SizedBox(height: 30),
+                _buildEmailField(),
+                const SizedBox(height: 15),
+                _buildPasswordField(context),
+                const SizedBox(height: 30),
+                _buildLoginButton(context, state),
+                const SizedBox(height: 15),
+                _buildRegisterPrompt(context),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'LOGIN Screen',
+        ),
+        Text(
+          'login now to browse our hot offers',
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Colors.grey,
+              ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmailField() {
+    return reusableTextFormField(
+      controller: emailController,
+      keyboardType: TextInputType.emailAddress,
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'please enter your email address';
+        }
+        return null;
+      },
+      label: 'Email Address',
+      prefix: const Icon(Icons.email_outlined),
+      onTap: () {},
+    );
+  }
+
+  Widget _buildPasswordField(BuildContext context) {
+    return reusableTextFormField(
+      controller: passwordController,
+      keyboardType: TextInputType.visiblePassword,
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'please enter your password';
+        }
+        return null;
+      },
+      label: 'Password',
+      obscure: LoginCubit.get(context).isPassword,
+      onSubmit: (value) {
+        if (formKey.currentState!.validate()) {
+          LoginCubit.get(context).userLogin(
+            email: emailController.text,
+            password: passwordController.text,
+            context: context,
+          );
+        }
+      },
+      prefix: const Icon(Icons.lock_outline),
+      onTap: () {},
+    );
+  }
+
+  Widget _buildLoginButton(BuildContext context, LoginState state) {
+    return ConditionalBuilder(
+      condition: state is! AppLoginLoadingState,
+      builder: (context) => reusableElevatedButton(
+        function: () {
+          if (formKey.currentState!.validate()) {
+            LoginCubit.get(context).userLogin(
+              email: emailController.text,
+              password: passwordController.text,
+              context: context,
+            );
+          }
+        },
+        label: 'login',
+        width: double.infinity,
+        height: 50,
+        radius: 20,
+      ),
+      fallback: (context) => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget _buildRegisterPrompt(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('Don\'t have an account?'),
+        TextButton(
+          onPressed: () {
+            navigateTo(
+              context: context,
+              screen: RegisterScreen(),
+            );
+          },
+          child: const Text('Register Now'),
+        ),
+      ],
     );
   }
 }

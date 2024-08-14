@@ -16,55 +16,67 @@ part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(this.registerUseCase) : super(RegisterInitial());
-  static RegisterCubit get(context) => BlocProvider.of(context);
+
+  static RegisterCubit get(BuildContext context) => BlocProvider.of(context);
+
+  final RegisterUseCase registerUseCase;
   LoginModel? loginModel;
   bool obsecurePassword = true;
   IconData suffixPasswordIcon = Icons.visibility_rounded;
-  void changePasswordVisability() {
-    obsecurePassword = !obsecurePassword;
-    suffixPasswordIcon = obsecurePassword
-        ? Icons.visibility_rounded
-        : Icons.visibility_off_rounded;
-    emit(RegisterChangePasswordVisability());
-  }
 
-  final RegisterUseCase registerUseCase;
+  // void changePasswordVisibility() {
+  //   obsecurePassword = !obsecurePassword;
+  //   suffixPasswordIcon = obsecurePassword
+  //       ? Icons.visibility_rounded
+  //       : Icons.visibility_off_rounded;
+  //   emit(RegisterChangePasswordVisibility());
+  // }
 
   Future<void> userRegister({
     required String email,
     required String password,
     required String name,
     required String phone,
-    BuildContext? context,
+    required BuildContext context,
   }) async {
     emit(RegisterLoadingState());
     var result = await registerUseCase.call(email, password, name, phone);
-    result.fold((failure) {
-      emit(RegisterErrorState(failure.message));
-      print(failure.message);
-    }, (loginModel) {
-      print('Register Success');
-      emit(RegisterSuccessState(loginModel: loginModel));
-      UserDataCubit.get(context).registerNewUser(loginModel);
-      CacheHelper.saveData(
-        key: 'token',
-        value: loginModel.data!.token,
-      );
-      token = loginModel.data!.token!;
-      navigateAndFinish(context: context, screen: const LayoutScreen());
-      ShopCubit.get(context).currentIndex = 0;
-      ShopCubit.get(context).getHomeData();
-      favorites.clear();
-      carts.clear();
-      Fluttertoast.showToast(
-        msg: 'Register Success',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    });
+
+    result.fold(
+      (failure) {
+        emit(RegisterErrorState(failure.message));
+        print(failure.message);
+      },
+      (loginModel) async {
+        print('Register Success');
+        emit(RegisterSuccessState(loginModel: loginModel));
+
+        // Check if context is still mounted before using it
+        if (context.mounted) {
+          await UserDataCubit.get(context).registerNewUser(loginModel);
+          await CacheHelper.saveData(
+            key: 'token',
+            value: loginModel.data!.token,
+          );
+          token = loginModel.data!.token!;
+          final shopCubit = ShopCubit.get(context);
+          shopCubit.currentIndex = 0;
+          navigateAndFinish(context: context, screen: const LayoutScreen());
+
+          shopCubit.getHomeData();
+          favorites.clear();
+          carts.clear();
+          Fluttertoast.showToast(
+            msg: 'Register Success',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+        }
+      },
+    );
   }
 }

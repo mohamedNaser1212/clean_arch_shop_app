@@ -99,7 +99,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     });
   }
 
-  void registerNewUser(LoginModel user) async {
+  registerNewUser(LoginModel user) async {
     await _clearUserData(); // Clear previous user data
     _saveUserData(user); // Save new user data
   }

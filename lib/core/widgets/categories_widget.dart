@@ -25,8 +25,11 @@ class CategoriesWidget extends StatelessWidget {
           condition: ShopCubit.get(context).categoriesModel != null,
           builder: (context) {
             var categoryModel = ShopCubit.get(context).categoriesModel;
-            return categoriesItemBuilder(
-                categoryModel!, context, itemHeight, itemWidth);
+            return CategoriesItemBuilder(
+                categoryModel: categoryModel!,
+                context: context,
+                itemHeight: itemHeight,
+                itemWidth: itemWidth);
           },
           fallback: (context) => const Center(child: Text('Loading...')),
         );
