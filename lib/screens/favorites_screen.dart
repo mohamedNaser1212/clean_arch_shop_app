@@ -51,7 +51,7 @@ class _FavoritesScreenContent extends StatelessWidget {
     }
 
     return ConditionalBuilder(
-      condition: state is! ShopGetFavoritesLoadingState &&
+      condition: state is! ShopChangeFavoritesLoadingState &&
           state is! ShopToggleFavoriteLoadingState,
       builder: (context) => ListView.separated(
         itemBuilder: (context, index) =>

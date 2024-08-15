@@ -26,6 +26,8 @@ class LoginCubit extends Cubit<LoginState> {
     emit(AppLoginLoadingState());
 
     var result = await loginUseCase?.call(email, password);
+    if (!context!.mounted) return;
+    ShopCubit.get(context).currentIndex = 0;
     result?.fold(
       (failure) {
         emit(AppLoginErrorState(failure.message));
@@ -50,7 +52,7 @@ class LoginCubit extends Cubit<LoginState> {
           value: loginModel.data!.token,
         );
         token = loginModel.data!.token!;
-        ShopCubit.get(context).currentIndex = 0;
+
         ShopCubit.get(context).getHomeData();
         ShopCubit.get(context).getCartItems();
         ShopCubit.get(context).getFavorites();

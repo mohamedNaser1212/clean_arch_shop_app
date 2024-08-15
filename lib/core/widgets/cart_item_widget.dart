@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/products_information_widget.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
 import '../../Features/home/domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
@@ -26,7 +27,7 @@ class CartItemWidget extends StatelessWidget {
           );
         },
         child: SizedBox(
-          height: 120,
+          height: 150s,
           child: Row(
             children: [
               Stack(
@@ -68,40 +69,7 @@ class CartItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      model.name ?? 'Unknown',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    Row(
-                      children: [
-                        Text(
-                          '\$${model.price?.round() ?? 0}',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        if (model.discount != 0)
-                          Text(
-                            '\$${model.oldPrice?.round() ?? 0}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              decoration: TextDecoration.lineThrough,
-                              color: Colors.grey,
-                            ),
-                          ),
-                      ],
-                    ),
+                    ProductInformationWidget(product: model),
                     const SizedBox(height: 3),
                     IconButton(
                       onPressed: () {

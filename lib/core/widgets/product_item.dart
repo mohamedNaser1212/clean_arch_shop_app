@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/core/widgets/products_information_widget.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
 import '../../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import '../../Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import '../../screens/products_details_screen.dart';
-import 'end_points.dart';
+import 'favourite_and_cart_icons.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -21,10 +22,6 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ShopCubit, ShopStates>(
       builder: (context, state) {
-        final cubit = ShopCubit.get(context);
-        final isFavorite = favorites[product.id] ?? false;
-        final isInCart = carts[product.id] ?? false;
-
         return InkWell(
           onTap: () {
             navigateTo(
@@ -62,72 +59,8 @@ class ProductItem extends StatelessWidget {
                         ),
                     ],
                   ),
-                  Text(
-                    product.name!,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 3),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          '${product.price!.round()}',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        if (product.discount != 0)
-                          Text(
-                            '${product.oldPrice!.round()}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              decoration: TextDecoration.lineThrough,
-                              color: Colors.grey,
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          cubit.changeFavourite(product.id);
-                        },
-                        icon: CircleAvatar(
-                          backgroundColor:
-                              isFavorite ? Colors.red : Colors.grey,
-                          radius: 15,
-                          child: const Icon(
-                            Icons.favorite,
-                            size: 15,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          cubit.changeCarts(product.id);
-                        },
-                        icon: CircleAvatar(
-                          backgroundColor: isInCart ? Colors.red : Colors.grey,
-                          radius: 15,
-                          child: const Icon(
-                            Icons.shopping_cart,
-                            size: 15,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  ProductInformationWidget(product: product),
+                  FavouriteAndCartIcons(product: product),
                 ],
               ),
             ),

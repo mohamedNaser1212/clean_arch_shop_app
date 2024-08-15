@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:shop_app/Features/home/domain/entities/user_entity/user_entity.dart';
 import 'package:shop_app/Features/home/domain/use_case/get_user_data_use_case/super_get_user_data_use_case.dart';
+import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/models/login_model.dart';
 
@@ -87,6 +88,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
   void signOut(BuildContext context) {
     favorites.clear();
     carts.clear();
+    ShopCubit.get(context).currentIndex = 0;
     _clearUserData().then((_) {
       CacheHelper.removeData(key: 'token').then((value) {
         if (value) {

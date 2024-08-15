@@ -284,7 +284,9 @@ class ShopCubit extends Cubit<ShopStates> {
       (favourites) {
         getFavouritesModel = favourites;
         favorites = {for (var p in favourites) p.id!: true};
-        emit(ShopGetFavoritesSuccessState());
+        emit(ShopGetFavoritesSuccessState(
+          getFavouritesModel,
+        ));
       },
     );
   }
@@ -320,17 +322,4 @@ class ShopCubit extends Cubit<ShopStates> {
   num? _selectedProductId;
 
   num? get selectedProductId => _selectedProductId;
-
-  void setSelectedProductId(num? productId) {
-    _selectedProductId = productId;
-    emit(ShopUpdateSelectedProductState());
-  }
-
-  void updateUserData({
-    required String name,
-    required String email,
-    required String phone,
-  }) {
-    emit(ShopUpdateUserDataLoadingState());
-  }
 }

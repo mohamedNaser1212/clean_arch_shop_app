@@ -1,4 +1,4 @@
-import 'package:shop_app/models/login_model.dart';
+import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 
 import '../../../../../models/favoutits_model.dart';
 import '../../../domain/entities/categories_entity/categories_entity.dart';
@@ -60,34 +60,18 @@ class ShopChangeFavoritesErrorState extends ShopStates {
   ShopChangeFavoritesErrorState([this.error]);
 }
 
+class ShopGetFavoritesLoadingState extends ShopStates {}
+
 class ShopGetFavoritesSuccessState extends ShopStates {
-  ShopGetFavoritesSuccessState();
+  final List<FavouritesEntity> favouritesModel;
+
+  ShopGetFavoritesSuccessState(this.favouritesModel);
 }
 
 class ShopGetFavoritesErrorState extends ShopStates {
   final String error;
 
   ShopGetFavoritesErrorState(this.error);
-}
-
-class ShopGetFavoritesLoadingState extends ShopStates {}
-
-class ShopGetUserDataSuccessState extends ShopStates {
-  LoginModel userModel;
-  ShopGetUserDataSuccessState(this.userModel);
-}
-
-class ShopCartClearedState extends ShopStates {}
-
-class ShopGetUserDataErrorState extends ShopStates {}
-
-class ShopGetUserDataLoadingState extends ShopStates {}
-
-class ShopUpdateUserDataLoadingState extends ShopStates {}
-
-class ShopUpdateUserDataSuccessState extends ShopStates {
-  LoginModel userModel;
-  ShopUpdateUserDataSuccessState(this.userModel);
 }
 
 class ShopUpdateUserDataErrorState extends ShopStates {}
@@ -106,8 +90,6 @@ class ShopChangeFavoriteSuccessState extends ShopStates {
   ShopChangeFavoriteSuccessState(this.isFavourite);
 }
 
-class ShopUpdateSelectedProductState extends ShopStates {}
-
 class ShopToggleFavoriteErrorState extends ShopStates {
   final String error;
 
@@ -123,12 +105,6 @@ class ShopGetCartItemsErrorState extends ShopStates {
 }
 
 class ShopGetCartItemsLoadingState extends ShopStates {}
-
-class ShopAddCartItemsSuccessState extends ShopStates {
-  final bool isAdded;
-
-  ShopAddCartItemsSuccessState(this.isAdded);
-}
 
 class ShopAddCartItemsErrorState extends ShopStates {
   final String error;
@@ -146,48 +122,4 @@ class ShopChangeCartErrorState extends ShopStates {
   final String? error;
 
   ShopChangeCartErrorState([this.error]);
-}
-
-class ShopChangeCartItemsSuccessState extends ShopStates {
-  final bool isAdded;
-
-  ShopChangeCartItemsSuccessState(this.isAdded);
-}
-
-class ShopChangeCartItemsErrorState extends ShopStates {
-  final String error;
-
-  ShopChangeCartItemsErrorState(this.error);
-}
-
-class ShopChangeCartItemsLoadingState extends ShopStates {}
-
-class ShopRemoveCartItemsSuccessState extends ShopStates {
-  final bool isRemoved;
-
-  ShopRemoveCartItemsSuccessState(this.isRemoved);
-}
-
-class ShopRemoveCartItemsErrorState extends ShopStates {
-  final String error;
-
-  ShopRemoveCartItemsErrorState(this.error);
-}
-
-class ShopRemoveCartItemsLoadingState extends ShopStates {}
-
-class ShopCartItemsRemovedState extends ShopStates {}
-
-class ShopClearCartLoadingState extends ShopStates {}
-
-class ShopClearCartSuccessState extends ShopStates {
-  final bool isCleared;
-
-  ShopClearCartSuccessState(this.isCleared);
-}
-
-class ShopClearCartErrorState extends ShopStates {
-  final String error;
-
-  ShopClearCartErrorState(this.error);
 }

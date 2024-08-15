@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
+import 'package:shop_app/core/widgets/products_information_widget.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 import 'package:shop_app/screens/products_details_screen.dart';
 
 import '../../Features/home/domain/entities/favourites_entity/favourites_entity.dart';
-import '../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
+import 'favourite_and_cart_icons.dart';
 
 class FavoriteItem extends StatelessWidget {
   final FavouritesEntity model;
@@ -32,7 +33,7 @@ class FavoriteItem extends StatelessWidget {
           );
         },
         child: SizedBox(
-          height: 120,
+          height: 150,
           child: Row(
             children: [
               Stack(
@@ -71,77 +72,9 @@ class FavoriteItem extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      model.name ?? 'Unknown',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    Row(
-                      children: [
-                        Text(
-                          '${model.price?.round() ?? 0}',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        if (model.discount != 0)
-                          Text(
-                            '\$${model.oldPrice?.round() ?? 0}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              decoration: TextDecoration.lineThrough,
-                              color: Colors.grey,
-                            ),
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 3),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            ShopCubit.get(context).changeFavourite(model.id!);
-                          },
-                          icon: CircleAvatar(
-                            backgroundColor:
-                                isFavourite ? Colors.red : Colors.grey,
-                            radius: 15,
-                            child: const Icon(
-                              Icons.favorite,
-                              size: 15,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            ShopCubit.get(context).changeCarts(model.id!);
-                          },
-                          icon: CircleAvatar(
-                            backgroundColor: isCart ? Colors.red : Colors.grey,
-                            radius: 15,
-                            child: const Icon(
-                              Icons.add_shopping_cart,
-                              size: 15,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    ProductInformationWidget(product: model),
+                    FavouriteAndCartIcons(product: model),
                   ],
                 ),
               ),

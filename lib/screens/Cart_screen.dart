@@ -35,7 +35,7 @@ class _CartScreenContent extends StatelessWidget {
     var subtotal = ShopCubit.get(context).cartSubtotal;
     var total = ShopCubit.get(context).cartTotal;
 
-    if (cartModel == null || cartModel.isEmpty) {
+    if (cartModel.isEmpty) {
       return const Center(
         child: Text('Sorry, there are no items in the cart'),
       );
@@ -43,7 +43,7 @@ class _CartScreenContent extends StatelessWidget {
 
     return ConditionalBuilder(
       condition: state is! ShopGetCartItemsLoadingState &&
-          state is! ShopChangeCartItemsLoadingState,
+          state is! ShopChangeCartLoadingState,
       builder: (context) => Column(
         children: [
           Expanded(

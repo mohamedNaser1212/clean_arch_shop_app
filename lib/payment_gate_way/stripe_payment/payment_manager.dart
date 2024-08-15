@@ -15,10 +15,9 @@ abstract class PaymentManager {
       await _initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
 
-      // Collect all the item IDs to be removed
       List<num> itemIds = model.map((item) => item.id!).toList();
 
-      // Remove all items from the cart
+      if (!context.mounted) return;
       bool allRemoved = await ShopCubit.get(context).changeCartsList(itemIds);
 
       if (allRemoved) {

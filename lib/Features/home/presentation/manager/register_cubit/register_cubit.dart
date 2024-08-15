@@ -51,31 +51,36 @@ class RegisterCubit extends Cubit<RegisterState> {
         print('Register Success');
         emit(RegisterSuccessState(loginModel: loginModel));
 
-        // Check if context is still mounted before using it
-        if (context.mounted) {
-          await UserDataCubit.get(context).registerNewUser(loginModel);
-          await CacheHelper.saveData(
-            key: 'token',
-            value: loginModel.data!.token,
-          );
-          token = loginModel.data!.token!;
-          final shopCubit = ShopCubit.get(context);
-          shopCubit.currentIndex = 0;
-          navigateAndFinish(context: context, screen: const LayoutScreen());
+        // Ensure the context is still mounted before using it
+        if (!context.mounted) return;
 
-          shopCubit.getHomeData();
-          favorites.clear();
-          carts.clear();
-          Fluttertoast.showToast(
-            msg: 'Register Success',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-        }
+        await UserDataCubit.get(context).registerNewUser(loginModel);
+        await CacheHelper.saveData(
+          key: 'token',
+          value: loginModel.data!.token,
+        );
+        token = loginModel.data!.token!;
+        if (!context.mounted) return;
+        final shopCubit = ShopCubit.get(context);
+        shopCubit.currentIndex = 0;
+
+        // Ensure the context is still mounted before navigating
+        if (!context.mounted) return;
+
+        navigateAndFinish(context: context, screen: const LayoutScreen());
+
+        shopCubit.getHomeData();
+        favorites.clear();
+        carts.clear();
+        Fluttertoast.showToast(
+          msg: 'Register Success',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
       },
     );
   }
