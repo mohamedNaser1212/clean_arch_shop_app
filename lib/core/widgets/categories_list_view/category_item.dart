@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/end_points.dart';
 
-import '../../Features/home/domain/entities/categories_entity/categories_entity.dart';
+import '../../../Features/home/domain/entities/categories_entity/categories_entity.dart';
 
 Widget categoryItem(CategoriesEntity item, BuildContext context,
     double? itemHeight, double? itemWidth) {
@@ -33,9 +34,9 @@ Widget categoryItem(CategoriesEntity item, BuildContext context,
               item.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.white70,
+                color: whiteColor,
                 fontSize: 24,
               ),
             ),

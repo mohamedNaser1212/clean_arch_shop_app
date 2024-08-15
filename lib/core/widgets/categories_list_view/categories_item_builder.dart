@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 
-import '../../Features/home/domain/entities/categories_entity/categories_entity.dart';
+import '../../../Features/home/domain/entities/categories_entity/categories_entity.dart';
+import '../end_points.dart';
 import 'category_item.dart';
 
 class CategoriesItemBuilder extends StatelessWidget {
@@ -24,12 +26,11 @@ class CategoriesItemBuilder extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Categories',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w900,
-              ),
+            CustomTitle(
+              title: 'Categories',
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+              color: blackColor,
             ),
             const SizedBox(height: 10),
             SizedBox(

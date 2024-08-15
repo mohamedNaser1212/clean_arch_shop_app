@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/end_points.dart';
 
 class ProductInformationWidget extends StatelessWidget {
   const ProductInformationWidget({super.key, required this.product});
@@ -10,15 +11,15 @@ class ProductInformationWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 5,
-        ),
         Text(
           product.name!,
           maxLines: 2,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
           overflow: TextOverflow.ellipsis,
         ),
-        const SizedBox(height: 3),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -28,6 +29,8 @@ class ProductInformationWidget extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
                 ),
               ),
@@ -37,10 +40,10 @@ class ProductInformationWidget extends StatelessWidget {
                   '${product.oldPrice!.round()}',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: TextStyle(
+                    fontSize: 14,
                     decoration: TextDecoration.lineThrough,
-                    color: Colors.grey,
+                    color: blackColor,
                   ),
                 ),
             ],

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../Features/home/domain/entities/categories_entity/categories_entity.dart';
+import '../../../Features/home/domain/entities/categories_entity/categories_entity.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoriesEntity category;

@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 
-class SectionTitle extends StatelessWidget {
+class CustomTitle extends StatelessWidget {
   final String title;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final Color color;
 
-  const SectionTitle({required this.title, Key? key}) : super(key: key);
+  const CustomTitle(
+      {required this.title,
+      Key? key,
+      required this.fontSize,
+      required this.fontWeight,
+      required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w900,
+      style: TextStyle(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color,
       ),
     );
   }

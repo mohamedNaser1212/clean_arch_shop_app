@@ -5,8 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 
-import '../core/widgets/favourite_item.dart';
+import '../core/widgets/end_points.dart';
+import '../core/widgets/favourites_widgets/favourite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
@@ -45,9 +47,13 @@ class _FavoritesScreenContent extends StatelessWidget {
     var favouritesModel = ShopCubit.get(context).getFavouritesModel;
 
     if (favouritesModel.isEmpty) {
-      return const Center(
-        child: Text('Sorry, there are no favourites to show'),
-      );
+      return Center(
+          child: CustomTitle(
+        title: 'Sorry, there are no favourites to show',
+        fontSize: 16,
+        color: blackColor,
+        fontWeight: FontWeight.w500,
+      ));
     }
 
     return ConditionalBuilder(

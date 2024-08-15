@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 
-import '../../Features/home/presentation/manager/shop_cubit/shop_state.dart';
+import '../../../Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import 'categories_item_builder.dart';
 
 class CategoriesWidget extends StatelessWidget {

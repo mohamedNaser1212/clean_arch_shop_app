@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
-import '../../Features/home/presentation/manager/get_user_data_cubit/get_user_data_cubit.dart';
+import '../../../Features/home/presentation/manager/get_user_data_cubit/get_user_data_cubit.dart';
 
 class SettingsForm extends StatelessWidget {
   final TextEditingController nameController;
@@ -78,14 +78,14 @@ class SettingsForm extends StatelessWidget {
             ),
             const SizedBox(height: 20.0),
             reusableElevatedButton(
-              label: 'LOGOUT',
+              label: 'Sign Out',
               function: () {
                 UserDataCubit.get(context).signOut(context);
               },
             ),
             const SizedBox(height: 20.0),
             reusableElevatedButton(
-              label: 'UPDATE',
+              label: 'Update',
               backColor: Colors.red,
               function: () {
                 if (formKey.currentState!.validate()) {

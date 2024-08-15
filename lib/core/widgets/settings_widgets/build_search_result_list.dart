@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
-import '../../Features/home/presentation/manager/search_cubit/search_cubit.dart';
-import '../../screens/products_details_screen.dart';
+import '../../../Features/home/presentation/manager/search_cubit/search_cubit.dart';
+import '../../../screens/products_details_screen.dart';
+import '../custom_title.dart';
 
 class BuildSearchResultList extends StatelessWidget {
   const BuildSearchResultList({super.key});
@@ -36,22 +38,18 @@ class BuildSearchResultList extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: 200,
-                        child: Text(
-                          result.name!,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: CustomTitle(
+                          title: result.name!,
+                          fontSize: 20,
+                          color: blackColor,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                      Text(
-                        result.price.toString(),
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      CustomTitle(
+                        title: result.price.toString(),
+                        fontSize: 20,
+                        color: blackColor,
+                        fontWeight: FontWeight.bold,
                       ),
                     ],
                   ),

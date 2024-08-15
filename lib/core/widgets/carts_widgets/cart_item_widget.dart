@@ -1,25 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
-import 'package:shop_app/core/widgets/products_information_widget.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/products_widgets/products_information_widget.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
-import 'package:shop_app/screens/products_details_screen.dart';
 
-import '../../Features/home/domain/entities/favourites_entity/favourites_entity.dart';
-import 'favourite_and_cart_icons.dart';
+import '../../../Features/home/domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
+import '../../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
+import '../../../screens/products_details_screen.dart';
+import '../end_points.dart';
 
-class FavoriteItem extends StatelessWidget {
-  final FavouritesEntity model;
+class CartItemWidget extends StatelessWidget {
+  final AddToCartEntity model;
 
-  const FavoriteItem({
-    required this.model,
-    Key? key,
-  }) : super(key: key);
+  const CartItemWidget({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
-    var isFavourite = favorites[model.id!] ?? false;
-    var isCart = carts[model.id!] ?? false;
+    var cartItem = carts[model.id] ?? false;
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -27,9 +24,7 @@ class FavoriteItem extends StatelessWidget {
         onTap: () {
           navigateTo(
             context: context,
-            screen: ProductsDetailsScreen(
-              model: model,
-            ),
+            screen: ProductsDetailsScreen(model: model),
           );
         },
         child: SizedBox(
@@ -58,13 +53,11 @@ class FavoriteItem extends StatelessWidget {
                     Container(
                       color: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.all(2),
-                      child: const Text(
-                        'DISCOUNT',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
+                      child: CustomTitle(
+                        title: 'DISCOUNT',
+                        fontSize: 12,
+                        color: whiteColor,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                 ],
@@ -72,9 +65,25 @@ class FavoriteItem extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ProductInformationWidget(product: model),
-                    FavouriteAndCartIcons(product: model),
+                    const SizedBox(height: 3),
+                    IconButton(
+                      onPressed: () {
+                        ShopCubit.get(context).changeCarts(model.id!);
+                      },
+                      icon: CircleAvatar(
+                        backgroundColor: cartItem ? Colors.red : Colors.grey,
+                        radius: 15,
+                        child: const Icon(
+                          Icons.add_shopping_cart,
+                          size: 15,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 const loginEndPoint = 'login';
 const homeEndPoint = 'home';
 const categoriesEndPoint = 'categories';
@@ -15,3 +17,5 @@ const cartEndPoint = 'carts';
 const kAddToCartBox = 'addToCart';
 Map<num, bool> favorites = {};
 Map<num, bool> carts = {};
+Color whiteColor = Colors.white;
+Color blackColor = Colors.black;

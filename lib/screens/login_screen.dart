@@ -1,12 +1,14 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 import 'package:shop_app/screens/register_screen.dart';
 
 import '../Features/home/data/repos/login_repo/login_repo.dart';
 import '../Features/home/domain/use_case/login_use_case/login_use_case.dart';
 import '../Features/home/presentation/manager/login_cubit/login_cubit.dart';
 import '../core/utils/funactions/set_up_service_locator.dart';
+import '../core/widgets/end_points.dart';
 import '../core/widgets/reusable_widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -71,8 +73,11 @@ class LoginScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'LOGIN Screen',
+        CustomTitle(
+          title: 'LOGIN Screen',
+          fontSize: 14,
+          color: blackColor,
+          fontWeight: FontWeight.w900,
         ),
         Text(
           'login now to browse our hot offers',
@@ -152,7 +157,12 @@ class LoginScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('Don\'t have an account?'),
+        CustomTitle(
+          title: 'Don\'t have an account?',
+          fontSize: 16,
+          color: blackColor,
+          fontWeight: FontWeight.w500,
+        ),
         TextButton(
           onPressed: () {
             navigateTo(
@@ -160,7 +170,12 @@ class LoginScreen extends StatelessWidget {
               screen: RegisterScreen(),
             );
           },
-          child: const Text('Register Now'),
+          child: const CustomTitle(
+            title: 'Register Now',
+            fontSize: 16,
+            color: Colors.blue,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );

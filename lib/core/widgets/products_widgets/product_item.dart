@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/core/widgets/products_information_widget.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/products_widgets/products_information_widget.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
-import '../../Features/home/domain/entities/products_entity/product_entity.dart';
-import '../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
-import '../../Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import '../../screens/products_details_screen.dart';
-import 'favourite_and_cart_icons.dart';
+import '../../../Features/home/domain/entities/products_entity/product_entity.dart';
+import '../../../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
+import '../../../Features/home/presentation/manager/shop_cubit/shop_state.dart';
+import '../../../screens/products_details_screen.dart';
+import '../end_points.dart';
+import '../favourites_widgets/favourite_and_cart_icons.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
@@ -48,13 +50,11 @@ class ProductItem extends StatelessWidget {
                         Container(
                           color: Theme.of(context).primaryColor,
                           padding: const EdgeInsets.all(2),
-                          child: const Text(
-                            'DISCOUNT',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
+                          child: CustomTitle(
+                            title: 'DISCOUNT',
+                            fontSize: 12,
+                            color: blackColor,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                     ],

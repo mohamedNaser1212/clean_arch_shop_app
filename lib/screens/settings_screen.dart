@@ -5,7 +5,7 @@ import 'package:shop_app/core/widgets/toast_widget.dart';
 
 import '../Features/home/domain/use_case/get_user_data_use_case/get_user_data_use_case.dart';
 import '../core/utils/funactions/set_up_service_locator.dart';
-import '../core/widgets/settings_form.dart';
+import '../core/widgets/settings_widgets/settings_form.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});

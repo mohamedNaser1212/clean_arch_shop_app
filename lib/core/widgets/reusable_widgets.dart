@@ -17,8 +17,8 @@ Widget reusableElevatedButton({
     height: height,
     child: ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(backColor),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        backgroundColor: WidgetStateProperty.all<Color>(backColor),
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
           ),
@@ -27,7 +27,7 @@ Widget reusableElevatedButton({
       onPressed: function,
       child: Text(
         label,
-        style: Styles.textStyle20.copyWith(color: textColor),
+        style: Styles.textStyle20.copyWith(color: textColor, fontSize: 20),
       ),
     ),
   );

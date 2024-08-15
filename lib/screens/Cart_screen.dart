@@ -2,11 +2,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/end_points.dart';
 
 import '../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
-import '../core/widgets/cart_check_out_data.dart';
-import '../core/widgets/cart_item_widget.dart';
+import '../core/widgets/carts_widgets/cart_check_out_data.dart';
+import '../core/widgets/carts_widgets/cart_item_widget.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -36,9 +38,12 @@ class _CartScreenContent extends StatelessWidget {
     var total = ShopCubit.get(context).cartTotal;
 
     if (cartModel.isEmpty) {
-      return const Center(
-        child: Text('Sorry, there are no items in the cart'),
-      );
+      return Center(
+          child: CustomTitle(
+              title: 'Sorry, there are no items in your cart',
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: blackColor));
     }
 
     return ConditionalBuilder(

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/manager/shop_cubit/shop_state.dart';
+import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/core/widgets/toast_widget.dart';
 
+import '../core/widgets/categories_list_view/product_screen_categories_widget.dart';
 import '../core/widgets/custom_title.dart';
 import '../core/widgets/loading_indicator.dart';
-import '../core/widgets/product_grid_view.dart';
-import '../core/widgets/product_screen_categories_widget.dart';
+import '../core/widgets/products_widgets/product_grid_view.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
@@ -44,11 +45,21 @@ Widget _buildProductsScreen(BuildContext context, ShopStates state) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle(title: 'Categories'),
+          CustomTitle(
+            title: 'Categories',
+            fontSize: 24,
+            color: blackColor,
+            fontWeight: FontWeight.w900,
+          ),
           const SizedBox(height: 10),
           CategoriesSection(categories: categoryModel),
           const SizedBox(height: 10),
-          const SectionTitle(title: 'New Products'),
+          CustomTitle(
+            title: 'New Products',
+            fontSize: 24,
+            color: blackColor,
+            fontWeight: FontWeight.w900,
+          ),
           ProductsGridView(products: homeModel),
         ],
       ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
-import '../../Features/home/domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
-import '../../payment_gate_way/stripe_payment/payment_manager.dart';
+import '../../../Features/home/domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
+import '../../../payment_gate_way/stripe_payment/payment_manager.dart';
 
 class CartCheckoutData extends StatelessWidget {
   final num? subtotal;
@@ -31,14 +32,11 @@ class CartCheckoutData extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'Total: \$${total?.toStringAsFixed(2) ?? '0.00'}',
-            style: const TextStyle(
+          CustomTitle(
+              title: 'Total: \$${total?.toStringAsFixed(2) ?? '0.00'}',
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.red,
-            ),
-          ),
+              color: Colors.red),
           const SizedBox(height: 8),
           reusableElevatedButton(
             label: 'CheckOut',

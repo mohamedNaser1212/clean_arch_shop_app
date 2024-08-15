@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/widgets/product_screen_categories_item.dart';
+import 'package:shop_app/core/widgets/categories_list_view/product_screen_categories_item.dart';
 
-import '../../Features/home/domain/entities/categories_entity/categories_entity.dart';
+import '../../../Features/home/domain/entities/categories_entity/categories_entity.dart';
 
 class CategoriesListView extends StatelessWidget {
   final List<CategoriesEntity> categories;

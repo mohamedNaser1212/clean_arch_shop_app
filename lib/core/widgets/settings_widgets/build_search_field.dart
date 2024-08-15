@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
-import '../../Features/home/presentation/manager/search_cubit/search_cubit.dart';
+import '../../../Features/home/presentation/manager/search_cubit/search_cubit.dart';
 
 class BuildSearchField extends StatelessWidget {
   BuildSearchField({super.key});
