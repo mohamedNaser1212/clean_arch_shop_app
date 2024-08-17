@@ -19,7 +19,7 @@ class CartsRepoImpl extends CartRepo {
       saveCarts(cart, kCartBox);
       return right(cart);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Right(await loadCarts(kCartBox));
     }
   }
 
@@ -27,6 +27,7 @@ class CartsRepoImpl extends CartRepo {
   Future<Either<Failure, bool>> toggleCart(num productIds) async {
     try {
       final result = await getCartsDataSource.toggleCarts(productIds);
+      await getCart();
       return right(result);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -38,6 +39,7 @@ class CartsRepoImpl extends CartRepo {
       num products) async {
     try {
       final result = await getCartsDataSource.removeCarts(products);
+      getCart();
       return right(result);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

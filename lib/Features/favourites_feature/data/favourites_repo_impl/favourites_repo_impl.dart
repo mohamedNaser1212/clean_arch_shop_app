@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-
+import 'package:shop_app/Features/favourites_feature/data/favourites_local_data_source/save_favourites.dart';
 import 'package:shop_app/core/errors/failure.dart';
+import 'package:shop_app/core/widgets/end_points.dart';
 
 import '../../domain/favourites_entity/favourites_entity.dart';
 import '../../domain/favourites_repo/favourites_repo.dart';
@@ -15,9 +16,10 @@ class FavouritesRepoImpl extends FavouritesRepo {
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites() async {
     try {
       final favourites = await getFavouritesDataSource.getFavourites();
-      return favourites;
+      saveFavourites(favourites, kFavouritesBox);
+      return right(favourites);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Right(await loadFavourites(kFavouritesBox));
     }
   }
 
@@ -25,7 +27,8 @@ class FavouritesRepoImpl extends FavouritesRepo {
   Future<Either<Failure, bool>> toggleFavourite(num productIds) async {
     try {
       final result = await getFavouritesDataSource.toggleFavourites(productIds);
-      return result;
+      await getFavourites();
+      return right(result);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
