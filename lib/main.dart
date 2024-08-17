@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:shop_app/core/utils/funactions/set_up_service_locator.dart';
 import 'package:shop_app/core/utils/funactions/start_page.dart';
+import 'package:shop_app/core/utils/screens/splash_screen.dart';
 import 'package:shop_app/core/widgets/cache_helper.dart';
 import 'package:shop_app/core/widgets/constants.dart';
 import 'package:shop_app/core/widgets/old_dio_helper.dart';
-import 'package:shop_app/payment_gate_way/stripe_payment/stripe_keys.dart';
 
-import 'Features/home/presentation/manager/get_user_data_cubit/get_user_data_cubit.dart';
-import 'Features/home/presentation/manager/login_cubit/login_cubit.dart';
-import 'Features/home/presentation/manager/register_cubit/register_cubit.dart';
-import 'Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
-import 'bloc_observer/bloc_observer.dart';
-import 'core/utils/funactions/hive_open_boxes.dart';
+import 'Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
+import 'Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
+import 'Features/carts_feature/payment_gate_way/stripe_payment/stripe_keys.dart';
+import 'Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
+import 'Features/settings_feature/presentation/cubit/get_user_info_cubit/get_user_data_cubit.dart';
+import 'core/service_locator/service_locator.dart';
+import 'core/utils/bloc_observer/bloc_observer.dart';
 import 'core/utils/funactions/hive_register_adapter.dart';
+import 'core/utils/screens/error_screen.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -27,19 +28,13 @@ void main() async {
 
   await CacheHelper.init();
   DioHelper.init();
+
   setUpServiceLocator();
 
-  Widget? startingScreen = startPage();
-  await hiveOpenBoxes();
-
-  runApp(MyApp(startingScreen: startingScreen!));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final Widget startingScreen;
-
-  MyApp({required this.startingScreen});
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -61,7 +56,18 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        home: startingScreen,
+        home: FutureBuilder<Widget>(
+          future: determineStartPage(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const SplashScreen();
+            } else if (snapshot.hasError) {
+              return ErrorScreen(error: snapshot.error.toString());
+            }
+            print(snapshot.data);
+            return snapshot.data!;
+          },
+        ),
         theme: lightTheme,
       ),
     );

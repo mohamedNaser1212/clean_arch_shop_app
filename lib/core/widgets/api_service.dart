@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
 class ApiService {
   final Dio _dio;
@@ -17,60 +18,51 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> get({
-    required String endPoint,
-    Map<String, dynamic>? headers,
+    required ApiRequestModel request,
     String? token,
   }) async {
-    var options = _createOptions(headers: headers, token: token);
-    var response = await _dio.get('$baseUrl$endPoint', options: options);
+    var options = _createOptions(headers: request.headers, token: token);
+    var response =
+        await _dio.get('$baseUrl${request.endpoint}', options: options);
     return response.data;
   }
 
   Future<Map<String, dynamic>> post({
-    required String endPoint,
-    required Map<String, dynamic> data,
-    Map<String, dynamic>? headers,
+    required ApiRequestModel request,
     String? token,
   }) async {
-    var options = _createOptions(headers: headers, token: token);
-    var response =
-        await _dio.post('$baseUrl$endPoint', data: data, options: options);
+    var options = _createOptions(headers: request.headers, token: token);
+    var response = await _dio.post('$baseUrl${request.endpoint}',
+        data: request.data, options: options);
     return response.data;
   }
 
   Future<Map<String, dynamic>> put({
-    required String endPoint,
-    required Map<String, dynamic> data,
-    Map<String, dynamic>? headers,
+    required ApiRequestModel request,
     String? token,
   }) async {
-    var options = _createOptions(headers: headers, token: token);
-    var response =
-        await _dio.put('$baseUrl$endPoint', data: data, options: options);
+    var options = _createOptions(headers: request.headers, token: token);
+    var response = await _dio.put('$baseUrl${request.endpoint}',
+        data: request.data, options: options);
     return response.data;
   }
 
   Future<Map<String, dynamic>> delete({
-    required String endPoint,
-    Map<String, dynamic>? headers,
+    required ApiRequestModel request,
     String? token,
   }) async {
-    var options = _createOptions(headers: headers, token: token);
-    var response = await _dio.delete('$baseUrl$endPoint', options: options);
+    var options = _createOptions(headers: request.headers, token: token);
+    var response =
+        await _dio.delete('$baseUrl${request.endpoint}', options: options);
     return response.data;
   }
 
   Future<Response> responsePost({
-    required String endPoint,
-    required Map<String, dynamic> data,
-    Map<String, dynamic>? headers,
+    required ApiRequestModel request,
     String? token,
   }) async {
-    var options = _createOptions(
-      headers: headers,
-    );
-    var response =
-        await _dio.post('$baseUrl$endPoint', data: data, options: options);
-    return response.data;
+    var options = _createOptions(headers: request.headers, token: token);
+    return await _dio.post('$baseUrl${request.endpoint}',
+        data: request.data, options: options);
   }
 }

@@ -1,9 +1,10 @@
 import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
+import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 
-import '../../../../../core/utils/funactions/save_categories.dart';
 import '../../../../../core/widgets/api_service.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
+import '../local_data_sources/save_categories.dart';
 
 abstract class HomeRemoteDataSource {
   Future<List<ProductEntity>> fetchFeaturedProducts();
@@ -19,7 +20,10 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   @override
   Future<List<ProductEntity>> fetchFeaturedProducts() async {
     try {
-      var data = await apiService.get(endPoint: homeEndPoint);
+      ApiRequestModel request = ApiRequestModel(
+        endpoint: homeEndPoint,
+      );
+      var data = await apiService.get(request: request);
       List<ProductEntity> products = getProductsList(data['data']);
       return products;
     } catch (e) {
@@ -31,7 +35,10 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   @override
   Future<List<CategoriesEntity>> fetchCategories() async {
     try {
-      var data = await apiService.get(endPoint: categoriesEndPoint);
+      ApiRequestModel request = ApiRequestModel(
+        endpoint: categoriesEndPoint,
+      );
+      var data = await apiService.get(request: request);
       List<CategoriesEntity> categories = getCategoriesList(data['data']);
       saveCategoriesData(categories, kCategoriesBox);
       return categories;

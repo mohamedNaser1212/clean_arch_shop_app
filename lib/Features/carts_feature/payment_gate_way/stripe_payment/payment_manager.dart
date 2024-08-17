@@ -1,0 +1,60 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:shop_app/Features/carts_feature/domain/add_to_cart_entity/add_to_cart_entity.dart';
+import 'package:shop_app/Features/carts_feature/payment_gate_way/stripe_payment/stripe_keys.dart';
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
+
+abstract class PaymentManager {
+  static Future<void> makePayment(int amount, String currency,
+      BuildContext context, List<AddToCartEntity> model) async {
+    try {
+      String clientSecret =
+          await _getClientSecret((amount * 100).toString(), currency);
+      await _initializePaymentSheet(clientSecret);
+      await Stripe.instance.presentPaymentSheet();
+
+      List itemIds = model.map((e) => e.id).toList();
+
+      if (!context.mounted) return;
+      bool allRemoved = await ShopCubit.get(context).changeCartsList(itemIds);
+
+      if (allRemoved) {
+        print('Payment and cart removal succeeded');
+      } else {
+        print(
+            'Payment succeeded, but failed to remove one or more items from the cart');
+      }
+    } catch (e) {
+      print('Error during payment: $e');
+    }
+  }
+
+  static Future<void> _initializePaymentSheet(String clientSecret) async {
+    await Stripe.instance.initPaymentSheet(
+      paymentSheetParameters: SetupPaymentSheetParameters(
+        paymentIntentClientSecret: clientSecret,
+        merchantDisplayName: "Naser",
+      ),
+    );
+  }
+
+  static Future<String> _getClientSecret(String amount, String currency) async {
+    Dio dio = Dio();
+
+    var response = await dio.post(
+      'https://api.stripe.com/v1/payment_intents',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer ${ApiKeys.secretKey}',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+      ),
+      data: {
+        'amount': amount,
+        'currency': currency,
+      },
+    );
+    return response.data["client_secret"];
+  }
+}

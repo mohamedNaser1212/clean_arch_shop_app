@@ -1,11 +1,11 @@
 import 'package:hive/hive.dart';
-import 'package:shop_app/Features/home/domain/entities/add_to_cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
-import 'package:shop_app/Features/home/domain/entities/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
-import 'package:shop_app/Features/home/domain/entities/user_entity/user_entity.dart';
 
 import '../../../../../core/widgets/end_points.dart';
+import '../../../../carts_feature/domain/add_to_cart_entity/add_to_cart_entity.dart';
+import '../../../../favourites_feature/domain/favourites_entity/favourites_entity.dart';
+import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 
 abstract class HomeLocalDataSource {
   List<ProductEntity> fetchProducts();
