@@ -114,7 +114,11 @@ class ShopAddCartItemsErrorState extends ShopStates {
 
 class ShopAddCartItemsLoadingState extends ShopStates {}
 
-class ShopChangeCartSuccessState extends ShopStates {}
+class ShopChangeCartSuccessState extends ShopStates {
+  final bool model;
+
+  ShopChangeCartSuccessState(this.model);
+}
 
 class ShopChangeCartLoadingState extends ShopStates {}
 

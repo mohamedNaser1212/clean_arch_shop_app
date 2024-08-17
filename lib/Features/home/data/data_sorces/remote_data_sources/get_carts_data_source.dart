@@ -32,7 +32,7 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
 
       final addToCartModel = AddToCartModel.fromJson(response);
       _cachedCarts = addToCartModel.data?.cartItems
-              ?.map((item) {
+              .map((item) {
                 if (item.product != null) {
                   return AddToCartEntity(
                     id: item.product!.id ?? 0,
@@ -61,8 +61,7 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
   @override
   Future<Either<Failure, bool>> toggleCarts(num productIds) async {
     try {
-      // Clear the cached cart items before toggling
-      _cachedCarts.clear();
+      // _cachedCarts.clear();
 
       final response = await apiService.post(
         endPoint: 'carts',
@@ -75,10 +74,9 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
         return Left(ServerFailure('Failed to toggle cart item'));
       }
 
-      // Empty the cached carts after successful toggle
-      _cachedCarts = [];
+      //   _cachedCarts = [];
 
-      await saveCarts(_cachedCarts, kCartBox); // Save the empty list to cache
+      await saveCarts(_cachedCarts, kCartBox);
       return Right(true);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -89,7 +87,6 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
   Future<Either<Failure, List<AddToCartEntity>>> removeCarts(
       num productId) async {
     try {
-      // Construct the request body
       final data = {
         "product_id": productId,
       };
@@ -99,12 +96,9 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
         data: data,
       );
 
-      // Check if the request was successful
       if (response['status'] == true) {
-        // Remove the product from the cached list
         _cachedCarts.removeWhere((item) => item.id == productId);
 
-        // Save the updated cache
         await saveCarts(_cachedCarts, kCartBox);
         return Right(_cachedCarts);
       } else {

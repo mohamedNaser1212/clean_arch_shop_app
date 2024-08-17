@@ -11,5 +11,5 @@ void HiveRegisterAdapters() {
   Hive.registerAdapter(CategoriesEntityAdapter());
   Hive.registerAdapter(FavouritesEntityAdapter());
   Hive.registerAdapter(AddToCartEntityAdapter());
-  Hive.registerAdapter(UserEntityAdapter()); // Register UserEntityAdapter
+  Hive.registerAdapter(UserEntityAdapter());
 }

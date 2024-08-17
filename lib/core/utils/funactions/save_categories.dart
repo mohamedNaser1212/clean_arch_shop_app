@@ -3,7 +3,7 @@ import 'package:shop_app/Features/home/domain/entities/categories_entity/categor
 
 void saveCategoriesData(List<CategoriesEntity> categories, String boxName) {
   var box = Hive.box<CategoriesEntity>(boxName);
-  box.clear(); // Clear the box before adding new data
+  box.clear();
   box.addAll(categories);
   print('categories box:$box');
 }

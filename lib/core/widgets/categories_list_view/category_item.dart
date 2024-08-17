@@ -24,8 +24,7 @@ Widget categoryItem(CategoriesEntity item, BuildContext context,
               width: itemHeight! / 1.2,
               height: itemHeight / 1.2,
               fit: BoxFit.cover,
-              image: CachedNetworkImageProvider(
-                  item.image), // Fixing mixed content
+              image: CachedNetworkImageProvider(item.image),
             ),
           ),
           const SizedBox(width: 10),

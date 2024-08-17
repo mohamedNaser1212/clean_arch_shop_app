@@ -23,7 +23,7 @@ class ProductEntity {
   @HiveField(8)
   final bool? inFavorites;
   @HiveField(9)
-  bool inCart; // Remove 'late' and provide a default value
+  bool inCart;
 
   ProductEntity({
     required this.id,
@@ -35,7 +35,7 @@ class ProductEntity {
     required this.images,
     this.description,
     required this.inFavorites,
-    this.inCart = false, // Default value for inCart
+    this.inCart = false,
   });
 
   factory ProductEntity.fromJson(Map<String, dynamic> json) {

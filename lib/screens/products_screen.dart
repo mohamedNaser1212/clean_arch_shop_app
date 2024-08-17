@@ -25,8 +25,14 @@ class ProductsScreen extends StatelessWidget {
 void _listener(BuildContext context, ShopStates state) {
   if (state is ShopToggleFavoriteSuccessState) {
     showToast(message: state.isFavourite.message!, isError: false);
+  } else if (state is ShopToggleFavoriteErrorState) {
+    showToast(message: state.error, isError: true);
   } else if (state is ShopChangeCartSuccessState) {
-    showToast(message: 'Item added to cart', isError: true);
+    if (state.model == true) {
+      showToast(message: 'Item added to cart successfully', isError: false);
+    } else {
+      showToast(message: 'Item removed from cart successfully', isError: false);
+    }
   }
 }
 

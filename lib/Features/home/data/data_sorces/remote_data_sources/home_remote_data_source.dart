@@ -37,7 +37,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       return categories;
     } catch (e) {
       print('Error fetching categories: $e');
-      throw e; // Let the Cubit handle the error and caching
+      throw e;
     }
   }
 

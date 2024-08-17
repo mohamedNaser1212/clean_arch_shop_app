@@ -17,7 +17,7 @@ Widget? start_page(Widget? startingScreen) {
     if (token == '') {
       startingScreen = LoginScreen();
     } else {
-      startingScreen = LayoutScreen();
+      startingScreen = const LayoutScreen();
       print('token: $token');
     }
   }

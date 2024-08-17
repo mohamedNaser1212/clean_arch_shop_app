@@ -14,7 +14,7 @@ class CartCheckoutData extends StatelessWidget {
     super.key,
     required this.subtotal,
     required this.total,
-    this.cartModel, // Changed to nullable
+    this.cartModel,
   });
 
   @override

@@ -23,17 +23,17 @@ class OnBoardingScreen extends StatelessWidget {
 
   List<BoardingModel> boardingItems = [
     BoardingModel(
-      icon: Icon(Icons.looks_one_rounded),
+      icon: const Icon(Icons.looks_one_rounded),
       title: 'title 1',
       body: 'body 1',
     ),
     BoardingModel(
-      icon: Icon(Icons.looks_two_rounded),
+      icon: const Icon(Icons.looks_two_rounded),
       title: 'title 2',
       body: 'body 2',
     ),
     BoardingModel(
-      icon: Icon(Icons.looks_3_rounded),
+      icon: const Icon(Icons.looks_3_rounded),
       title: 'title 3',
       body: 'body 3',
     ),
@@ -65,11 +65,12 @@ class OnBoardingScreen extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     boardingController.previousPage(
-                        duration: Duration(seconds: 1), curve: Curves.ease);
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.ease);
                   },
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                 ),
-                Spacer(),
+                const Spacer(),
                 SmoothPageIndicator(
                   controller: boardingController,
                   count: boardingItems.length,
@@ -77,13 +78,14 @@ class OnBoardingScreen extends StatelessWidget {
                     activeDotColor: defaultLightColor,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(
                   onPressed: () {
                     boardingController.nextPage(
-                        duration: Duration(seconds: 1), curve: Curves.ease);
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.ease);
                   },
-                  icon: Icon(Icons.arrow_forward),
+                  icon: const Icon(Icons.arrow_forward),
                 ),
               ],
             ),

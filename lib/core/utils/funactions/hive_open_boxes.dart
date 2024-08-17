@@ -12,5 +12,5 @@ Future<void> hiveOpenBoxes() async {
   await Hive.openBox<CategoriesEntity>(kCategoriesBox);
   await Hive.openBox<FavouritesEntity>(kFavouritesBox);
   await Hive.openBox<AddToCartEntity>(kCartBox);
-  await Hive.openBox<UserEntity>(kUserBox); // Open the UserEntity box
+  await Hive.openBox<UserEntity>(kUserBox);
 }

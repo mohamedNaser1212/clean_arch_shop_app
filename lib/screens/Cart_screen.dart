@@ -9,6 +9,7 @@ import '../Features/home/presentation/manager/shop_cubit/shop_cubit.dart';
 import '../Features/home/presentation/manager/shop_cubit/shop_state.dart';
 import '../core/widgets/carts_widgets/cart_check_out_data.dart';
 import '../core/widgets/carts_widgets/cart_item_widget.dart';
+import '../core/widgets/toast_widget.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -17,7 +18,15 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
-        // Add any necessary listeners for specific states if required
+        if (state is ShopChangeCartSuccessState) {
+          if (state.model == true) {
+            showToast(
+                message: 'Item added to cart successfully', isError: false);
+          } else {
+            showToast(
+                message: 'Item removed from cart successfully', isError: false);
+          }
+        }
       },
       builder: (context, state) {
         return _CartScreenContent(state: state);
@@ -62,7 +71,7 @@ class _CartScreenContent extends StatelessWidget {
           CartCheckoutData(
             subtotal: subtotal,
             total: total,
-            cartModel: cartModel, // Pass the cartModel to CartCheckoutData
+            cartModel: cartModel,
           ),
         ],
       ),

@@ -164,7 +164,8 @@ class ShopCubit extends Cubit<ShopStates> {
       (isAdded) async {
         carts[prodId] = !(carts[prodId] ?? false);
         await getCartItems();
-        emit(ShopChangeCartSuccessState());
+        print(isAdded);
+        emit(ShopChangeCartSuccessState(carts[prodId] ?? false));
       },
     );
   }
@@ -179,14 +180,12 @@ class ShopCubit extends Cubit<ShopStates> {
         if (result.isLeft()) {
           print('Failed to remove item with id $prodId');
           allRemoved = false;
-          // You can handle the failure scenario for individual items here if needed
         }
       }
 
       if (allRemoved) {
-        // Refresh cart items after successful removal
         await getCartItems();
-        emit(ShopChangeCartSuccessState());
+        emit(ShopChangeCartSuccessState(allRemoved));
         return true;
       } else {
         emit(ShopAddCartItemsErrorState(

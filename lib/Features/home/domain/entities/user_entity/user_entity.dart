@@ -16,7 +16,7 @@ class UserEntity {
     required this.name,
     required this.email,
     required this.phone,
-    required this.token, // Include in constructor
+    required this.token,
   });
 
   factory UserEntity.fromJson(Map<String, dynamic> json) {
@@ -24,7 +24,7 @@ class UserEntity {
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       phone: json['phone'] ?? '',
-      token: json['token'] ?? '', // Ensure all fields are mapped
+      token: json['token'] ?? '',
     );
   }
 
@@ -33,7 +33,7 @@ class UserEntity {
       'name': name,
       'email': email,
       'phone': phone,
-      'token': token, // Include in JSON conversion
+      'token': token,
     };
   }
 }

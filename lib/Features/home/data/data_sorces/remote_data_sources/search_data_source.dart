@@ -19,8 +19,7 @@ class SearchDataSourceImpl implements SearchDataSource {
     try {
       final response =
           await apiService.post(endPoint: searchEndPoint, data: {'text': text});
-      final searchModel = SearchModel.fromJson(
-          response); // Ensure `SearchModel.fromJson` is used
+      final searchModel = SearchModel.fromJson(response);
       return Right(searchModel.data?.data ?? []);
     } catch (e) {
       print('Error searching: $e');
