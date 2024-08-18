@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/errors/failure.dart';
-import '../add_to_cart_entity/add_to_cart_entity.dart';
+import '../cart_entity/add_to_cart_entity.dart';
 
 abstract class CartRepo {
   Future<Either<Failure, List<AddToCartEntity>>> getCart();

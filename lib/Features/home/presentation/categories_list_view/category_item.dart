@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/utils/color_controllers/color_controller.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 import '../../domain/entities/categories_entity/categories_entity.dart';
 

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
-import 'package:shop_app/core/widgets/toast_widget.dart';
 
-import '../../../../core/utils/color_controllers/color_controller.dart';
-import '../../../../core/widgets/custom_title.dart';
-import '../../../../core/widgets/loading_indicator.dart';
+import '../../../../core/utils/screens/widgets/custom_title.dart';
+import '../../../../core/utils/screens/widgets/loading_indicator.dart';
+import '../../../../core/utils/screens/widgets/toast_widget.dart';
+import '../../../../core/utils/styles/color_manager.dart';
 import '../categories_list_view/product_screen_categories_widget.dart';
 import '../products_widgets/product_grid_view.dart';
 

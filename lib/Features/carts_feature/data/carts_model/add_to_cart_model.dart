@@ -1,4 +1,4 @@
-import '../../domain/add_to_cart_entity/add_to_cart_entity.dart';
+import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class AddToCartModel {
   bool? status;

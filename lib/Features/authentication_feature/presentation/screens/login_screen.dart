@@ -2,13 +2,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
-import 'package:shop_app/core/utils/color_controllers/color_controller.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/widgets/custom_title.dart';
-import '../../../../core/widgets/reusable_widgets.dart';
-import '../../domain/authentication_repo/login_repo/login_repo.dart';
-import '../../domain/login_use_case/login_use_case.dart';
+import '../../../../core/utils/screens/widgets/custom_title.dart';
+import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
+import '../../domain/authentication_repo/authentication_repo.dart';
+import '../../domain/authentication_use_case/authentication_use_case.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(
-        LoginUseCase(
+        AuthenticationUseCase(
           getIt.get<LoginRepo>(),
         ),
       ),

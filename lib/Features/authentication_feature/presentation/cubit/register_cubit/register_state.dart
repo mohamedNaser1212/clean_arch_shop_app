@@ -6,7 +6,7 @@ abstract class RegisterState {}
 class RegisterInitial extends RegisterState {}
 
 class RegisterSuccessState extends RegisterState {
-  LoginModel loginModel;
+  AuthenticationModel loginModel;
 
   RegisterSuccessState({required this.loginModel});
 }

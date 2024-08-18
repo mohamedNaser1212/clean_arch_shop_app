@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
 
-import '../../data/home_models/new_get_home_data.dart';
+import '../../data/home_models/home_data_model.dart';
 
 class FeaturedProductsListView extends StatelessWidget {
   const FeaturedProductsListView(

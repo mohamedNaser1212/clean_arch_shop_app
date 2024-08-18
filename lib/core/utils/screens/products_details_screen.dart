@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
+import 'package:shop_app/core/utils/screens/widgets/constants.dart';
+import 'package:shop_app/core/utils/screens/widgets/custom_title.dart';
 
 import '../../../Features/home/presentation/products_widgets/product_details_info.dart';
-import '../../widgets/constants.dart';
-import '../../widgets/custom_title.dart';
-import '../color_controllers/color_controller.dart';
+import '../styles/color_manager.dart';
 
 class ProductsDetailsScreen extends StatelessWidget {
   final dynamic model;

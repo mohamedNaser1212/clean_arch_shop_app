@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
-import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
-import '../../../../../core/widgets/end_points.dart';
-import '../../../../core/utils/color_controllers/color_controller.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
+import '../../../../core/utils/screens/widgets/custom_title.dart';
+import '../../../../core/utils/screens/widgets/end_points.dart';
+import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
+import '../../../../core/utils/styles/color_manager.dart';
 import '../../../home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
-import '../../domain/add_to_cart_entity/add_to_cart_entity.dart';
+import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class CartItemWidget extends StatelessWidget {
   final AddToCartEntity model;

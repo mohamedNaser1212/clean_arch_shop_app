@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/authentication_use_case.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 
-import '../../../../../core/widgets/cache_helper.dart';
-import '../../../../../core/widgets/constants.dart';
-import '../../../../../core/widgets/reusable_widgets.dart';
-import '../../../../authentication_feature/data/authentication_models/login_model.dart';
-import '../../../../authentication_feature/domain/login_use_case/login_use_case.dart';
+import '../../../../../core/utils/screens/widgets/cache_helper.dart';
+import '../../../../../core/utils/screens/widgets/constants.dart';
+import '../../../../../core/utils/screens/widgets/reusable_widgets.dart';
+import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../home/presentation/screens/layout_screen.dart';
 
 part 'login_state.dart';
@@ -16,7 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.loginUseCase) : super(AppInitial());
 
   static LoginCubit get(context) => BlocProvider.of(context);
-  LoginUseCase? loginUseCase;
+  AuthenticationUseCase? loginUseCase;
 
   Future<void> userLogin({
     required String email,

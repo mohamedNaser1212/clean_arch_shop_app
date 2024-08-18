@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
-import '../../../../core/utils/color_controllers/color_controller.dart';
+import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
+import '../../../../core/utils/styles/color_manager.dart';
 import '../cubit/get_user_info_cubit/get_user_data_cubit.dart';
 
 class SettingsForm extends StatelessWidget {

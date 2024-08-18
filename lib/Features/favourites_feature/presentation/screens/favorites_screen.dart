@@ -5,9 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
 
-import '../../../../core/utils/color_controllers/color_controller.dart';
+import '../../../../core/utils/screens/widgets/custom_title.dart';
+import '../../../../core/utils/styles/color_manager.dart';
 import '../favourites_widgets/favourite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {

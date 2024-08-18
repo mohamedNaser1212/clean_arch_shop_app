@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/end_points.dart';
+import '../../../../core/utils/screens/widgets/end_points.dart';
 import '../../../home/presentation/cubit/shop_cubit/shop_cubit.dart';
 
 class FavouriteAndCartIcons extends StatelessWidget {

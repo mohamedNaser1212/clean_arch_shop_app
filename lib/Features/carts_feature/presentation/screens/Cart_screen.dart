@@ -2,10 +2,10 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:shop_app/core/utils/color_controllers/color_controller.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
-import '../../../../core/widgets/toast_widget.dart';
+import '../../../../core/utils/screens/widgets/custom_title.dart';
+import '../../../../core/utils/screens/widgets/toast_widget.dart';
 import '../../../home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import '../../../home/presentation/cubit/shop_cubit/shop_state.dart';
 import '../carts_widgets/cart_check_out_data.dart';

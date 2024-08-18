@@ -1,4 +1,4 @@
-import '../../widgets/constants.dart';
+import '../../utils/screens/widgets/constants.dart';
 
 class HeaderModel {
   final String contentType;

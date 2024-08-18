@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
 
-import '../../../../../core/widgets/cache_helper.dart';
-import '../../../../authentication_feature/data/authentication_models/login_model.dart';
+import '../../../../../core/utils/screens/widgets/cache_helper.dart';
+import '../../../../../core/utils/screens/widgets/end_points.dart';
+import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../authentication_feature/presentation/screens/login_screen.dart';
 import '../../../../settings_feature/domain/settings_use_case/get_user_data_use_case/super_get_user_data_use_case.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
-import '../../../data/user_local_data_source/save_user_data.dart';
+import '../../../data/user_data_data_source/user_local_data_source/save_user_data.dart';
 
 part 'get_user_data_state.dart';
 
@@ -35,7 +35,6 @@ class UserDataCubit extends Cubit<GetUserDataState> {
         },
         (user) {
           userModel = user;
-          // saveUserData(user); // Cache the fetched data
           emit(GetUserDataSuccess(user));
         },
       );
@@ -72,7 +71,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     carts.clear();
     ShopCubit.get(context).currentIndex = 0;
 
-    await clearUserData(); // Clear cached data
+    await clearUserData();
     bool removedToken = await CacheHelper.removeData(key: 'token');
 
     if (removedToken) {
@@ -85,8 +84,9 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     }
   }
 
-  Future<void> registerNewUser(LoginModel user) async {
-    await clearUserData(); // Clear old cached data
-    saveUserData(user); // Save new user data
+  Future<void> registerNewUser(AuthenticationModel user) async {
+    await clearUserData();
+    carts.clear();
+    favorites.clear();
   }
 }

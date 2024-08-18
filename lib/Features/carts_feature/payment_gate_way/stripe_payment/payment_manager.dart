@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:shop_app/Features/carts_feature/domain/add_to_cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/Features/carts_feature/payment_gate_way/stripe_payment/stripe_keys.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
+
+import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 abstract class PaymentManager {
   static Future<void> makePayment(int amount, String currency,
@@ -14,10 +15,14 @@ abstract class PaymentManager {
       await _initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
 
-      List itemIds = model.map((e) => e.id).toList();
+      // Map the entity IDs and filter out any null values
+      final itemIds = model.map((e) => e.id).whereType<num>().toList();
 
       if (!context.mounted) return;
-      bool allRemoved = await ShopCubit.get(context).changeCartsList(itemIds);
+
+      // Ensure `allRemoved` has a boolean value even if `changeCartsList` returns null
+      bool allRemoved =
+          (await ShopCubit.get(context).changeCartsList(itemIds)) ?? false;
 
       if (allRemoved) {
         print('Payment and cart removal succeeded');

@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 
-import '../../../../core/utils/color_controllers/color_controller.dart';
-import '../../../../core/widgets/custom_title.dart';
+import '../../../../core/utils/screens/widgets/custom_title.dart';
+import '../../../../core/utils/styles/color_manager.dart';
 
 class BuildProductDetailsInfo extends StatelessWidget {
   const BuildProductDetailsInfo({super.key, this.model});

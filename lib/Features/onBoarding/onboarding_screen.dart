@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/widgets/cache_helper.dart';
-import 'package:shop_app/core/widgets/reusable_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../core/widgets/constants.dart';
+import '../../core/utils/screens/widgets/cache_helper.dart';
+import '../../core/utils/screens/widgets/constants.dart';
+import '../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../authentication_feature/presentation/screens/login_screen.dart';
 
 class BoardingModel {

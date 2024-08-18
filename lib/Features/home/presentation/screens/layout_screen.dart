@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 
-import '../../../../core/widgets/constants.dart';
-import '../../../../core/widgets/reusable_widgets.dart';
+import '../../../../core/utils/screens/widgets/constants.dart';
+import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../cubit/shop_cubit/shop_cubit.dart';
 import '../cubit/shop_cubit/shop_state.dart';
 
@@ -35,7 +35,7 @@ class LayoutScreen extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {
-            navigateTo(context: context, screen: SearchScreen());
+            navigateTo(context: context, screen: const SearchScreen());
           },
           icon: Icon(
             Icons.search,

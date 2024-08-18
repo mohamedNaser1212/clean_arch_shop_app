@@ -1,48 +1,56 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/Features/carts_feature/data/carts_local_data_source/save_carts.dart';
 import 'package:shop_app/core/errors/failure.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
 
-import '../../domain/add_to_cart_entity/add_to_cart_entity.dart';
+import '../../../../core/models/hive_manager/hive_manager.dart';
+import '../../../../core/utils/screens/widgets/end_points.dart';
+import '../../domain/cart_entity/add_to_cart_entity.dart';
 import '../../domain/carts_repo/cart_repo.dart';
-import '../carts_data_source/get_carts_data_source.dart';
+import '../carts_data_sources/carts_remote_data_source.dart';
 
 class CartsRepoImpl extends CartRepo {
-  final GetCartsDataSource getCartsDataSource;
+  final CartsRemoteDataSource getCartsDataSource;
 
   CartsRepoImpl({required this.getCartsDataSource});
 
   @override
   Future<Either<Failure, List<AddToCartEntity>>> getCart() async {
     try {
+      // Try to load data from cache
+
+      // If cache is empty, fetch from remote data source
       final cart = await getCartsDataSource.getCarts();
-      saveCarts(cart, kCartBox);
+      await HiveManager.saveData<AddToCartEntity>(cart, kCartBox);
+      carts = {for (var p in cart) p.id!: true};
       return right(cart);
     } catch (e) {
-      return Right(await loadCarts(kCartBox));
+      return left(ServerFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, bool>> toggleCart(num productIds) async {
+  Future<Either<Failure, bool>> toggleCart(num productId) async {
     try {
-      final result = await getCartsDataSource.toggleCarts(productIds);
-      await getCart();
+      // Toggle cart item via remote data source
+      final result = await getCartsDataSource.toggleCarts(productId);
+
+      getCart();
       return right(result);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return left(ServerFailure(e.toString()));
     }
   }
 
   @override
   Future<Either<Failure, List<AddToCartEntity>>> removeCarts(
-      num products) async {
+      num productId) async {
     try {
-      final result = await getCartsDataSource.removeCarts(products);
+      final result = await getCartsDataSource.removeCarts(productId);
+
       getCart();
+
       return right(result);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return left(ServerFailure(e.toString()));
     }
   }
 }

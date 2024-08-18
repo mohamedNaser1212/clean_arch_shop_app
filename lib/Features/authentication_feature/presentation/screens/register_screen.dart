@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/widgets/cache_helper.dart';
-import '../../../../core/widgets/constants.dart';
-import '../../../../core/widgets/reusable_widgets.dart';
+import '../../../../core/utils/screens/widgets/cache_helper.dart';
+import '../../../../core/utils/screens/widgets/constants.dart';
+import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../home/presentation/screens/layout_screen.dart';
-import '../../domain/authentication_repo/register_repo/register_repo.dart';
-import '../../domain/register_use_case/register_use_case.dart';
+import '../../domain/authentication_repo/authentication_repo.dart';
+import '../../domain/authentication_use_case/authentication_use_case.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -25,8 +25,8 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(
-        RegisterUseCase(
-          getIt.get<RegisterRepo>(),
+        AuthenticationUseCase(
+          getIt.get<LoginRepo>(),
         ),
       ),
       child: BlocConsumer<RegisterCubit, RegisterState>(

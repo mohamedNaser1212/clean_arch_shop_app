@@ -7,7 +7,7 @@ class AppInitial extends LoginState {}
 class AppLoginLoadingState extends LoginState {}
 
 class AppLoginSuccessState extends LoginState {
-  final LoginModel loginModel;
+  final AuthenticationModel loginModel;
   AppLoginSuccessState(this.loginModel);
 }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/utils/color_controllers/color_controller.dart';
+import '../../../../core/utils/screens/widgets/custom_title.dart';
+import '../../../../core/utils/styles/color_manager.dart';
 import '../../../settings_feature/presentation/settings_widgets/build_search_field.dart';
 import '../../../settings_feature/presentation/settings_widgets/build_search_result_list.dart';
 import '../../domain/search_use_case/fetch_search_use_case.dart';
