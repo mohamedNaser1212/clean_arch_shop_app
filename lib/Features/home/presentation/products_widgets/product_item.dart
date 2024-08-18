@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_information_widget.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
+import '../../../../core/utils/color_controllers/color_controller.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
+import '../../../../core/widgets/custom_title.dart';
 import '../../../favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
 import '../../domain/entities/products_entity/product_entity.dart';
 import '../cubit/shop_cubit/shop_cubit.dart';
@@ -32,7 +32,8 @@ class ProductItem extends StatelessWidget {
             );
           },
           child: Container(
-            color: Colors.white,
+            color: ColorController
+                .backgroundColor, // Use backgroundColor from ColorController
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -48,12 +49,13 @@ class ProductItem extends StatelessWidget {
                       ),
                       if (product.discount != 0)
                         Container(
-                          color: Theme.of(context).primaryColor,
+                          color: ColorController.primaryColor,
                           padding: const EdgeInsets.all(2),
-                          child: CustomTitle(
+                          child: const CustomTitle(
                             title: 'DISCOUNT',
                             fontSize: 12,
-                            color: blackColor,
+                            color: ColorController
+                                .blackColor, // Use blackColor from ColorController
                             fontWeight: FontWeight.bold,
                           ),
                         ),

@@ -21,39 +21,65 @@ class SettingsScreen extends StatelessWidget {
       create: (context) =>
           UserDataCubit(getUserDataUseCase: getIt.get<UserDataUseCase>())
             ..getUserData(),
-      child: const BlocConsumer<UserDataCubit, GetUserDataState>(
+      child: BlocConsumer<UserDataCubit, GetUserDataState>(
         listener: _listener,
-        builder: _buildSettingsForm,
+        builder: (context, state) {
+          return _buildSettingsForm(
+            context: context,
+            state: state,
+            nameController: nameController,
+            emailController: emailController,
+            phoneController: phoneController,
+            formKey: formKey,
+          );
+        },
       ),
     );
   }
-}
 
-void _listener(BuildContext context, GetUserDataState state) {
-  if (state is UpdateUserDataError) {
-    showToast(
-      message: 'Could not get user data, please try again later',
-      isError: true,
-    );
-  } else if (state is UpdateUserDataSuccess) {
-    showToast(
-      message: 'Data updated successfully',
-      isError: false,
+  static void _listener(BuildContext context, GetUserDataState state) {
+    if (state is UpdateUserDataError) {
+      showToast(
+        message: 'Could not get user data, pleaSe try again later',
+        isError: true,
+      );
+    } else if (state is UpdateUserDataSuccess) {
+      showToast(
+        message: 'Data updated successfully',
+        isError: false,
+      );
+    }
+  }
+
+  Widget _buildSettingsForm({
+    required BuildContext context,
+    required GetUserDataState state,
+    required TextEditingController nameController,
+    required TextEditingController emailController,
+    required TextEditingController phoneController,
+    required GlobalKey<FormState> formKey,
+  }) {
+    final userModel = UserDataCubit.get(context).userModel;
+    if (userModel != null) {
+      nameController.text = userModel.name;
+      emailController.text = userModel.email;
+      phoneController.text = userModel.phone;
+    }
+
+    return SettingsForm(
+      emailController: emailController,
+      nameController: nameController,
+      phoneController: phoneController,
+      formKey: formKey,
+      state: state,
     );
   }
-}
 
-Widget _buildSettingsForm(BuildContext context, GetUserDataState state) {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-
-  return SettingsForm(
-    emailController: emailController,
-    nameController: nameController,
-    phoneController: phoneController,
-    formKey: formKey,
-    state: state,
-  );
+  // @override
+  // void dispose() {
+  //   nameController.dispose();
+  //   emailController.dispose();
+  //   phoneController.dispose();
+  //   super.dispose();
+  // }
 }

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
+import 'package:shop_app/core/utils/color_controllers/color_controller.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
 import '../../../../core/utils/screens/products_details_screen.dart';
@@ -18,9 +18,6 @@ class FavoriteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isFavourite = favorites[model.id!] ?? false;
-    var isCart = carts[model.id!] ?? false;
-
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
@@ -58,10 +55,10 @@ class FavoriteItem extends StatelessWidget {
                     Container(
                       color: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.all(2),
-                      child: Text(
+                      child: const Text(
                         'DISCOUNT',
                         style: TextStyle(
-                          color: whiteColor,
+                          color: ColorController.whiteColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),

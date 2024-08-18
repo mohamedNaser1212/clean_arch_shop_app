@@ -3,11 +3,10 @@ import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 import 'package:shop_app/core/widgets/end_points.dart';
 
 import '../../../../core/widgets/api_service.dart';
-import '../../domain/user_entity/user_entity.dart';
 
 abstract class GetUserDataDataSource {
-  Future<UserEntity> getUserData();
-  Future<UserEntity> updateUserData({
+  Future<LoginModel> getUserData();
+  Future<LoginModel> updateUserData({
     required String name,
     required String email,
     required String phone,
@@ -20,7 +19,7 @@ class GetUserDataDataSourceImpl implements GetUserDataDataSource {
   GetUserDataDataSourceImpl({required this.apiService});
 
   @override
-  Future<UserEntity> getUserData() async {
+  Future<LoginModel> getUserData() async {
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: profileEndPoint,
@@ -30,12 +29,7 @@ class GetUserDataDataSourceImpl implements GetUserDataDataSource {
       );
 
       final loginModel = LoginModel.fromJson(response);
-      return UserEntity(
-        name: loginModel.name,
-        email: loginModel.email,
-        phone: loginModel.phone,
-        token: loginModel.token,
-      );
+      return loginModel;
     } catch (e) {
       print('Error getting user data: $e');
       throw e;
@@ -43,7 +37,7 @@ class GetUserDataDataSourceImpl implements GetUserDataDataSource {
   }
 
   @override
-  Future<UserEntity> updateUserData({
+  Future<LoginModel> updateUserData({
     required String name,
     required String email,
     required String phone,
@@ -63,12 +57,7 @@ class GetUserDataDataSourceImpl implements GetUserDataDataSource {
       );
 
       final loginModel = LoginModel.fromJson(response);
-      return UserEntity(
-        name: loginModel.name,
-        email: loginModel.email,
-        phone: loginModel.phone,
-        token: loginModel.token,
-      );
+      return loginModel;
     } catch (e) {
       print('Error updating user data: $e');
       throw e;

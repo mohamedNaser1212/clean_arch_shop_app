@@ -12,26 +12,26 @@ class CategoriesModel {
 
 class CategoriesDataModel {
   num? currentPage;
-  List<DataModel> data = [];
+  List<CategoriesData> data = [];
 
   CategoriesDataModel.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     json['data'].forEach((element) {
-      data.add(DataModel.fromJson(element));
+      data.add(CategoriesData.fromJson(element));
     });
   }
 }
 
-class DataModel extends CategoriesEntity {
+class CategoriesData extends CategoriesEntity {
   num? id;
 
-  DataModel({
+  CategoriesData({
     required this.id,
     required String name,
     required String image,
   }) : super(name: name, image: image);
 
-  DataModel.fromJson(Map<String, dynamic> json)
+  CategoriesData.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         super(name: json['name'], image: json['image']);
 

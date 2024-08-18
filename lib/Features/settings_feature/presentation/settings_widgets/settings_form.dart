@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
+import '../../../../core/utils/color_controllers/color_controller.dart';
 import '../cubit/get_user_info_cubit/get_user_data_cubit.dart';
 
 class SettingsForm extends StatelessWidget {
@@ -21,20 +22,16 @@ class SettingsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = UserDataCubit.get(context).userModel;
-    if (userModel != null) {
-      nameController.text = userModel.name ?? '';
-      emailController.text = userModel.email ?? '';
-      phoneController.text = userModel.phone ?? '';
-    }
-
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Form(
         key: formKey,
         child: Column(
           children: [
-            if (state is GetUserDataLoading) const LinearProgressIndicator(),
+            if (state is GetUserDataLoading)
+              const LinearProgressIndicator(
+                backgroundColor: ColorController.accentColor,
+              ),
             reusableTextFormField(
               label: 'Name',
               controller: nameController,
@@ -45,7 +42,8 @@ class SettingsForm extends StatelessWidget {
                 }
                 return null;
               },
-              prefix: const Icon(Icons.person),
+              prefix:
+                  const Icon(Icons.person, color: ColorController.iconColor),
               onTap: () {},
             ),
             const SizedBox(height: 20.0),
@@ -59,7 +57,7 @@ class SettingsForm extends StatelessWidget {
                 }
                 return null;
               },
-              prefix: const Icon(Icons.email),
+              prefix: const Icon(Icons.email, color: ColorController.iconColor),
               onTap: () {},
             ),
             const SizedBox(height: 20.0),
@@ -73,7 +71,7 @@ class SettingsForm extends StatelessWidget {
                 }
                 return null;
               },
-              prefix: const Icon(Icons.phone),
+              prefix: const Icon(Icons.phone, color: ColorController.iconColor),
               onTap: () {},
             ),
             const SizedBox(height: 20.0),
@@ -82,11 +80,14 @@ class SettingsForm extends StatelessWidget {
               function: () {
                 UserDataCubit.get(context).signOut(context);
               },
+              backColor: ColorController.warningColor,
+              textColor: ColorController.buttonTextColor,
             ),
             const SizedBox(height: 20.0),
             reusableElevatedButton(
               label: 'Update',
-              backColor: Colors.red,
+              backColor: ColorController.blueAccentColor,
+              textColor: ColorController.buttonTextColor,
               function: () {
                 if (formKey.currentState!.validate()) {
                   UserDataCubit.get(context).updateUserData(

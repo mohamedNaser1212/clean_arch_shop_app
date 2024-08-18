@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
+import '../../../../core/utils/color_controllers/color_controller.dart';
 import '../../../settings_feature/presentation/settings_widgets/build_search_field.dart';
 import '../../../settings_feature/presentation/settings_widgets/build_search_result_list.dart';
 import '../../domain/search_use_case/fetch_search_use_case.dart';
@@ -36,11 +36,11 @@ class SearchScreen extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          title: CustomTitle(
+          title: const CustomTitle(
             title: 'Search',
             fontSize: 20,
             fontWeight: FontWeight.w500,
-            color: whiteColor,
+            color: ColorController.whiteColor,
           )),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -61,12 +61,12 @@ class SearchScreen extends StatelessWidget {
     } else if (state is SearchSuccessState) {
       return const BuildSearchResultList();
     } else if (state is SearchErrorState) {
-      return Center(
+      return const Center(
           child: CustomTitle(
         title: 'Error fetching data',
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        color: blackColor,
+        color: ColorController.blackColor,
       ));
     } else {
       return const SizedBox.shrink();

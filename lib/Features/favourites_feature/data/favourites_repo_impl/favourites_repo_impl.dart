@@ -17,6 +17,7 @@ class FavouritesRepoImpl extends FavouritesRepo {
     try {
       final favourites = await getFavouritesDataSource.getFavourites();
       saveFavourites(favourites, kFavouritesBox);
+
       return right(favourites);
     } catch (e) {
       return Right(await loadFavourites(kFavouritesBox));

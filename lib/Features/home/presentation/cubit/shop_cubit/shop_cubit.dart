@@ -107,7 +107,6 @@ class ShopCubit extends Cubit<ShopStates> {
         homeModel = products;
         favorites = {for (var p in products) p.id: p.inFavorites ?? false};
         carts = {for (var p in products) p.id: p.inCart ?? false};
-        saveProductsData(products, kProductsBox);
         emit(ShopSuccessHomeDataState(products));
       },
     );
@@ -130,7 +129,6 @@ class ShopCubit extends Cubit<ShopStates> {
       },
       (categories) {
         categoriesModel = categories;
-        saveCategoriesData(categories, kCategoriesBox);
         emit(ShopSuccessCategoriesDataState(categories));
       },
     );

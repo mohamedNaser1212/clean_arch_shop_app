@@ -2,10 +2,10 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
+import 'package:shop_app/core/utils/color_controllers/color_controller.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/widgets/custom_title.dart';
-import '../../../../core/widgets/end_points.dart';
 import '../../../../core/widgets/reusable_widgets.dart';
 import '../../domain/authentication_repo/login_repo/login_repo.dart';
 import '../../domain/login_use_case/login_use_case.dart';
@@ -73,10 +73,10 @@ class LoginScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTitle(
+        const CustomTitle(
           title: 'LOGIN Screen',
           fontSize: 14,
-          color: blackColor,
+          color: ColorController.blackColor,
           fontWeight: FontWeight.w900,
         ),
         Text(
@@ -157,10 +157,10 @@ class LoginScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomTitle(
+        const CustomTitle(
           title: 'Don\'t have an account?',
           fontSize: 16,
-          color: blackColor,
+          color: ColorController.blackColor,
           fontWeight: FontWeight.w500,
         ),
         TextButton(

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
 
+import '../../../../core/utils/color_controllers/color_controller.dart';
 import '../../../../core/widgets/custom_title.dart';
 
 class BuildProductDetailsInfo extends StatelessWidget {
@@ -44,17 +44,17 @@ class BuildProductDetailsInfo extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           const SizedBox(height: 8),
-          CustomTitle(
+          const CustomTitle(
             title: 'Description:',
             fontSize: 20,
-            color: blackColor,
+            color: ColorController.blackColor,
             fontWeight: FontWeight.w500,
           ),
           const SizedBox(height: 4),
           CustomTitle(
             title: description,
             fontSize: 16,
-            color: blackColor,
+            color: ColorController.accentColor,
             fontWeight: FontWeight.normal,
           ),
           const SizedBox(height: 8),
@@ -62,29 +62,29 @@ class BuildProductDetailsInfo extends StatelessWidget {
             CustomTitle(
               title: 'Discount: $discount%',
               fontSize: 18,
-              color: blackColor,
+              color: ColorController.blackColor,
               fontWeight: FontWeight.w500,
             ),
           const SizedBox(height: 8),
           CustomTitle(
             title: 'Price: $price',
             fontSize: 20,
-            color: blackColor,
+            color: ColorController.blackColor,
             fontWeight: FontWeight.w500,
           ),
           if (discount != 0)
             CustomTitle(
               title: 'Old Price: ${oldPrice ?? ''}',
               fontSize: 18,
-              color: blackColor,
+              color: ColorController.blackColor,
               fontWeight: FontWeight.w500,
             ),
           const SizedBox(height: 16),
           if (isProduct)
-            CustomTitle(
+            const CustomTitle(
               title: 'Additional Images',
               fontSize: 20,
-              color: blackColor,
+              color: ColorController.blackColor,
               fontWeight: FontWeight.w500,
             ),
           if (isProduct) const SizedBox(height: 8),

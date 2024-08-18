@@ -1,4 +1,3 @@
-
 import '../../../settings_feature/domain/user_entity/user_entity.dart';
 
 class LoginModel extends UserEntity {
@@ -7,24 +6,20 @@ class LoginModel extends UserEntity {
   UserData? data;
 
   LoginModel({
-    required String name,
-    required String email,
-    required String phone,
-    required String token,
     this.status,
     this.message,
     this.data,
-  }) : super(name: name, email: email, phone: phone, token: token);
+  }) : super(
+            name: data!.name!,
+            email: data.email!,
+            phone: data.phone!,
+            token: data.token!);
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
       status: json['status'],
       message: json['message'],
       data: json['data'] != null ? UserData.fromJson(json['data']) : null,
-      name: json['data']?['name'] ?? '',
-      email: json['data']?['email'] ?? '',
-      phone: json['data']?['phone'] ?? '',
-      token: json['data']?['token'] ?? '',
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:shop_app/core/widgets/custom_title.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
 import '../../../../../core/widgets/end_points.dart';
+import '../../../../core/utils/color_controllers/color_controller.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
 import '../../../home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
@@ -53,10 +54,10 @@ class CartItemWidget extends StatelessWidget {
                     Container(
                       color: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.all(2),
-                      child: CustomTitle(
+                      child: const CustomTitle(
                         title: 'DISCOUNT',
                         fontSize: 12,
-                        color: whiteColor,
+                        color: ColorController.warningColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

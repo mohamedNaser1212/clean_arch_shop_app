@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
+import 'package:shop_app/core/utils/color_controllers/color_controller.dart';
 import 'package:shop_app/core/widgets/reusable_widgets.dart';
 
 import '../../../../core/utils/screens/products_details_screen.dart';
@@ -41,14 +41,14 @@ class BuildSearchResultList extends StatelessWidget {
                         child: CustomTitle(
                           title: result.name!,
                           fontSize: 20,
-                          color: blackColor,
+                          color: ColorController.blackColor,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                       CustomTitle(
                         title: result.price.toString(),
                         fontSize: 20,
-                        color: blackColor,
+                        color: ColorController.blackColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ],

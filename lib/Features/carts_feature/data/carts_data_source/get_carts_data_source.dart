@@ -17,68 +17,52 @@ class GetCartsDataSourceImpl implements GetCartsDataSource {
 
   @override
   Future<List<AddToCartProduct>> getCarts() async {
-    try {
-      ApiRequestModel request = ApiRequestModel(endpoint: 'carts');
-      final response = await apiService.get(request: request);
+    ApiRequestModel request = ApiRequestModel(endpoint: 'carts');
+    final response = await apiService.get(request: request);
 
-      List<AddToCartProduct> cartProducts = [];
-      if (response['data']['cart_items'] != null) {
-        for (var item in response['data']['cart_items']) {
-          cartProducts.add(AddToCartProduct.fromJson(item['product']));
-        }
+    List<AddToCartProduct> cartProducts = [];
+    if (response['data']['cart_items'] != null) {
+      for (var item in response['data']['cart_items']) {
+        cartProducts.add(AddToCartProduct.fromJson(item['product']));
       }
-
-      print('done');
-      print(cartProducts.length);
-      return cartProducts;
-    } catch (e) {
-      print('Error in getCarts: $e');
-      rethrow;
     }
+
+    print('done');
+    print(cartProducts.length);
+    return cartProducts;
   }
 
   @override
   Future<bool> toggleCarts(num productId) async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: 'carts',
-        data: {
-          'product_id': productId,
-        },
-      );
-      final response = await apiService.post(request: request);
-      changeCartModel = ChangeCartModel.fromJson(response);
-      return changeCartModel?.status ?? false;
-    } catch (e) {
-      print('Error in toggleCarts: $e');
-      rethrow;
-    }
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: 'carts',
+      data: {
+        'product_id': productId,
+      },
+    );
+    final response = await apiService.post(request: request);
+    changeCartModel = ChangeCartModel.fromJson(response);
+    return changeCartModel?.status ?? false;
   }
 
   @override
   Future<List<AddToCartProduct>> removeCarts(num productId) async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: 'carts',
-        data: {
-          'product_id': productId,
-        },
-      );
-      final response = await apiService.post(request: request);
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: 'carts',
+      data: {
+        'product_id': productId,
+      },
+    );
+    final response = await apiService.post(request: request);
 
-      // Assuming response returns the updated cart items list
-      List<AddToCartProduct> cartProducts = [];
-      if (response['data']['cart_items'] != null) {
-        for (var item in response['data']['cart_items']) {
-          cartProducts.add(AddToCartProduct.fromJson(item['product']));
-        }
+    List<AddToCartProduct> cartProducts = [];
+    if (response['data']['cart_items'] != null) {
+      for (var item in response['data']['cart_items']) {
+        cartProducts.add(AddToCartProduct.fromJson(item['product']));
       }
-      cartProducts.removeWhere((element) => element.id == productId);
-
-      return cartProducts;
-    } catch (e) {
-      print('Error in removeCarts: $e');
-      rethrow;
     }
+    cartProducts.removeWhere((element) => element.id == productId);
+
+    return cartProducts;
   }
 }

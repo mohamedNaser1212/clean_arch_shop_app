@@ -7,7 +7,7 @@ import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 
-import '../../../../core/widgets/end_points.dart';
+import '../../../../core/utils/color_controllers/color_controller.dart';
 import '../favourites_widgets/favourite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -47,11 +47,11 @@ class _FavoritesScreenContent extends StatelessWidget {
     var favouritesModel = ShopCubit.get(context).getFavouritesModel;
 
     if (favouritesModel.isEmpty) {
-      return Center(
+      return const Center(
           child: CustomTitle(
         title: 'Sorry, there are no favourites to show',
         fontSize: 16,
-        color: blackColor,
+        color: ColorController.blackColor,
         fontWeight: FontWeight.w500,
       ));
     }

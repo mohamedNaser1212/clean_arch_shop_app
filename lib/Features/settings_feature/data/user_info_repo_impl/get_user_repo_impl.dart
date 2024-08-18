@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:shop_app/Features/settings_feature/data/user_local_data_source/save_user_data.dart';
 import 'package:shop_app/core/errors/failure.dart';
 
 import '../../domain/get_user_repo/get_user_repo.dart';
@@ -13,8 +14,15 @@ class GetUserDataRepoImpl implements SuperGetUserDataRepo {
   @override
   Future<Either<Failure, UserEntity>> getUserData() async {
     try {
-      final userData = await getUserDataDataSource.getUserData();
-      return Right(userData);
+      final cachedUserData = await loadUserData();
+
+      if (cachedUserData != null) {
+        return Right(cachedUserData);
+      } else {
+        final userData = await getUserDataDataSource.getUserData();
+        saveUserData(userData);
+        return Right(userData);
+      }
     } catch (error) {
       return Left(ServerFailure(error.toString()));
     }
@@ -29,6 +37,7 @@ class GetUserDataRepoImpl implements SuperGetUserDataRepo {
     try {
       final userData = await getUserDataDataSource.updateUserData(
           name: name, email: email, phone: phone);
+      saveUserData(userData);
       return Right(userData);
     } catch (error) {
       return Left(ServerFailure(error.toString()));

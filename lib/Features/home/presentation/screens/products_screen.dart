@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
-import 'package:shop_app/core/widgets/end_points.dart';
 import 'package:shop_app/core/widgets/toast_widget.dart';
 
+import '../../../../core/utils/color_controllers/color_controller.dart';
 import '../../../../core/widgets/custom_title.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../categories_list_view/product_screen_categories_widget.dart';
@@ -49,7 +49,7 @@ Widget _buildProductsScreen(BuildContext context, ShopStates state) {
   final categoryModel = ShopCubit.get(context).categoriesModel;
 
   if (homeModel == null || categoryModel == null) {
-    return LoadingIndicatorWidget();
+    return const LoadingIndicatorWidget();
   }
 
   return Padding(
@@ -59,19 +59,19 @@ Widget _buildProductsScreen(BuildContext context, ShopStates state) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomTitle(
+          const CustomTitle(
             title: 'Categories',
             fontSize: 24,
-            color: blackColor,
+            color: ColorController.blackColor,
             fontWeight: FontWeight.w900,
           ),
           const SizedBox(height: 10),
           CategoriesSection(categories: categoryModel),
           const SizedBox(height: 10),
-          CustomTitle(
+          const CustomTitle(
             title: 'New Products',
             fontSize: 24,
-            color: blackColor,
+            color: ColorController.blackColor,
             fontWeight: FontWeight.w900,
           ),
           ProductsGridView(products: homeModel),

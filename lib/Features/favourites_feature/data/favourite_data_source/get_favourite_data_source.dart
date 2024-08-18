@@ -19,51 +19,41 @@ class GetFavouritesDataSourceImpl implements GetFavouritesDataSource {
 
   @override
   Future<List<FavouriteProduct>> getFavourites() async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: favoritesEndPoint,
-        headers: {'Authorization': token},
-      );
-      final response = await apiService.get(
-        request: request,
-      );
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: favoritesEndPoint,
+      headers: {'Authorization': token},
+    );
+    final response = await apiService.get(
+      request: request,
+    );
 
-      List<FavouriteProduct> favouriteProducts = [];
-      if (response['data']['data'] != null) {
-        for (var item in response['data']['data']) {
-          favouriteProducts.add(FavouriteProduct.fromJson(item['product']));
-        }
+    List<FavouriteProduct> favouriteProducts = [];
+    if (response['data']['data'] != null) {
+      for (var item in response['data']['data']) {
+        favouriteProducts.add(FavouriteProduct.fromJson(item['product']));
       }
-
-      // await saveFavourites(_cachedFavourites, kFavouritesBox);
-
-      return favouriteProducts;
-    } catch (e) {
-      print('Error fetching favourites: $e');
-      rethrow;
     }
+
+    // await saveFavourites(_cachedFavourites, kFavouritesBox);
+
+    return favouriteProducts;
   }
 
   @override
   Future<bool> toggleFavourites(num productIds) async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: favoritesEndPoint,
-        headers: {'Authorization': token},
-        data: {
-          'product_id': productIds,
-        },
-      );
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: favoritesEndPoint,
+      headers: {'Authorization': token},
+      data: {
+        'product_id': productIds,
+      },
+    );
 
-      final response = await apiService.post(
-        request: request,
-      );
-      changeFavouriteModel = ChangeFavouriteModel.fromJson(response);
+    final response = await apiService.post(
+      request: request,
+    );
+    changeFavouriteModel = ChangeFavouriteModel.fromJson(response);
 
-      return changeFavouriteModel?.status ?? false;
-    } catch (e) {
-      print('Error toggling favourites: $e');
-      rethrow;
-    }
+    return changeFavouriteModel?.status ?? false;
   }
 }

@@ -18,24 +18,28 @@ class UserDataCubit extends Cubit<GetUserDataState> {
   UserDataCubit({required this.getUserDataUseCase})
       : super(GetUserDataInitial());
 
-  static UserDataCubit get(context) => BlocProvider.of(context);
+  static UserDataCubit get(BuildContext context) => BlocProvider.of(context);
 
   UserEntity? userModel;
 
   Future<void> getUserData() async {
     emit(GetUserDataLoading());
 
-    final result = await getUserDataUseCase.GetUserData();
-    result.fold(
-      (failure) {
-        emit(GetUserDataError(failure.toString()));
-      },
-      (user) {
-        userModel = user;
-        saveUserData(user);
-        emit(GetUserDataSuccess(user));
-      },
-    );
+    if (userModel != null) {
+      emit(GetUserDataSuccess(userModel!));
+    } else {
+      final result = await getUserDataUseCase.GetUserData();
+      result.fold(
+        (failure) {
+          emit(GetUserDataError(failure.toString()));
+        },
+        (user) {
+          userModel = user;
+          // saveUserData(user); // Cache the fetched data
+          emit(GetUserDataSuccess(user));
+        },
+      );
+    }
   }
 
   Future<void> updateUserData({
@@ -57,7 +61,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
       },
       (user) {
         userModel = user;
-        saveUserData(user);
+        // saveUserData(user); // Update cached data
         emit(UpdateUserDataSuccess(user));
       },
     );
@@ -68,7 +72,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     carts.clear();
     ShopCubit.get(context).currentIndex = 0;
 
-    await clearUserData();
+    await clearUserData(); // Clear cached data
     bool removedToken = await CacheHelper.removeData(key: 'token');
 
     if (removedToken) {
@@ -82,7 +86,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
   }
 
   Future<void> registerNewUser(LoginModel user) async {
-    await clearUserData();
-    saveUserData(user);
+    await clearUserData(); // Clear old cached data
+    saveUserData(user); // Save new user data
   }
 }
