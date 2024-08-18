@@ -204,6 +204,8 @@ class ShopCubit extends Cubit<ShopStates> {
       },
       (favourites) {
         getFavouritesModel = favourites;
+        favorites = {for (var p in favourites) p.id!: true};
+
         emit(ShopGetFavoritesSuccessState(getFavouritesModel));
       },
     );
@@ -212,7 +214,7 @@ class ShopCubit extends Cubit<ShopStates> {
   Future<void> changeFavourite(num productId) async {
     emit(ShopChangeFavoritesLoadingState());
 
-    final result = await toggleCartUseCase.toggleCartCall(productId);
+    final result = await toggleFavouritesUseCase.toggleFavouriteCall(productId);
     result.fold(
       (failure) {
         print('Failed to add/remove favorite items: $failure');

@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
+import 'package:shop_app/core/utils/funactions/api_service_interface.dart';
 
-class ApiService {
+class ApiService implements ApiServiceInterface {
   final Dio _dio;
   final String baseUrl;
   final String langHeader = 'en';
@@ -17,6 +18,7 @@ class ApiService {
     return options;
   }
 
+  @override
   Future<Map<String, dynamic>> get({
     required ApiRequestModel request,
     String? token,
@@ -27,6 +29,7 @@ class ApiService {
     return response.data;
   }
 
+  @override
   Future<Map<String, dynamic>> post({
     required ApiRequestModel request,
     String? token,
@@ -37,6 +40,7 @@ class ApiService {
     return response.data;
   }
 
+  @override
   Future<Map<String, dynamic>> put({
     required ApiRequestModel request,
     String? token,
@@ -47,6 +51,7 @@ class ApiService {
     return response.data;
   }
 
+  @override
   Future<Map<String, dynamic>> delete({
     required ApiRequestModel request,
     String? token,
@@ -57,6 +62,7 @@ class ApiService {
     return response.data;
   }
 
+  @override
   Future<Response> responsePost({
     required ApiRequestModel request,
     String? token,

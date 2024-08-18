@@ -15,9 +15,6 @@ class CartsRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, List<AddToCartEntity>>> getCart() async {
     try {
-      // Try to load data from cache
-
-      // If cache is empty, fetch from remote data source
       final cart = await getCartsDataSource.getCarts();
       await HiveManager.saveData<AddToCartEntity>(cart, kCartBox);
       carts = {for (var p in cart) p.id!: true};
@@ -30,7 +27,6 @@ class CartsRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, bool>> toggleCart(num productId) async {
     try {
-      // Toggle cart item via remote data source
       final result = await getCartsDataSource.toggleCarts(productId);
 
       getCart();
