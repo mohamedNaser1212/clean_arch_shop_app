@@ -6,16 +6,19 @@ import '../../../../../core/utils/screens/widgets/cache_helper.dart';
 import '../../../../../core/utils/screens/widgets/end_points.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../authentication_feature/presentation/screens/login_screen.dart';
-import '../../../../settings_feature/domain/settings_use_case/get_user_data_use_case/super_get_user_data_use_case.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../../data/user_data_data_source/user_local_data_source/save_user_data.dart';
+import '../../../domain/settings_use_case/get_user_data_use_case/get_user_data_use_case.dart';
+import '../../../domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
 
 part 'get_user_data_state.dart';
 
 class UserDataCubit extends Cubit<GetUserDataState> {
-  final SuperGetUserDataUseCase getUserDataUseCase;
+  final GetUserDataUseCase getUserDataUseCase;
+  final UpdateUserDataUseCase updateUserDataUseCase;
 
-  UserDataCubit({required this.getUserDataUseCase})
+  UserDataCubit(
+      {required this.updateUserDataUseCase, required this.getUserDataUseCase})
       : super(GetUserDataInitial());
 
   static UserDataCubit get(BuildContext context) => BlocProvider.of(context);
@@ -48,7 +51,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
   }) async {
     emit(GetUserDataLoading());
 
-    final result = await getUserDataUseCase.UpdateUserData(
+    final result = await updateUserDataUseCase.UpdateUserData(
       name: name,
       email: email,
       phone: phone,

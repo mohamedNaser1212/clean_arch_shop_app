@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 
 import '../../../../../core/utils/screens/widgets/cache_helper.dart';
@@ -10,12 +11,11 @@ import '../../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../home/presentation/screens/layout_screen.dart';
 import '../../../../settings_feature/presentation/cubit/get_user_info_cubit/get_user_data_cubit.dart';
-import '../../../domain/authentication_use_case/authentication_use_case.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  final AuthenticationUseCase loginUseCase;
+  final RegisterUseCase loginUseCase;
 
   RegisterCubit(this.loginUseCase) : super(RegisterInitial());
 
@@ -33,8 +33,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   }) async {
     emit(RegisterLoadingState());
 
-    final result =
-        await loginUseCase.callRegister(email, password, name, phone);
+    final result = await loginUseCase.call(email, password, name, phone);
 
     result.fold(
       (failure) {

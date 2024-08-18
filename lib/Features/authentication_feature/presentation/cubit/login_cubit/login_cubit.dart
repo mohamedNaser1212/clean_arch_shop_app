@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/authentication_use_case.dart';
+import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 
 import '../../../../../core/utils/screens/widgets/cache_helper.dart';
@@ -16,7 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.loginUseCase) : super(AppInitial());
 
   static LoginCubit get(context) => BlocProvider.of(context);
-  AuthenticationUseCase? loginUseCase;
+  LoginUseCase? loginUseCase;
 
   Future<void> userLogin({
     required String email,

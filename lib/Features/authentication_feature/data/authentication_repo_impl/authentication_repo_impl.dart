@@ -5,7 +5,7 @@ import '../../../../core/errors/failure.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../authentication_data_source/authentication_data_source.dart';
 
-class LoginRepoImpl implements LoginRepo {
+class LoginRepoImpl implements AuthenticationRepo {
   final LoginDataSource loginDataSource;
 
   LoginRepoImpl({required this.loginDataSource});
