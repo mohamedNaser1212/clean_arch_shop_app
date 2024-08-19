@@ -1,18 +1,21 @@
-import 'package:shop_app/core/utils/screens/widgets/end_points.dart';
+// Assuming you have a way to get the HiveService instance, such as from a service locator.
+import 'package:shop_app/core/models/hive_manager/hive_service.dart'; // Import HiveService
 
-import '../../../../../core/models/hive_manager/hive_manager.dart';
+import '../../../../../core/utils/screens/widgets/end_points.dart';
 import '../../../domain/user_entity/user_entity.dart';
 
+HiveService? hiveService;
+
 Future<void> saveUserData(UserEntity user) async {
-  await HiveManager.saveSingleItem<UserEntity>('user', user, kUserBox);
+  await hiveService?.saveSingleItem<UserEntity>('user', user, kUserBox);
   print('User data saved to Hive');
 }
 
 Future<UserEntity?> loadUserData() async {
-  return await HiveManager.loadSingleItem<UserEntity>('user', kUserBox);
+  return await hiveService?.loadSingleItem<UserEntity>('user', kUserBox);
 }
 
 Future<void> clearUserData() async {
-  await HiveManager.clearSingleItem<UserEntity>('user', kUserBox);
+  await hiveService?.clearSingleItem<UserEntity>('user', kUserBox);
   print('User data cleared from Hive');
 }

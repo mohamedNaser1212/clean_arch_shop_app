@@ -1,7 +1,7 @@
 import 'package:shop_app/Features/home/data/home_models/categories_model.dart';
 import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
-import '../../../../../core/utils/screens/widgets/api_service.dart';
+import '../../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../../core/utils/screens/widgets/end_points.dart';
 import '../../home_models/home_data_model.dart';
 
@@ -12,7 +12,7 @@ abstract class HomeRemoteDataSource {
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
-  final ApiService apiService;
+  final ApiServiceInterface apiService;
 
   HomeRemoteDataSourceImpl(this.apiService);
 

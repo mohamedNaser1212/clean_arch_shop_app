@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
 import '../../../../../core/errors/failure.dart';
-import '../../../../core/utils/screens/widgets/api_service.dart';
+import '../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../core/utils/screens/widgets/end_points.dart';
 import '../search_model/SearchModel.dart';
 
@@ -11,7 +11,7 @@ abstract class SearchDataSource {
 }
 
 class SearchDataSourceImpl implements SearchDataSource {
-  final ApiService apiService;
+  final ApiServiceInterface apiService;
 
   SearchDataSourceImpl(this.apiService);
 

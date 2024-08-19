@@ -1,7 +1,7 @@
 import 'package:shop_app/Features/authentication_feature/data/authentication_models/authentication_model.dart';
 import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
-import '../../../../core/utils/screens/widgets/api_service.dart';
+import '../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../core/utils/screens/widgets/end_points.dart';
 
 abstract class UserDataSource {
@@ -14,7 +14,7 @@ abstract class UserDataSource {
 }
 
 class UserDataSourceImpl implements UserDataSource {
-  final ApiService apiService;
+  final ApiServiceInterface apiService;
 
   UserDataSourceImpl({required this.apiService});
 

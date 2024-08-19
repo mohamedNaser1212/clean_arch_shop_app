@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
 
-import '../../../../core/models/hive_manager/hive_manager.dart';
-import '../../../../core/utils/screens/widgets/end_points.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 import '../../domain/carts_repo/cart_repo.dart';
 import '../carts_data_sources/carts_remote_data_source.dart';
@@ -16,8 +14,7 @@ class CartsRepoImpl extends CartRepo {
   Future<Either<Failure, List<AddToCartEntity>>> getCart() async {
     try {
       final cart = await getCartsDataSource.getCarts();
-      await HiveManager.saveData<AddToCartEntity>(cart, kCartBox);
-      carts = {for (var p in cart) p.id!: true};
+      //await HiveService.saveData<AddToCartEntity>(cart, kCartBox);
       return right(cart);
     } catch (e) {
       return left(ServerFailure(e.toString()));
@@ -28,8 +25,7 @@ class CartsRepoImpl extends CartRepo {
   Future<Either<Failure, bool>> toggleCart(num productId) async {
     try {
       final result = await getCartsDataSource.toggleCarts(productId);
-
-      getCart();
+      await getCart(); // Refresh local cache
       return right(result);
     } catch (e) {
       return left(ServerFailure(e.toString()));
@@ -41,9 +37,7 @@ class CartsRepoImpl extends CartRepo {
       num productId) async {
     try {
       final result = await getCartsDataSource.removeCarts(productId);
-
-      getCart();
-
+      await getCart(); // Refresh local cache
       return right(result);
     } catch (e) {
       return left(ServerFailure(e.toString()));

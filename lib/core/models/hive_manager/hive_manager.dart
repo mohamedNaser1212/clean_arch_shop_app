@@ -6,11 +6,13 @@ import '../../../Features/home/domain/entities/categories_entity/categories_enti
 import '../../../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../../../Features/settings_feature/domain/user_entity/user_entity.dart';
 import '../../utils/screens/widgets/end_points.dart';
+import 'hive_service.dart';
 
-class HiveManager {
+class HiveManager implements HiveService {
   static final Map<String, Box> _openedBoxes = {};
 
-  static Future<void> initialize() async {
+  @override
+  Future<void> initialize() async {
     await Hive.initFlutter();
     Hive.registerAdapter(ProductEntityAdapter());
     Hive.registerAdapter(CategoriesEntityAdapter());
@@ -50,34 +52,39 @@ class HiveManager {
     return box;
   }
 
-  static Future<void> saveData<T>(List<T> data, String boxName) async {
+  @override
+  Future<void> saveData<T>(List<T> data, String boxName) async {
     var box = _getBox<T>(boxName);
     await box.clear();
     await box.addAll(data);
   }
 
-  static Future<List<T>> loadData<T>(String boxName) async {
+  @override
+  Future<List<T>> loadData<T>(String boxName) async {
     var box = _getBox<T>(boxName);
     return box.values.toList();
   }
 
-  static Future<void> saveSingleItem<T>(
-      String key, T item, String boxName) async {
+  @override
+  Future<void> saveSingleItem<T>(String key, T item, String boxName) async {
     var box = _getBox<T>(boxName);
     await box.put(key, item);
   }
 
-  static Future<T?> loadSingleItem<T>(String key, String boxName) async {
+  @override
+  Future<T?> loadSingleItem<T>(String key, String boxName) async {
     var box = _getBox<T>(boxName);
     return box.get(key);
   }
 
-  static Future<void> clearData<T>(String boxName) async {
+  @override
+  Future<void> clearData<T>(String boxName) async {
     var box = _getBox<T>(boxName);
     await box.clear();
   }
 
-  static Future<void> clearSingleItem<T>(String key, String boxName) async {
+  @override
+  Future<void> clearSingleItem<T>(String key, String boxName) async {
     var box = _getBox<T>(boxName);
     await box.delete(key);
   }

@@ -1,6 +1,6 @@
 import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
-import '../../../../core/utils/screens/widgets/api_service.dart';
+import '../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../core/utils/screens/widgets/constants.dart';
 import '../../../../core/utils/screens/widgets/end_points.dart';
 import '../favourites_models/favourites_model.dart';
@@ -12,7 +12,7 @@ abstract class FavouritesRemoteDataSource {
 }
 
 class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
-  final ApiService apiService;
+  final ApiServiceInterface apiService;
   ChangeFavouriteModel? changeFavouriteModel;
 
   FavouritesRemoteDataSourceImpl({required this.apiService});

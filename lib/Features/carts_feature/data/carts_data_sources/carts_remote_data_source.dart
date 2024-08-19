@@ -1,5 +1,5 @@
 import '../../../../core/models/api_request_model/api_request_model.dart';
-import '../../../../core/utils/screens/widgets/api_service.dart';
+import '../../../../core/utils/api_services/api_service_interface.dart';
 import '../carts_model/add_to_cart_model.dart';
 import '../carts_model/changeCartModel.dart';
 
@@ -10,7 +10,7 @@ abstract class CartsRemoteDataSource {
 }
 
 class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
-  final ApiService apiService;
+  final ApiServiceInterface apiService;
   ChangeCartModel? changeCartModel;
 
   CartsRemoteDataSourceImpl({required this.apiService});
