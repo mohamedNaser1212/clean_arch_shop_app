@@ -10,7 +10,7 @@ class FavouriteAndCartIcons extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = ShopCubit.get(context);
     final isFavorite = favorites[product.id] ?? false;
-    final isInCart = carts[product.id] ?? false;
+    var cartItem = carts[product.id] ?? false;
     return Row(
       children: [
         IconButton(
@@ -32,7 +32,7 @@ class FavouriteAndCartIcons extends StatelessWidget {
             cubit.changeCarts(product.id);
           },
           icon: CircleAvatar(
-            backgroundColor: isInCart ? Colors.red : Colors.grey,
+            backgroundColor: cartItem ? Colors.red : Colors.grey,
             radius: 15,
             child: const Icon(
               Icons.shopping_cart,

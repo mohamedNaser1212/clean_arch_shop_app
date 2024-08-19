@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
 
@@ -15,66 +16,89 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopStates>(
-      listener: _listener,
-      builder: (context, state) => _buildProductsScreen(context, state),
+    final categoriesCubit = CategoriesCubit.get(context);
+    if (categoriesCubit.categoriesModel == null) {
+      categoriesCubit.getCategoriesData();
+    }
+
+    final shopCubit = ShopCubit.get(context);
+    if (shopCubit.homeModel == null) {
+      shopCubit.getHomeData();
+    }
+
+    return BlocConsumer<CategoriesCubit, CategoriesState>(
+      listener: (context, CategoriesState categoriesState) {
+        if (categoriesState is CategoriesError) {
+          showToast(message: categoriesState.error, isError: true);
+        }
+      },
+      builder: (context, categoriesState) {
+        if (categoriesState is CategoriesLoading) {
+          return const LoadingIndicatorWidget();
+        } else if (categoriesState is CategoriesSuccess ||
+            categoriesCubit.categoriesModel != null) {
+          return BlocConsumer<ShopCubit, ShopStates>(
+            listener: (context, ShopStates shopState) {},
+            builder: (context, shopState) {
+              if (shopState is ShopLoadingHomeDataState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (shopState is ShopSuccessHomeDataState ||
+                  shopCubit.homeModel != null) {
+                return _buildProductsScreen(context);
+              } else if (shopState is ShopErrorHomeDataState) {
+                return Center(
+                  child: Text('Failed to load products: ${shopState.error}'),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          );
+        } else if (categoriesState is CategoriesError) {
+          return Center(
+            child: Text('Failed to load categories: ${categoriesState.error}'),
+          );
+        } else {
+          return const Center(
+            child: Text('Unexpected error occurred'),
+          );
+        }
+      },
     );
   }
-}
 
-void _listener(BuildContext context, ShopStates state) {
-  if (state is ShopToggleFavoriteSuccessState) {
-    showToast(message: state.isFavourite.message!, isError: false);
-  } else if (state is ShopToggleFavoriteErrorState) {
-    showToast(message: state.error, isError: true);
-  } else if (state is ShopChangeCartSuccessState) {
-    if (state.model == true) {
-      showToast(message: 'Item added to cart successfully', isError: false);
-    } else {
-      showToast(message: 'Item removed from cart successfully', isError: false);
-    }
-  } else if (state is ShopChangeFavoriteSuccessState) {
-    if (state.isFavourite == true) {
-      showToast(
-          message: 'Item added to favourite successfully', isError: false);
-    } else {
-      showToast(
-          message: 'Item removed from favourite successfully', isError: false);
-    }
-  }
-}
+  Widget _buildProductsScreen(BuildContext context) {
+    final homeModel = ShopCubit.get(context).homeModel;
+    final categoryModel = CategoriesCubit.get(context).categoriesModel;
 
-Widget _buildProductsScreen(BuildContext context, ShopStates state) {
-  final homeModel = ShopCubit.get(context).homeModel;
-  final categoryModel = ShopCubit.get(context).categoriesModel;
-
-  if (homeModel == null || categoryModel == null) {
-    return const LoadingIndicatorWidget();
-  }
-
-  return Padding(
-    padding: const EdgeInsets.all(12.0),
-    child: SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const CustomTitle(
-            title: 'Categories',
-            style: TitleStyle.style24,
-            color: ColorController.blackColor,
-          ),
-          const SizedBox(height: 10),
-          CategoriesSection(categories: categoryModel),
-          const SizedBox(height: 10),
-          const CustomTitle(
-            title: 'New Products',
-            style: TitleStyle.style24,
-            color: ColorController.blackColor,
-          ),
-          ProductsGridView(products: homeModel),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CustomTitle(
+              title: 'Categories',
+              style: TitleStyle.style24,
+              color: ColorController.blackColor,
+            ),
+            const SizedBox(height: 10),
+            CategoriesSection(categories: categoryModel!),
+            const SizedBox(height: 10),
+            const CustomTitle(
+              title: 'New Products',
+              style: TitleStyle.style24,
+              color: ColorController.blackColor,
+            ),
+            ProductsGridView(products: homeModel!),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/screens/Cart_screen.dart';
 import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/toggle_favourites_use_case.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/screens/favorites_screen.dart';
-import 'package:shop_app/Features/home/domain/use_case/home_items_use_case/categories_use_case.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
 import 'package:shop_app/Features/home/presentation/screens/products_screen.dart';
 import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
@@ -19,7 +18,6 @@ import '../../../../carts_feature/domain/carts_use_case/remove_cart_use_case.dar
 import '../../../../carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
 import '../../../../favourites_feature/domain/favourites_entity/favourites_entity.dart';
 import '../../../../favourites_feature/domain/favourites_use_case/get_favourites_use_case.dart';
-import '../../../domain/entities/categories_entity/categories_entity.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 import '../../../domain/use_case/home_items_use_case/products_Use_Case.dart';
 import '../../screens/categries_screen.dart';
@@ -32,7 +30,7 @@ class ShopCubit extends Cubit<ShopStates> {
     this.removeFromCartUseCase,
     this.toggleCartUseCase,
     this.toggleFavouritesUseCase,
-    this.fetchCategoriesUseCase,
+    //  this.fetchCategoriesUseCase,
   ) : super(ShopInitialState());
 
   static ShopCubit get(context) => BlocProvider.of(context);
@@ -40,11 +38,11 @@ class ShopCubit extends Cubit<ShopStates> {
   int currentIndex = 0;
 
   List<ProductEntity>? homeModel;
-  List<CategoriesEntity>? categoriesModel;
+  // List<CategoriesEntity>? categoriesModel;
   List<AddToCartEntity> cartModel = [];
 
   final productsUseCase fetchHomeItemsUseCase;
-  final CategoriesUseCase fetchCategoriesUseCase;
+  // final CategoriesUseCase fetchCategoriesUseCase;
   final GetFavouritesUseCases fetchFavouritesUseCase;
   final ToggleFavouritesUseCase toggleFavouritesUseCase;
   final FetchCartUseCase addToCartUseCase;
@@ -97,10 +95,12 @@ class ShopCubit extends Cubit<ShopStates> {
         homeModel = products;
         favorites = {for (var p in products) p.id: p.inFavorites ?? false};
         carts = {for (var p in products) p.id: p.inCart ?? false};
+        print(carts);
         emit(ShopSuccessHomeDataState(products));
       },
     );
   }
+
   /*
 
   BlocConsumerCategories =>
@@ -110,21 +110,21 @@ class ShopCubit extends Cubit<ShopStates> {
       : success? screenDesign
    */
 
-  Future<void> getCategoriesData() async {
-    emit(ShopLoadingCategoriesDataState());
-
-    final result = await fetchCategoriesUseCase.categoriesCall();
-    result.fold(
-      (failure) {
-        print('Failed to fetch categories: $failure');
-        emit(ShopErrorCategoriesDataState());
-      },
-      (categories) {
-        categoriesModel = categories;
-        emit(ShopSuccessCategoriesDataState(categories));
-      },
-    );
-  }
+  // Future<void> getCategoriesData() async {
+  //   emit(ShopLoadingCategoriesDataState());
+  //
+  //   final result = await fetchCategoriesUseCase.categoriesCall();
+  //   result.fold(
+  //     (failure) {
+  //       print('Failed to fetch categories: $failure');
+  //       emit(ShopErrorCategoriesDataState());
+  //     },
+  //     (categories) {
+  //       categoriesModel = categories;
+  //       emit(ShopSuccessCategoriesDataState(categories));
+  //     },
+  //   );
+  // }
 
   Future<void> getCartItems() async {
     emit(ShopGetCartItemsLoadingState());
@@ -137,7 +137,7 @@ class ShopCubit extends Cubit<ShopStates> {
       },
       (cartItems) {
         cartModel = cartItems;
-        // carts = {for (var p in cartItems) p.id!: true};
+        carts = {for (var p in cartItems) p.id!: true};
         emit(ShopGetCartItemsSuccessState());
       },
     );

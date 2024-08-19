@@ -7,6 +7,7 @@ import 'package:shop_app/Features/authentication_feature/domain/authentication_u
 import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/favourite_remote_data_source.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourites_repo_impl/favourites_repo_impl.dart';
 import 'package:shop_app/Features/home/data/repos/home_repo_impl.dart';
+import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import 'package:shop_app/core/models/hive_manager/hive_service.dart'; // Import HiveService
 import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
@@ -84,6 +85,9 @@ void setUpServiceLocator() async {
       getUserDataDataSource: getIt.get<UserDataSource>(),
     ),
   );
+  getIt.registerSingleton<CategoriesUseCase>(
+    CategoriesUseCase(getIt.get<HomeRepo>()),
+  );
   getIt.registerSingleton<UserDataUseCase>(
     UserDataUseCase(
       getUserDataRepo: getIt.get<UserDataRepo>(),
@@ -126,7 +130,7 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<CartRepo>(
     CartsRepoImpl(
       hiveService: getIt.get<HiveService>(),
-      getCartsDataSource: getIt.get<CartsRemoteDataSource>(),
+      cartsDataSource: getIt.get<CartsRemoteDataSource>(),
     ),
   );
 
@@ -137,6 +141,9 @@ void setUpServiceLocator() async {
         getUserDataUseCase: getIt.get<UserDataUseCase>(),
         updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
       ));
+  getIt.registerFactory(() => CategoriesCubit(
+        getIt.get<CategoriesUseCase>(),
+      ));
   getIt.registerFactory(() {
     final fetchProductsUseCase = productsUseCase(getIt.get<HomeRepo>());
     final fetchFavouritesUseCase =
@@ -146,7 +153,7 @@ void setUpServiceLocator() async {
     final toggleCartUseCase = ToggleCartUseCase(getIt.get<CartRepo>());
     final toggleFavouritesUseCase =
         ToggleFavouritesUseCase(getIt.get<FavouritesRepo>());
-    final fetchCategoriesUseCase = CategoriesUseCase(getIt.get<HomeRepo>());
+    //  final fetchCategoriesUseCase = CategoriesUseCase(getIt.get<HomeRepo>());
 
     return ShopCubit(
       fetchProductsUseCase,
@@ -155,7 +162,6 @@ void setUpServiceLocator() async {
       removeCartUseCase,
       toggleCartUseCase,
       toggleFavouritesUseCase,
-      fetchCategoriesUseCase,
     );
   });
 }

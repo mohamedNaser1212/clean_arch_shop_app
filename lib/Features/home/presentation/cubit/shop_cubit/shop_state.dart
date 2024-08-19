@@ -1,7 +1,5 @@
-
 import '../../../../favourites_feature/data/favourites_models/favoutits_model.dart';
 import '../../../../favourites_feature/domain/favourites_entity/favourites_entity.dart';
-import '../../../domain/entities/categories_entity/categories_entity.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 
 abstract class ShopStates {}
@@ -24,19 +22,19 @@ class ShopErrorHomeDataState extends ShopStates {
   ShopErrorHomeDataState([this.error]);
 }
 
-class ShopSuccessCategoriesDataState extends ShopStates {
-  final List<CategoriesEntity> categories;
-
-  ShopSuccessCategoriesDataState(this.categories);
-}
-
-class ShopLoadingCategoriesDataState extends ShopStates {}
-
-class ShopErrorCategoriesDataState extends ShopStates {
-  final String? error;
-
-  ShopErrorCategoriesDataState([this.error]);
-}
+// class ShopSuccessCategoriesDataState extends ShopStates {
+//   final List<CategoriesEntity> categories;
+//
+//   ShopSuccessCategoriesDataState(this.categories);
+// }
+//
+// class ShopLoadingCategoriesDataState extends ShopStates {}
+//
+// class ShopErrorCategoriesDataState extends ShopStates {
+//   final String? error;
+//
+//   ShopErrorCategoriesDataState([this.error]);
+// }
 
 class BannerChanged extends ShopStates {}
 

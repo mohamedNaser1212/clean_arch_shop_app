@@ -1,9 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 
-import '../cubit/shop_cubit/shop_state.dart';
 import 'categories_item_builder.dart';
 
 class CategoriesWidget extends StatelessWidget {
@@ -18,13 +17,13 @@ class CategoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopStates>(
+    return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: ShopCubit.get(context).categoriesModel != null,
+          condition: CategoriesCubit.get(context).categoriesModel != null,
           builder: (context) {
-            var categoryModel = ShopCubit.get(context).categoriesModel;
+            var categoryModel = CategoriesCubit.get(context).categoriesModel;
             return CategoriesItemBuilder(
                 categoryModel: categoryModel!,
                 context: context,

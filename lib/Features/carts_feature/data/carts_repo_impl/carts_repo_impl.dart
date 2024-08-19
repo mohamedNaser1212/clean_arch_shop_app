@@ -8,11 +8,11 @@ import '../../domain/carts_repo/cart_repo.dart';
 import '../carts_data_sources/carts_remote_data_source.dart';
 
 class CartsRepoImpl extends CartRepo {
-  final CartsRemoteDataSource getCartsDataSource;
+  final CartsRemoteDataSource cartsDataSource;
   final HiveService hiveService;
 
   CartsRepoImpl({
-    required this.getCartsDataSource,
+    required this.cartsDataSource,
     required this.hiveService,
   });
 
@@ -20,17 +20,18 @@ class CartsRepoImpl extends CartRepo {
   Future<Either<Failure, List<AddToCartEntity>>> getCart() async {
     try {
       // Fetch from remote source first
-      final cart = await getCartsDataSource.getCarts();
+      final cart = await cartsDataSource.getCarts();
       // Save to local cache
       await hiveService.saveData<AddToCartEntity>(cart, kCartBox);
       return right(cart);
     } catch (e) {
-      // Attempt to load from local cache if remote fetch fails
       try {
+        // Attempt to load from local cache if remote fetch fails
         final cachedCart =
             await hiveService.loadData<AddToCartEntity>(kCartBox);
         return right(cachedCart);
       } catch (_) {
+        // Return the original failure if both remote fetch and cache load fail
         return left(ServerFailure(e.toString()));
       }
     }
@@ -39,9 +40,10 @@ class CartsRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, bool>> toggleCart(num productId) async {
     try {
-      final result = await getCartsDataSource.toggleCarts(productId);
-
-      await getCart();
+      // Toggle cart item on the remote server
+      final result = await cartsDataSource.toggleCarts(productId);
+      // Refresh the local cache
+      final cart = await getCart();
       return right(result);
     } catch (e) {
       print('Error in toggleCart: $e');
@@ -53,8 +55,9 @@ class CartsRepoImpl extends CartRepo {
   Future<Either<Failure, List<AddToCartEntity>>> removeCarts(
       num productId) async {
     try {
-      final result = await getCartsDataSource.removeCarts(productId);
-      // Refresh local cache after removing
+      // Remove cart item from the remote server
+      await cartsDataSource.removeCarts(productId);
+      // Refresh the local cache after removal
       return await getCart();
     } catch (e) {
       print('Error in removeCarts: $e');

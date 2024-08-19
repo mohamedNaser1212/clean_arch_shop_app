@@ -7,6 +7,7 @@ import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
 import 'package:shop_app/core/utils/screens/widgets/constants.dart';
 import 'package:shop_app/core/utils/screens/widgets/custom_title.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 import '../../../Features/home/presentation/products_widgets/product_details_info.dart';
 
@@ -30,6 +31,7 @@ class ProductsDetailsScreen extends StatelessWidget {
             title: const CustomTitle(
               title: 'Product Details',
               style: TitleStyle.style20,
+              color: ColorController.whiteColor,
             ),
             centerTitle: true,
             leading: IconButton(

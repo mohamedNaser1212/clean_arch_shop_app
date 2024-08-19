@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/core/models/hive_manager/hive_manager.dart';
 import 'package:shop_app/core/utils/funactions/start_page.dart';
 import 'package:shop_app/core/utils/screens/splash_screen.dart';
@@ -41,8 +42,9 @@ class MyApp extends StatelessWidget {
             create: (context) => getIt<ShopCubit>()
               ..getCartItems()
               ..getHomeData()
-              ..getCategoriesData()
               ..getFavorites()),
+        BlocProvider(
+            create: (context) => getIt<CategoriesCubit>()..getCategoriesData()),
         BlocProvider(
           create: (context) => getIt<LoginCubit>(),
         ),
