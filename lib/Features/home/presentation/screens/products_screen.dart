@@ -23,7 +23,7 @@ class ProductsScreen extends StatelessWidget {
 
     final shopCubit = ShopCubit.get(context);
     if (shopCubit.homeModel == null) {
-      shopCubit.getHomeData();
+      shopCubit.getProductsData();
     }
 
     return BlocConsumer<CategoriesCubit, CategoriesState>(

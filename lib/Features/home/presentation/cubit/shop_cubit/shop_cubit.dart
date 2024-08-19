@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/screens/Cart_screen.dart';
-import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/toggle_favourites_use_case.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/screens/favorites_screen.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
 import 'package:shop_app/Features/home/presentation/screens/products_screen.dart';
@@ -16,8 +15,6 @@ import '../../../../carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import '../../../../carts_feature/domain/carts_use_case/get_cart_use_case.dart';
 import '../../../../carts_feature/domain/carts_use_case/remove_cart_use_case.dart';
 import '../../../../carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
-import '../../../../favourites_feature/domain/favourites_entity/favourites_entity.dart';
-import '../../../../favourites_feature/domain/favourites_use_case/get_favourites_use_case.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 import '../../../domain/use_case/home_items_use_case/products_Use_Case.dart';
 import '../../screens/categries_screen.dart';
@@ -25,11 +22,11 @@ import '../../screens/categries_screen.dart';
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit(
     this.fetchHomeItemsUseCase,
-    this.fetchFavouritesUseCase,
+    //  this.fetchFavouritesUseCase,
     this.addToCartUseCase,
     this.removeFromCartUseCase,
     this.toggleCartUseCase,
-    this.toggleFavouritesUseCase,
+    //  this.toggleFavouritesUseCase,
     //  this.fetchCategoriesUseCase,
   ) : super(ShopInitialState());
 
@@ -43,8 +40,8 @@ class ShopCubit extends Cubit<ShopStates> {
 
   final productsUseCase fetchHomeItemsUseCase;
   // final CategoriesUseCase fetchCategoriesUseCase;
-  final GetFavouritesUseCases fetchFavouritesUseCase;
-  final ToggleFavouritesUseCase toggleFavouritesUseCase;
+  // final GetFavouritesUseCases fetchFavouritesUseCase;
+  // final ToggleFavouritesUseCase toggleFavouritesUseCase;
   final FetchCartUseCase addToCartUseCase;
   final RemoveCartUseCase removeFromCartUseCase;
   final ToggleCartUseCase toggleCartUseCase;
@@ -82,7 +79,7 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeBottomNavState());
   }
 
-  Future<void> getHomeData() async {
+  Future<void> getProductsData() async {
     emit(ShopLoadingHomeDataState());
 
     final result = await fetchHomeItemsUseCase.productsCall();
@@ -145,6 +142,7 @@ class ShopCubit extends Cubit<ShopStates> {
 
   Future<void> changeCarts(num prodId) async {
     emit(ShopChangeCartLoadingState());
+    carts[prodId] = !(carts[prodId] ?? false);
 
     final result = await toggleCartUseCase.toggleCartCall(prodId);
     result.fold(
@@ -153,7 +151,6 @@ class ShopCubit extends Cubit<ShopStates> {
         emit(ShopAddCartItemsErrorState(failure.toString()));
       },
       (isAdded) async {
-        carts[prodId] = !(carts[prodId] ?? false);
         await getCartItems();
         emit(ShopChangeCartSuccessState(carts[prodId] ?? false));
       },
@@ -200,41 +197,41 @@ class ShopCubit extends Cubit<ShopStates> {
 
   ProductEntity? product;
 
-  List<FavouritesEntity> getFavouritesModel = [];
-  Future<void> getFavorites() async {
-    emit(ShopGetFavoritesLoadingState());
-
-    final result = await fetchFavouritesUseCase.call();
-    result.fold(
-      (failure) {
-        print('Failed to fetch favorites: $failure');
-        emit(ShopGetFavoritesErrorState(failure.message));
-      },
-      (favourites) {
-        getFavouritesModel = favourites;
-        favorites = {for (var p in favourites) p.id!: true};
-
-        emit(ShopGetFavoritesSuccessState(getFavouritesModel));
-      },
-    );
-  }
-
-  Future<void> changeFavourite(num productId) async {
-    emit(ShopChangeFavoritesLoadingState());
-
-    final result = await toggleFavouritesUseCase.toggleFavouriteCall(productId);
-    result.fold(
-      (failure) {
-        print('Failed to add/remove favorite items: $failure');
-        emit(ShopToggleFavoriteErrorState(failure.toString()));
-      },
-      (isFavourite) async {
-        favorites[productId] = !(favorites[productId] ?? false);
-        await getFavorites();
-        emit(ShopChangeFavoriteSuccessState(favorites[productId] ?? false));
-      },
-    );
-  }
+  // List<FavouritesEntity> getFavouritesModel = [];
+  // Future<void> getFavorites() async {
+  //   emit(ShopGetFavoritesLoadingState());
+  //
+  //   final result = await fetchFavouritesUseCase.call();
+  //   result.fold(
+  //     (failure) {
+  //       print('Failed to fetch favorites: $failure');
+  //       emit(ShopGetFavoritesErrorState(failure.message));
+  //     },
+  //     (favourites) {
+  //       getFavouritesModel = favourites;
+  //       favorites = {for (var p in favourites) p.id!: true};
+  //
+  //       emit(ShopGetFavoritesSuccessState(getFavouritesModel));
+  //     },
+  //   );
+  // }
+  //
+  // Future<void> changeFavourite(num productId) async {
+  //   emit(ShopChangeFavoritesLoadingState());
+  //
+  //   final result = await toggleFavouritesUseCase.toggleFavouriteCall(productId);
+  //   result.fold(
+  //     (failure) {
+  //       print('Failed to add/remove favorite items: $failure');
+  //       emit(ShopToggleFavoriteErrorState(failure.toString()));
+  //     },
+  //     (isFavourite) async {
+  //       favorites[productId] = !(favorites[productId] ?? false);
+  //       await getFavorites();
+  //       emit(ShopChangeFavoriteSuccessState(favorites[productId] ?? false));
+  //     },
+  //   );
+  // }
 
   void signOut(BuildContext context) {
     CacheHelper.removeData(key: 'token').then((value) {

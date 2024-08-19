@@ -6,6 +6,7 @@ import 'package:shop_app/Features/authentication_feature/domain/authentication_u
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/favourite_remote_data_source.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourites_repo_impl/favourites_repo_impl.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
@@ -144,24 +145,30 @@ void setUpServiceLocator() async {
   getIt.registerFactory(() => CategoriesCubit(
         getIt.get<CategoriesUseCase>(),
       ));
+  getIt.registerFactory(() => FavouritesCubit(
+        getIt.get<GetFavouritesUseCases>(),
+        getIt.get<ToggleFavouritesUseCase>(),
+      ));
+  getIt.registerFactory(
+      () => GetFavouritesUseCases(getIt.get<FavouritesRepo>()));
+  getIt.registerFactory(
+      () => ToggleFavouritesUseCase(getIt.get<FavouritesRepo>()));
   getIt.registerFactory(() {
     final fetchProductsUseCase = productsUseCase(getIt.get<HomeRepo>());
-    final fetchFavouritesUseCase =
-        GetFavouritesUseCases(getIt.get<FavouritesRepo>());
+    // final fetchFavouritesUseCase =
+    //     GetFavouritesUseCases(getIt.get<FavouritesRepo>());
     final fetchCartUseCase = FetchCartUseCase(getIt.get<CartRepo>());
     final removeCartUseCase = RemoveCartUseCase(getIt.get<CartRepo>());
     final toggleCartUseCase = ToggleCartUseCase(getIt.get<CartRepo>());
-    final toggleFavouritesUseCase =
-        ToggleFavouritesUseCase(getIt.get<FavouritesRepo>());
+    //   final toggleFavouritesUseCase =
+    //    ToggleFavouritesUseCase(getIt.get<FavouritesRepo>());
     //  final fetchCategoriesUseCase = CategoriesUseCase(getIt.get<HomeRepo>());
 
     return ShopCubit(
       fetchProductsUseCase,
-      fetchFavouritesUseCase,
       fetchCartUseCase,
       removeCartUseCase,
       toggleCartUseCase,
-      toggleFavouritesUseCase,
     );
   });
 }

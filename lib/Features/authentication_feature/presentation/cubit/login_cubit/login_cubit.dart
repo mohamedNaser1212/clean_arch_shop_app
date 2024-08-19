@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 
 import '../../../../../core/utils/screens/widgets/cache_helper.dart';
@@ -49,9 +50,9 @@ class LoginCubit extends Cubit<LoginState> {
         token = loginModel.data!.token!;
         await CacheHelper.saveData(key: 'token', value: token);
         print(token);
-        ShopCubit.get(context).getHomeData();
+        ShopCubit.get(context).getProductsData();
         ShopCubit.get(context).getCartItems();
-        ShopCubit.get(context).getFavorites();
+        FavouritesCubit.get(context).getFavorites();
         navigateAndFinish(context: context, screen: const LayoutScreen());
       },
     );

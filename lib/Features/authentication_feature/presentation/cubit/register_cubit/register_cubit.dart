@@ -60,7 +60,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         if (!context.mounted) return;
         final shopCubit = ShopCubit.get(context);
         shopCubit.currentIndex = 0;
-        shopCubit.getHomeData();
+        shopCubit.getProductsData();
 
         favorites.clear();
         carts.clear();

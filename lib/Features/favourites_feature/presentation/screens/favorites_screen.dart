@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
 import '../../../../core/utils/screens/widgets/custom_title.dart';
 import '../../../../core/utils/styles/color_manager.dart';
@@ -15,16 +14,17 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopStates>(
+    return BlocConsumer<FavouritesCubit, FavouritesState>(
       listener: (context, state) {
-        if (state is ShopToggleFavoriteSuccessState) {
+        if (state is ChangeFavouriteSuccessState) {
           Fluttertoast.showToast(
-            msg: state.isFavourite.message!,
+            msg: state.isFavourite
+                ? 'Added to favourites'
+                : 'Removed from favourites',
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
-            backgroundColor:
-                state.isFavourite.status! ? Colors.green : Colors.red,
+            backgroundColor: state.isFavourite ? Colors.green : Colors.red,
             textColor: Colors.white,
             fontSize: 16.0,
           );
@@ -38,13 +38,13 @@ class FavoritesScreen extends StatelessWidget {
 }
 
 class _FavoritesScreenContent extends StatelessWidget {
-  final ShopStates state;
+  final FavouritesState state;
 
   const _FavoritesScreenContent({required this.state});
 
   @override
   Widget build(BuildContext context) {
-    var favouritesModel = ShopCubit.get(context).getFavouritesModel;
+    var favouritesModel = FavouritesCubit.get(context).getFavouritesModel;
 
     if (favouritesModel.isEmpty) {
       return const Center(
@@ -56,8 +56,7 @@ class _FavoritesScreenContent extends StatelessWidget {
     }
 
     return ConditionalBuilder(
-      condition: state is! ShopChangeFavoritesLoadingState &&
-          state is! ShopToggleFavoriteLoadingState,
+      condition: state is! ChangeFavoritesLoadingState,
       builder: (context) => ListView.separated(
         itemBuilder: (context, index) =>
             FavoriteItem(model: favouritesModel[index]),

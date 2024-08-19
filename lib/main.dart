@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/core/models/hive_manager/hive_manager.dart';
 import 'package:shop_app/core/utils/funactions/start_page.dart';
@@ -41,8 +42,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => getIt<ShopCubit>()
               ..getCartItems()
-              ..getHomeData()
-              ..getFavorites()),
+              ..getProductsData()),
         BlocProvider(
             create: (context) => getIt<CategoriesCubit>()..getCategoriesData()),
         BlocProvider(
@@ -54,6 +54,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<UserDataCubit>()..getUserData(),
         ),
+        BlocProvider(
+            create: (context) => getIt<FavouritesCubit>()..getFavorites()),
       ],
       child: MaterialApp(
         home: FutureBuilder<Widget>(
