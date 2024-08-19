@@ -9,7 +9,6 @@ import 'Features/authentication_feature/presentation/cubit/register_cubit/regist
 import 'Features/carts_feature/payment_gate_way/stripe_payment/stripe_keys.dart';
 import 'Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import 'Features/settings_feature/presentation/cubit/get_user_info_cubit/get_user_data_cubit.dart';
-import 'core/models/hive_manager/hive_manager.dart';
 import 'core/service_locator/service_locator.dart';
 import 'core/utils/bloc_observer/bloc_observer.dart';
 import 'core/utils/screens/error_screen.dart';
@@ -19,14 +18,14 @@ import 'core/utils/screens/widgets/old_dio_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await HiveManager.initialize();
+
+  setUpServiceLocator();
+
   Bloc.observer = MyBlocObserver();
   Stripe.publishableKey = ApiKeys.publishableKey;
 
   await CacheHelper.init();
   DioHelper.init();
-
-  setUpServiceLocator();
 
   runApp(MyApp());
 }
