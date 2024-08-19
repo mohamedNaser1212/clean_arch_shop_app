@@ -137,5 +137,5 @@ class Products extends ProductEntity {
 
   String description;
   bool inFavorites;
-  bool inCart;
+  bool? inCart;
 }

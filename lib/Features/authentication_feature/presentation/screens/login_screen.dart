@@ -75,9 +75,7 @@ class LoginScreen extends StatelessWidget {
       children: [
         const CustomTitle(
           title: 'LOGIN Screen',
-          fontSize: 14,
-          color: ColorController.blackColor,
-          fontWeight: FontWeight.w900,
+          style: TitleStyle.style14,
         ),
         Text(
           'login now to browse our hot offers',
@@ -159,9 +157,8 @@ class LoginScreen extends StatelessWidget {
       children: [
         const CustomTitle(
           title: 'Don\'t have an account?',
-          fontSize: 16,
+          style: TitleStyle.style16,
           color: ColorController.blackColor,
-          fontWeight: FontWeight.w500,
         ),
         TextButton(
           onPressed: () {
@@ -172,9 +169,7 @@ class LoginScreen extends StatelessWidget {
           },
           child: const CustomTitle(
             title: 'Register Now',
-            fontSize: 16,
-            color: Colors.blue,
-            fontWeight: FontWeight.w500,
+            style: TitleStyle.style16,
           ),
         ),
       ],

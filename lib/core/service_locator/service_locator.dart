@@ -23,8 +23,7 @@ import '../../../Features/search_feature/data/search_repo_impl/search_repo_Impl.
 import '../../../Features/search_feature/domain/search_repo/search_repo.dart';
 import '../../../Features/search_feature/domain/search_use_case/fetch_search_use_case.dart';
 import '../../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
-import '../../../Features/settings_feature/domain/settings_use_case/get_user_data_use_case/get_user_data_use_case.dart';
-import '../../../Features/settings_feature/presentation/cubit/get_user_info_cubit/get_user_data_cubit.dart';
+import '../../../Features/settings_feature/domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
 import '../../Features/authentication_feature/domain/authentication_repo/authentication_repo.dart';
 import '../../Features/carts_feature/data/carts_data_sources/carts_remote_data_source.dart';
 import '../../Features/carts_feature/domain/carts_use_case/remove_cart_use_case.dart';
@@ -37,15 +36,14 @@ import '../../Features/home/domain/use_case/home_items_use_case/products_Use_Cas
 import '../../Features/settings_feature/data/user_data_data_source/user_info_remote_data_source.dart';
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
+import '../../Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import '../models/hive_manager/hive_manager.dart';
 import '../utils/api_services/api_service.dart';
-
-// ...other imports...
 
 final getIt = GetIt.instance;
 
 void setUpServiceLocator() async {
-  //registering the HiveService
+  // Register HiveService
   getIt.registerSingleton<HiveService>(HiveManager());
 
   // Register ApiService
@@ -53,8 +51,9 @@ void setUpServiceLocator() async {
     ApiService(Dio(), "https://student.valuxapps.com/api/"),
   );
 
+  // Authentication dependencies
   getIt.registerSingleton<AuthenticationRepo>(
-    LoginRepoImpl(
+    AuthRepoImpl(
       loginDataSource: LoginDataSourceImpl(getIt.get<ApiServiceInterface>()),
     ),
   );
@@ -69,8 +68,8 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<HomeRemoteDataSource>(
     HomeRemoteDataSourceImpl(getIt.get<ApiServiceInterface>()),
   );
-  getIt.registerSingleton<HomeRepo>(
-    HomeRepoImpl(
+  getIt.registerLazySingleton<HomeRepo>(
+    () => HomeRepoImpl(
       homeRemoteDataSource: getIt.get<HomeRemoteDataSource>(),
       hiveService: getIt.get<HiveService>(),
     ),
@@ -80,19 +79,19 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<UserDataSource>(
     UserDataSourceImpl(apiService: getIt.get<ApiServiceInterface>()),
   );
-  getIt.registerSingleton<SuperGetUserDataRepo>(
+  getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
       getUserDataDataSource: getIt.get<UserDataSource>(),
     ),
   );
-  getIt.registerSingleton<GetUserDataUseCase>(
-    GetUserDataUseCase(
-      getUserDataRepo: getIt.get<SuperGetUserDataRepo>(),
+  getIt.registerSingleton<UserDataUseCase>(
+    UserDataUseCase(
+      getUserDataRepo: getIt.get<UserDataRepo>(),
     ),
   );
   getIt.registerSingleton<UpdateUserDataUseCase>(
     UpdateUserDataUseCase(
-      getIt.get<SuperGetUserDataRepo>(),
+      getIt.get<UserDataRepo>(),
     ),
   );
 
@@ -104,6 +103,7 @@ void setUpServiceLocator() async {
   );
   getIt.registerSingleton<FavouritesRepo>(
     FavouritesRepoImpl(
+      hiveService: getIt.get<HiveService>(),
       getFavouritesDataSource: getIt.get<FavouritesRemoteDataSource>(),
     ),
   );
@@ -115,8 +115,8 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<SearchRepo>(
     SearchRepoImpl(getIt.get<SearchDataSource>()),
   );
-  getIt.registerSingleton<FetchSearchUseCase>(
-    FetchSearchUseCase(getIt.get<SearchRepo>()),
+  getIt.registerSingleton<SearchUseCase>(
+    SearchUseCase(getIt.get<SearchRepo>()),
   );
 
   // Add to Cart dependencies
@@ -125,8 +125,8 @@ void setUpServiceLocator() async {
   );
   getIt.registerSingleton<CartRepo>(
     CartsRepoImpl(
+      hiveService: getIt.get<HiveService>(),
       getCartsDataSource: getIt.get<CartsRemoteDataSource>(),
-      // hiveService: getIt.get<HiveService>(),
     ),
   );
 
@@ -134,19 +134,19 @@ void setUpServiceLocator() async {
   getIt.registerFactory(() => LoginCubit(getIt.get<LoginUseCase>()));
   getIt.registerFactory(() => RegisterCubit(getIt.get<RegisterUseCase>()));
   getIt.registerFactory(() => UserDataCubit(
-        getUserDataUseCase: getIt.get<GetUserDataUseCase>(),
+        getUserDataUseCase: getIt.get<UserDataUseCase>(),
         updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
       ));
   getIt.registerFactory(() {
-    final fetchProductsUseCase = productsUseCase(getIt<HomeRepo>());
+    final fetchProductsUseCase = productsUseCase(getIt.get<HomeRepo>());
     final fetchFavouritesUseCase =
-        GetFavouritesUseCases(getIt<FavouritesRepo>());
-    final fetchCartUseCase = FetchCartUseCase(getIt<CartRepo>());
-    final removeCartUseCase = RemoveCartUseCase(getIt<CartRepo>());
-    final toggleCartUseCase = ToggleCartUseCase(getIt<CartRepo>());
+        GetFavouritesUseCases(getIt.get<FavouritesRepo>());
+    final fetchCartUseCase = FetchCartUseCase(getIt.get<CartRepo>());
+    final removeCartUseCase = RemoveCartUseCase(getIt.get<CartRepo>());
+    final toggleCartUseCase = ToggleCartUseCase(getIt.get<CartRepo>());
     final toggleFavouritesUseCase =
-        ToggleFavouritesUseCase(getIt<FavouritesRepo>());
-    final fetchCategoriesUseCase = CategoriesUseCase(getIt<HomeRepo>());
+        ToggleFavouritesUseCase(getIt.get<FavouritesRepo>());
+    final fetchCategoriesUseCase = CategoriesUseCase(getIt.get<HomeRepo>());
 
     return ShopCubit(
       fetchProductsUseCase,

@@ -1,4 +1,4 @@
-part of 'get_user_data_cubit.dart';
+part of 'user_data_cubit.dart';
 
 class GetUserDataState {}
 

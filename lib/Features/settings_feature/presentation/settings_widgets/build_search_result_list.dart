@@ -40,16 +40,14 @@ class BuildSearchResultList extends StatelessWidget {
                         width: 200,
                         child: CustomTitle(
                           title: result.name!,
-                          fontSize: 20,
+                          style: TitleStyle.style20,
                           color: ColorController.blackColor,
-                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       CustomTitle(
                         title: result.price.toString(),
-                        fontSize: 20,
+                        style: TitleStyle.style20,
                         color: ColorController.blackColor,
-                        fontWeight: FontWeight.bold,
                       ),
                     ],
                   ),

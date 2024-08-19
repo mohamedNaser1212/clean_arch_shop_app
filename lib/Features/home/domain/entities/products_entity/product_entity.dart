@@ -23,7 +23,7 @@ class ProductEntity {
   @HiveField(8)
   final bool? inFavorites;
   @HiveField(9)
-  bool inCart;
+  bool? inCart;
 
   ProductEntity({
     required this.id,

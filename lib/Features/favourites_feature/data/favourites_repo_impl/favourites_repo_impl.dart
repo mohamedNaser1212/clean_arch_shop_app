@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
+import 'package:shop_app/core/models/hive_manager/hive_service.dart';
+import 'package:shop_app/core/utils/screens/widgets/end_points.dart';
 
 import '../../domain/favourites_entity/favourites_entity.dart';
 import '../../domain/favourites_repo/favourites_repo.dart';
@@ -7,29 +9,41 @@ import '../favourite_data_source/favourite_remote_data_source.dart';
 
 class FavouritesRepoImpl extends FavouritesRepo {
   final FavouritesRemoteDataSource getFavouritesDataSource;
+  final HiveService hiveService;
 
-  FavouritesRepoImpl({required this.getFavouritesDataSource});
+  FavouritesRepoImpl({
+    required this.getFavouritesDataSource,
+    required this.hiveService,
+  });
 
   @override
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites() async {
     try {
+      // Fetch from remote source first
       final favourites = await getFavouritesDataSource.getFavourites();
-      //HiveManager.saveData<FavouritesEntity>(favourites, kFavouritesBox);
-
+      // Save to local cache
+      await hiveService.saveData<FavouritesEntity>(favourites, kFavouritesBox);
       return right(favourites);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      try {
+        final cachedFavourites =
+            await hiveService.loadData<FavouritesEntity>(kFavouritesBox);
+        return right(cachedFavourites);
+      } catch (_) {
+        return left(ServerFailure(e.toString()));
+      }
     }
   }
 
   @override
-  Future<Either<Failure, bool>> toggleFavourite(num productIds) async {
+  Future<Either<Failure, bool>> toggleFavourite(num productId) async {
     try {
-      final result = await getFavouritesDataSource.toggleFavourites(productIds);
-      getFavourites();
+      final result = await getFavouritesDataSource.toggleFavourites(productId);
+      // After toggling, fetch and update the data
+      final updatedFavourites = await getFavourites();
       return right(result);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return left(ServerFailure(e.toString()));
     }
   }
 }

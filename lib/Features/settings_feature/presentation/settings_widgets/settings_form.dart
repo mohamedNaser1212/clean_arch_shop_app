@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/service_locator/service_locator.dart';
+import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
 
 import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../../core/utils/styles/color_manager.dart';
-import '../cubit/get_user_info_cubit/get_user_data_cubit.dart';
+import '../cubit/user_info_cubit/user_data_cubit.dart';
 
 class SettingsForm extends StatelessWidget {
   final TextEditingController nameController;
@@ -78,7 +80,8 @@ class SettingsForm extends StatelessWidget {
             reusableElevatedButton(
               label: 'Sign Out',
               function: () {
-                UserDataCubit.get(context).signOut(context);
+                UserDataCubit.get(context)
+                    .signOut(context, getIt.get<ApiServiceInterface>());
               },
               backColor: ColorController.warningColor,
               textColor: ColorController.buttonTextColor,

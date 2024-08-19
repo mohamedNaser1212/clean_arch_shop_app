@@ -61,18 +61,16 @@ Widget _buildProductsScreen(BuildContext context, ShopStates state) {
         children: [
           const CustomTitle(
             title: 'Categories',
-            fontSize: 24,
+            style: TitleStyle.style24,
             color: ColorController.blackColor,
-            fontWeight: FontWeight.w900,
           ),
           const SizedBox(height: 10),
           CategoriesSection(categories: categoryModel),
           const SizedBox(height: 10),
           const CustomTitle(
             title: 'New Products',
-            fontSize: 24,
+            style: TitleStyle.style24,
             color: ColorController.blackColor,
-            fontWeight: FontWeight.w900,
           ),
           ProductsGridView(products: homeModel),
         ],

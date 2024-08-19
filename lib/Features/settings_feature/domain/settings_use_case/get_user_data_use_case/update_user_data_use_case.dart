@@ -5,7 +5,7 @@ import '../../get_user_repo/get_user_repo.dart';
 import '../../user_entity/user_entity.dart';
 
 class UpdateUserDataUseCase {
-  final SuperGetUserDataRepo getUserDataRepo;
+  final UserDataRepo getUserDataRepo;
 
   UpdateUserDataUseCase(this.getUserDataRepo);
 

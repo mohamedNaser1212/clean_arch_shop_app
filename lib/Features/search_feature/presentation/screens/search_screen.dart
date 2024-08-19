@@ -15,7 +15,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchCubit(getIt<FetchSearchUseCase>()),
+      create: (context) => SearchCubit(getIt<SearchUseCase>()),
       child: BlocConsumer<SearchCubit, SearchState>(
         listener: _buildSearchResults,
         builder: _buildSearchScreen,
@@ -38,8 +38,7 @@ class SearchScreen extends StatelessWidget {
           ),
           title: const CustomTitle(
             title: 'Search',
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
+            style: TitleStyle.style20,
             color: ColorController.whiteColor,
           )),
       body: Padding(
@@ -64,8 +63,7 @@ class SearchScreen extends StatelessWidget {
       return const Center(
           child: CustomTitle(
         title: 'Error fetching data',
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
+        style: TitleStyle.style20,
         color: ColorController.blackColor,
       ));
     } else {

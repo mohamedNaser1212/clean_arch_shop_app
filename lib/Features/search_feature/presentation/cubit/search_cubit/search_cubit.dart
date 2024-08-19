@@ -6,7 +6,7 @@ import '../../../../search_feature/domain/search_use_case/fetch_search_use_case.
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  final FetchSearchUseCase fetchSearchUseCase;
+  final SearchUseCase fetchSearchUseCase;
 
   SearchCubit(this.fetchSearchUseCase) : super(SearchInitial());
 

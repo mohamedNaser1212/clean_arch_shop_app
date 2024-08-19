@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../../core/errors/failure.dart';
 
-abstract class SuperGetUserDataUseCase<Type> {
-  Future<Either<Failure, Type>> GetUserData();
-  Future<Either<Failure, Type>> UpdateUserData({
+abstract class UserDataUseCase<Type> {
+  Future<Either<Failure, Type>> getUserData();
+  Future<Either<Failure, Type>> updateUserData({
     required String name,
     required String email,
     required String phone,

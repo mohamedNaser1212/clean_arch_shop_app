@@ -9,7 +9,6 @@ import 'package:shop_app/core/utils/screens/widgets/constants.dart';
 import 'package:shop_app/core/utils/screens/widgets/custom_title.dart';
 
 import '../../../Features/home/presentation/products_widgets/product_details_info.dart';
-import '../styles/color_manager.dart';
 
 class ProductsDetailsScreen extends StatelessWidget {
   final dynamic model;
@@ -30,9 +29,7 @@ class ProductsDetailsScreen extends StatelessWidget {
           appBar: AppBar(
             title: const CustomTitle(
               title: 'Product Details',
-              fontSize: 20,
-              color: ColorController.whiteColor,
-              fontWeight: FontWeight.w500,
+              style: TitleStyle.style20,
             ),
             centerTitle: true,
             leading: IconButton(

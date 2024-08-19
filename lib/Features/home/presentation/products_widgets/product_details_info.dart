@@ -39,53 +39,46 @@ class BuildProductDetailsInfo extends StatelessWidget {
         children: [
           CustomTitle(
             title: name,
-            fontSize: 24,
+            style: TitleStyle.style24,
             color: Colors.black,
-            fontWeight: FontWeight.bold,
           ),
           const SizedBox(height: 8),
           const CustomTitle(
             title: 'Description:',
-            fontSize: 20,
+            style: TitleStyle.style20,
             color: ColorController.blackColor,
-            fontWeight: FontWeight.w500,
           ),
           const SizedBox(height: 4),
           CustomTitle(
             title: description,
-            fontSize: 16,
+            style: TitleStyle.style16,
             color: ColorController.accentColor,
-            fontWeight: FontWeight.normal,
           ),
           const SizedBox(height: 8),
           if (discount != 0 && discount != null)
             CustomTitle(
               title: 'Discount: $discount%',
-              fontSize: 18,
+              style: TitleStyle.style18,
               color: ColorController.blackColor,
-              fontWeight: FontWeight.w500,
             ),
           const SizedBox(height: 8),
           CustomTitle(
             title: 'Price: $price',
-            fontSize: 20,
+            style: TitleStyle.style20,
             color: ColorController.blackColor,
-            fontWeight: FontWeight.w500,
           ),
           if (discount != 0)
             CustomTitle(
               title: 'Old Price: ${oldPrice ?? ''}',
-              fontSize: 18,
+              style: TitleStyle.style18,
               color: ColorController.blackColor,
-              fontWeight: FontWeight.w500,
             ),
           const SizedBox(height: 16),
           if (isProduct)
             const CustomTitle(
               title: 'Additional Images',
-              fontSize: 20,
+              style: TitleStyle.style20,
               color: ColorController.blackColor,
-              fontWeight: FontWeight.w500,
             ),
           if (isProduct) const SizedBox(height: 8),
           if (isProduct)

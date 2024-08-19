@@ -8,7 +8,7 @@ class LoadingIndicatorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: LoadingAnimationWidget.waveDots(
-        color: Colors.white,
+        color: Colors.grey,
         size: 120,
       ),
     );

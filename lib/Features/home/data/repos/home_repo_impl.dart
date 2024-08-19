@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/core/models/hive_manager/hive_service.dart';
 
+import '../../../../core/utils/screens/widgets/end_points.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import '../../domain/entities/products_entity/product_entity.dart';
 import '../../domain/home_repo/home_repo.dart';
@@ -21,15 +22,16 @@ class HomeRepoImpl extends HomeRepo {
   Future<Either<Failure, List<CategoriesEntity>>> fetchCategories() async {
     try {
       // Check if categories are cached
-      // final cachedCategories =
-      //     await hiveService.loadData<CategoriesEntity>(kCategoriesBox);
-      // if (cachedCategories.isNotEmpty) {
-      //   return right(cachedCategories);
-      // }
+      final cachedCategories =
+          await hiveService.loadData<CategoriesEntity>(kCategoriesBox);
+      if (cachedCategories.isNotEmpty) {
+        return right(cachedCategories);
+      }
 
+      // Fetch from remote if not cached
       final categoriesList = await homeRemoteDataSource.fetchCategories();
-      // await hiveService.saveData<CategoriesEntity>(
-      //     categoriesList, kCategoriesBox);
+      await hiveService.saveData<CategoriesEntity>(
+          categoriesList, kCategoriesBox);
 
       return right(categoriesList);
     } catch (e) {
@@ -43,15 +45,16 @@ class HomeRepoImpl extends HomeRepo {
   @override
   Future<Either<Failure, List<ProductEntity>>> fetchProducts() async {
     try {
-      // final cachedProducts =
-      //     await hiveService.loadData<ProductEntity>(kProductsBox);
-      // if (cachedProducts.isNotEmpty) {
-      //   return right(cachedProducts);
-      // }
+      // Check if products are cached
+      final cachedProducts =
+          await hiveService.loadData<ProductEntity>(kProductsBox);
+      if (cachedProducts.isNotEmpty) {
+        return right(cachedProducts);
+      }
 
       // Fetch from remote if not cached
       final productsList = await homeRemoteDataSource.fetchFeaturedProducts();
-      //  await hiveService.saveData<ProductEntity>(productsList, kProductsBox);
+      await hiveService.saveData<ProductEntity>(productsList, kProductsBox);
 
       return right(productsList);
     } catch (e) {

@@ -53,10 +53,9 @@ class ProductItem extends StatelessWidget {
                           padding: const EdgeInsets.all(2),
                           child: const CustomTitle(
                             title: 'DISCOUNT',
-                            fontSize: 12,
+                            style: TitleStyle.style12,
                             color: ColorController
                                 .blackColor, // Use blackColor from ColorController
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                     ],

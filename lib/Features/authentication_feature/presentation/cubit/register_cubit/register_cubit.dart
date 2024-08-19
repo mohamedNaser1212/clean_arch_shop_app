@@ -10,7 +10,7 @@ import '../../../../../core/utils/screens/widgets/end_points.dart';
 import '../../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../home/presentation/screens/layout_screen.dart';
-import '../../../../settings_feature/presentation/cubit/get_user_info_cubit/get_user_data_cubit.dart';
+import '../../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 
 part 'register_state.dart';
 

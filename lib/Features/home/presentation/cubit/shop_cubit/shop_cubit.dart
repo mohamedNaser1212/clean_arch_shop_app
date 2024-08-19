@@ -101,6 +101,14 @@ class ShopCubit extends Cubit<ShopStates> {
       },
     );
   }
+  /*
+
+  BlocConsumerCategories =>
+   loading? progressindicator
+   : success? BlocConsumerProducts =>
+      loading? progressindicator
+      : success? screenDesign
+   */
 
   Future<void> getCategoriesData() async {
     emit(ShopLoadingCategoriesDataState());

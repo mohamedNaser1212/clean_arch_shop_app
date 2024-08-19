@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/screens/widgets/toast_widget.dart';
-import '../../domain/settings_use_case/get_user_data_use_case/get_user_data_use_case.dart';
 import '../../domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
-import '../cubit/get_user_info_cubit/get_user_data_cubit.dart';
+import '../../domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
+import '../cubit/user_info_cubit/user_data_cubit.dart';
 import '../settings_widgets/settings_form.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -20,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UserDataCubit(
-          getUserDataUseCase: getIt.get<GetUserDataUseCase>(),
+          getUserDataUseCase: getIt.get<UserDataUseCase>(),
           updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>())
         ..getUserData(),
       child: BlocConsumer<UserDataCubit, GetUserDataState>(

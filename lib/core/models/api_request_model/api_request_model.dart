@@ -41,6 +41,6 @@ class ApiRequestModel {
   @override
   String toString() {
     print("=======================================");
-    return 'ApiRequestModel(endpoint: $endpoint, headers: $headers, query: ${query ?? ''}, data: $data)';
+    return 'ApiRequestModel(endpoint: $endpoint, headers: ${headers ?? ''}, query: ${query ?? ''}, data: ${data ?? ''})';
   }
 }

@@ -1,8 +1,8 @@
 // Assuming you have a way to get the HiveService instance, such as from a service locator.
 import 'package:shop_app/core/models/hive_manager/hive_service.dart'; // Import HiveService
 
-import '../../../../../core/utils/screens/widgets/end_points.dart';
-import '../../../domain/user_entity/user_entity.dart';
+import '../../../../core/utils/screens/widgets/end_points.dart';
+import '../../domain/user_entity/user_entity.dart';
 
 HiveService? hiveService;
 

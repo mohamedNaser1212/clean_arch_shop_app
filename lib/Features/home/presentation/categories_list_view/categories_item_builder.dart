@@ -28,8 +28,7 @@ class CategoriesItemBuilder extends StatelessWidget {
           children: [
             const CustomTitle(
               title: 'Categories',
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
+              style: TitleStyle.style24,
               color: ColorController.blackColor,
             ),
             const SizedBox(height: 10),

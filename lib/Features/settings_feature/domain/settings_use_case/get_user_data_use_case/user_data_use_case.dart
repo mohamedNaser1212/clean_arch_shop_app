@@ -4,10 +4,10 @@ import 'package:shop_app/core/errors/failure.dart';
 import '../../../../settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 
-class GetUserDataUseCase {
-  final SuperGetUserDataRepo getUserDataRepo;
+class UserDataUseCase {
+  final UserDataRepo getUserDataRepo;
 
-  GetUserDataUseCase({required this.getUserDataRepo});
+  UserDataUseCase({required this.getUserDataRepo});
 
   Future<Either<Failure, UserEntity>> GetUserData() async {
     return await getUserDataRepo.getUserData();

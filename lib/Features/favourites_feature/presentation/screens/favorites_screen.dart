@@ -50,9 +50,8 @@ class _FavoritesScreenContent extends StatelessWidget {
       return const Center(
           child: CustomTitle(
         title: 'Sorry, there are no favourites to show',
-        fontSize: 16,
+        style: TitleStyle.style16,
         color: ColorController.blackColor,
-        fontWeight: FontWeight.w500,
       ));
     }
 

@@ -3,7 +3,7 @@ import 'package:shop_app/core/errors/failure.dart';
 
 import '../user_entity/user_entity.dart';
 
-abstract class SuperGetUserDataRepo {
+abstract class UserDataRepo {
   Future<Either<Failure, UserEntity>> getUserData();
   Future<Either<Failure, UserEntity>> UpdateUserData({
     required String name,

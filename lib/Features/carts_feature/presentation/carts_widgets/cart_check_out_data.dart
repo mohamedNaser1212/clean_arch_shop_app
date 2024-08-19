@@ -24,19 +24,21 @@ class CartCheckoutData extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Subtotal: \$${subtotal?.toStringAsFixed(2) ?? '0.00'}',
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          CustomTitle(
+              title: 'Subtotal: \$${subtotal?.toStringAsFixed(2) ?? '0.00'}',
+              style: TitleStyle.styleBold18),
+          // Text(
+          //   'Subtotal: \$${subtotal?.toStringAsFixed(2) ?? '0.00'}',
+          //   style: const TextStyle(
+          //     fontSize: 18,
+          //     fontWeight: FontWeight.bold,
+          //   ),
+          // ),
           const SizedBox(height: 8),
           CustomTitle(
-              title: 'Total: \$${total?.toStringAsFixed(2) ?? '0.00'}',
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.red),
+            title: 'Total: \$${total?.toStringAsFixed(2) ?? '0.00'}',
+            style: TitleStyle.styleBold20,
+          ),
           const SizedBox(height: 8),
           reusableElevatedButton(
               label: 'CheckOut',

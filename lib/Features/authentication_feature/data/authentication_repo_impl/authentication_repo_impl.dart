@@ -5,10 +5,10 @@ import '../../../../core/errors/failure.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../authentication_data_source/authentication_data_source.dart';
 
-class LoginRepoImpl implements AuthenticationRepo {
+class AuthRepoImpl implements AuthenticationRepo {
   final LoginDataSource loginDataSource;
 
-  LoginRepoImpl({required this.loginDataSource});
+  AuthRepoImpl({required this.loginDataSource});
 
   @override
   Future<Either<Failure, AuthenticationModel>> login({

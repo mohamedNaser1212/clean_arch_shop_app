@@ -26,7 +26,7 @@ class ProductEntityAdapter extends TypeAdapter<ProductEntity> {
       images: (fields[6] as List).cast<String>(),
       description: fields[7] as String?,
       inFavorites: fields[8] as bool?,
-      inCart: fields[9] as bool,
+      inCart: fields[9] as bool?,
     );
   }
 

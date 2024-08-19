@@ -3,10 +3,10 @@ import 'package:shop_app/core/errors/failure.dart';
 
 import '../../domain/get_user_repo/get_user_repo.dart';
 import '../../domain/user_entity/user_entity.dart';
+import '../user_data_data_source/save_user_data.dart';
 import '../user_data_data_source/user_info_remote_data_source.dart';
-import '../user_data_data_source/user_local_data_source/save_user_data.dart';
 
-class UserDataRepoImpl implements SuperGetUserDataRepo {
+class UserDataRepoImpl implements UserDataRepo {
   final UserDataSource getUserDataDataSource;
 
   UserDataRepoImpl({required this.getUserDataDataSource});

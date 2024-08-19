@@ -50,8 +50,7 @@ class _CartScreenContent extends StatelessWidget {
       return const Center(
           child: CustomTitle(
               title: 'Sorry, there are no items in your cart',
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
+              style: TitleStyle.style20,
               color: ColorController.blackColor));
     }
 

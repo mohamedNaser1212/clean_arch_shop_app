@@ -4,10 +4,10 @@ import '../../../../../core/errors/failure.dart';
 import '../../data/search_model/SearchModel.dart';
 import '../search_repo/search_repo.dart';
 
-class FetchSearchUseCase {
+class SearchUseCase {
   final SearchRepo searchRepo;
 
-  FetchSearchUseCase(this.searchRepo);
+  SearchUseCase(this.searchRepo);
 
   Future<Either<Failure, List<SearchProduct>>> call(String text) {
     return searchRepo.search(text);
