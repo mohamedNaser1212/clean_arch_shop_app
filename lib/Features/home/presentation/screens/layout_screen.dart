@@ -4,20 +4,20 @@ import 'package:shop_app/Features/search_feature/presentation/screens/search_scr
 
 import '../../../../core/utils/screens/widgets/constants.dart';
 import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
-import '../cubit/shop_cubit/shop_cubit.dart';
-import '../cubit/shop_cubit/shop_state.dart';
+import '../cubit/shop_cubit/get_product_cubit.dart';
+import '../cubit/shop_cubit/get_products_state.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopStates>(
+    return BlocConsumer<GetProductsCubit, GetProductsState>(
       listener: (context, state) {
         // Handle state changes if necessary
       },
       builder: (context, state) {
-        var cubit = ShopCubit.get(context);
+        var cubit = GetProductsCubit.get(context);
 
         return Scaffold(
           appBar: _buildAppBar(context),
@@ -46,7 +46,7 @@ class LayoutScreen extends StatelessWidget {
     );
   }
 
-  BottomNavigationBar _buildBottomNavigationBar(ShopCubit cubit) {
+  BottomNavigationBar _buildBottomNavigationBar(GetProductsCubit cubit) {
     return BottomNavigationBar(
       items: cubit.bottomNavigationBarItems,
       currentIndex: cubit.currentIndex,

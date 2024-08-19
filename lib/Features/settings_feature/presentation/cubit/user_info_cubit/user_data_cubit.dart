@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
 import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
 
 import '../../../../../core/models/api_request_model/api_request_model.dart';
@@ -73,7 +73,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
       BuildContext context, ApiServiceInterface apiService) async {
     favorites.clear();
     carts.clear();
-    ShopCubit.get(context).currentIndex = 0;
+    GetProductsCubit.get(context).currentIndex = 0;
 
     ApiRequestModel request = ApiRequestModel(endpoint: 'logout');
     final response = await apiService.post(request: request);

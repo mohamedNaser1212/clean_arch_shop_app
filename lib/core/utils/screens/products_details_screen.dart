@@ -3,8 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_products_state.dart';
 import 'package:shop_app/core/utils/screens/widgets/constants.dart';
 import 'package:shop_app/core/utils/screens/widgets/custom_title.dart';
 import 'package:shop_app/core/utils/styles/color_manager.dart';
@@ -23,7 +23,7 @@ class ProductsDetailsScreen extends StatelessWidget {
 
     final images = isProduct ? model.images : [image];
 
-    return BlocConsumer<ShopCubit, ShopStates>(
+    return BlocConsumer<GetProductsCubit, GetProductsState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(

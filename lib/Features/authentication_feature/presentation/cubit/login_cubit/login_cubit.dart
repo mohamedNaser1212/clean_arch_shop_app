@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
 
 import '../../../../../core/utils/screens/widgets/cache_helper.dart';
 import '../../../../../core/utils/screens/widgets/constants.dart';
@@ -28,7 +29,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     var result = await loginUseCase?.call(email, password);
     if (!context!.mounted) return;
-    ShopCubit.get(context).currentIndex = 0;
+    GetProductsCubit.get(context).currentIndex = 0;
     result?.fold(
       (failure) {
         emit(AppLoginErrorState(failure.message));
@@ -50,8 +51,8 @@ class LoginCubit extends Cubit<LoginState> {
         token = loginModel.data!.token!;
         await CacheHelper.saveData(key: 'token', value: token);
         print(token);
-        ShopCubit.get(context).getProductsData();
-        ShopCubit.get(context).getCartItems();
+        GetProductsCubit.get(context).getProductsData();
+        CartsCubit.get(context).getCartItems();
         FavouritesCubit.get(context).getFavorites();
         navigateAndFinish(context: context, screen: const LayoutScreen());
       },

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
 import '../../../../core/utils/screens/widgets/end_points.dart';
-import '../../../home/presentation/cubit/shop_cubit/shop_cubit.dart';
 
 class FavouriteAndCartIcons extends StatelessWidget {
   const FavouriteAndCartIcons({super.key, required this.product});
@@ -11,18 +11,14 @@ class FavouriteAndCartIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeCubit = ShopCubit.get(context);
-
     return Row(
       children: [
         BlocBuilder<FavouritesCubit, FavouritesState>(
           builder: (context, state) {
-            final favouritesCubit = FavouritesCubit.get(context);
             final isFavorite = favorites[product.id] ?? false;
-
             return IconButton(
               onPressed: () {
-                favouritesCubit.changeFavourite(product.id);
+                FavouritesCubit.get(context).changeFavourite(product.id);
               },
               icon: CircleAvatar(
                 backgroundColor: isFavorite ? Colors.red : Colors.grey,
@@ -36,20 +32,24 @@ class FavouriteAndCartIcons extends StatelessWidget {
             );
           },
         ),
-        IconButton(
-          onPressed: () {
-            homeCubit.changeCarts(product.id);
+        BlocBuilder<CartsCubit, CartsState>(
+          builder: (context, state) {
+            final isCart = carts[product.id] ?? false;
+            return IconButton(
+              onPressed: () {
+                CartsCubit.get(context).changeCarts(product.id);
+              },
+              icon: CircleAvatar(
+                backgroundColor: isCart ? Colors.red : Colors.grey,
+                radius: 15,
+                child: const Icon(
+                  Icons.shopping_cart,
+                  size: 15,
+                  color: Colors.white,
+                ),
+              ),
+            );
           },
-          icon: CircleAvatar(
-            backgroundColor:
-                carts[product.id] ?? false ? Colors.red : Colors.grey,
-            radius: 15,
-            child: const Icon(
-              Icons.shopping_cart,
-              size: 15,
-              color: Colors.white,
-            ),
-          ),
         ),
       ],
     );

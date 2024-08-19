@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 
 import '../../../../core/utils/screens/products_details_screen.dart';
 import '../../../../core/utils/screens/widgets/custom_title.dart';
 import '../../../../core/utils/screens/widgets/end_points.dart';
 import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
-import '../../../home/presentation/cubit/shop_cubit/shop_cubit.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
@@ -70,7 +70,7 @@ class CartItemWidget extends StatelessWidget {
                     const SizedBox(height: 3),
                     IconButton(
                       onPressed: () {
-                        ShopCubit.get(context).changeCarts(model.id!);
+                        CartsCubit.get(context).changeCarts(model.id!);
                       },
                       icon: CircleAvatar(
                         backgroundColor: cartItem ? Colors.red : Colors.grey,

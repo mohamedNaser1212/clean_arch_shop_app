@@ -2,12 +2,11 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 import '../../../../core/utils/screens/widgets/custom_title.dart';
 import '../../../../core/utils/screens/widgets/toast_widget.dart';
-import '../../../home/presentation/cubit/shop_cubit/shop_cubit.dart';
-import '../../../home/presentation/cubit/shop_cubit/shop_state.dart';
 import '../carts_widgets/cart_check_out_data.dart';
 import '../carts_widgets/cart_item_widget.dart';
 
@@ -16,10 +15,10 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ShopCubit, ShopStates>(
+    return BlocConsumer<CartsCubit, CartsState>(
       listener: (context, state) {
-        if (state is ShopChangeCartSuccessState) {
-          if (state.model == true) {
+        if (state is ChangeCartSuccessState) {
+          if (state.model) {
             showToast(
                 message: 'Item added to cart successfully', isError: false);
           } else {
@@ -36,15 +35,15 @@ class CartScreen extends StatelessWidget {
 }
 
 class _CartScreenContent extends StatelessWidget {
-  final ShopStates state;
+  final CartsState state;
 
   const _CartScreenContent({required this.state});
 
   @override
   Widget build(BuildContext context) {
-    var cartModel = ShopCubit.get(context).cartModel;
-    var subtotal = ShopCubit.get(context).cartSubtotal;
-    var total = ShopCubit.get(context).cartTotal;
+    var cartModel = CartsCubit.get(context).cartModel;
+    var subtotal = CartsCubit.get(context).cartSubtotal;
+    var total = CartsCubit.get(context).cartTotal;
 
     if (cartModel.isEmpty) {
       return const Center(
@@ -55,8 +54,8 @@ class _CartScreenContent extends StatelessWidget {
     }
 
     return ConditionalBuilder(
-      condition: state is! ShopGetCartItemsLoadingState &&
-          state is! ShopChangeCartLoadingState,
+      condition: state is! GetCartItemsLoadingState &&
+          state is! ChangeCartLoadingState,
       builder: (context) => Column(
         children: [
           Expanded(

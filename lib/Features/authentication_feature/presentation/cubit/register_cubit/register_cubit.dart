@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
 
 import '../../../../../core/utils/screens/widgets/cache_helper.dart';
 import '../../../../../core/utils/screens/widgets/constants.dart';
@@ -58,7 +58,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         token = loginModel.data!.token!;
 
         if (!context.mounted) return;
-        final shopCubit = ShopCubit.get(context);
+        final shopCubit = GetProductsCubit.get(context);
         shopCubit.currentIndex = 0;
         shopCubit.getProductsData();
 

@@ -4,13 +4,13 @@ import 'package:shop_app/Features/authentication_feature/data/authentication_dat
 import 'package:shop_app/Features/authentication_feature/data/authentication_repo_impl/authentication_repo_impl.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/favourite_remote_data_source.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourites_repo_impl/favourites_repo_impl.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/data/repos/home_repo_impl.dart';
-import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
-import 'package:shop_app/core/models/hive_manager/hive_service.dart'; // Import HiveService
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
+import 'package:shop_app/core/models/hive_manager/hive_service.dart';
 import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
 
 import '../../../Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
@@ -35,6 +35,7 @@ import '../../Features/home/data/data_sources/home_remote_data_sources/home_remo
 import '../../Features/home/domain/home_repo/home_repo.dart';
 import '../../Features/home/domain/use_case/home_items_use_case/categories_use_case.dart';
 import '../../Features/home/domain/use_case/home_items_use_case/products_Use_Case.dart';
+import '../../Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import '../../Features/settings_feature/data/user_data_data_source/user_info_remote_data_source.dart';
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
@@ -149,26 +150,31 @@ void setUpServiceLocator() async {
         getIt.get<GetFavouritesUseCases>(),
         getIt.get<ToggleFavouritesUseCase>(),
       ));
+  getIt.registerFactory(() => CartsCubit(
+        getIt.get<FetchCartUseCase>(),
+        getIt.get<RemoveCartUseCase>(),
+        getIt.get<ToggleCartUseCase>(),
+      ));
+  getIt.registerFactory(() => GetProductsCubit(
+        getIt.get<productsUseCase>(),
+      ));
+
   getIt.registerFactory(
       () => GetFavouritesUseCases(getIt.get<FavouritesRepo>()));
   getIt.registerFactory(
       () => ToggleFavouritesUseCase(getIt.get<FavouritesRepo>()));
-  getIt.registerFactory(() {
-    final fetchProductsUseCase = productsUseCase(getIt.get<HomeRepo>());
-    // final fetchFavouritesUseCase =
-    //     GetFavouritesUseCases(getIt.get<FavouritesRepo>());
-    final fetchCartUseCase = FetchCartUseCase(getIt.get<CartRepo>());
-    final removeCartUseCase = RemoveCartUseCase(getIt.get<CartRepo>());
-    final toggleCartUseCase = ToggleCartUseCase(getIt.get<CartRepo>());
-    //   final toggleFavouritesUseCase =
-    //    ToggleFavouritesUseCase(getIt.get<FavouritesRepo>());
-    //  final fetchCategoriesUseCase = CategoriesUseCase(getIt.get<HomeRepo>());
+  getIt.registerFactory(() => ToggleCartUseCase(getIt.get<CartRepo>()));
+  getIt.registerFactory(() => FetchCartUseCase(getIt.get<CartRepo>()));
+  getIt.registerFactory(() => RemoveCartUseCase(getIt.get<CartRepo>()));
+  getIt.registerFactory(() => productsUseCase(getIt.get<HomeRepo>())
+      // final fetchFavouritesUseCase =
+      //     GetFavouritesUseCases(getIt.get<FavouritesRepo>());
+      // final fetchCartUseCase = FetchCartUseCase(getIt.get<CartRepo>());
+      // final removeCartUseCase = RemoveCartUseCase(getIt.get<CartRepo>());
+      // final toggleCartUseCase = ToggleCartUseCase(getIt.get<CartRepo>());
+      //   final toggleFavouritesUseCase =
+      //    ToggleFavouritesUseCase(getIt.get<FavouritesRepo>());
+      //  final fetchCategoriesUseCase = CategoriesUseCase(getIt.get<HomeRepo>());
 
-    return ShopCubit(
-      fetchProductsUseCase,
-      fetchCartUseCase,
-      removeCartUseCase,
-      toggleCartUseCase,
-    );
-  });
+      );
 }

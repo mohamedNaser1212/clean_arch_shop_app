@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_state.dart';
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_products_state.dart';
 
 import '../../../../core/utils/screens/widgets/custom_title.dart';
 import '../../../../core/utils/screens/widgets/loading_indicator.dart';
@@ -21,7 +21,7 @@ class ProductsScreen extends StatelessWidget {
       categoriesCubit.getCategoriesData();
     }
 
-    final shopCubit = ShopCubit.get(context);
+    final shopCubit = GetProductsCubit.get(context);
     if (shopCubit.homeModel == null) {
       shopCubit.getProductsData();
     }
@@ -37,17 +37,17 @@ class ProductsScreen extends StatelessWidget {
           return const LoadingIndicatorWidget();
         } else if (categoriesState is CategoriesSuccess ||
             categoriesCubit.categoriesModel != null) {
-          return BlocConsumer<ShopCubit, ShopStates>(
-            listener: (context, ShopStates shopState) {},
+          return BlocConsumer<GetProductsCubit, GetProductsState>(
+            listener: (context, GetProductsState shopState) {},
             builder: (context, shopState) {
-              if (shopState is ShopLoadingHomeDataState) {
+              if (shopState is GetProductsLoadingState) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (shopState is ShopSuccessHomeDataState ||
+              } else if (shopState is GetproductsSuccessState ||
                   shopCubit.homeModel != null) {
                 return _buildProductsScreen(context);
-              } else if (shopState is ShopErrorHomeDataState) {
+              } else if (shopState is GetProductsErrorState) {
                 return Center(
                   child: Text('Failed to load products: ${shopState.error}'),
                 );
@@ -72,7 +72,7 @@ class ProductsScreen extends StatelessWidget {
   }
 
   Widget _buildProductsScreen(BuildContext context) {
-    final homeModel = ShopCubit.get(context).homeModel;
+    final homeModel = GetProductsCubit.get(context).homeModel;
     final categoryModel = CategoriesCubit.get(context).categoriesModel;
 
     return Padding(

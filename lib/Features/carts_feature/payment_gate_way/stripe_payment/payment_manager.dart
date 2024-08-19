@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/Features/carts_feature/payment_gate_way/stripe_payment/stripe_keys.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/shop_cubit.dart';
 
 import '../../domain/cart_entity/add_to_cart_entity.dart';
+import '../../presentation/cubit/carts_cubit.dart';
 
 abstract class PaymentManager {
   static Future<void> makePayment(int amount, String currency,
@@ -22,7 +22,7 @@ abstract class PaymentManager {
 
       // Ensure `allRemoved` has a boolean value even if `changeCartsList` returns null
       bool allRemoved =
-          (await ShopCubit.get(context).changeCartsList(itemIds)) ?? false;
+          (await CartsCubit.get(context).changeCartsList(itemIds)) ?? false;
 
       if (allRemoved) {
         print('Payment and cart removal succeeded');
