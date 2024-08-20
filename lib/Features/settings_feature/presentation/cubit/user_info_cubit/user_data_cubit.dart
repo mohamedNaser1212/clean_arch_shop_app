@@ -77,7 +77,8 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     CartsCubit.get(context).carts.clear();
     GetProductsCubit.get(context).currentIndex = 0;
 
-    ApiRequestModel request = ApiRequestModel(endpoint: 'logout');
+    ApiRequestModel request = ApiRequestModel(
+        endpoint: 'logout', headerModel: HeaderModel(authorization: ''));
     final response = await apiService.post(request: request);
 
     bool removedUserData = response['status'];

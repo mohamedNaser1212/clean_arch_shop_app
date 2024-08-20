@@ -1,16 +1,18 @@
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class AddToCartModel {
-  bool? status;
-  String? message;
-  CartData? data;
+  final bool? status;
+  final String? message;
+  final CartData? data;
 
-  AddToCartModel({this.status, this.message, this.data});
+  const AddToCartModel({this.status, this.message, this.data});
 
-  AddToCartModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    message = json['message'] ?? '';
-    data = json['data'] != null ? CartData.fromJson(json['data']) : null;
+  factory AddToCartModel.fromJson(Map<String, dynamic> json) {
+    return AddToCartModel(
+      status: json['status'],
+      message: json['message'],
+      data: json['data'] != null ? CartData.fromJson(json['data']) : null,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -48,18 +50,20 @@ class CartData {
 }
 
 class CartItem {
-  num? id;
-  num? quantity;
-  AddToCartProduct? product;
+  final num? id;
+  final num? quantity;
+  final AddToCartProduct? product;
 
   CartItem({this.id, this.quantity, this.product});
 
-  CartItem.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    quantity = json['quantity'];
-    product = json['product'] != null
-        ? AddToCartProduct.fromJson(json['product'])
-        : null;
+  factory CartItem.fromJson(Map<String, dynamic> json) {
+    return CartItem(
+      id: json['id'],
+      quantity: json['quantity'],
+      product: json['product'] != null
+          ? AddToCartProduct.fromJson(json['product'])
+          : null,
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -74,7 +78,7 @@ class CartItem {
 }
 
 class AddToCartProduct extends AddToCartEntity {
-  AddToCartProduct({
+  const AddToCartProduct({
     num? id,
     num? price,
     num? oldPrice,

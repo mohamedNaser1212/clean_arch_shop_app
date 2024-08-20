@@ -29,13 +29,14 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
+  await HiveHelper
+      .init(); // Ensure HiveHelper is initialized before accessing it
+
   setUpServiceLocator();
   HiveManager().initialize();
 
   Bloc.observer = MyBlocObserver();
   Stripe.publishableKey = ApiKeys.publishableKey;
-
-  await HiveHelper.init();
 
   runApp(const MyApp());
 }
@@ -52,18 +53,12 @@ class MyApp extends StatelessWidget {
                 getIt<GetProductsCubit>()..getProductsData(context: context)),
         BlocProvider(
             create: (context) => getIt<CategoriesCubit>()..getCategoriesData()),
+        BlocProvider(create: (context) => getIt<LoginCubit>()),
+        BlocProvider(create: (context) => getIt<RegisterCubit>()),
         BlocProvider(
-          create: (context) => getIt<LoginCubit>(),
-        ),
+            create: (context) => getIt<UserDataCubit>()..getUserData()),
         BlocProvider(
-          create: (context) => getIt<RegisterCubit>(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<UserDataCubit>()..getUserData(),
-        ),
-        BlocProvider(
-          create: (context) => getIt<FavouritesCubit>()..getFavorites(),
-        ),
+            create: (context) => getIt<FavouritesCubit>()..getFavorites()),
         BlocProvider(create: (context) => getIt<CartsCubit>()..getCartItems()),
       ],
       child: MaterialApp(

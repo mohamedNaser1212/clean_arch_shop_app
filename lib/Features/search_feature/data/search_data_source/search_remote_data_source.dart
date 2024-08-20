@@ -25,6 +25,7 @@ class SearchDataSourceImpl implements SearchDataSource {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.searchEndPoint,
         data: {'text': text},
+        headerModel: HeaderModel(authorization: ''),
       );
       final response = await apiService.post(request: request);
       final searchModel = SearchModel.fromJson(response);

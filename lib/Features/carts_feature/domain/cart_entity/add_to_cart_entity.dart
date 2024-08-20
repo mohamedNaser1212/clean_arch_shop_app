@@ -19,7 +19,7 @@ class AddToCartEntity {
   @HiveField(6)
   final dynamic? description;
 
-  AddToCartEntity({
+  const AddToCartEntity({
     this.id,
     this.price,
     this.oldPrice,

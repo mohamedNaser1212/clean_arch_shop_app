@@ -3,19 +3,19 @@ import 'package:shop_app/Features/authentication_feature/data/authentication_mod
 import '../../../settings_feature/domain/user_entity/user_entity.dart';
 
 class AuthenticationModel extends UserEntity {
-  bool? status;
-  String? message;
-  UserData? data;
+  final bool? status;
+  final String? message;
+  final UserData? data;
 
   AuthenticationModel({
     this.status,
     this.message,
     this.data,
   }) : super(
-            name: data!.name!,
-            email: data.email!,
-            phone: data.phone!,
-            token: data.token!);
+            name: data?.name ?? '',
+            email: data?.email ?? '',
+            phone: data?.phone ?? '',
+            token: data?.token ?? '');
 
   factory AuthenticationModel.fromJson(Map<String, dynamic> json) {
     return AuthenticationModel(

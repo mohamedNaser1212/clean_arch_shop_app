@@ -1,5 +1,6 @@
 import 'package:shop_app/Features/home/data/home_models/categories_model.dart';
 import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
+import 'package:shop_app/core/utils/widgets/cache_helper.dart';
 
 import '../../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../../core/utils/end_points/end_points.dart';
@@ -13,6 +14,7 @@ abstract class HomeRemoteDataSource {
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   final ApiServiceInterface apiService;
+  final token = HiveHelper.getToken();
 
   HomeRemoteDataSourceImpl(this.apiService);
 
@@ -21,6 +23,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.homeEndPoint,
+        headerModel: HeaderModel(authorization: token),
       );
       var data = await apiService.get(request: request);
       List<Products> products = getProductsList(data['data']);
@@ -36,6 +39,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.categoriesEndPoint,
+        headerModel: HeaderModel(authorization: token),
       );
       var data = await apiService.get(request: request);
       List<CategoriesData> categories = getCategoriesList(data['data']);

@@ -41,11 +41,10 @@ class CartsRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, bool>> toggleCart(num productIds) async {
     try {
-      // Toggle cart item on the remote server
       final result = await cartsDataSource.toggleCarts(productIds);
-      // Refresh the local cache
+
       final cart = await getCart();
-      return right(result);
+      return right(cart.isRight() ? result : false);
     } catch (e) {
       print('Error in toggleCart: $e');
       return left(ServerFailure(e.toString()));

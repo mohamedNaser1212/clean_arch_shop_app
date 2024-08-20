@@ -24,6 +24,6 @@ ThemeData lightTheme=ThemeData(
 TextEditingController emailController=TextEditingController();
 TextEditingController passwordController=TextEditingController();
 
-String token='';
+// String token='';
 
 Color defaultColor=Colors.white;

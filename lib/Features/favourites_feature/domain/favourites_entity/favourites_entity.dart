@@ -19,7 +19,7 @@ class FavouritesEntity {
   @HiveField(6)
   final String? description;
 
-  FavouritesEntity({
+  const FavouritesEntity({
     this.id,
     this.price,
     this.oldPrice,
@@ -28,16 +28,4 @@ class FavouritesEntity {
     this.name,
     this.description,
   });
-
-  factory FavouritesEntity.fromJson(Map<String, dynamic> json) {
-    return FavouritesEntity(
-      id: json['id'],
-      price: json['price'],
-      oldPrice: json['old_price'],
-      discount: json['discount'],
-      image: json['image'],
-      description: json['description'],
-      name: json['name'],
-    );
-  }
 }

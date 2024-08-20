@@ -1,14 +1,14 @@
 class UserData {
-  int? id;
-  String? name;
-  String? email;
-  String? phone;
-  String? image;
-  int? points;
-  int? credit;
-  String? token;
+  final int? id;
+  final String? name;
+  final String? email;
+  final String? phone;
+  final String? image;
+  final int? points;
+  final int? credit;
+  final String? token;
 
-  UserData({
+  const UserData({
     this.id,
     this.name,
     this.email,

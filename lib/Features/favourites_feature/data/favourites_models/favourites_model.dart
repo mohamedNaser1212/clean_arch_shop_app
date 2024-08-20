@@ -1,20 +1,22 @@
 import '../../domain/favourites_entity/favourites_entity.dart';
 
 class FavouritesModel {
-  FavouritesModel({
+  const FavouritesModel({
     this.status,
     this.message,
     this.data,
   });
 
-  FavouritesModel.fromJson(dynamic json) {
-    status = json['status'];
-    message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  factory FavouritesModel.fromJson(dynamic json) {
+    return FavouritesModel(
+      status: json['status'],
+      message: json['message'],
+      data: json['data'] != null ? Data.fromJson(json['data']) : null,
+    );
   }
-  bool? status;
-  dynamic message;
-  Data? data;
+  final bool? status;
+  final String? message;
+  final Data? data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -28,7 +30,20 @@ class FavouritesModel {
 }
 
 class Data {
-  Data({
+  final num? currentPage;
+  final List<DataList>? data;
+  final String? firstPageUrl;
+  final num? from;
+  final num? lastPage;
+  final String? lastPageUrl;
+  final dynamic nextPageUrl;
+  final String? path;
+  final num? perPage;
+  final dynamic prevPageUrl;
+  final num? to;
+  final num? total;
+
+  const Data({
     this.currentPage,
     this.data,
     this.firstPageUrl,
@@ -43,37 +58,24 @@ class Data {
     this.total,
   });
 
-  Data.fromJson(dynamic json) {
-    currentPage = json['current_page'];
-    if (json['data'] != null) {
-      data = [];
-      json['data'].forEach((v) {
-        data?.add(DataList.fromJson(v));
-      });
-    }
-    firstPageUrl = json['first_page_url'];
-    from = json['from'];
-    lastPage = json['last_page'];
-    lastPageUrl = json['last_page_url'];
-    nextPageUrl = json['next_page_url'];
-    path = json['path'];
-    perPage = json['per_page'];
-    prevPageUrl = json['prev_page_url'];
-    to = json['to'];
-    total = json['total'];
+  factory Data.fromJson(dynamic json) {
+    return Data(
+      currentPage: json['current_page'],
+      data: json['data'] != null
+          ? List<DataList>.from(json['data'].map((v) => DataList.fromJson(v)))
+          : null,
+      firstPageUrl: json['first_page_url'],
+      from: json['from'],
+      lastPage: json['last_page'],
+      lastPageUrl: json['last_page_url'],
+      nextPageUrl: json['next_page_url'],
+      path: json['path'],
+      perPage: json['per_page'],
+      prevPageUrl: json['prev_page_url'],
+      to: json['to'],
+      total: json['total'],
+    );
   }
-  num? currentPage;
-  List<DataList>? data;
-  String? firstPageUrl;
-  num? from;
-  num? lastPage;
-  String? lastPageUrl;
-  dynamic nextPageUrl;
-  String? path;
-  num? perPage;
-  dynamic prevPageUrl;
-  num? to;
-  num? total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -96,19 +98,22 @@ class Data {
 }
 
 class DataList {
-  DataList({
+  final num? id;
+  final FavouriteProduct? product;
+
+  const DataList({
     this.id,
     this.product,
   });
 
-  DataList.fromJson(dynamic json) {
-    id = json['id'];
-    product = json['product'] != null
-        ? FavouriteProduct.fromJson(json['product'])
-        : null;
+  factory DataList.fromJson(dynamic json) {
+    return DataList(
+      id: json['id'],
+      product: json['product'] != null
+          ? FavouriteProduct.fromJson(json['product'])
+          : null,
+    );
   }
-  num? id;
-  FavouriteProduct? product;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -121,7 +126,15 @@ class DataList {
 }
 
 class FavouriteProduct extends FavouritesEntity {
-  FavouriteProduct({
+  final num? id;
+  final num? price;
+  final num? oldPrice;
+  final num? discount;
+  final String? image;
+  final String? name;
+  final String? description;
+
+  const FavouriteProduct({
     this.id,
     this.price,
     this.oldPrice,
@@ -139,24 +152,17 @@ class FavouriteProduct extends FavouritesEntity {
           description: description,
         );
 
-  FavouriteProduct.fromJson(dynamic json) {
-    id = json['id'];
-    price = json['price'];
-    oldPrice = json['old_price'];
-    discount = json['discount'];
-    image = json['image'];
-    name = json['name'];
-    description = json['description'];
-    print('FavouriteProduct.fromJson: $json');
-    print('FavouriteProduct.fromJson: $description');
+  factory FavouriteProduct.fromJson(dynamic json) {
+    return FavouriteProduct(
+      id: json['id'],
+      price: json['price'],
+      oldPrice: json['old_price'],
+      discount: json['discount'],
+      image: json['image'],
+      name: json['name'],
+      description: json['description'],
+    );
   }
-  num? id;
-  num? price;
-  num? oldPrice;
-  num? discount;
-  String? image;
-  String? name;
-  String? description;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

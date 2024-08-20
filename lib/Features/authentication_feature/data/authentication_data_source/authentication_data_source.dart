@@ -5,8 +5,10 @@ import '../../../../core/utils/end_points/end_points.dart';
 import '../authentication_models/authentication_model.dart';
 
 abstract class LoginDataSource {
-  Future<AuthenticationModel> login(
-      {required String email, required String password});
+  Future<AuthenticationModel> login({
+    required String email,
+    required String password,
+  });
   Future<AuthenticationModel> register({
     required String email,
     required String password,
@@ -16,22 +18,37 @@ abstract class LoginDataSource {
 }
 
 class LoginDataSourceImpl implements LoginDataSource {
-  ApiServiceInterface apiServiceInterface;
+  final ApiServiceInterface apiServiceInterface;
+  String token = ''; // To be set after login
+
   LoginDataSourceImpl(this.apiServiceInterface);
+
   @override
-  Future<AuthenticationModel> login(
-      {required String email, required String password}) async {
-    AuthenticationModel loginModel;
-    ApiRequestModel request = ApiRequestModel(
+  Future<AuthenticationModel> login({
+    required String email,
+    required String password,
+  }) async {
+    // Create a HeaderModel with an empty token
+    final headerModel = HeaderModel(authorization: token);
+
+    // Define the request with the initial token
+    final request = ApiRequestModel(
       endpoint: EndPoints.loginEndPoint,
       data: {
         'email': email,
         'password': password,
       },
+      headerModel: headerModel,
     );
+
     final response = await apiServiceInterface.post(request: request);
 
-    loginModel = AuthenticationModel.fromJson(response);
+    // Parse the login model from response
+    final loginModel = AuthenticationModel.fromJson(response);
+
+    // Update the token if it is present in the response
+    token = loginModel.data?.token ?? '';
+
     return loginModel;
   }
 
@@ -42,8 +59,11 @@ class LoginDataSourceImpl implements LoginDataSource {
     required String name,
     required String phone,
   }) async {
-    AuthenticationModel loginModel;
-    ApiRequestModel request = ApiRequestModel(
+    // Create a HeaderModel without a token for registration
+    final headerModel = HeaderModel(authorization: token);
+
+    // Define the request for registration
+    final request = ApiRequestModel(
       endpoint: EndPoints.registerEndPoint,
       data: {
         'email': email,
@@ -51,10 +71,13 @@ class LoginDataSourceImpl implements LoginDataSource {
         'name': name,
         'phone': phone,
       },
+      headerModel: headerModel,
     );
+
     final response = await apiServiceInterface.post(request: request);
 
-    loginModel = AuthenticationModel.fromJson(response);
-    return loginModel;
+    final registerModel = AuthenticationModel.fromJson(response);
+    token = registerModel.data?.token ?? '';
+    return registerModel;
   }
 }

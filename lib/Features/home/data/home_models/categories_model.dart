@@ -23,17 +23,21 @@ class CategoriesDataModel {
 }
 
 class CategoriesData extends CategoriesEntity {
-  num? id;
+  final num? id;
 
-  CategoriesData({
+  const CategoriesData({
     required this.id,
     required String name,
     required String image,
   }) : super(name: name, image: image);
 
-  CategoriesData.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        super(name: json['name'], image: json['image']);
+  factory CategoriesData.fromJson(Map<String, dynamic> json) {
+    return CategoriesData(
+      id: json['id'],
+      name: json['name'],
+      image: json['image'],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {

@@ -9,7 +9,7 @@ class CategoriesEntity {
   @HiveField(1)
   final String image;
 
-  CategoriesEntity({
+  const CategoriesEntity({
     required this.name,
     required this.image,
   });

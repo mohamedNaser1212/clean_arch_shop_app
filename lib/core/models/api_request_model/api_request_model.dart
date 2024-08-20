@@ -1,4 +1,8 @@
-import '../../utils/widgets/constants.dart';
+import 'package:shop_app/core/utils/widgets/cache_helper.dart';
+
+import '../../../Features/authentication_feature/data/authentication_models/authentication_model.dart';
+
+AuthenticationModel? loginModel;
 
 class HeaderModel {
   final String contentType;
@@ -7,9 +11,10 @@ class HeaderModel {
 
   HeaderModel({
     this.contentType = 'application/json',
-    required this.authorization,
+    String? authorization, // Make it optional for default value
     this.lang = 'en',
-  });
+  }) : authorization = authorization ??
+            HiveHelper.getToken(); // Default to token from Hive
 
   Map<String, dynamic> toMap() {
     return {
@@ -22,25 +27,24 @@ class HeaderModel {
 
 class ApiRequestModel {
   final String endpoint;
-  final Map<String, dynamic> headers;
+  final HeaderModel headerModel;
   final Map<String, dynamic>? query;
   final Map<String, dynamic>? data;
 
   ApiRequestModel({
     required this.endpoint,
-    Map<String, dynamic>? headers,
+    HeaderModel? headerModel, // Allow default value
     this.query,
     this.data,
-  }) : headers = {
-          'Authorization': token,
-          ...?headers,
-          'Content-Type': 'application/json',
-          'lang': 'en',
-        };
+  })  : headerModel =
+            headerModel ?? HeaderModel(), // Default HeaderModel with token
+        headers = headerModel!.toMap();
+
+  final Map<String, dynamic> headers;
 
   @override
   String toString() {
     print("=======================================");
-    return 'ApiRequestModel(endpoint: $endpoint, headers: ${headers ?? ''}, query: ${query ?? ''}, data: ${data ?? ''})';
+    return 'ApiRequestModel(endpoint: $endpoint, headers: $headers, query: ${query ?? ''}, data: ${data ?? ''})';
   }
 }

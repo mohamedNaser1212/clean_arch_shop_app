@@ -7,14 +7,16 @@ class NewGetHomeData {
     this.data,
   });
 
-  NewGetHomeData.fromJson(dynamic json) {
-    status = json['status'];
-    message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  factory NewGetHomeData.fromJson(dynamic json) {
+    return NewGetHomeData(
+      status: json['status'],
+      message: json['message'],
+      data: Data.fromJson(json['data']),
+    );
   }
-  bool? status;
-  dynamic message;
-  Data? data;
+  final bool? status;
+  final String? message;
+  final Data? data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -28,7 +30,7 @@ class NewGetHomeData {
 }
 
 class Data {
-  Data({
+  const Data({
     this.currentPage,
     this.data,
     this.firstPageUrl,
@@ -43,37 +45,29 @@ class Data {
     this.total,
   });
 
-  Data.fromJson(dynamic json) {
-    currentPage = json['current_page'];
-    if (json['data'] != null) {
-      data = [];
-      json['data'].forEach((v) {
-        data?.add(Products.fromJson(v));
-      });
-    }
-    firstPageUrl = json['first_page_url'];
-    from = json['from'];
-    lastPage = json['last_page'];
-    lastPageUrl = json['last_page_url'];
-    nextPageUrl = json['next_page_url'];
-    path = json['path'];
-    perPage = json['per_page'];
-    prevPageUrl = json['prev_page_url'];
-    to = json['to'];
-    total = json['total'];
+  factory Data.fromJson(dynamic json) {
+    return Data(
+      currentPage: json['current_page'],
+      data: List<Products>.from(json['data'].map((x) => Products.fromJson(x))),
+      firstPageUrl: json['first_page_url'],
+      from: json['from'],
+      lastPage: json['last_page'],
+      lastPageUrl: json['last_page_url'],
+      nextPageUrl: json['next_page_url'],
+    );
   }
-  num? currentPage;
-  List<Products>? data;
-  String? firstPageUrl;
-  num? from;
-  num? lastPage;
-  String? lastPageUrl;
-  dynamic nextPageUrl;
-  String? path;
-  num? perPage;
-  dynamic prevPageUrl;
-  num? to;
-  num? total;
+  final num? currentPage;
+  final List<Products>? data;
+  final String? firstPageUrl;
+  final num? from;
+  final num? lastPage;
+  final String? lastPageUrl;
+  final dynamic nextPageUrl;
+  final String? path;
+  final num? perPage;
+  final dynamic prevPageUrl;
+  final num? to;
+  final num? total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -94,10 +88,14 @@ class Data {
 }
 
 class Products extends ProductEntity {
+  final String description;
+  final bool inFavorites;
+  final bool? inCart;
+
   Products({
     required this.description,
     required this.inFavorites,
-    required this.inCart,
+    this.inCart,
     required num id,
     required num price,
     required num oldPrice,
@@ -118,24 +116,33 @@ class Products extends ProductEntity {
           inCart: inCart!,
         );
 
-  Products.fromJson(Map<String, dynamic> json)
-      : description = json['description'],
-        inFavorites = json['in_favorites'],
-        inCart = json['in_cart'],
-        super(
-          id: json['id'],
-          name: json['name'],
-          discount: json['discount'],
-          price: json['price'],
-          oldPrice: json['old_price'],
-          image: json['image'],
-          images: List<String>.from(json['images']),
-          description: json['description'],
-          inFavorites: json['in_favorites'],
-          inCart: json['in_cart'],
-        );
+  factory Products.fromJson(Map<String, dynamic> json) {
+    return Products(
+      description: json['description'],
+      inFavorites: json['in_favorites'],
+      inCart: json['in_cart'],
+      id: json['id'],
+      name: json['name'],
+      discount: json['discount'],
+      price: json['price'],
+      oldPrice: json['old_price'],
+      image: json['image'],
+      images: List<String>.from(json['images']),
+    );
+  }
 
-  String description;
-  bool inFavorites;
-  bool? inCart;
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['description'] = description;
+    map['in_favorites'] = inFavorites;
+    map['in_cart'] = inCart;
+    map['id'] = id;
+    map['name'] = name;
+    map['discount'] = discount;
+    map['price'] = price;
+    map['old_price'] = oldPrice;
+    map['image'] = image;
+    map['images'] = images;
+    return map;
+  }
 }

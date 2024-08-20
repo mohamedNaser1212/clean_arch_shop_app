@@ -23,9 +23,9 @@ class ProductEntity {
   @HiveField(8)
   final bool? inFavorites;
   @HiveField(9)
-  bool? inCart;
+  final bool? inCart;
 
-  ProductEntity({
+  const ProductEntity({
     required this.id,
     required this.name,
     required this.discount,
@@ -37,34 +37,4 @@ class ProductEntity {
     required this.inFavorites,
     this.inCart = false,
   });
-
-  factory ProductEntity.fromJson(Map<String, dynamic> json) {
-    return ProductEntity(
-      id: json['id'] as num,
-      name: json['name'] as String,
-      discount: json['discount'] as num,
-      price: json['price'] as num,
-      oldPrice: json['old_price'] as num,
-      image: json['image'] as String,
-      images: List<String>.from(json['images']),
-      description: json['description'] as String?,
-      inFavorites: json['in_favorites'] as bool,
-      inCart: json['in_cart'] as bool,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'discount': discount,
-      'price': price,
-      'old_price': oldPrice,
-      'image': image,
-      'images': images,
-      'description': description,
-      'in_favorites': inFavorites,
-      'in_cart': inCart,
-    };
-  }
 }

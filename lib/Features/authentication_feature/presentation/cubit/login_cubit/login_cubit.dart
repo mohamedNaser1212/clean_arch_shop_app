@@ -6,7 +6,6 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.d
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
 import '../../../../../core/utils/widgets/cache_helper.dart';
-import '../../../../../core/utils/widgets/constants.dart';
 import '../../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
@@ -49,9 +48,9 @@ class LoginCubit extends Cubit<LoginState> {
           fontSize: 16.0,
         );
         await HiveHelper.saveData(key: 'token', value: loginModel.data!.token);
-        token = loginModel.data!.token!;
+        // final token = loginModel.data!.token!;
         //   await CacheHelper.saveData(key: 'token', value: token);
-        print(token);
+        // print(token);
 
         if (context.mounted) {
           GetProductsCubit.get(context).getProductsData(

@@ -1,3 +1,5 @@
+import 'package:shop_app/core/utils/widgets/cache_helper.dart';
+
 import '../../../../core/models/api_request_model/api_request_model.dart';
 import '../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../core/utils/end_points/end_points.dart';
@@ -13,12 +15,15 @@ abstract class CartsRemoteDataSource {
 class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   final ApiServiceInterface apiService;
   ChangeCartModel? changeCartModel;
+  final token = HiveHelper.getToken();
 
   CartsRemoteDataSourceImpl({required this.apiService});
 
   @override
   Future<List<AddToCartProduct>> getCarts() async {
-    ApiRequestModel request = ApiRequestModel(endpoint: EndPoints.cartEndPoint);
+    ApiRequestModel request = ApiRequestModel(
+        endpoint: EndPoints.cartEndPoint,
+        headerModel: HeaderModel(authorization: token));
     final response = await apiService.get(request: request);
 
     List<AddToCartProduct> cartProducts = [];
@@ -36,11 +41,12 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   @override
   Future<bool> toggleCarts(num productId) async {
     ApiRequestModel request = ApiRequestModel(
-      endpoint: EndPoints.cartEndPoint,
-      data: {
-        'product_id': productId,
-      },
-    );
+        endpoint: EndPoints.cartEndPoint,
+        data: {
+          'product_id': productId,
+        },
+        headerModel: HeaderModel(authorization: token));
+
     final response = await apiService.post(request: request);
     changeCartModel = ChangeCartModel.fromJson(response);
     getCarts();
@@ -54,6 +60,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
       data: {
         'product_id': productId,
       },
+      headerModel: HeaderModel(authorization: token),
     );
     final response = await apiService.post(request: request);
 

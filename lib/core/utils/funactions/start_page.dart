@@ -6,22 +6,25 @@ import '../../../Features/home/presentation/screens/layout_screen.dart';
 import '../../models/api_request_model/api_request_model.dart';
 import '../api_services/api_service_interface.dart';
 import '../end_points/end_points.dart';
-import '../widgets/constants.dart';
 
 Future<void> initHive() async {
   await Hive.initFlutter();
   await Hive.openBox('userBox');
 }
 
-Future<bool> checkLoginStatus(ApiServiceInterface apiService) async {
+Future<String> getTokenss() async {
   final userBox = Hive.box('userBox');
-  token = userBox.get('token', defaultValue: '') as String;
+  return userBox.get('token', defaultValue: '') as String;
+}
 
-  print(token);
+Future<bool> checkLoginStatus(ApiServiceInterface apiService) async {
+  final token = await getTokenss();
+
   try {
     final response = await apiService.responseGet(
       request: ApiRequestModel(
         endpoint: EndPoints.profileEndPoint,
+        headerModel: HeaderModel(authorization: token),
       ),
     );
 

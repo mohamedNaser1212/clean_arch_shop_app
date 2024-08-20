@@ -2,58 +2,61 @@ import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
 import '../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../core/utils/end_points/end_points.dart';
-import '../../../../core/utils/widgets/constants.dart';
+import '../../../../core/utils/widgets/cache_helper.dart';
 import '../favourites_models/favourites_model.dart';
 import '../favourites_models/favoutits_model.dart';
 
 abstract class FavouritesRemoteDataSource {
   Future<List<FavouriteProduct>> getFavourites();
-  Future<bool> toggleFavourites(num productIds);
+  Future<bool> toggleFavourites(num productId);
 }
 
 class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
   final ApiServiceInterface apiService;
-  ChangeFavouriteModel? changeFavouriteModel;
 
   FavouritesRemoteDataSourceImpl({required this.apiService});
 
   @override
   Future<List<FavouriteProduct>> getFavourites() async {
-    ApiRequestModel request = ApiRequestModel(
-      endpoint: EndPoints.favoritesEndPoint,
-      headers: {'Authorization': token},
-    );
-    final response = await apiService.get(
-      request: request,
-    );
+    try {
+      final token = HiveHelper.getToken();
 
-    List<FavouriteProduct> favouriteProducts = [];
-    if (response['data']['data'] != null) {
-      for (var item in response['data']['data']) {
-        favouriteProducts.add(FavouriteProduct.fromJson(item['product']));
-      }
+      final request = ApiRequestModel(
+        endpoint: EndPoints.favoritesEndPoint,
+        headerModel: HeaderModel(authorization: token),
+      );
+      final response = await apiService.get(request: request);
+
+      final data = response['data']['data'] ?? [];
+      final favouriteProducts = data.map<FavouriteProduct>((item) {
+        return FavouriteProduct.fromJson(item['product']);
+      }).toList();
+
+      print('Favourite items fetched successfully');
+      return favouriteProducts;
+    } catch (error) {
+      print('Failed to fetch favourite items: $error');
+      return [];
     }
-
-    // await saveFavourites(_cachedFavourites, kFavouritesBox);
-
-    return favouriteProducts;
   }
 
   @override
-  Future<bool> toggleFavourites(num productIds) async {
-    ApiRequestModel request = ApiRequestModel(
-      endpoint: EndPoints.favoritesEndPoint,
-      headers: {'Authorization': token},
-      data: {
-        'product_id': productIds,
-      },
-    );
+  Future<bool> toggleFavourites(num productId) async {
+    try {
+      final token = HiveHelper.getToken();
 
-    final response = await apiService.post(
-      request: request,
-    );
-    changeFavouriteModel = ChangeFavouriteModel.fromJson(response);
+      final request = ApiRequestModel(
+        endpoint: EndPoints.favoritesEndPoint,
+        data: {'product_id': productId},
+        headerModel: HeaderModel(authorization: token),
+      );
+      final response = await apiService.post(request: request);
 
-    return changeFavouriteModel?.status ?? false;
+      final changeFavouriteModel = ChangeFavouriteModel.fromJson(response);
+      return changeFavouriteModel.status ?? false;
+    } catch (error) {
+      print('Failed to toggle favourite item: $error');
+      return false;
+    }
   }
 }

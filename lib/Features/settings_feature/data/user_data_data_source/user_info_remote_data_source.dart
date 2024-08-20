@@ -3,6 +3,7 @@ import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
 import '../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../core/utils/end_points/end_points.dart';
+import '../../../../core/utils/widgets/cache_helper.dart';
 
 abstract class UserDataSource {
   Future<AuthenticationModel> getUserData();
@@ -17,13 +18,13 @@ class UserDataSourceImpl implements UserDataSource {
   final ApiServiceInterface apiService;
 
   UserDataSourceImpl({required this.apiService});
-
+  final token = HiveHelper.getToken();
   @override
   Future<AuthenticationModel> getUserData() async {
     try {
       ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.profileEndPoint,
-      );
+          endpoint: EndPoints.profileEndPoint,
+          headerModel: HeaderModel(authorization: token));
       final response = await apiService.get(
         request: request,
       );
@@ -44,13 +45,13 @@ class UserDataSourceImpl implements UserDataSource {
   }) async {
     try {
       ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.updateProfileEndPoint,
-        data: {
-          'name': name,
-          'email': email,
-          'phone': phone,
-        },
-      );
+          endpoint: EndPoints.updateProfileEndPoint,
+          data: {
+            'name': name,
+            'email': email,
+            'phone': phone,
+          },
+          headerModel: HeaderModel(authorization: token));
 
       final response = await apiService.put(
         request: request,
