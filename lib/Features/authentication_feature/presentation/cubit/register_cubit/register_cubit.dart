@@ -56,7 +56,9 @@ class RegisterCubit extends Cubit<RegisterState> {
 
         await UserDataCubit.get(context)
             .registerNewUser(user: loginModel, context: context);
-        await CacheHelper.saveData(key: 'token', value: loginModel.data!.token);
+
+        // Store the token using HiveHelper
+        await HiveHelper.saveData(key: 'token', value: loginModel.data!.token);
 
         token = loginModel.data!.token!;
 

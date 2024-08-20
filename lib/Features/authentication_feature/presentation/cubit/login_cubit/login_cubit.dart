@@ -48,8 +48,9 @@ class LoginCubit extends Cubit<LoginState> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
+        await HiveHelper.saveData(key: 'token', value: loginModel.data!.token);
         token = loginModel.data!.token!;
-        await CacheHelper.saveData(key: 'token', value: token);
+        //   await CacheHelper.saveData(key: 'token', value: token);
         print(token);
 
         if (context.mounted) {

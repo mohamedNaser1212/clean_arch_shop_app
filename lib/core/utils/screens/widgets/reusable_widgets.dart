@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/utils/styles/text_styles.dart';
 
-import 'cache_helper.dart';
-
 Widget reusableElevatedButton({
   double width = double.infinity,
   double height = 50,
@@ -96,16 +94,16 @@ void navigateAndFinish({
   );
 }
 
-void signout({
-  required BuildContext context,
-  required Widget screen,
-}) {
-  CacheHelper.removeData(key: 'token');
-  navigateAndFinish(
-    context: context,
-    screen: screen,
-  );
-}
+// void signout({
+//   required BuildContext context,
+//   required Widget screen,
+// }) {
+//   CacheHelper.removeData(key: 'token');
+//   navigateAndFinish(
+//     context: context,
+//     screen: screen,
+//   );
+// }
 
 void printFullText(String text) {
   final pattern = RegExp('.{1,800}');

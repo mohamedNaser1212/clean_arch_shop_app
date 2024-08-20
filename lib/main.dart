@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
@@ -23,14 +25,17 @@ import 'core/utils/screens/widgets/constants.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize Hive with a storage path
+  final appDocumentDir = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
+
   setUpServiceLocator();
   HiveManager().initialize();
 
   Bloc.observer = MyBlocObserver();
   Stripe.publishableKey = ApiKeys.publishableKey;
 
-  await CacheHelper.init();
-  // DioHelper.init();
+  await HiveHelper.init();
 
   runApp(const MyApp());
 }

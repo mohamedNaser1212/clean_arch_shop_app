@@ -16,12 +16,6 @@ import '../cubit/register_cubit/register_cubit.dart';
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
-  final formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final nameController = TextEditingController();
-  final phoneController = TextEditingController();
-  final passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -41,12 +35,13 @@ class RegisterScreen extends StatelessWidget {
 void _listener(BuildContext context, RegisterState state) {
   if (state is RegisterSuccessState) {
     if (state.loginModel.status!) {
-      // Handle successful registration
-      CacheHelper.saveData(
+      // Store the token
+      HiveHelper.saveData(
         key: 'token',
         value: state.loginModel.data!.token,
       );
       token = state.loginModel.data!.token!;
+
       navigateAndFinish(context: context, screen: const LayoutScreen());
       Fluttertoast.showToast(
         msg: 'Register Success',
@@ -125,7 +120,7 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                   prefix: const Icon(Icons.key_rounded),
                   suffix: IconButton(
                     onPressed: () {
-                      //  RegisterCubit.get(context).changePasswordVisability();
+                      //   RegisterCubit.get(context).changePasswordVisibility();
                     },
                     icon: Icon(RegisterCubit.get(context).suffixPasswordIcon),
                   ),

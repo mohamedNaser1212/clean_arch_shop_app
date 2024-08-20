@@ -1,32 +1,28 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
 
-class CacheHelper{
+class HiveHelper {
+  static late Box<dynamic> hiveBox;
 
-  static SharedPreferences? sharedPreferences;
-
-  static init()async {
-    sharedPreferences = await SharedPreferences.getInstance();
+  static Future<void> init() async {
+    hiveBox = await Hive.openBox('userBox');
   }
-  
-  static Future<bool> saveData({
+
+  static Future<void> saveData({
     required String key,
-    required value
-})async{
-    if(value is String) return await sharedPreferences!.setString(key, value);
-    if(value is int) return await sharedPreferences!.setInt(key, value);
-    if(value is double) return await sharedPreferences!.setDouble(key, value);
-    return await sharedPreferences!.setBool(key, value);
+    required dynamic value,
+  }) async {
+    await hiveBox.put(key, value);
   }
 
   static dynamic getData({
     required String key,
-  }){
-    return  sharedPreferences!.get(key);
+  }) {
+    return hiveBox.get(key);
   }
 
-  static Future<bool> removeData({
+  static Future<void> removeData({
     required String key,
-})async{
-    return await sharedPreferences!.remove(key);
+  }) async {
+    await hiveBox.delete(key);
   }
 }
