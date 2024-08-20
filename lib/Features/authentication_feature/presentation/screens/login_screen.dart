@@ -6,8 +6,8 @@ import 'package:shop_app/Features/authentication_feature/presentation/screens/re
 import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/utils/screens/widgets/custom_title.dart';
-import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
+import '../../../../core/utils/widgets/custom_title.dart';
+import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 

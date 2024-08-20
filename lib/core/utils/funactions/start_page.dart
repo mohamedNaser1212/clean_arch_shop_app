@@ -6,7 +6,7 @@ import '../../../Features/home/presentation/screens/layout_screen.dart';
 import '../../models/api_request_model/api_request_model.dart';
 import '../api_services/api_service_interface.dart';
 import '../end_points/end_points.dart';
-import '../screens/widgets/constants.dart';
+import '../widgets/constants.dart';
 
 Future<void> initHive() async {
   await Hive.initFlutter();

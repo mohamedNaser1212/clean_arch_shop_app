@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/screens/widgets/custom_title.dart';
-import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
+import '../../../../core/utils/payment_gate_way/stripe_payment/payment_manager.dart';
+import '../../../../core/utils/widgets/custom_title.dart';
+import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
-import '../../payment_gate_way/stripe_payment/payment_manager.dart';
 
 class CartCheckoutData extends StatelessWidget {
   final num? subtotal;

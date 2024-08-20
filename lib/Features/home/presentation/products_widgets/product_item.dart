@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_information_widget.dart';
 
 import '../../../../core/utils/screens/products_details_screen.dart';
-import '../../../../core/utils/screens/widgets/custom_title.dart';
-import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../../core/utils/styles/color_manager.dart';
+import '../../../../core/utils/widgets/custom_title.dart';
+import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../../favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
 import '../../domain/entities/products_entity/product_entity.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';

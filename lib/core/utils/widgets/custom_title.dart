@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../styles/text_styles.dart';
+import '../styles/text_styles.dart';
 
 // Define an enum for the text styles
 enum TitleStyle {

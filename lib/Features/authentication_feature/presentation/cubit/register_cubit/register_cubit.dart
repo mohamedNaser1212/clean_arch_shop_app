@@ -5,9 +5,9 @@ import 'package:shop_app/Features/authentication_feature/domain/authentication_u
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
-import '../../../../../core/utils/screens/widgets/cache_helper.dart';
-import '../../../../../core/utils/screens/widgets/constants.dart';
-import '../../../../../core/utils/screens/widgets/reusable_widgets.dart';
+import '../../../../../core/utils/widgets/cache_helper.dart';
+import '../../../../../core/utils/widgets/constants.dart';
+import '../../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../../home/presentation/screens/layout_screen.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 import '../../../../core/utils/screens/products_details_screen.dart';
-import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
+import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import '../../domain/favourites_entity/favourites_entity.dart';
 import 'favourite_and_cart_icons.dart';

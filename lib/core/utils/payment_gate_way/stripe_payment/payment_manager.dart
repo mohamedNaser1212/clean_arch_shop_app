@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:shop_app/Features/carts_feature/payment_gate_way/stripe_payment/stripe_keys.dart';
+import 'package:shop_app/core/utils/payment_gate_way/stripe_payment/stripe_keys.dart';
 
-import '../../domain/cart_entity/add_to_cart_entity.dart';
-import '../../presentation/cubit/carts_cubit.dart';
+import '../../../../Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
+import '../../../../Features/carts_feature/presentation/cubit/carts_cubit.dart';
 
 abstract class PaymentManager {
   static Future<void> makePayment(int amount, String currency,

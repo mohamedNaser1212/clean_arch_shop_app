@@ -5,10 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/utils/screens/widgets/cache_helper.dart';
-import '../../../../core/utils/screens/widgets/constants.dart';
-import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../../core/utils/styles/text_styles.dart';
+import '../../../../core/utils/widgets/cache_helper.dart';
+import '../../../../core/utils/widgets/constants.dart';
+import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../../home/presentation/screens/layout_screen.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/register_cubit/register_cubit.dart';

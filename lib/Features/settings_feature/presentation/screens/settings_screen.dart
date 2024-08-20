@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/utils/screens/widgets/toast_widget.dart';
+import '../../../../core/utils/widgets/toast_widget.dart';
 import '../../domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
 import '../../domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
 import '../cubit/user_info_cubit/user_data_cubit.dart';

@@ -2,7 +2,7 @@ import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
 import '../../../../core/utils/api_services/api_service_interface.dart';
 import '../../../../core/utils/end_points/end_points.dart';
-import '../../../../core/utils/screens/widgets/constants.dart';
+import '../../../../core/utils/widgets/constants.dart';
 import '../favourites_models/favourites_model.dart';
 import '../favourites_models/favoutits_model.dart';
 
