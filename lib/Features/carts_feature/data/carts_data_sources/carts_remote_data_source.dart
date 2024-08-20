@@ -1,5 +1,6 @@
 import '../../../../core/models/api_request_model/api_request_model.dart';
 import '../../../../core/utils/api_services/api_service_interface.dart';
+import '../../../../core/utils/end_points/end_points.dart';
 import '../carts_model/add_to_cart_model.dart';
 import '../carts_model/changeCartModel.dart';
 
@@ -17,7 +18,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
 
   @override
   Future<List<AddToCartProduct>> getCarts() async {
-    ApiRequestModel request = ApiRequestModel(endpoint: 'carts');
+    ApiRequestModel request = ApiRequestModel(endpoint: EndPoints.cartEndPoint);
     final response = await apiService.get(request: request);
 
     List<AddToCartProduct> cartProducts = [];
@@ -35,7 +36,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   @override
   Future<bool> toggleCarts(num productId) async {
     ApiRequestModel request = ApiRequestModel(
-      endpoint: 'carts',
+      endpoint: EndPoints.cartEndPoint,
       data: {
         'product_id': productId,
       },

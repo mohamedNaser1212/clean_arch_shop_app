@@ -2,7 +2,7 @@ import 'package:shop_app/Features/authentication_feature/data/authentication_mod
 import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
 import '../../../../core/utils/api_services/api_service_interface.dart';
-import '../../../../core/utils/screens/widgets/end_points.dart';
+import '../../../../core/utils/end_points/end_points.dart';
 
 abstract class UserDataSource {
   Future<AuthenticationModel> getUserData();
@@ -22,7 +22,7 @@ class UserDataSourceImpl implements UserDataSource {
   Future<AuthenticationModel> getUserData() async {
     try {
       ApiRequestModel request = ApiRequestModel(
-        endpoint: profileEndPoint,
+        endpoint: EndPoints.profileEndPoint,
       );
       final response = await apiService.get(
         request: request,
@@ -44,7 +44,7 @@ class UserDataSourceImpl implements UserDataSource {
   }) async {
     try {
       ApiRequestModel request = ApiRequestModel(
-        endpoint: updateProfileEndPoint,
+        endpoint: EndPoints.updateProfileEndPoint,
         data: {
           'name': name,
           'email': email,

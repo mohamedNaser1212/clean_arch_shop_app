@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
 
 import '../../../../../core/models/api_request_model/api_request_model.dart';
 import '../../../../../core/utils/screens/widgets/cache_helper.dart';
-import '../../../../../core/utils/screens/widgets/end_points.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../authentication_feature/presentation/screens/login_screen.dart';
+import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';
+import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../../data/user_data_data_source/save_user_data.dart';
 import '../../../domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
@@ -31,7 +32,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     if (userModel != null) {
       emit(GetUserDataSuccess(userModel!));
     } else {
-      final result = await getUserDataUseCase.GetUserData();
+      final result = await getUserDataUseCase.getUserData();
       result.fold(
         (failure) {
           emit(GetUserDataError(failure.toString()));
@@ -51,7 +52,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
   }) async {
     emit(GetUserDataLoading());
 
-    final result = await updateUserDataUseCase.UpdateUserData(
+    final result = await updateUserDataUseCase.updateUserData(
       name: name,
       email: email,
       phone: phone,
@@ -71,8 +72,8 @@ class UserDataCubit extends Cubit<GetUserDataState> {
 
   Future<void> signOut(
       BuildContext context, ApiServiceInterface apiService) async {
-    favorites.clear();
-    carts.clear();
+    FavouritesCubit.get(context).favorites.clear();
+    CartsCubit.get(context).carts.clear();
     GetProductsCubit.get(context).currentIndex = 0;
 
     ApiRequestModel request = ApiRequestModel(endpoint: 'logout');
@@ -107,9 +108,13 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     // }
   }
 
-  Future<void> registerNewUser(AuthenticationModel user) async {
+  Future<void> registerNewUser(
+      {required AuthenticationModel user,
+      required BuildContext context}) async {
     await clearUserData();
-    carts.clear();
-    favorites.clear();
+    if (context.mounted) {
+      CartsCubit.get(context).carts.clear();
+      FavouritesCubit.get(context).favorites.clear();
+    }
   }
 }

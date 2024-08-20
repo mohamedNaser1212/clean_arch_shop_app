@@ -24,7 +24,7 @@ class BuildSearchField extends StatelessWidget {
         },
         onSubmit: (value) {
           if (_formKey.currentState?.validate() ?? false) {
-            SearchCubit.get(context).search(value!);
+            SearchCubit.get(context).search(text: value!);
           }
         },
         prefix: const Icon(Icons.search),

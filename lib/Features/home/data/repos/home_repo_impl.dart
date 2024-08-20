@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/core/models/hive_manager/hive_service.dart';
 
-import '../../../../core/utils/screens/widgets/end_points.dart';
+import '../../../../core/utils/hive_boxes_names/hive_boxes_names.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import '../../domain/entities/products_entity/product_entity.dart';
 import '../../domain/home_repo/home_repo.dart';
@@ -21,9 +21,8 @@ class HomeRepoImpl extends HomeRepo {
   @override
   Future<Either<Failure, List<CategoriesEntity>>> fetchCategories() async {
     try {
-      // Check if categories are cached
-      final cachedCategories =
-          await hiveService.loadData<CategoriesEntity>(kCategoriesBox);
+      final cachedCategories = await hiveService
+          .loadData<CategoriesEntity>(HiveBoxesNames.kCategoriesBox);
       if (cachedCategories.isNotEmpty) {
         return right(cachedCategories);
       }
@@ -31,7 +30,7 @@ class HomeRepoImpl extends HomeRepo {
       // Fetch from remote if not cached
       final categoriesList = await homeRemoteDataSource.fetchCategories();
       await hiveService.saveData<CategoriesEntity>(
-          categoriesList, kCategoriesBox);
+          categoriesList, HiveBoxesNames.kCategoriesBox);
 
       return right(categoriesList);
     } catch (e) {
@@ -45,16 +44,15 @@ class HomeRepoImpl extends HomeRepo {
   @override
   Future<Either<Failure, List<ProductEntity>>> fetchProducts() async {
     try {
-      // Check if products are cached
-      final cachedProducts =
-          await hiveService.loadData<ProductEntity>(kProductsBox);
+      final cachedProducts = await hiveService
+          .loadData<ProductEntity>(HiveBoxesNames.kProductsBox);
       if (cachedProducts.isNotEmpty) {
         return right(cachedProducts);
       }
 
-      // Fetch from remote if not cached
       final productsList = await homeRemoteDataSource.fetchFeaturedProducts();
-      await hiveService.saveData<ProductEntity>(productsList, kProductsBox);
+      await hiveService.saveData<ProductEntity>(
+          productsList, HiveBoxesNames.kProductsBox);
 
       return right(productsList);
     } catch (e) {

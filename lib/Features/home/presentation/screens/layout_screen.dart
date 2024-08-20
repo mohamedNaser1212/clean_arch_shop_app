@@ -4,8 +4,8 @@ import 'package:shop_app/Features/search_feature/presentation/screens/search_scr
 
 import '../../../../core/utils/screens/widgets/constants.dart';
 import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
-import '../cubit/shop_cubit/get_product_cubit.dart';
-import '../cubit/shop_cubit/get_products_state.dart';
+import '../cubit/products_cubit/get_product_cubit.dart';
+import '../cubit/products_cubit/get_products_state.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});

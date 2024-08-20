@@ -4,7 +4,6 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.d
 
 import '../../../../core/utils/screens/products_details_screen.dart';
 import '../../../../core/utils/screens/widgets/custom_title.dart';
-import '../../../../core/utils/screens/widgets/end_points.dart';
 import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
@@ -16,7 +15,7 @@ class CartItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cartItem = carts[model.id] ?? false;
+    var cartItem = CartsCubit.get(context).carts[model.id] ?? false;
 
     return Padding(
       padding: const EdgeInsets.all(20.0),

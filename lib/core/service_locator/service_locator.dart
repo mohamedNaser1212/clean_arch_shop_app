@@ -9,7 +9,6 @@ import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/
 import 'package:shop_app/Features/favourites_feature/data/favourites_repo_impl/favourites_repo_impl.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/data/repos/home_repo_impl.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
 import 'package:shop_app/core/models/hive_manager/hive_service.dart';
 import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
 
@@ -36,6 +35,7 @@ import '../../Features/home/domain/home_repo/home_repo.dart';
 import '../../Features/home/domain/use_case/home_items_use_case/categories_use_case.dart';
 import '../../Features/home/domain/use_case/home_items_use_case/products_Use_Case.dart';
 import '../../Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
+import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../Features/settings_feature/data/user_data_data_source/user_info_remote_data_source.dart';
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
@@ -144,8 +144,11 @@ void setUpServiceLocator() async {
         updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
       ));
   getIt.registerFactory(() => CategoriesCubit(
-        getIt.get<CategoriesUseCase>(),
+        fetchCategoriesUseCase: getIt.get<CategoriesUseCase>(),
       ));
+  // getIt.registerFactory(() => SearchCubit(
+  //       fetchSearchUseCase: getIt.get<SearchUseCase>(),
+  //     ));
   getIt.registerFactory(() => FavouritesCubit(
         getIt.get<GetFavouritesUseCases>(),
         getIt.get<ToggleFavouritesUseCase>(),
@@ -156,7 +159,7 @@ void setUpServiceLocator() async {
         getIt.get<ToggleCartUseCase>(),
       ));
   getIt.registerFactory(() => GetProductsCubit(
-        getIt.get<productsUseCase>(),
+        fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
       ));
 
   getIt.registerFactory(
@@ -166,15 +169,5 @@ void setUpServiceLocator() async {
   getIt.registerFactory(() => ToggleCartUseCase(getIt.get<CartRepo>()));
   getIt.registerFactory(() => FetchCartUseCase(getIt.get<CartRepo>()));
   getIt.registerFactory(() => RemoveCartUseCase(getIt.get<CartRepo>()));
-  getIt.registerFactory(() => productsUseCase(getIt.get<HomeRepo>())
-      // final fetchFavouritesUseCase =
-      //     GetFavouritesUseCases(getIt.get<FavouritesRepo>());
-      // final fetchCartUseCase = FetchCartUseCase(getIt.get<CartRepo>());
-      // final removeCartUseCase = RemoveCartUseCase(getIt.get<CartRepo>());
-      // final toggleCartUseCase = ToggleCartUseCase(getIt.get<CartRepo>());
-      //   final toggleFavouritesUseCase =
-      //    ToggleFavouritesUseCase(getIt.get<FavouritesRepo>());
-      //  final fetchCategoriesUseCase = CategoriesUseCase(getIt.get<HomeRepo>());
-
-      );
+  getIt.registerFactory(() => ProductsUseCase(getIt.get<HomeRepo>()));
 }

@@ -5,7 +5,7 @@ import '../../../Features/favourites_feature/domain/favourites_entity/favourites
 import '../../../Features/home/domain/entities/categories_entity/categories_entity.dart';
 import '../../../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../../../Features/settings_feature/domain/user_entity/user_entity.dart';
-import '../../utils/screens/widgets/end_points.dart';
+import '../../utils/hive_boxes_names/hive_boxes_names.dart';
 import 'hive_service.dart';
 
 class HiveManager implements HiveService {
@@ -24,11 +24,11 @@ class HiveManager implements HiveService {
 
   static Future<void> _openAllBoxes() async {
     await Future.wait([
-      _openBox<ProductEntity>(kProductsBox),
-      _openBox<CategoriesEntity>(kCategoriesBox),
-      _openBox<FavouritesEntity>(kFavouritesBox),
-      _openBox<AddToCartEntity>(kCartBox),
-      _openBox<UserEntity>(kUserBox),
+      _openBox<ProductEntity>(HiveBoxesNames.kProductsBox),
+      _openBox<CategoriesEntity>(HiveBoxesNames.kCategoriesBox),
+      _openBox<FavouritesEntity>(HiveBoxesNames.kFavouritesBox),
+      _openBox<AddToCartEntity>(HiveBoxesNames.kCartBox),
+      _openBox<UserEntity>(HiveBoxesNames.kUserBox),
     ]);
   }
 

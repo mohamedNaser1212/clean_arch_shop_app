@@ -20,7 +20,7 @@ class UserDataRepoImpl implements UserDataRepo {
         return Right(cachedUserData);
       } else {
         final userData = await getUserDataDataSource.getUserData();
-        saveUserData(userData);
+        saveUserData(user: userData);
         return Right(userData);
       }
     } catch (error) {
@@ -37,7 +37,7 @@ class UserDataRepoImpl implements UserDataRepo {
     try {
       final userData = await getUserDataDataSource.updateUserData(
           name: name, email: email, phone: phone);
-      saveUserData(userData);
+      saveUserData(user: userData);
       return Right(userData);
     } catch (error) {
       return Left(ServerFailure(error.toString()));

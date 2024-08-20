@@ -4,12 +4,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
 
 import '../../../../../core/utils/screens/widgets/cache_helper.dart';
 import '../../../../../core/utils/screens/widgets/constants.dart';
 import '../../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
+import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../../home/presentation/screens/layout_screen.dart';
 
 part 'login_state.dart';
@@ -27,7 +27,7 @@ class LoginCubit extends Cubit<LoginState> {
   }) async {
     emit(AppLoginLoadingState());
 
-    var result = await loginUseCase?.call(email, password);
+    var result = await loginUseCase?.call(email: email, password: password);
     if (!context!.mounted) return;
     GetProductsCubit.get(context).currentIndex = 0;
     result?.fold(
@@ -51,10 +51,15 @@ class LoginCubit extends Cubit<LoginState> {
         token = loginModel.data!.token!;
         await CacheHelper.saveData(key: 'token', value: token);
         print(token);
-        GetProductsCubit.get(context).getProductsData();
-        CartsCubit.get(context).getCartItems();
-        FavouritesCubit.get(context).getFavorites();
-        navigateAndFinish(context: context, screen: const LayoutScreen());
+
+        if (context.mounted) {
+          GetProductsCubit.get(context).getProductsData(
+            context: context,
+          );
+          CartsCubit.get(context).getCartItems();
+          FavouritesCubit.get(context).getFavorites();
+          navigateAndFinish(context: context, screen: const LayoutScreen());
+        }
       },
     );
   }

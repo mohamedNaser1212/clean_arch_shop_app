@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_products_state.dart';
 
 import '../../../../core/utils/screens/widgets/custom_title.dart';
 import '../../../../core/utils/screens/widgets/loading_indicator.dart';
 import '../../../../core/utils/screens/widgets/toast_widget.dart';
 import '../../../../core/utils/styles/color_manager.dart';
 import '../categories_list_view/product_screen_categories_widget.dart';
+import '../cubit/products_cubit/get_product_cubit.dart';
+import '../cubit/products_cubit/get_products_state.dart';
 import '../products_widgets/product_grid_view.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -23,7 +23,7 @@ class ProductsScreen extends StatelessWidget {
 
     final shopCubit = GetProductsCubit.get(context);
     if (shopCubit.homeModel == null) {
-      shopCubit.getProductsData();
+      shopCubit.getProductsData(context: context);
     }
 
     return BlocConsumer<CategoriesCubit, CategoriesState>(

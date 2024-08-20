@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
 import 'package:shop_app/core/models/hive_manager/hive_service.dart';
-import 'package:shop_app/core/utils/screens/widgets/end_points.dart';
 
+import '../../../../core/utils/hive_boxes_names/hive_boxes_names.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 import '../../domain/carts_repo/cart_repo.dart';
 import '../carts_data_sources/carts_remote_data_source.dart';
@@ -22,13 +22,14 @@ class CartsRepoImpl extends CartRepo {
       // Fetch from remote source first
       final cart = await cartsDataSource.getCarts();
       // Save to local cache
-      await hiveService.saveData<AddToCartEntity>(cart, kCartBox);
+      await hiveService.saveData<AddToCartEntity>(
+          cart, HiveBoxesNames.kCartBox);
       return right(cart);
     } catch (e) {
       try {
         // Attempt to load from local cache if remote fetch fails
-        final cachedCart =
-            await hiveService.loadData<AddToCartEntity>(kCartBox);
+        final cachedCart = await hiveService
+            .loadData<AddToCartEntity>(HiveBoxesNames.kCartBox);
         return right(cachedCart);
       } catch (_) {
         // Return the original failure if both remote fetch and cache load fail
@@ -38,10 +39,10 @@ class CartsRepoImpl extends CartRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> toggleCart(num productId) async {
+  Future<Either<Failure, bool>> toggleCart(num productIds) async {
     try {
       // Toggle cart item on the remote server
-      final result = await cartsDataSource.toggleCarts(productId);
+      final result = await cartsDataSource.toggleCarts(productIds);
       // Refresh the local cache
       final cart = await getCart();
       return right(result);
@@ -55,9 +56,8 @@ class CartsRepoImpl extends CartRepo {
   Future<Either<Failure, List<AddToCartEntity>>> removeCarts(
       num productId) async {
     try {
-      // Remove cart item from the remote server
       await cartsDataSource.removeCarts(productId);
-      // Refresh the local cache after removal
+
       return await getCart();
     } catch (e) {
       print('Error in removeCarts: $e');

@@ -10,7 +10,7 @@ class RemoveCartUseCase {
   RemoveCartUseCase(this.cartRepo);
 
   Future<Either<Failure, List<AddToCartEntity>>> removeFromCartCall(
-      [num products = 0]) {
+      {required num products}) {
     return cartRepo.removeCarts(products);
   }
 }

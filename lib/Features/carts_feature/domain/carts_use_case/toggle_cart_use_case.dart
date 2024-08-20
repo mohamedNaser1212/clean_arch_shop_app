@@ -8,7 +8,9 @@ class ToggleCartUseCase {
 
   ToggleCartUseCase(this.cartRepo);
 
-  Future<Either<Failure, bool>> toggleCartCall(num products) {
+  Future<Either<Failure, bool>> toggleCartCall({
+    required num products,
+  }) {
     return cartRepo.toggleCart(products);
   }
 }

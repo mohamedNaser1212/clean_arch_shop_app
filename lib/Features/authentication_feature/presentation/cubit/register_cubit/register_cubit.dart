@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
-import 'package:shop_app/Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
 import '../../../../../core/utils/screens/widgets/cache_helper.dart';
 import '../../../../../core/utils/screens/widgets/constants.dart';
-import '../../../../../core/utils/screens/widgets/end_points.dart';
 import '../../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
+import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../../home/presentation/screens/layout_screen.dart';
 import '../../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 
@@ -33,7 +34,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   }) async {
     emit(RegisterLoadingState());
 
-    final result = await loginUseCase.call(email, password, name, phone);
+    final result = await loginUseCase.call(
+        email: email, password: password, name: name, phone: phone);
 
     result.fold(
       (failure) {
@@ -52,7 +54,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
         if (!context.mounted) return;
 
-        await UserDataCubit.get(context).registerNewUser(loginModel);
+        await UserDataCubit.get(context)
+            .registerNewUser(user: loginModel, context: context);
         await CacheHelper.saveData(key: 'token', value: loginModel.data!.token);
 
         token = loginModel.data!.token!;
@@ -60,10 +63,12 @@ class RegisterCubit extends Cubit<RegisterState> {
         if (!context.mounted) return;
         final shopCubit = GetProductsCubit.get(context);
         shopCubit.currentIndex = 0;
-        shopCubit.getProductsData();
+        shopCubit.getProductsData(
+          context: context,
+        );
 
-        favorites.clear();
-        carts.clear();
+        FavouritesCubit.get(context).favorites.clear();
+        CartsCubit.get(context).carts.clear();
 
         navigateAndFinish(context: context, screen: const LayoutScreen());
 

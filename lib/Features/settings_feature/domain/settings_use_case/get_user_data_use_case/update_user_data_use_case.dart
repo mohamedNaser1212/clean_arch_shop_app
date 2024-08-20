@@ -9,7 +9,7 @@ class UpdateUserDataUseCase {
 
   UpdateUserDataUseCase(this.getUserDataRepo);
 
-  Future<Either<Failure, UserEntity>> UpdateUserData(
+  Future<Either<Failure, UserEntity>> updateUserData(
       {required String name, required String email, required String phone}) {
     return getUserDataRepo.UpdateUserData(
         name: name, email: email, phone: phone);

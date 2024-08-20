@@ -11,7 +11,7 @@ import 'package:shop_app/core/utils/screens/splash_screen.dart';
 import 'Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
 import 'Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
 import 'Features/carts_feature/payment_gate_way/stripe_payment/stripe_keys.dart';
-import 'Features/home/presentation/cubit/shop_cubit/get_product_cubit.dart';
+import 'Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import 'Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import 'core/service_locator/service_locator.dart';
 import 'core/utils/api_services/api_service_interface.dart';
@@ -43,7 +43,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => getIt<GetProductsCubit>()..getProductsData()),
+            create: (context) =>
+                getIt<GetProductsCubit>()..getProductsData(context: context)),
         BlocProvider(
             create: (context) => getIt<CategoriesCubit>()..getCategoriesData()),
         BlocProvider(

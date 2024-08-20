@@ -3,11 +3,13 @@ import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
 import '../../../../../core/errors/failure.dart';
 import '../../../../core/utils/api_services/api_service_interface.dart';
-import '../../../../core/utils/screens/widgets/end_points.dart';
+import '../../../../core/utils/end_points/end_points.dart';
 import '../search_model/SearchModel.dart';
 
 abstract class SearchDataSource {
-  Future<Either<Failure, List<SearchProduct>>> search(String text);
+  Future<Either<Failure, List<SearchProduct>>> search({
+    required String text,
+  });
 }
 
 class SearchDataSourceImpl implements SearchDataSource {
@@ -16,10 +18,12 @@ class SearchDataSourceImpl implements SearchDataSource {
   SearchDataSourceImpl(this.apiService);
 
   @override
-  Future<Either<Failure, List<SearchProduct>>> search(String text) async {
+  Future<Either<Failure, List<SearchProduct>>> search({
+    required String text,
+  }) async {
     try {
       ApiRequestModel request = ApiRequestModel(
-        endpoint: searchEndPoint,
+        endpoint: EndPoints.searchEndPoint,
         data: {'text': text},
       );
       final response = await apiService.post(request: request);

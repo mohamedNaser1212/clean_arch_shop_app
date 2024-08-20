@@ -9,7 +9,9 @@ class SearchUseCase {
 
   SearchUseCase(this.searchRepo);
 
-  Future<Either<Failure, List<SearchProduct>>> call(String text) {
-    return searchRepo.search(text);
+  Future<Either<Failure, List<SearchProduct>>> call({
+    required String text,
+  }) {
+    return searchRepo.search(text: text);
   }
 }

@@ -6,7 +6,9 @@ import '../../../domain/entities/categories_entity/categories_entity.dart';
 part 'categories_state.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {
-  CategoriesCubit(this.fetchCategoriesUseCase) : super(CategoriesInitial());
+  CategoriesCubit({
+    required this.fetchCategoriesUseCase,
+  }) : super(CategoriesInitial());
 
   final CategoriesUseCase fetchCategoriesUseCase;
 

@@ -9,8 +9,12 @@ class RegisterUseCase {
 
   RegisterUseCase(this.authenticationRepo);
 
-  Future<Either<Failure, AuthenticationModel>> call(
-      [email, password, phone, name]) async {
+  Future<Either<Failure, AuthenticationModel>> call({
+    required String email,
+    required String password,
+    required String name,
+    required String phone,
+  }) async {
     return await authenticationRepo.register(
         email: email, password: password, name: name, phone: phone);
   }

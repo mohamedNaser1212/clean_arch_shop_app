@@ -9,7 +9,7 @@ class FetchCartUseCase {
 
   FetchCartUseCase(this.cartRepo);
 
-  Future<Either<Failure, List<AddToCartEntity>>> call([num products = 0]) {
+  Future<Either<Failure, List<AddToCartEntity>>> call() {
     return cartRepo.getCart();
   }
 }

@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
-import '../../../../core/utils/screens/widgets/end_points.dart';
-
 class FavouriteAndCartIcons extends StatelessWidget {
   const FavouriteAndCartIcons({super.key, required this.product});
   final dynamic product;
@@ -15,7 +13,8 @@ class FavouriteAndCartIcons extends StatelessWidget {
       children: [
         BlocBuilder<FavouritesCubit, FavouritesState>(
           builder: (context, state) {
-            final isFavorite = favorites[product.id] ?? false;
+            final isFavorite =
+                FavouritesCubit.get(context).favorites[product.id] ?? false;
             return IconButton(
               onPressed: () {
                 FavouritesCubit.get(context).changeFavourite(product.id);
@@ -34,7 +33,7 @@ class FavouriteAndCartIcons extends StatelessWidget {
         ),
         BlocBuilder<CartsCubit, CartsState>(
           builder: (context, state) {
-            final isCart = carts[product.id] ?? false;
+            final isCart = CartsCubit.get(context).carts[product.id] ?? false;
             return IconButton(
               onPressed: () {
                 CartsCubit.get(context).changeCarts(product.id);

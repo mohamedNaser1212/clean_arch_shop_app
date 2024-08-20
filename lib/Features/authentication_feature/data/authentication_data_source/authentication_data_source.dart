@@ -1,6 +1,7 @@
 import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
 
 import '../../../../core/models/api_request_model/api_request_model.dart';
+import '../../../../core/utils/end_points/end_points.dart';
 import '../authentication_models/authentication_model.dart';
 
 abstract class LoginDataSource {
@@ -18,10 +19,11 @@ class LoginDataSourceImpl implements LoginDataSource {
   ApiServiceInterface apiServiceInterface;
   LoginDataSourceImpl(this.apiServiceInterface);
   @override
-  login({required String email, required String password}) async {
+  Future<AuthenticationModel> login(
+      {required String email, required String password}) async {
     AuthenticationModel loginModel;
     ApiRequestModel request = ApiRequestModel(
-      endpoint: 'login',
+      endpoint: EndPoints.loginEndPoint,
       data: {
         'email': email,
         'password': password,
@@ -34,7 +36,7 @@ class LoginDataSourceImpl implements LoginDataSource {
   }
 
   @override
-  register({
+  Future<AuthenticationModel> register({
     required String email,
     required String password,
     required String name,
@@ -42,7 +44,7 @@ class LoginDataSourceImpl implements LoginDataSource {
   }) async {
     AuthenticationModel loginModel;
     ApiRequestModel request = ApiRequestModel(
-      endpoint: 'register',
+      endpoint: EndPoints.registerEndPoint,
       data: {
         'email': email,
         'password': password,

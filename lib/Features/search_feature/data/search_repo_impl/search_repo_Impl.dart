@@ -11,7 +11,9 @@ class SearchRepoImpl implements SearchRepo {
   SearchRepoImpl(this.searchDataSource);
 
   @override
-  Future<Either<Failure, List<SearchProduct>>> search(String text) async {
-    return await searchDataSource.search(text);
+  Future<Either<Failure, List<SearchProduct>>> search({
+    required String text,
+  }) async {
+    return await searchDataSource.search(text: text);
   }
 }

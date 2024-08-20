@@ -15,7 +15,8 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchCubit(getIt<SearchUseCase>()),
+      create: (context) =>
+          SearchCubit(fetchSearchUseCase: getIt<SearchUseCase>()),
       child: BlocConsumer<SearchCubit, SearchState>(
         listener: _buildSearchResults,
         builder: _buildSearchScreen,

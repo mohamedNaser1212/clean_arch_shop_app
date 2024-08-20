@@ -9,8 +9,8 @@ import '../../../../core/utils/screens/widgets/reusable_widgets.dart';
 import '../../../../core/utils/styles/color_manager.dart';
 import '../../../favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
 import '../../domain/entities/products_entity/product_entity.dart';
-import '../cubit/shop_cubit/get_product_cubit.dart';
-import '../cubit/shop_cubit/get_products_state.dart';
+import '../cubit/products_cubit/get_product_cubit.dart';
+import '../cubit/products_cubit/get_products_state.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
