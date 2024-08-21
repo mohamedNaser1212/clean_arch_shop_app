@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 
+import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
+import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/utils/styles/text_styles.dart';
+import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
-import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
@@ -103,7 +104,9 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                 ReusableTextFormField(
                   label: 'Password',
                   onTap: () {},
-                  onSubmit: (String? value) {},
+                  onSubmit: (String? value) {
+                    return null;
+                  },
                   validator: (String? value) {
                     if (value!.isEmpty) {
                       return 'Please enter password';

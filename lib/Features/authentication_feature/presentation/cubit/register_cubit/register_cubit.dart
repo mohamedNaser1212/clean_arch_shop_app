@@ -4,9 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/core/networks/Hive_manager/hive_service.dart';
 
-import '../../../../../core/navigations_manager/navigations_manager.dart';
-import '../../../../../core/utils/widgets/cache_helper.dart';
+import '../../../../../core/managers/navigations_manager/navigations_manager.dart';
+import '../../../../../core/utils/widgets/token_storage_helper.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../../home/presentation/screens/layout_screen.dart';
@@ -23,7 +24,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   bool obsecurePassword = true;
   IconData suffixPasswordIcon = Icons.visibility_rounded;
-
+  HiveService? hiveService;
   Future<void> userRegister({
     required String email,
     required String password,

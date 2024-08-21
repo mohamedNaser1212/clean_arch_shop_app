@@ -8,10 +8,10 @@ abstract class EndPoints {
   static const String updateProfileEndPoint = 'update-profile';
   static const String searchEndPoint = 'products/search';
   static const String cartEndPoint = 'carts';
-  static const String kUserBox = 'user';
-  static const String kProductsBox = 'products';
-  static const String kCategoriesBox = 'categories';
-  static const String kFavouritesBox = 'favourites';
-  static const String kCartBox = 'carts';
-  static const String kAddToCartBox = 'addToCart';
+  // static const String kUserBox = 'user';
+  // static const String kProductsBox = 'products';
+  // static const String kCategoriesBox = 'categories';
+  // static const String kFavouritesBox = 'favourites';
+  // static const String kCartBox = 'carts';
+  // static const String kAddToCartBox = 'addToCart';
 }

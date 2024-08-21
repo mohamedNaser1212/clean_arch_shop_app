@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
 
 import '../../../../../core/errors/failure.dart';
-import '../../../../core/utils/api_services/api_service_interface.dart';
+import '../../../../core/networks/api_manager/api_request_model.dart';
+import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../core/utils/end_points/end_points.dart';
 import '../search_model/SearchModel.dart';
 

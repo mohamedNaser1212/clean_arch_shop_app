@@ -1,8 +1,8 @@
 import 'package:shop_app/Features/home/data/home_models/categories_model.dart';
-import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
-import 'package:shop_app/core/utils/widgets/cache_helper.dart';
+import 'package:shop_app/core/utils/widgets/token_storage_helper.dart';
 
-import '../../../../../core/utils/api_services/api_service_interface.dart';
+import '../../../../../core/networks/api_manager/api_request_model.dart';
+import '../../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../../core/utils/end_points/end_points.dart';
 import '../../home_models/home_data_model.dart';
 

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 
-import '../../../../core/utils/styles/color_manager.dart';
+import '../../../../core/managers/reusable_widgets_manager/toast_widget.dart';
+import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../../core/utils/widgets/loading_indicator.dart';
-import '../../../../core/utils/widgets/toast_widget.dart';
 import '../categories_list_view/product_screen_categories_widget.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';
 import '../cubit/products_cubit/get_products_state.dart';

@@ -3,8 +3,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../Features/authentication_feature/presentation/screens/login_screen.dart';
 import '../../../Features/home/presentation/screens/layout_screen.dart';
-import '../../models/api_request_model/api_request_model.dart';
-import '../api_services/api_service_interface.dart';
+import '../../networks/api_manager/api_request_model.dart';
+import '../../networks/api_manager/api_service_interface.dart';
 import '../end_points/end_points.dart';
 
 Future<void> initHive() async {

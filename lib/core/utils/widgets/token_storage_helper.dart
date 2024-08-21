@@ -42,7 +42,6 @@ class HiveHelper {
 
   static String getToken() {
     _checkInitialization();
-    final token = getData(key: 'token');
-    return token is String ? token : '';
+    return hiveBox.get('token');
   }
 }

@@ -6,7 +6,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
-import 'package:shop_app/core/models/hive_manager/hive_manager.dart';
 import 'package:shop_app/core/utils/funactions/start_page.dart';
 import 'package:shop_app/core/utils/screens/splash_screen.dart';
 
@@ -14,23 +13,22 @@ import 'Features/authentication_feature/presentation/cubit/login_cubit/login_cub
 import 'Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
 import 'Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import 'Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
+import 'core/networks/Hive_manager/hive_manager.dart';
+import 'core/networks/api_manager/api_service_interface.dart';
 import 'core/service_locator/service_locator.dart';
-import 'core/utils/api_services/api_service_interface.dart';
 import 'core/utils/bloc_observer/bloc_observer.dart';
-import 'core/utils/payment_gate_way/stripe_payment/stripe_keys.dart';
+import 'core/utils/payment_gate_way_manager/stripe_payment/stripe_keys.dart';
 import 'core/utils/screens/error_screen.dart';
-import 'core/utils/widgets/cache_helper.dart';
 import 'core/utils/widgets/constants.dart';
+import 'core/utils/widgets/token_storage_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Hive with a storage path
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  await HiveHelper
-      .init(); // Ensure HiveHelper is initialized before accessing it
+  await HiveHelper.init();
 
   setUpServiceLocator();
   HiveManager().initialize();

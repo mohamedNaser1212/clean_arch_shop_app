@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/payment_gate_way/stripe_payment/payment_manager.dart';
+import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
+import '../../../../core/utils/payment_gate_way_manager/stripe_payment/payment_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
-import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class CartCheckoutData extends StatelessWidget {

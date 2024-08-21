@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/styles/color_manager.dart';
+import '../../../../core/utils/styles_manager/color_manager.dart';
 
 class ProductInformationWidget extends StatelessWidget {
   const ProductInformationWidget({super.key, required this.product});

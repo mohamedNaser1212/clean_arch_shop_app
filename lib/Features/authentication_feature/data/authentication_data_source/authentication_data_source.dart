@@ -1,6 +1,5 @@
-import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
-
-import '../../../../core/models/api_request_model/api_request_model.dart';
+import '../../../../core/networks/api_manager/api_request_model.dart';
+import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../core/utils/end_points/end_points.dart';
 import '../authentication_models/authentication_model.dart';
 

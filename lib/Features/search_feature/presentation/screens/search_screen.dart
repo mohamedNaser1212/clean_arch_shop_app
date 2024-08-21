@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/utils/styles/color_manager.dart';
+import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../settings_feature/presentation/settings_widgets/build_search_field.dart';
 import '../../../settings_feature/presentation/settings_widgets/build_search_result_list.dart';

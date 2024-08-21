@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:shop_app/core/errors/failure.dart';
-import 'package:shop_app/core/models/hive_manager/hive_service.dart';
 
-import '../../../../core/utils/hive_boxes_names/hive_boxes_names.dart';
+import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
+import '../../../../core/networks/Hive_manager/hive_service.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import '../../domain/entities/products_entity/product_entity.dart';
 import '../../domain/home_repo/home_repo.dart';

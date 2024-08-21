@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/utils/styles/color_manager.dart';
 
-import '../../../../core/navigations_manager/navigations_manager.dart';
+import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
+import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import '../../domain/favourites_entity/favourites_entity.dart';
 import 'favourite_and_cart_icons.dart';

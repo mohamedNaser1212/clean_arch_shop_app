@@ -9,8 +9,6 @@ import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/
 import 'package:shop_app/Features/favourites_feature/data/favourites_repo_impl/favourites_repo_impl.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/data/repos/home_repo_impl.dart';
-import 'package:shop_app/core/models/hive_manager/hive_service.dart';
-import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
 
 import '../../../Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
 import '../../../Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
@@ -40,8 +38,10 @@ import '../../Features/settings_feature/data/user_data_data_source/user_info_rem
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
 import '../../Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
-import '../models/hive_manager/hive_manager.dart';
-import '../utils/api_services/api_service.dart';
+import '../networks/Hive_manager/hive_manager.dart';
+import '../networks/Hive_manager/hive_service.dart';
+import '../networks/api_manager/api_service.dart';
+import '../networks/api_manager/api_service_interface.dart';
 
 final getIt = GetIt.instance;
 

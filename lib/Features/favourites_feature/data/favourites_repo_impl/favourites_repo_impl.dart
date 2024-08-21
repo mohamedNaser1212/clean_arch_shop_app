@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
-import 'package:shop_app/core/models/hive_manager/hive_service.dart';
 
-import '../../../../core/utils/hive_boxes_names/hive_boxes_names.dart';
+import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
+import '../../../../core/networks/Hive_manager/hive_service.dart';
 import '../../domain/favourites_entity/favourites_entity.dart';
 import '../../domain/favourites_repo/favourites_repo.dart';
 import '../favourite_data_source/favourite_remote_data_source.dart';

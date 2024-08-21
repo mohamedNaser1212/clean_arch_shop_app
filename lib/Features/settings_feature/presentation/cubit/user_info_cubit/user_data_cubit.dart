@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
-import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
 
-import '../../../../../core/models/api_request_model/api_request_model.dart';
+import '../../../../../core/networks/api_manager/api_request_model.dart';
+import '../../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../authentication_feature/presentation/screens/login_screen.dart';
 import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';

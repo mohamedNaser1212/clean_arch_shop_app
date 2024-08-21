@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:shop_app/core/models/api_request_model/api_request_model.dart';
-import 'package:shop_app/core/utils/api_services/api_service_interface.dart';
+
+import 'api_request_model.dart';
+import 'api_service_interface.dart';
 
 class ApiService implements ApiServiceInterface {
   final Dio _dio;

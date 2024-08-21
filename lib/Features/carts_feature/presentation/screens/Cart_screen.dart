@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/core/utils/styles/color_manager.dart';
 
+import '../../../../core/managers/reusable_widgets_manager/toast_widget.dart';
+import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
-import '../../../../core/utils/widgets/toast_widget.dart';
 import '../carts_widgets/cart_check_out_data.dart';
 import '../carts_widgets/cart_item_widget.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../styles/text_styles.dart';
+import '../styles_manager/text_styles_manager.dart';
 
 // Define an enum for the text styles
 enum TitleStyle {
@@ -29,7 +29,6 @@ class CustomTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Map the enum to the corresponding text style from the Styles class
     TextStyle textStyle;
     switch (style) {
       case TitleStyle.style14:

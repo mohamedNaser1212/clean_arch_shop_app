@@ -5,7 +5,7 @@ import '../../../Features/favourites_feature/domain/favourites_entity/favourites
 import '../../../Features/home/domain/entities/categories_entity/categories_entity.dart';
 import '../../../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../../../Features/settings_feature/domain/user_entity/user_entity.dart';
-import '../../utils/hive_boxes_names/hive_boxes_names.dart';
+import 'hive_boxes_names.dart';
 import 'hive_service.dart';
 
 class HiveManager implements HiveService {

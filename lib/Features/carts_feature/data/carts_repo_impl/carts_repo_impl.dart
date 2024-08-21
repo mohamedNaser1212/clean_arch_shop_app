@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
-import 'package:shop_app/core/models/hive_manager/hive_service.dart';
 
-import '../../../../core/utils/hive_boxes_names/hive_boxes_names.dart';
+import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
+import '../../../../core/networks/Hive_manager/hive_service.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 import '../../domain/carts_repo/cart_repo.dart';
 import '../carts_data_sources/carts_remote_data_source.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/utils/styles/text_styles.dart';
+
+import '../../utils/styles_manager/text_styles_manager.dart';
 
 class ReusableElevatedButton extends StatelessWidget {
   final double width;
