@@ -19,7 +19,7 @@ class RegisterScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => RegisterCubit(
         RegisterUseCase(
-          getIt.get<AuthenticationRepo>(),
+          authenticationRepo: getIt.get<AuthenticationRepo>(),
         ),
       ),
       child: BlocConsumer<RegisterCubit, RegisterState>(

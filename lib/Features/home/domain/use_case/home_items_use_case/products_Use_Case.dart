@@ -6,7 +6,9 @@ import '../../home_repo/home_repo.dart';
 
 class ProductsUseCase {
   final HomeRepo homeRepo;
-  ProductsUseCase(this.homeRepo);
+  const ProductsUseCase({
+    required this.homeRepo,
+  });
 
   Future<Either<Failure, List<ProductEntity>>> productsCall() {
     return homeRepo.fetchProducts();

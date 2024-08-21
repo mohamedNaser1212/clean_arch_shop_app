@@ -10,7 +10,7 @@ class CartsRepoImpl extends CartRepo {
   final CartsRemoteDataSource cartsDataSource;
   final CartLocalDataSource cartLocalDataSource; // Use CartLocalDataSource
 
-  CartsRepoImpl({
+  const CartsRepoImpl({
     required this.cartsDataSource,
     required this.cartLocalDataSource,
   });

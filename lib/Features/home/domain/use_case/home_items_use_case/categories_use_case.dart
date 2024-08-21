@@ -7,7 +7,9 @@ import '../../entities/categories_entity/categories_entity.dart';
 class CategoriesUseCase {
   final HomeRepo homeRepo;
 
-  CategoriesUseCase(this.homeRepo);
+  const CategoriesUseCase({
+    required this.homeRepo,
+  });
 
   Future<Either<Failure, List<CategoriesEntity>>> categoriesCall() {
     return homeRepo.fetchCategories();

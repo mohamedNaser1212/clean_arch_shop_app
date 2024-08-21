@@ -7,6 +7,7 @@ import '../../../../../core/utils/end_points/end_points.dart';
 import '../../home_models/home_data_model.dart';
 
 abstract class HomeRemoteDataSource {
+  const HomeRemoteDataSource();
   Future<List<Products>> fetchFeaturedProducts();
 
   Future<List<CategoriesData>> fetchCategories();
@@ -14,12 +15,15 @@ abstract class HomeRemoteDataSource {
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   final ApiServiceInterface apiService;
-  final token = HiveHelper.getToken();
 
-  HomeRemoteDataSourceImpl(this.apiService);
+  const HomeRemoteDataSourceImpl({
+    required this.apiService,
+  });
 
   @override
   Future<List<Products>> fetchFeaturedProducts() async {
+    final token = HiveHelper.getToken();
+
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.homeEndPoint,
@@ -36,6 +40,8 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
   @override
   Future<List<CategoriesData>> fetchCategories() async {
+    final token = HiveHelper.getToken();
+
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.categoriesEndPoint,

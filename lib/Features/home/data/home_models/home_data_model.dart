@@ -1,7 +1,7 @@
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 
 class NewGetHomeData {
-  NewGetHomeData({
+  const NewGetHomeData({
     this.status,
     this.message,
     this.data,
@@ -92,7 +92,7 @@ class Products extends ProductEntity {
   final bool inFavorites;
   final bool? inCart;
 
-  Products({
+  const Products({
     required this.description,
     required this.inFavorites,
     this.inCart,
@@ -113,7 +113,7 @@ class Products extends ProductEntity {
           images: images,
           description: description,
           inFavorites: inFavorites,
-          inCart: inCart!,
+          inCart: inCart,
         );
 
   factory Products.fromJson(Map<String, dynamic> json) {

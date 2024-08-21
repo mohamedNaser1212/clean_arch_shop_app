@@ -15,13 +15,12 @@ abstract class CartsRemoteDataSource {
 
 class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   final ApiServiceInterface apiService;
-  ChangeCartModel? changeCartModel;
-  final token = HiveHelper.getToken();
 
-  CartsRemoteDataSourceImpl({required this.apiService});
+  const CartsRemoteDataSourceImpl({required this.apiService});
 
   @override
   Future<List<AddToCartProduct>> getCarts() async {
+    final token = HiveHelper.getToken();
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.cartEndPoint,
         headerModel: HeaderModel(authorization: token));
@@ -40,6 +39,8 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
 
   @override
   Future<bool> toggleCarts(num productId) async {
+    ChangeCartModel? changeCartModel;
+    final token = HiveHelper.getToken();
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.cartEndPoint,
         data: {
@@ -50,11 +51,12 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     final response = await apiService.post(request: request);
     changeCartModel = ChangeCartModel.fromJson(response);
     getCarts();
-    return changeCartModel?.status ?? false;
+    return changeCartModel.status ?? false;
   }
 
   @override
   Future<List<AddToCartProduct>> removeCarts(num productId) async {
+    final token = HiveHelper.getToken();
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.cartEndPoint,
       data: {

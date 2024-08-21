@@ -7,7 +7,9 @@ import '../carts_repo/cart_repo.dart';
 class FetchCartUseCase {
   final CartRepo cartRepo;
 
-  FetchCartUseCase(this.cartRepo);
+  const FetchCartUseCase({
+    required this.cartRepo,
+  });
 
   Future<Either<Failure, List<AddToCartEntity>>> call() {
     return cartRepo.getCart();

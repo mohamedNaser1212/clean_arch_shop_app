@@ -8,7 +8,9 @@ import '../search_model/SearchModel.dart';
 class SearchRepoImpl implements SearchRepo {
   final SearchDataSource searchDataSource;
 
-  SearchRepoImpl(this.searchDataSource);
+  const SearchRepoImpl({
+    required this.searchDataSource,
+  });
 
   @override
   Future<Either<Failure, List<SearchProduct>>> search({

@@ -7,7 +7,9 @@ import '../carts_repo/cart_repo.dart';
 class RemoveCartUseCase {
   final CartRepo cartRepo;
 
-  RemoveCartUseCase(this.cartRepo);
+  const RemoveCartUseCase({
+    required this.cartRepo,
+  });
 
   Future<Either<Failure, List<AddToCartEntity>>> removeFromCartCall(
       {required num products}) {

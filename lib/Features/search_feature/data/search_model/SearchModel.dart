@@ -23,7 +23,7 @@ class Data {
   final dynamic prevPageUrl;
   final num? to;
   final num? total;
-  Data({
+  const Data({
     this.currentPage,
     required this.data,
     this.firstPageUrl,

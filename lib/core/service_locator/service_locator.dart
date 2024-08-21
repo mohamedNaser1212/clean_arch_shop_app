@@ -66,15 +66,15 @@ void setUpServiceLocator() async {
     ),
   );
   getIt.registerSingleton<LoginUseCase>(
-    LoginUseCase(getIt.get<AuthenticationRepo>()),
+    LoginUseCase(authenticationRepo: getIt.get<AuthenticationRepo>()),
   );
   getIt.registerSingleton<RegisterUseCase>(
-    RegisterUseCase(getIt.get<AuthenticationRepo>()),
+    RegisterUseCase(authenticationRepo: getIt.get<AuthenticationRepo>()),
   );
 
   // Home dependencies
   getIt.registerSingleton<HomeRemoteDataSource>(
-    HomeRemoteDataSourceImpl(getIt.get<ApiServiceInterface>()),
+    HomeRemoteDataSourceImpl(apiService: getIt.get<ApiServiceInterface>()),
   );
   getIt.registerSingleton<HomeLocalDataSource>(
     HomeLocalDataSourceImpl(hiveService: getIt.get<HiveService>()),
@@ -105,7 +105,7 @@ void setUpServiceLocator() async {
     ),
   );
   getIt.registerSingleton<CategoriesUseCase>(
-    CategoriesUseCase(getIt.get<HomeRepo>()),
+    CategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
   getIt.registerSingleton<UserSignOutUseCase>(
     UserSignOutUseCase(
@@ -141,13 +141,13 @@ void setUpServiceLocator() async {
 
   // Search dependencies
   getIt.registerSingleton<SearchDataSource>(
-    SearchDataSourceImpl(getIt.get<ApiServiceInterface>()),
+    SearchDataSourceImpl(apiService: getIt.get<ApiServiceInterface>()),
   );
   getIt.registerSingleton<SearchRepo>(
-    SearchRepoImpl(getIt.get<SearchDataSource>()),
+    SearchRepoImpl(searchDataSource: getIt.get<SearchDataSource>()),
   );
   getIt.registerSingleton<SearchUseCase>(
-    SearchUseCase(getIt.get<SearchRepo>()),
+    SearchUseCase(searchRepo: getIt.get<SearchRepo>()),
   );
 
   // Cart dependencies
@@ -193,8 +193,11 @@ void setUpServiceLocator() async {
       () => GetFavouritesUseCases(getIt.get<FavouritesRepo>()));
   getIt.registerFactory(
       () => ToggleFavouritesUseCase(getIt.get<FavouritesRepo>()));
-  getIt.registerFactory(() => ToggleCartUseCase(getIt.get<CartRepo>()));
-  getIt.registerFactory(() => FetchCartUseCase(getIt.get<CartRepo>()));
-  getIt.registerFactory(() => RemoveCartUseCase(getIt.get<CartRepo>()));
-  getIt.registerFactory(() => ProductsUseCase(getIt.get<HomeRepo>()));
+  getIt.registerFactory(
+      () => ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()));
+  getIt
+      .registerFactory(() => FetchCartUseCase(cartRepo: getIt.get<CartRepo>()));
+  getIt.registerFactory(
+      () => RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()));
+  getIt.registerFactory(() => ProductsUseCase(homeRepo: getIt.get<HomeRepo>()));
 }

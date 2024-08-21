@@ -8,7 +8,7 @@ import '../../get_user_repo/get_user_repo.dart';
 class UserSignOutUseCase {
   final UserDataRepo getUserDataRepo;
 
-  UserSignOutUseCase({
+  const UserSignOutUseCase({
     required this.getUserDataRepo,
   });
 

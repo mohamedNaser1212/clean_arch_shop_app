@@ -6,7 +6,9 @@ import '../../../../core/errors/failure.dart';
 class ToggleCartUseCase {
   final CartRepo cartRepo;
 
-  ToggleCartUseCase(this.cartRepo);
+  const ToggleCartUseCase({
+    required this.cartRepo,
+  });
 
   Future<Either<Failure, bool>> toggleCartCall({
     required num products,

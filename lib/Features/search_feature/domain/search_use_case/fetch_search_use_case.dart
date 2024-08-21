@@ -7,7 +7,9 @@ import '../search_repo/search_repo.dart';
 class SearchUseCase {
   final SearchRepo searchRepo;
 
-  SearchUseCase(this.searchRepo);
+  const SearchUseCase({
+    required this.searchRepo,
+  });
 
   Future<Either<Failure, List<SearchProduct>>> call({
     required String text,

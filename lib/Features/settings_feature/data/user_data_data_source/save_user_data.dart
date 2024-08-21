@@ -11,7 +11,7 @@ abstract class UserLocalDataSource {
 class UserLocalDataSourceImpl implements UserLocalDataSource {
   final HiveService hiveService;
 
-  UserLocalDataSourceImpl({required this.hiveService});
+  const UserLocalDataSourceImpl({required this.hiveService});
 
   @override
   Future<void> saveUserData({required UserEntity user}) async {

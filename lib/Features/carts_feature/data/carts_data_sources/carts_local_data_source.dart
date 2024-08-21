@@ -14,7 +14,7 @@ abstract class CartLocalDataSource {
 class CartLocalDataSourceImpl implements CartLocalDataSource {
   final HiveService hiveService;
 
-  CartLocalDataSourceImpl({required this.hiveService});
+  const CartLocalDataSourceImpl({required this.hiveService});
 
   @override
   Future<Either<Failure, List<AddToCartEntity>>> getCart() async {

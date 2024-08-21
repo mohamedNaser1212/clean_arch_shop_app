@@ -13,7 +13,7 @@ class UserDataRepoImpl implements UserDataRepo {
   final UserDataSource getUserDataDataSource;
   final UserLocalDataSource userLocalDataSource;
 
-  UserDataRepoImpl({
+  const UserDataRepoImpl({
     required this.getUserDataDataSource,
     required this.userLocalDataSource,
   });

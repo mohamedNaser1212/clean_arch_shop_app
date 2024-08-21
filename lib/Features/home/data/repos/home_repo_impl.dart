@@ -12,7 +12,7 @@ class HomeRepoImpl extends HomeRepo {
   final HomeRemoteDataSource homeRemoteDataSource;
   final HomeLocalDataSource homeLocalDataSource;
 
-  HomeRepoImpl({
+  const HomeRepoImpl({
     required this.homeRemoteDataSource,
     required this.homeLocalDataSource,
   });

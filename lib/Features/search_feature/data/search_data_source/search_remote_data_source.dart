@@ -16,7 +16,9 @@ abstract class SearchDataSource {
 class SearchDataSourceImpl implements SearchDataSource {
   final ApiServiceInterface apiService;
 
-  SearchDataSourceImpl(this.apiService);
+  const SearchDataSourceImpl({
+    required this.apiService,
+  });
 
   @override
   Future<Either<Failure, List<SearchProduct>>> search({

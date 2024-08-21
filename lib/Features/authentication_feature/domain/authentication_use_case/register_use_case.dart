@@ -7,7 +7,7 @@ import '../../data/authentication_models/authentication_model.dart';
 class RegisterUseCase {
   final AuthenticationRepo authenticationRepo;
 
-  RegisterUseCase(this.authenticationRepo);
+  const RegisterUseCase({required this.authenticationRepo});
 
   Future<Either<Failure, AuthenticationModel>> call({
     required String email,

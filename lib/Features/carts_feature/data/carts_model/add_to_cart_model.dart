@@ -54,7 +54,7 @@ class CartItem {
   final num? quantity;
   final AddToCartProduct? product;
 
-  CartItem({this.id, this.quantity, this.product});
+  const CartItem({this.id, this.quantity, this.product});
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
