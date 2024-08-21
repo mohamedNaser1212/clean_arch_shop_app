@@ -1,33 +1,31 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors/failure.dart';
 
-import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
-import '../../../../core/networks/Hive_manager/hive_service.dart';
 import '../../domain/favourites_entity/favourites_entity.dart';
 import '../../domain/favourites_repo/favourites_repo.dart';
 import '../favourite_data_source/favourite_remote_data_source.dart';
+import '../favourite_data_source/favourites_local_data_source.dart';
 
 class FavouritesRepoImpl extends FavouritesRepo {
-  final FavouritesRemoteDataSource getFavouritesDataSource;
-  final HiveService hiveService;
+  final FavouritesRemoteDataSource favouritesDataSource;
+  final FavouritesLocalDataSource favouritesLocalDataSource;
 
   FavouritesRepoImpl({
-    required this.getFavouritesDataSource,
-    required this.hiveService,
+    required this.favouritesDataSource,
+    required this.favouritesLocalDataSource,
   });
 
   @override
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites() async {
     try {
-      final favourites = await getFavouritesDataSource.getFavourites();
-      await hiveService.saveData<FavouritesEntity>(
-          favourites, HiveBoxesNames.kFavouritesBox);
+      final favourites = await favouritesDataSource.getFavourites();
+      await favouritesLocalDataSource.saveFavourites(favourites);
       return right(favourites);
     } catch (e) {
       try {
-        final cachedFavourites = await hiveService
-            .loadData<FavouritesEntity>(HiveBoxesNames.kFavouritesBox);
-        return right(cachedFavourites);
+        final cachedFavourites =
+            await favouritesLocalDataSource.getFavourites();
+        return right(cachedFavourites.getOrElse(() => []));
       } catch (_) {
         return left(ServerFailure(e.toString()));
       }
@@ -38,9 +36,7 @@ class FavouritesRepoImpl extends FavouritesRepo {
   Future<Either<Failure, bool>> toggleFavourite(
       {required num productId}) async {
     try {
-      final result = await getFavouritesDataSource.toggleFavourites(productId);
-
-      final updatedFavourites = await getFavourites();
+      final result = await favouritesDataSource.toggleFavourites(productId);
       return right(result);
     } catch (e) {
       return left(ServerFailure(e.toString()));

@@ -27,3 +27,5 @@ class UpdateUserDataError extends GetUserDataState {
 }
 
 class UpdateUserDataLoading extends GetUserDataState {}
+
+class GetUserDataSignedOutSuccess extends GetUserDataState {}

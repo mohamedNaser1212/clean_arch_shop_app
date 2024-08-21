@@ -8,6 +8,7 @@ abstract class EndPoints {
   static const String updateProfileEndPoint = 'update-profile';
   static const String searchEndPoint = 'products/search';
   static const String cartEndPoint = 'carts';
+  static const String logOutEndPoint = 'logout';
   // static const String kUserBox = 'user';
   // static const String kProductsBox = 'products';
   // static const String kCategoriesBox = 'categories';

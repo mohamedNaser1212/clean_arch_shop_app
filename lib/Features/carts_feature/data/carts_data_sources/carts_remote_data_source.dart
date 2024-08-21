@@ -33,7 +33,6 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
         cartProducts.add(AddToCartProduct.fromJson(item['product']));
       }
     }
-
     print('done');
     print(cartProducts.length);
     return cartProducts;
