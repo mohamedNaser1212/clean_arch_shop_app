@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/errors/failure.dart';
+import '../../../../core/errors_manager/failure.dart';
 import '../../data/authentication_models/authentication_model.dart';
 
 abstract class AuthenticationRepo {

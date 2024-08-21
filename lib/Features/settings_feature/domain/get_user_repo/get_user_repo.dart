@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:shop_app/core/errors/failure.dart';
 
+import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../user_entity/user_entity.dart';
 

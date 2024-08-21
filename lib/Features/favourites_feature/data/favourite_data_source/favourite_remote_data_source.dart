@@ -1,6 +1,6 @@
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
-import '../../../../core/utils/dio_data_name.dart';
+import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/utils/end_points/end_points.dart';
 import '../../../../core/utils/widgets/token_storage_helper.dart';
 import '../favourites_models/favourites_model.dart';

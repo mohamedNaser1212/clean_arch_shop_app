@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/Features/authentication_feature/data/authentication_models/authentication_model.dart';
 
-import '../../../../core/errors/failure.dart';
+import '../../../../core/errors_manager/failure.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../authentication_data_sources/authentication_data_source.dart';
 

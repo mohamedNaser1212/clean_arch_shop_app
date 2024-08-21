@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/core/errors/failure.dart';
 
+import '../../../../core/errors_manager/failure.dart';
 import '../../data/search_model/SearchModel.dart';
 
 abstract class SearchRepo {

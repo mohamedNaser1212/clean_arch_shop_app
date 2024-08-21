@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../../core/errors/failure.dart';
+import '../../../../core/errors_manager/failure.dart';
 import '../cart_entity/add_to_cart_entity.dart';
 
 abstract class CartRepo {

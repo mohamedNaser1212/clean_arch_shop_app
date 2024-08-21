@@ -55,10 +55,6 @@ class RegisterCubit extends Cubit<RegisterState> {
 
         await UserDataCubit.get(context)
             .registerNewUser(user: loginModel, context: context);
-
-        // Store the token using HiveHelper
-        // await HiveHelper.saveData(key: 'token', value: loginModel.data!.token);
-
         if (!context.mounted) return;
         final shopCubit = GetProductsCubit.get(context);
         shopCubit.currentIndex = 0;

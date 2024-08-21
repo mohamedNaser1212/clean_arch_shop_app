@@ -9,15 +9,13 @@ class HeaderModel {
   final String authorization;
   final String lang;
 
-  // Static variable to store the token
   static String? _cachedToken;
 
   HeaderModel({
     this.contentType = 'application/json',
     String? authorization,
     this.lang = 'en',
-  }) : authorization = _cachedToken ??=
-            HiveHelper.getToken(); // Use cached token or fetch from Hive
+  }) : authorization = _cachedToken ??= HiveHelper.getToken();
 
   Map<String, dynamic> toMap() {
     return {

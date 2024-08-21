@@ -4,7 +4,7 @@ import 'package:shop_app/Features/authentication_feature/data/authentication_mod
 import '../../../../core/networks/Hive_manager/hive_service.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
-import '../../../../core/utils/dio_data_name.dart';
+import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/utils/end_points/end_points.dart';
 import '../../../../core/utils/widgets/token_storage_helper.dart';
 

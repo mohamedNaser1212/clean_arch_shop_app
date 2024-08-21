@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/errors/failure.dart';
 
+import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../domain/get_user_repo/get_user_repo.dart';
 import '../../domain/user_entity/user_entity.dart';

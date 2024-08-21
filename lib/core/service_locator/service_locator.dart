@@ -56,7 +56,7 @@ void setUpServiceLocator() async {
 
   // Register ApiService
   getIt.registerSingleton<ApiServiceInterface>(
-    ApiService(Dio(), "https://student.valuxapps.com/api/"),
+    ApiService(dio: Dio(), baseUrl: "https://student.valuxapps.com/api/"),
   );
 
   // Authentication dependencies

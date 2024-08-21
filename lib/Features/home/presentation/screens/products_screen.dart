@@ -29,7 +29,7 @@ class ProductsScreen extends StatelessWidget {
     return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, CategoriesState categoriesState) {
         if (categoriesState is CategoriesError) {
-          showToast(message: categoriesState.error, isError: true);
+          ToastWidget(message: categoriesState.error, isError: true);
         }
       },
       builder: (context, categoriesState) {

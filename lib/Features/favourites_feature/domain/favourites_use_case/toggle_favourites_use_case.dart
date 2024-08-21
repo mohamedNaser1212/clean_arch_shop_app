@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/Features/favourites_feature/domain/favourites_repo/favourites_repo.dart';
 
-import '../../../../core/errors/failure.dart';
+import '../../../../core/errors_manager/failure.dart';
 
 class ToggleFavouritesUseCase {
   final FavouritesRepo favouritesRepository;

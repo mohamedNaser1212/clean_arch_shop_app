@@ -4,10 +4,13 @@ import 'api_request_model.dart';
 import 'api_service_interface.dart';
 
 class ApiService implements ApiServiceInterface {
-  final Dio _dio;
+  final Dio dio;
   final String baseUrl;
 
-  ApiService(this._dio, this.baseUrl);
+  const ApiService({
+    required this.dio,
+    required this.baseUrl,
+  });
 
   Options _createOptions(Map<String, dynamic>? headers) {
     return Options(headers: headers ?? {});
@@ -19,7 +22,7 @@ class ApiService implements ApiServiceInterface {
   }) async {
     var options = _createOptions(request.headers);
     var response =
-        await _dio.get('$baseUrl${request.endpoint}', options: options);
+        await dio.get('$baseUrl${request.endpoint}', options: options);
     return response.data;
   }
 
@@ -28,7 +31,7 @@ class ApiService implements ApiServiceInterface {
     required ApiRequestModel request,
   }) async {
     var options = _createOptions(request.headers);
-    var response = await _dio.post('$baseUrl${request.endpoint}',
+    var response = await dio.post('$baseUrl${request.endpoint}',
         data: request.data, options: options);
     return response.data;
   }
@@ -38,7 +41,7 @@ class ApiService implements ApiServiceInterface {
     required ApiRequestModel request,
   }) async {
     var options = _createOptions(request.headers);
-    var response = await _dio.put('$baseUrl${request.endpoint}',
+    var response = await dio.put('$baseUrl${request.endpoint}',
         data: request.data, options: options);
     return response.data;
   }
@@ -49,7 +52,7 @@ class ApiService implements ApiServiceInterface {
   }) async {
     var options = _createOptions(request.headers);
     var response =
-        await _dio.delete('$baseUrl${request.endpoint}', options: options);
+        await dio.delete('$baseUrl${request.endpoint}', options: options);
     return response.data;
   }
 
@@ -58,7 +61,7 @@ class ApiService implements ApiServiceInterface {
     required ApiRequestModel request,
   }) async {
     var options = _createOptions(request.headers);
-    return await _dio.post('$baseUrl${request.endpoint}',
+    return await dio.post('$baseUrl${request.endpoint}',
         data: request.data, options: options);
   }
 
@@ -67,7 +70,7 @@ class ApiService implements ApiServiceInterface {
     required ApiRequestModel request,
   }) async {
     var options = _createOptions(request.headers);
-    return await _dio.put('$baseUrl${request.endpoint}',
+    return await dio.put('$baseUrl${request.endpoint}',
         data: request.data, options: options);
   }
 
@@ -76,7 +79,7 @@ class ApiService implements ApiServiceInterface {
     required ApiRequestModel request,
   }) async {
     var options = _createOptions(request.headers);
-    return await _dio.delete('$baseUrl${request.endpoint}', options: options);
+    return await dio.delete('$baseUrl${request.endpoint}', options: options);
   }
 
   @override
@@ -88,7 +91,7 @@ class ApiService implements ApiServiceInterface {
   }) async {
     var options = _createOptions(request.headers);
 
-    return await _dio.get(
+    return await dio.get(
       '$baseUrl${request.endpoint}',
       queryParameters: query,
       options: options,

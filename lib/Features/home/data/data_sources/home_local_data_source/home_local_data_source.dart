@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/core/errors/failure.dart';
 
+import '../../../../../core/errors_manager/failure.dart';
 import '../../../../../core/networks/Hive_manager/hive_boxes_names.dart';
 import '../../../../../core/networks/Hive_manager/hive_service.dart';
 import '../../../domain/entities/categories_entity/categories_entity.dart';

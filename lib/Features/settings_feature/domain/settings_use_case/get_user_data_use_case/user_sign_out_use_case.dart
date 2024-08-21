@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/errors/failure.dart';
 
+import '../../../../../core/errors_manager/failure.dart';
 import '../../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../get_user_repo/get_user_repo.dart';
 

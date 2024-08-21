@@ -19,10 +19,10 @@ class CartScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is ChangeCartSuccessState) {
           if (state.model) {
-            showToast(
+            const ToastWidget(
                 message: 'Item added to cart successfully', isError: false);
           } else {
-            showToast(
+            const ToastWidget(
                 message: 'Item removed from cart successfully', isError: false);
           }
         }

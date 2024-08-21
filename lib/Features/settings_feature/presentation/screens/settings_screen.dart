@@ -43,12 +43,12 @@ class SettingsScreen extends StatelessWidget {
 
   static void _listener(BuildContext context, GetUserDataState state) {
     if (state is UpdateUserDataError) {
-      showToast(
+      const ToastWidget(
         message: 'Could not get user data, pleaSe try again later',
         isError: true,
       );
     } else if (state is UpdateUserDataSuccess) {
-      showToast(
+      const ToastWidget(
         message: 'Data updated successfully',
         isError: false,
       );
