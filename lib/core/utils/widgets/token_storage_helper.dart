@@ -42,6 +42,6 @@ class HiveHelper {
 
   static String getToken() {
     _checkInitialization();
-    return hiveBox.get('token');
+    return hiveBox.get('token')??'';
   }
 }

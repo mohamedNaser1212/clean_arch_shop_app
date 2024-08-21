@@ -3,7 +3,7 @@ import 'package:shop_app/Features/authentication_feature/data/authentication_mod
 
 import '../../../../core/errors/failure.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
-import '../authentication_data_source/authentication_data_source.dart';
+import '../authentication_data_sources/authentication_data_source.dart';
 
 class AuthRepoImpl implements AuthenticationRepo {
   final LoginDataSource loginDataSource;

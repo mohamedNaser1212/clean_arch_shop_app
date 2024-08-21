@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shop_app/Features/authentication_feature/data/authentication_data_source/authentication_data_source.dart';
 import 'package:shop_app/Features/authentication_feature/data/authentication_repo_impl/authentication_repo_impl.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
@@ -23,6 +22,7 @@ import '../../../Features/search_feature/domain/search_repo/search_repo.dart';
 import '../../../Features/search_feature/domain/search_use_case/fetch_search_use_case.dart';
 import '../../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../../../Features/settings_feature/domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
+import '../../Features/authentication_feature/data/authentication_data_sources/authentication_data_source.dart';
 import '../../Features/authentication_feature/domain/authentication_repo/authentication_repo.dart';
 import '../../Features/carts_feature/data/carts_data_sources/carts_remote_data_source.dart';
 import '../../Features/carts_feature/domain/carts_use_case/remove_cart_use_case.dart';
