@@ -8,7 +8,7 @@ import '../authentication_data_sources/authentication_data_source.dart';
 class AuthRepoImpl implements AuthenticationRepo {
   final LoginDataSource loginDataSource;
 
-  AuthRepoImpl({required this.loginDataSource});
+  const AuthRepoImpl({required this.loginDataSource});
 
   @override
   Future<Either<Failure, AuthenticationModel>> login({

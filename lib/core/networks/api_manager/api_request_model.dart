@@ -9,12 +9,15 @@ class HeaderModel {
   final String authorization;
   final String lang;
 
+  // Static variable to store the token
+  static String? _cachedToken;
+
   HeaderModel({
     this.contentType = 'application/json',
-    String? authorization, // Make it optional for default value
+    String? authorization,
     this.lang = 'en',
-  }) : authorization = authorization ??
-            HiveHelper.getToken(); // Default to token from Hive
+  }) : authorization = _cachedToken ??=
+            HiveHelper.getToken(); // Use cached token or fetch from Hive
 
   Map<String, dynamic> toMap() {
     return {
@@ -38,7 +41,7 @@ class ApiRequestModel {
     this.data,
   })  : headerModel =
             headerModel ?? HeaderModel(), // Default HeaderModel with token
-        headers = headerModel!.toMap();
+        headers = headerModel!.toMap(); // Use HeaderModel's map
 
   final Map<String, dynamic> headers;
 

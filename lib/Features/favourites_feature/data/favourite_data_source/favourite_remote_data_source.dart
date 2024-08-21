@@ -14,13 +14,12 @@ abstract class FavouritesRemoteDataSource {
 class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
   final ApiServiceInterface apiService;
 
-  FavouritesRemoteDataSourceImpl({required this.apiService});
+  const FavouritesRemoteDataSourceImpl({required this.apiService});
 
   @override
   Future<List<FavouriteProduct>> getFavourites() async {
     try {
       final token = HiveHelper.getToken();
-
       final request = ApiRequestModel(
         endpoint: EndPoints.favoritesEndPoint,
         headerModel: HeaderModel(authorization: token),
@@ -44,7 +43,6 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
   Future<bool> toggleFavourites(num productId) async {
     try {
       final token = HiveHelper.getToken();
-
       final request = ApiRequestModel(
         endpoint: EndPoints.favoritesEndPoint,
         data: {
