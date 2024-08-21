@@ -5,6 +5,7 @@ import 'package:shop_app/Features/authentication_feature/domain/authentication_u
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
 import 'package:shop_app/core/utils/styles/color_manager.dart';
 
+import '../../../../core/navigations_manager/navigations_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../../core/utils/widgets/reusable_widgets.dart';
@@ -88,7 +89,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _buildEmailField() {
-    return reusableTextFormField(
+    return ReusableTextFormField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       validator: (String? value) {
@@ -104,7 +105,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _buildPasswordField(BuildContext context) {
-    return reusableTextFormField(
+    return ReusableTextFormField(
       controller: passwordController,
       keyboardType: TextInputType.visiblePassword,
       validator: (String? value) {
@@ -132,8 +133,8 @@ class LoginScreen extends StatelessWidget {
   Widget _buildLoginButton(BuildContext context, LoginState state) {
     return ConditionalBuilder(
       condition: state is! AppLoginLoadingState,
-      builder: (context) => reusableElevatedButton(
-        function: () {
+      builder: (context) => ReusableElevatedButton(
+        onPressed: () {
           if (formKey.currentState!.validate()) {
             LoginCubit.get(context).userLogin(
               email: emailController.text,

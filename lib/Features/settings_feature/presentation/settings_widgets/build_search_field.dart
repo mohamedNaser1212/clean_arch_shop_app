@@ -12,7 +12,7 @@ class BuildSearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: reusableTextFormField(
+      child: ReusableTextFormField(
         label: 'Search',
         controller: _controller,
         keyboardType: TextInputType.text,

@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 
+import '../../../../core/navigations_manager/navigations_manager.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
-import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 

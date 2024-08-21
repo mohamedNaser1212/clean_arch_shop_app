@@ -40,9 +40,9 @@ class CartCheckoutData extends StatelessWidget {
             style: TitleStyle.styleBold20,
           ),
           const SizedBox(height: 8),
-          reusableElevatedButton(
+          ReusableElevatedButton(
               label: 'CheckOut',
-              function: () {
+              onPressed: () {
                 PaymentManager.makePayment(
                   total!.toInt(),
                   'EGP',

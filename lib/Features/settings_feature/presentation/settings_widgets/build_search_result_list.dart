@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/utils/styles/color_manager.dart';
 
+import '../../../../core/navigations_manager/navigations_manager.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
-import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../../../search_feature/presentation/cubit/search_cubit/search_cubit.dart';
 
 class BuildSearchResultList extends StatelessWidget {

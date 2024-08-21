@@ -85,7 +85,7 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                   style: Styles.textStyle30,
                 ),
                 const SizedBox(height: 15),
-                reusableTextFormField(
+                ReusableTextFormField(
                   label: 'Email',
                   onTap: () {},
                   validator: (String? value) {
@@ -100,7 +100,7 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                   prefix: const Icon(Icons.email_rounded),
                 ),
                 const SizedBox(height: 10),
-                reusableTextFormField(
+                ReusableTextFormField(
                   label: 'Password',
                   onTap: () {},
                   onSubmit: (String? value) {},
@@ -123,7 +123,7 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                   ),
                 ),
                 const SizedBox(height: 10),
-                reusableTextFormField(
+                ReusableTextFormField(
                   label: 'Name',
                   onTap: () {},
                   validator: (String? value) {
@@ -138,7 +138,7 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                   prefix: const Icon(Icons.person),
                 ),
                 const SizedBox(height: 10),
-                reusableTextFormField(
+                ReusableTextFormField(
                   label: 'Phone',
                   onTap: () {},
                   validator: (String? value) {
@@ -173,10 +173,10 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: ConditionalBuilder(
                     condition: state is! RegisterLoadingState,
-                    builder: (context) => reusableElevatedButton(
+                    builder: (context) => ReusableElevatedButton(
                       label: 'Register',
                       backColor: defaultLightColor,
-                      function: () {
+                      onPressed: () {
                         if (formKey.currentState!.validate()) {
                           RegisterCubit.get(context).userRegister(
                             email: emailController.text,

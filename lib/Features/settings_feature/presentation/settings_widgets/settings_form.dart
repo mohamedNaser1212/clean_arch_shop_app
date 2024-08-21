@@ -34,7 +34,7 @@ class SettingsForm extends StatelessWidget {
               const LinearProgressIndicator(
                 backgroundColor: ColorController.accentColor,
               ),
-            reusableTextFormField(
+            ReusableTextFormField(
               label: 'Name',
               controller: nameController,
               keyboardType: TextInputType.text,
@@ -49,7 +49,7 @@ class SettingsForm extends StatelessWidget {
               onTap: () {},
             ),
             const SizedBox(height: 20.0),
-            reusableTextFormField(
+            ReusableTextFormField(
               label: 'Email Address',
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
@@ -63,7 +63,7 @@ class SettingsForm extends StatelessWidget {
               onTap: () {},
             ),
             const SizedBox(height: 20.0),
-            reusableTextFormField(
+            ReusableTextFormField(
               label: 'Phone',
               controller: phoneController,
               keyboardType: TextInputType.phone,
@@ -77,9 +77,9 @@ class SettingsForm extends StatelessWidget {
               onTap: () {},
             ),
             const SizedBox(height: 20.0),
-            reusableElevatedButton(
+            ReusableElevatedButton(
               label: 'Sign Out',
-              function: () {
+              onPressed: () {
                 UserDataCubit.get(context)
                     .signOut(context, getIt.get<ApiServiceInterface>());
               },
@@ -87,11 +87,11 @@ class SettingsForm extends StatelessWidget {
               textColor: ColorController.buttonTextColor,
             ),
             const SizedBox(height: 20.0),
-            reusableElevatedButton(
+            ReusableElevatedButton(
               label: 'Update',
               backColor: ColorController.blueAccentColor,
               textColor: ColorController.buttonTextColor,
-              function: () {
+              onPressed: () {
                 if (formKey.currentState!.validate()) {
                   UserDataCubit.get(context).updateUserData(
                     name: nameController.text,

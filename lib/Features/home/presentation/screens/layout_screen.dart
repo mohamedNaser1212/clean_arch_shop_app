@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 
+import '../../../../core/navigations_manager/navigations_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
-import '../../../../core/utils/widgets/reusable_widgets.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';
 import '../cubit/products_cubit/get_products_state.dart';
 
