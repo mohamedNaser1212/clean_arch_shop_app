@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
+import '../../../../core/utils/dio_data_name.dart';
 import '../../../../core/utils/end_points/end_points.dart';
 import '../search_model/SearchModel.dart';
 
@@ -24,7 +25,9 @@ class SearchDataSourceImpl implements SearchDataSource {
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.searchEndPoint,
-        data: {'text': text},
+        data: {
+          DioDataName.text: text,
+        },
         headerModel: HeaderModel(authorization: ''),
       );
       final response = await apiService.post(request: request);

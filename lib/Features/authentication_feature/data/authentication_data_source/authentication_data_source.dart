@@ -1,5 +1,6 @@
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
+import '../../../../core/utils/dio_data_name.dart';
 import '../../../../core/utils/end_points/end_points.dart';
 import '../authentication_models/authentication_model.dart';
 
@@ -34,8 +35,8 @@ class LoginDataSourceImpl implements LoginDataSource {
     final request = ApiRequestModel(
       endpoint: EndPoints.loginEndPoint,
       data: {
-        'email': email,
-        'password': password,
+        DioDataName.email: email,
+        DioDataName.password: password,
       },
       headerModel: headerModel,
     );
@@ -65,10 +66,10 @@ class LoginDataSourceImpl implements LoginDataSource {
     final request = ApiRequestModel(
       endpoint: EndPoints.registerEndPoint,
       data: {
-        'email': email,
-        'password': password,
-        'name': name,
-        'phone': phone,
+        DioDataName.email: email,
+        DioDataName.password: password,
+        DioDataName.name: name,
+        DioDataName.phone: phone,
       },
       headerModel: headerModel,
     );

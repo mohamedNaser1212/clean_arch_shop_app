@@ -2,6 +2,7 @@ import 'package:shop_app/core/utils/widgets/token_storage_helper.dart';
 
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
+import '../../../../core/utils/dio_data_name.dart';
 import '../../../../core/utils/end_points/end_points.dart';
 import '../carts_model/add_to_cart_model.dart';
 import '../carts_model/changeCartModel.dart';
@@ -43,7 +44,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.cartEndPoint,
         data: {
-          'product_id': productId,
+          DioDataName.productId: productId,
         },
         headerModel: HeaderModel(authorization: token));
 
@@ -56,9 +57,9 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   @override
   Future<List<AddToCartProduct>> removeCarts(num productId) async {
     ApiRequestModel request = ApiRequestModel(
-      endpoint: 'carts',
+      endpoint: EndPoints.cartEndPoint,
       data: {
-        'product_id': productId,
+        DioDataName.productId: productId,
       },
       headerModel: HeaderModel(authorization: token),
     );
