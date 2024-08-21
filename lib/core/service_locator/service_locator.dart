@@ -24,6 +24,7 @@ import '../../../Features/settings_feature/domain/get_user_repo/get_user_repo.da
 import '../../../Features/settings_feature/domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
 import '../../Features/authentication_feature/data/authentication_data_sources/authentication_data_source.dart';
 import '../../Features/authentication_feature/domain/authentication_repo/authentication_repo.dart';
+import '../../Features/carts_feature/data/carts_data_sources/carts_local_data_source.dart';
 import '../../Features/carts_feature/data/carts_data_sources/carts_remote_data_source.dart';
 import '../../Features/carts_feature/domain/carts_use_case/remove_cart_use_case.dart';
 import '../../Features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
@@ -125,13 +126,16 @@ void setUpServiceLocator() async {
     SearchUseCase(getIt.get<SearchRepo>()),
   );
 
-  // Add to Cart dependencies
+  // Cart dependencies
+  getIt.registerSingleton<CartLocalDataSource>(
+    CartLocalDataSourceImpl(hiveService: getIt.get<HiveService>()),
+  );
   getIt.registerSingleton<CartsRemoteDataSource>(
     CartsRemoteDataSourceImpl(apiService: getIt.get<ApiServiceInterface>()),
   );
   getIt.registerSingleton<CartRepo>(
     CartsRepoImpl(
-      hiveService: getIt.get<HiveService>(),
+      cartLocalDataSource: getIt.get<CartLocalDataSource>(),
       cartsDataSource: getIt.get<CartsRemoteDataSource>(),
     ),
   );
@@ -146,9 +150,6 @@ void setUpServiceLocator() async {
   getIt.registerFactory(() => CategoriesCubit(
         fetchCategoriesUseCase: getIt.get<CategoriesUseCase>(),
       ));
-  // getIt.registerFactory(() => SearchCubit(
-  //       fetchSearchUseCase: getIt.get<SearchUseCase>(),
-  //     ));
   getIt.registerFactory(() => FavouritesCubit(
         getIt.get<GetFavouritesUseCases>(),
         getIt.get<ToggleFavouritesUseCase>(),
@@ -162,6 +163,7 @@ void setUpServiceLocator() async {
         fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
       ));
 
+  // Use Cases
   getIt.registerFactory(
       () => GetFavouritesUseCases(getIt.get<FavouritesRepo>()));
   getIt.registerFactory(

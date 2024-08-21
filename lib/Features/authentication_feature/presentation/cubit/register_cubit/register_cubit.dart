@@ -7,7 +7,6 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourit
 import 'package:shop_app/core/networks/Hive_manager/hive_service.dart';
 
 import '../../../../../core/managers/navigations_manager/navigations_manager.dart';
-import '../../../../../core/utils/widgets/token_storage_helper.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../../home/presentation/screens/layout_screen.dart';
@@ -58,7 +57,7 @@ class RegisterCubit extends Cubit<RegisterState> {
             .registerNewUser(user: loginModel, context: context);
 
         // Store the token using HiveHelper
-        await HiveHelper.saveData(key: 'token', value: loginModel.data!.token);
+        // await HiveHelper.saveData(key: 'token', value: loginModel.data!.token);
 
         if (!context.mounted) return;
         final shopCubit = GetProductsCubit.get(context);
