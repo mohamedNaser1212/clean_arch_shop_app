@@ -11,8 +11,10 @@ import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
 import '../../../../core/utils/widgets/token_storage_helper.dart';
+import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
+import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
+import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../home/presentation/screens/layout_screen.dart';
-import '../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
@@ -35,36 +37,29 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
-void _listener(BuildContext context, RegisterState state) {
+Future<void> _listener(BuildContext context, RegisterState state) async {
   if (state is RegisterSuccessState) {
-    if (state.loginModel.status!) {
-      // Store the token
-      HiveHelper.saveData(
-        key: 'token',
-        value: state.loginModel.data!.token,
+    Fluttertoast.showToast(
+      msg: state.loginModel.message!,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 5,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+    await HiveHelper.saveData(
+        key: 'token', value: state.loginModel.data!.token);
+    //   await CacheHelper.saveData(key: 'token', value: token);
+    // print(token);
+
+    if (context.mounted) {
+      GetProductsCubit.get(context).getProductsData(
+        context: context,
       );
-      UserDataCubit.get(context)
-          .registerNewUser(user: state.loginModel, context: context);
+      CartsCubit.get(context).getCartItems();
+      FavouritesCubit.get(context).getFavorites();
       navigateAndFinish(context: context, screen: const LayoutScreen());
-      Fluttertoast.showToast(
-        msg: 'Register Success',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    } else {
-      Fluttertoast.showToast(
-        msg: state.loginModel.message!,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
     }
   }
 }
