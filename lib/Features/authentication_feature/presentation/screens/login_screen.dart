@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
   Future<void> _loginListener(BuildContext context, LoginState state) async {
     if (state is AppLoginSuccessState) {
       Fluttertoast.showToast(
-        msg: state.loginModel.message!,
+        msg: state.loginMode.message!,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 5,
@@ -59,7 +59,7 @@ class LoginScreen extends StatelessWidget {
         fontSize: 16.0,
       );
       await HiveHelper.saveData(
-          key: 'token', value: state.loginModel.data!.token);
+          key: 'token', value: state.loginMode.data!.token);
       //   await CacheHelper.saveData(key: 'token', value: token);
       // print(token);
 
