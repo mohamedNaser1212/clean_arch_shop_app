@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         home: FutureBuilder<Widget>(
-          future: determineStartPage(context, getIt<ApiServiceInterface>()),
+          future: determineStartPage(context, getIt<ApiManager>()),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const SplashScreen();

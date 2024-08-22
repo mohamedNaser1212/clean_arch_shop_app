@@ -74,7 +74,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
 
   Future<void> signOut(
     BuildContext context,
-    ApiServiceInterface apiService,
+    ApiManager apiService,
   ) async {
     emit(GetUserDataLoading());
 

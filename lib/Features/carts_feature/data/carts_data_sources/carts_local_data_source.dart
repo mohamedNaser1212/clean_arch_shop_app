@@ -12,7 +12,7 @@ abstract class CartLocalDataSource {
 }
 
 class CartLocalDataSourceImpl implements CartLocalDataSource {
-  final HiveService hiveService;
+  final HiveHelper hiveService;
 
   const CartLocalDataSourceImpl({required this.hiveService});
 

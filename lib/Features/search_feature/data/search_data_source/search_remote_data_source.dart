@@ -14,7 +14,7 @@ abstract class SearchDataSource {
 }
 
 class SearchDataSourceImpl implements SearchDataSource {
-  final ApiServiceInterface apiService;
+  final ApiManager apiService;
 
   const SearchDataSourceImpl({
     required this.apiService,

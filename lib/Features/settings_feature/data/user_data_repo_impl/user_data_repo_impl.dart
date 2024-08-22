@@ -54,7 +54,7 @@ class UserDataRepoImpl implements UserDataRepo {
   @override
   Future<Either<Failure, bool>> signOut({
     required BuildContext context,
-    required ApiServiceInterface apiService,
+    required ApiManager apiService,
   }) async {
     try {
       final result = await getUserDataDataSource.signOut(

@@ -15,12 +15,12 @@ abstract class UserDataSource {
     required String phone,
   });
   Future<bool> signOut(
-      {required BuildContext context, required ApiServiceInterface apiService});
+      {required BuildContext context, required ApiManager apiService});
 }
 
 class UserDataSourceImpl implements UserDataSource {
-  final ApiServiceInterface apiService;
-  final HiveService hiveService;
+  final ApiManager apiService;
+  final HiveHelper hiveService;
 
   const UserDataSourceImpl(
       {required this.apiService, required this.hiveService});
@@ -71,8 +71,7 @@ class UserDataSourceImpl implements UserDataSource {
 
   @override
   Future<bool> signOut(
-      {required BuildContext context,
-      required ApiServiceInterface apiService}) async {
+      {required BuildContext context, required ApiManager apiService}) async {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.logOutEndPoint, headerModel: HeaderModel());
     final response = await apiService.post(request: request);

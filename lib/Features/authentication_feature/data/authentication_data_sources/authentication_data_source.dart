@@ -18,7 +18,7 @@ abstract class AuthenticationDataSource {
 }
 
 class AuthenticationDataSourceImpl implements AuthenticationDataSource {
-  final ApiServiceInterface apiServiceInterface;
+  final ApiManager apiServiceInterface;
 
   const AuthenticationDataSourceImpl(this.apiServiceInterface);
 

@@ -12,7 +12,7 @@ abstract class HomeRemoteDataSource {
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
-  final ApiServiceInterface apiService;
+  final ApiManager apiService;
 
   const HomeRemoteDataSourceImpl({
     required this.apiService,

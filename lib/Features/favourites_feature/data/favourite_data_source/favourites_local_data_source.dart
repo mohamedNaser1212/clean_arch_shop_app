@@ -13,7 +13,7 @@ abstract class FavouritesLocalDataSource {
 }
 
 class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
-  final HiveService hiveService;
+  final HiveHelper hiveService;
 
   FavouritesLocalDataSourceImpl({
     required this.hiveService,

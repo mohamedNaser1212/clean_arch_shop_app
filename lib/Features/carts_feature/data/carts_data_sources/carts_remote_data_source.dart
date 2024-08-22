@@ -12,7 +12,7 @@ abstract class CartsRemoteDataSource {
 }
 
 class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
-  final ApiServiceInterface apiService;
+  final ApiManager apiService;
 
   const CartsRemoteDataSourceImpl({required this.apiService});
 

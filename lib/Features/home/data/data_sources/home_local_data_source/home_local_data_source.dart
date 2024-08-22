@@ -15,7 +15,7 @@ abstract class HomeLocalDataSource {
 }
 
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
-  final HiveService hiveService;
+  final HiveHelper hiveService;
 
   const HomeLocalDataSourceImpl({
     required this.hiveService,

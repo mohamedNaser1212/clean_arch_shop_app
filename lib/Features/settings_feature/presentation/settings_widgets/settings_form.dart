@@ -82,7 +82,7 @@ class SettingsForm extends StatelessWidget {
               label: 'Sign Out',
               onPressed: () {
                 UserDataCubit.get(context)
-                    .signOut(context, getIt.get<ApiServiceInterface>());
+                    .signOut(context, getIt.get<ApiManager>());
               },
               backColor: ColorController.warningColor,
               textColor: ColorController.buttonTextColor,
