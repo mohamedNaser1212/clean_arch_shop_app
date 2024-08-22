@@ -8,7 +8,7 @@ import '../../../Features/settings_feature/domain/user_entity/user_entity.dart';
 import 'hive_boxes_names.dart';
 import 'hive_service.dart';
 
-class HiveManager implements HiveService {
+class HiveManager implements HiveHelper {
   static final Map<String, Box> _openedBoxes = {};
 
   @override
@@ -22,7 +22,7 @@ class HiveManager implements HiveService {
     await _openAllBoxes();
   }
 
-  static Future<void> _openAllBoxes() async {
+  Future<void> _openAllBoxes() async {
     await Future.wait([
       _openBox<ProductEntity>(HiveBoxesNames.kProductsBox),
       _openBox<CategoriesEntity>(HiveBoxesNames.kCategoriesBox),
@@ -32,7 +32,7 @@ class HiveManager implements HiveService {
     ]);
   }
 
-  static Future<void> _openBox<T>(String boxName) async {
+  Future<void> _openBox<T>(String boxName) async {
     try {
       if (!_openedBoxes.containsKey(boxName)) {
         final box = await Hive.openBox<T>(boxName);
@@ -44,7 +44,7 @@ class HiveManager implements HiveService {
     }
   }
 
-  static Box<T> _getBox<T>(String boxName) {
+  Box<T> _getBox<T>(String boxName) {
     final box = _openedBoxes[boxName] as Box<T>?;
     if (box == null) {
       throw Exception("Box $boxName is not opened.");
