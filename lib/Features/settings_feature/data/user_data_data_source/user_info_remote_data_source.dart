@@ -5,8 +5,7 @@ import '../../../../core/networks/Hive_manager/hive_service.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
-import '../../../../core/utils/end_points/end_points.dart';
-import '../../../../core/utils/widgets/token_storage_helper.dart';
+import '../../../../core/networks/api_manager/end_points.dart';
 
 abstract class UserDataSource {
   Future<AuthenticationModel> getUserData();
@@ -28,11 +27,10 @@ class UserDataSourceImpl implements UserDataSource {
 
   @override
   Future<AuthenticationModel> getUserData() async {
-    final token = HiveHelper.getToken();
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.profileEndPoint,
-        headerModel: HeaderModel(authorization: token),
+        headerModel: HeaderModel(),
       );
       final response = await apiService.get(request: request);
 
@@ -50,16 +48,15 @@ class UserDataSourceImpl implements UserDataSource {
     required String email,
     required String phone,
   }) async {
-    final token = HiveHelper.getToken();
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.updateProfileEndPoint,
         data: {
-          DioDataName.name: name,
-          DioDataName.email: email,
-          DioDataName.phone: phone,
+          RequestDataNames.name: name,
+          RequestDataNames.email: email,
+          RequestDataNames.phone: phone,
         },
-        headerModel: HeaderModel(authorization: token),
+        headerModel: HeaderModel(),
       );
 
       final response = await apiService.put(request: request);
@@ -76,10 +73,8 @@ class UserDataSourceImpl implements UserDataSource {
   Future<bool> signOut(
       {required BuildContext context,
       required ApiServiceInterface apiService}) async {
-    final token = HiveHelper.getToken();
     ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.logOutEndPoint,
-        headerModel: HeaderModel(authorization: token));
+        endpoint: EndPoints.logOutEndPoint, headerModel: HeaderModel());
     final response = await apiService.post(request: request);
 
     return response['status'];

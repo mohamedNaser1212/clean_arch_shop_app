@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
 
@@ -10,8 +11,14 @@ import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_fi
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
+import '../../../../core/utils/widgets/token_storage_helper.dart';
+import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
+import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
+import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
+import '../../../home/presentation/screens/layout_screen.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/login_cubit/login_cubit.dart';
+import '../cubit/login_cubit/login_state.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -24,7 +31,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(
-        LoginUseCase(
+        loginUseCase: LoginUseCase(
           authenticationRepo: getIt.get<AuthenticationRepo>(),
         ),
       ),
@@ -40,8 +47,31 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void _loginListener(BuildContext context, LoginState state) {
-    // Implement listener logic if needed
+  Future<void> _loginListener(BuildContext context, LoginState state) async {
+    if (state is AppLoginSuccessState) {
+      Fluttertoast.showToast(
+        msg: state.loginModel.message!,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 5,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      await HiveHelper.saveData(
+          key: 'token', value: state.loginModel.data!.token);
+      //   await CacheHelper.saveData(key: 'token', value: token);
+      // print(token);
+
+      if (context.mounted) {
+        GetProductsCubit.get(context).getProductsData(
+          context: context,
+        );
+        CartsCubit.get(context).getCartItems();
+        FavouritesCubit.get(context).getFavorites();
+        navigateAndFinish(context: context, screen: const LayoutScreen());
+      }
+    }
   }
 
   Widget _buildBody(BuildContext context, LoginState state) {

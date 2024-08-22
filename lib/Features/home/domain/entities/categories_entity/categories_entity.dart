@@ -13,18 +13,4 @@ class CategoriesEntity {
     required this.name,
     required this.image,
   });
-
-  factory CategoriesEntity.fromJson(Map<String, dynamic> json) {
-    return CategoriesEntity(
-      name: json['name'] as String,
-      image: json['image'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'image': image,
-    };
-  }
 }

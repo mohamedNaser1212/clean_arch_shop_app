@@ -7,7 +7,9 @@ import '../favourites_repo/favourites_repo.dart';
 class GetFavouritesUseCases {
   final FavouritesRepo favouritesRepo;
 
-  GetFavouritesUseCases(this.favouritesRepo);
+  const GetFavouritesUseCases({
+    required this.favouritesRepo,
+  });
 
   Future<Either<Failure, List<FavouritesEntity>>> call() async {
     return await favouritesRepo.getFavourites();

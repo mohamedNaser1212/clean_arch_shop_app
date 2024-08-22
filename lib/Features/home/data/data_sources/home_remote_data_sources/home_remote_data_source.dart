@@ -1,14 +1,12 @@
-import 'package:shop_app/Features/home/data/home_models/categories_model.dart';
-import 'package:shop_app/core/utils/widgets/token_storage_helper.dart';
-
 import '../../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../../core/networks/api_manager/api_service_interface.dart';
-import '../../../../../core/utils/end_points/end_points.dart';
-import '../../home_models/home_data_model.dart';
+import '../../../../../core/networks/api_manager/end_points.dart';
+import '../../home_models/categories_models/categories_data.dart';
+import '../../home_models/products_models/products_model.dart';
 
 abstract class HomeRemoteDataSource {
   const HomeRemoteDataSource();
-  Future<List<Products>> fetchFeaturedProducts();
+  Future<List<Products>> fetchProducts();
 
   Future<List<CategoriesData>> fetchCategories();
 }
@@ -21,13 +19,11 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   });
 
   @override
-  Future<List<Products>> fetchFeaturedProducts() async {
-    final token = HiveHelper.getToken();
-
+  Future<List<Products>> fetchProducts() async {
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.homeEndPoint,
-        headerModel: HeaderModel(authorization: token),
+        headerModel: HeaderModel(),
       );
       var data = await apiService.get(request: request);
       List<Products> products = getProductsList(data['data']);
@@ -40,12 +36,10 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
   @override
   Future<List<CategoriesData>> fetchCategories() async {
-    final token = HiveHelper.getToken();
-
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.categoriesEndPoint,
-        headerModel: HeaderModel(authorization: token),
+        headerModel: HeaderModel(),
       );
       var data = await apiService.get(request: request);
       List<CategoriesData> categories = getCategoriesList(data['data']);

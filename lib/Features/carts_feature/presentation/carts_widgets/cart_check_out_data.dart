@@ -27,13 +27,6 @@ class CartCheckoutData extends StatelessWidget {
           CustomTitle(
               title: 'Subtotal: \$${subtotal?.toStringAsFixed(2) ?? '0.00'}',
               style: TitleStyle.styleBold18),
-          // Text(
-          //   'Subtotal: \$${subtotal?.toStringAsFixed(2) ?? '0.00'}',
-          //   style: const TextStyle(
-          //     fontSize: 18,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
           const SizedBox(height: 8),
           CustomTitle(
             title: 'Total: \$${total?.toStringAsFixed(2) ?? '0.00'}',

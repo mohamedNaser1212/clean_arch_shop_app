@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../styles_manager/text_styles_manager.dart';
 
-// Define an enum for the text styles
 enum TitleStyle {
   style12,
   style14,
@@ -18,7 +17,7 @@ enum TitleStyle {
 class CustomTitle extends StatelessWidget {
   final String title;
   final TitleStyle style;
-  final Color? color; // Allow color to be optional
+  final Color? color;
 
   const CustomTitle({
     required this.title,
@@ -32,31 +31,31 @@ class CustomTitle extends StatelessWidget {
     TextStyle textStyle;
     switch (style) {
       case TitleStyle.style14:
-        textStyle = Styles.textStyle14.copyWith(color: color);
+        textStyle = StylesManager.textStyle14.copyWith(color: color);
         break;
       case TitleStyle.style12:
-        textStyle = Styles.textStyle12.copyWith(color: color);
+        textStyle = StylesManager.textStyle12.copyWith(color: color);
         break;
       case TitleStyle.style16:
-        textStyle = Styles.textStyle16.copyWith(color: color);
+        textStyle = StylesManager.textStyle16.copyWith(color: color);
         break;
       case TitleStyle.style18:
-        textStyle = Styles.textStyle18.copyWith(color: color);
+        textStyle = StylesManager.textStyle18.copyWith(color: color);
         break;
       case TitleStyle.styleBold18:
-        textStyle = Styles.textStyleBold18.copyWith(color: color);
+        textStyle = StylesManager.textStyleBold18.copyWith(color: color);
         break;
       case TitleStyle.style20:
-        textStyle = Styles.textStyle20.copyWith(color: color);
+        textStyle = StylesManager.textStyle20.copyWith(color: color);
         break;
       case TitleStyle.styleBold20:
-        textStyle = Styles.textStyleBold20.copyWith(color: color);
+        textStyle = StylesManager.textStyleBold20.copyWith(color: color);
         break;
       case TitleStyle.style24:
-        textStyle = Styles.textStyle24.copyWith(color: color);
+        textStyle = StylesManager.textStyle24.copyWith(color: color);
         break;
       case TitleStyle.style30:
-        textStyle = Styles.textStyle30.copyWith(color: color);
+        textStyle = StylesManager.textStyle30.copyWith(color: color);
         break;
     }
 

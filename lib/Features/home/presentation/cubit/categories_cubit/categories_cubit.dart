@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/home/domain/use_case/home_items_use_case/categories_use_case.dart';
 
 import '../../../domain/entities/categories_entity/categories_entity.dart';
+import '../../../domain/use_case/home_use_case/categories_use_case.dart';
 
 part 'categories_state.dart';
 

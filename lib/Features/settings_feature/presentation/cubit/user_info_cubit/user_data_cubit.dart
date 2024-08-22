@@ -18,12 +18,12 @@ part 'user_data_state.dart';
 class UserDataCubit extends Cubit<GetUserDataState> {
   final UserDataUseCase getUserDataUseCase;
   final UpdateUserDataUseCase updateUserDataUseCase;
-  final UserSignOutUseCase userSignOutUseCase; // Add the use case
+  final UserSignOutUseCase userSignOutUseCase;
 
   UserDataCubit({
     required this.updateUserDataUseCase,
     required this.getUserDataUseCase,
-    required this.userSignOutUseCase, // Inject the use case
+    required this.userSignOutUseCase,
   }) : super(GetUserDataInitial());
 
   static UserDataCubit get(BuildContext context) => BlocProvider.of(context);
@@ -116,6 +116,6 @@ class UserDataCubit extends Cubit<GetUserDataState> {
 
   Future<void> clearUserData() async {
     final userBox = Hive.box('userBox');
-    await userBox.clear(); // Clears all user-related data from Hive
+    await userBox.clear();
   }
 }

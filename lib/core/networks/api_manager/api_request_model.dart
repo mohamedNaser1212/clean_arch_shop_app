@@ -9,13 +9,11 @@ class HeaderModel {
   final String authorization;
   final String lang;
 
-  static String? _cachedToken;
-
   HeaderModel({
     this.contentType = 'application/json',
     String? authorization,
     this.lang = 'en',
-  }) : authorization = _cachedToken ??= HiveHelper.getToken();
+  }) : authorization = HiveHelper.getToken();
 
   Map<String, dynamic> toMap() {
     return {
@@ -34,12 +32,11 @@ class ApiRequestModel {
 
   ApiRequestModel({
     required this.endpoint,
-    HeaderModel? headerModel, // Allow default value
+    HeaderModel? headerModel,
     this.query,
     this.data,
-  })  : headerModel =
-            headerModel ?? HeaderModel(), // Default HeaderModel with token
-        headers = headerModel!.toMap(); // Use HeaderModel's map
+  })  : headerModel = headerModel!,
+        headers = headerModel.toMap();
 
   final Map<String, dynamic> headers;
 

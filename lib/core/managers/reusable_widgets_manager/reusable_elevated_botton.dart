@@ -39,7 +39,8 @@ class ReusableElevatedButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           label,
-          style: Styles.textStyle20.copyWith(color: textColor, fontSize: 20),
+          style: StylesManager.textStyle20
+              .copyWith(color: textColor, fontSize: 20),
         ),
       ),
     );

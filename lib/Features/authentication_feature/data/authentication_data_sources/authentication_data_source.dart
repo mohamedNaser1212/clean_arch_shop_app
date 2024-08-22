@@ -1,10 +1,10 @@
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
-import '../../../../core/utils/end_points/end_points.dart';
+import '../../../../core/networks/api_manager/end_points.dart';
 import '../authentication_models/authentication_model.dart';
 
-abstract class LoginDataSource {
+abstract class AuthenticationDataSource {
   Future<AuthenticationModel> login({
     required String email,
     required String password,
@@ -17,25 +17,23 @@ abstract class LoginDataSource {
   });
 }
 
-class LoginDataSourceImpl implements LoginDataSource {
+class AuthenticationDataSourceImpl implements AuthenticationDataSource {
   final ApiServiceInterface apiServiceInterface;
 
-  const LoginDataSourceImpl(this.apiServiceInterface);
+  const AuthenticationDataSourceImpl(this.apiServiceInterface);
 
   @override
   Future<AuthenticationModel> login({
     required String email,
     required String password,
   }) async {
-    String? token;
-
-    final headerModel = HeaderModel(authorization: token ?? '');
+    final headerModel = HeaderModel();
 
     final request = ApiRequestModel(
       endpoint: EndPoints.loginEndPoint,
       data: {
-        DioDataName.email: email,
-        DioDataName.password: password,
+        RequestDataNames.email: email,
+        RequestDataNames.password: password,
       },
       headerModel: headerModel,
     );
@@ -43,8 +41,6 @@ class LoginDataSourceImpl implements LoginDataSource {
     final response = await apiServiceInterface.post(request: request);
 
     final loginModel = AuthenticationModel.fromJson(response);
-
-    token = loginModel.data?.token;
 
     return loginModel;
   }
@@ -56,17 +52,15 @@ class LoginDataSourceImpl implements LoginDataSource {
     required String name,
     required String phone,
   }) async {
-    String? token;
-
-    final headerModel = HeaderModel(authorization: token ?? '');
+    final headerModel = HeaderModel();
 
     final request = ApiRequestModel(
       endpoint: EndPoints.registerEndPoint,
       data: {
-        DioDataName.email: email,
-        DioDataName.password: password,
-        DioDataName.name: name,
-        DioDataName.phone: phone,
+        RequestDataNames.email: email,
+        RequestDataNames.password: password,
+        RequestDataNames.name: name,
+        RequestDataNames.phone: phone,
       },
       headerModel: headerModel,
     );
@@ -74,9 +68,6 @@ class LoginDataSourceImpl implements LoginDataSource {
     final response = await apiServiceInterface.post(request: request);
 
     final registerModel = AuthenticationModel.fromJson(response);
-
-    // Update the token if it is present in the response
-    token = registerModel.data?.token;
 
     return registerModel;
   }

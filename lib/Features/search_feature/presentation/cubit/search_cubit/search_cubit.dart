@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../search_feature/data/search_model/SearchModel.dart';
-import '../../../../search_feature/domain/search_use_case/fetch_search_use_case.dart';
+import '../../../domain/search_use_case/fetch_search_use_case.dart';
 
 part 'search_state.dart';
 

@@ -1,4 +1,4 @@
-part of 'login_cubit.dart';
+import 'package:shop_app/Features/authentication_feature/data/authentication_models/authentication_model.dart';
 
 class LoginState {}
 

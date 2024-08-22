@@ -47,7 +47,7 @@ class HomeRepoImpl extends HomeRepo {
         return right(cachedProducts.getOrElse(() => []));
       }
 
-      final productsList = await homeRemoteDataSource.fetchFeaturedProducts();
+      final productsList = await homeRemoteDataSource.fetchProducts();
       await homeLocalDataSource.saveProducts(productsList);
 
       return right(productsList);

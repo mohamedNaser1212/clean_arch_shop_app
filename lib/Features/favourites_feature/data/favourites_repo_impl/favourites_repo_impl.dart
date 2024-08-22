@@ -10,7 +10,7 @@ class FavouritesRepoImpl extends FavouritesRepo {
   final FavouritesRemoteDataSource favouritesDataSource;
   final FavouritesLocalDataSource favouritesLocalDataSource;
 
-  FavouritesRepoImpl({
+  const FavouritesRepoImpl({
     required this.favouritesDataSource,
     required this.favouritesLocalDataSource,
   });

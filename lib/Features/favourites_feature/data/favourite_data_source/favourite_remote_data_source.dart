@@ -1,8 +1,7 @@
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
-import '../../../../core/utils/end_points/end_points.dart';
-import '../../../../core/utils/widgets/token_storage_helper.dart';
+import '../../../../core/networks/api_manager/end_points.dart';
 import '../favourites_models/favourites_model.dart';
 import '../favourites_models/favoutits_model.dart';
 
@@ -19,10 +18,9 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
   @override
   Future<List<FavouriteProduct>> getFavourites() async {
     try {
-      final token = HiveHelper.getToken();
       final request = ApiRequestModel(
         endpoint: EndPoints.favoritesEndPoint,
-        headerModel: HeaderModel(authorization: token),
+        headerModel: HeaderModel(),
       );
       final response = await apiService.get(request: request);
 
@@ -42,13 +40,12 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
   @override
   Future<bool> toggleFavourites(num productId) async {
     try {
-      final token = HiveHelper.getToken();
       final request = ApiRequestModel(
         endpoint: EndPoints.favoritesEndPoint,
         data: {
-          DioDataName.productId: productId,
+          RequestDataNames.productId: productId,
         },
-        headerModel: HeaderModel(authorization: token),
+        headerModel: HeaderModel(),
       );
       final response = await apiService.post(request: request);
 

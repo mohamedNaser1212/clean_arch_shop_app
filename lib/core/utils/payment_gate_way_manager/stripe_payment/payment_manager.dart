@@ -15,15 +15,11 @@ abstract class PaymentManager {
       await _initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
 
-      // Map the entity IDs and filter out any null values
       final itemIds = model.map((e) => e.id).whereType<num>().toList();
 
       if (!context.mounted) return;
-
-      // Ensure `allRemoved` has a boolean value even if `changeCartsList` returns null
       bool allRemoved =
           (await CartsCubit.get(context).changeCartsList(itemIds)) ?? false;
-
       if (allRemoved) {
         print('Payment and cart removal succeeded');
       } else {

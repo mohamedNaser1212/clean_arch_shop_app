@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class Styles {
+abstract class StylesManager {
   static const textStyle12 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,

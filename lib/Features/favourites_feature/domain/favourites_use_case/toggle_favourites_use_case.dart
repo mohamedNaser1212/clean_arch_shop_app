@@ -6,7 +6,9 @@ import '../../../../core/errors_manager/failure.dart';
 class ToggleFavouritesUseCase {
   final FavouritesRepo favouritesRepository;
 
-  ToggleFavouritesUseCase(this.favouritesRepository);
+  const ToggleFavouritesUseCase({
+    required this.favouritesRepository,
+  });
 
   Future<Either<Failure, bool>> toggleFavouriteCall({
     required num productIds,

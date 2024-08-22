@@ -8,7 +8,7 @@ import '../carts_data_sources/carts_remote_data_source.dart';
 
 class CartsRepoImpl extends CartRepo {
   final CartsRemoteDataSource cartsDataSource;
-  final CartLocalDataSource cartLocalDataSource; // Use CartLocalDataSource
+  final CartLocalDataSource cartLocalDataSource;
 
   const CartsRepoImpl({
     required this.cartsDataSource,

@@ -2,15 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/core/networks/Hive_manager/hive_service.dart';
 
-import '../../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
-import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
-import '../../../../home/presentation/screens/layout_screen.dart';
-import '../../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 
 part 'register_state.dart';
 
@@ -51,30 +45,27 @@ class RegisterCubit extends Cubit<RegisterState> {
       (loginModel) async {
         emit(RegisterSuccessState(loginModel: loginModel));
 
-        if (!context.mounted) return;
+        // Store the token using HiveHelper
+        // await HiveHelper.saveData(key: 'token', value: loginModel.data!.token);
 
-        await UserDataCubit.get(context)
-            .registerNewUser(user: loginModel, context: context);
-        if (!context.mounted) return;
-        final shopCubit = GetProductsCubit.get(context);
-        shopCubit.currentIndex = 0;
-        shopCubit.getProductsData(
-          context: context,
-        );
+        // if (context.mounted) return;
+        // final shopCubit = GetProductsCubit.get(context);
+        // shopCubit.currentIndex = 0;
+        // shopCubit.getProductsData(
+        //   context: context,
+        // );
+        //
+        // FavouritesCubit.get(context).favorites.clear();
+        // CartsCubit.get(context).carts.clear();
 
-        FavouritesCubit.get(context).favorites.clear();
-        CartsCubit.get(context).carts.clear();
-
-        navigateAndFinish(context: context, screen: const LayoutScreen());
-
-        Fluttertoast.showToast(
-          msg: 'Register Success',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
+        // Fluttertoast.showToast(
+        //   msg: 'Register Success',
+        //   toastLength: Toast.LENGTH_SHORT,
+        //   gravity: ToastGravity.BOTTOM,
+        //   backgroundColor: Colors.green,
+        //   textColor: Colors.white,
+        //   fontSize: 16.0,
+        // );
       },
     );
   }

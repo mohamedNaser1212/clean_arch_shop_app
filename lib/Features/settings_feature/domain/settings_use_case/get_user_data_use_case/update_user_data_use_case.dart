@@ -7,7 +7,9 @@ import '../../user_entity/user_entity.dart';
 class UpdateUserDataUseCase {
   final UserDataRepo getUserDataRepo;
 
-  const UpdateUserDataUseCase(this.getUserDataRepo);
+  const UpdateUserDataUseCase({
+    required this.getUserDataRepo,
+  });
 
   Future<Either<Failure, UserEntity>> updateUserData(
       {required String name, required String email, required String phone}) {

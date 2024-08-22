@@ -13,7 +13,6 @@ class ToastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Display the toast when the widget is built
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Fluttertoast.showToast(
         msg: message,

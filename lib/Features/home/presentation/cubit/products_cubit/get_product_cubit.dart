@@ -10,7 +10,7 @@ import 'package:shop_app/Features/settings_feature/presentation/screens/settings
 
 import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
-import '../../../domain/use_case/home_items_use_case/products_Use_Case.dart';
+import '../../../domain/use_case/home_use_case/products_Use_Case.dart';
 import '../../screens/categries_screen.dart';
 import 'get_products_state.dart';
 

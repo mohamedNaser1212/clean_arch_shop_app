@@ -54,42 +54,43 @@ class CartsCubit extends Cubit<CartsState> {
     );
   }
 
-  changeCartsList(List<num> prodIds) async {
+  Future<bool> changeCartsList(List<num> prodIds) async {
     emit(ChangeCartLoadingState());
-
     try {
       bool allRemoved = true;
-
       for (var prodId in prodIds) {
         final result =
             await removeFromCartUseCase.removeFromCartCall(products: prodId);
         if (result.isLeft()) {
           print('Failed to remove item with id $prodId');
           allRemoved = false;
+        } else {
+          final removeResult = result;
+          removeResult.fold(
+            (failure) {
+              allRemoved = false;
+              emit(AddCartItemsErrorState(failure.message));
+            },
+            (cartItems) {
+              carts.remove(prodId);
+              cartModel.removeWhere((item) => prodIds.contains(item.id));
+            },
+          );
         }
       }
 
       if (allRemoved) {
-        // Remove from cache
-        for (var prodId in prodIds) {
-          carts.remove(prodId);
-        }
-
-        // Update product list
-        cartModel.removeWhere((item) => prodIds
-            .contains(item.id)); // Ensure items are removed from cartModel
-
         emit(ChangeCartSuccessState(allRemoved));
       } else {
         emit(AddCartItemsErrorState(
             "Failed to remove some items from the cart"));
       }
 
-      return allRemoved; // Ensure a boolean is returned
+      return allRemoved;
     } catch (e) {
       print('Error in changeCartsList: $e');
       emit(AddCartItemsErrorState(e.toString()));
-      return false; // Return false if an exception occurs
+      return false;
     }
   }
 
