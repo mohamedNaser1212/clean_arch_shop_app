@@ -61,8 +61,6 @@ class LoginScreen extends StatelessWidget {
       );
       await TokenHelper.saveData(
           key: 'token', value: state.loginMode.data!.token);
-      //   await CacheHelper.saveData(key: 'token', value: token);
-      // print(token);
 
       if (context.mounted) {
         GetProductsCubit.get(context).getProductsData(
