@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorController {
+abstract class ColorController {
   // Primary Colors
   static const Color primaryColor = Colors.orange;
   static const Color accentColor = Colors.orangeAccent;

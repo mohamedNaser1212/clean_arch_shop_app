@@ -7,14 +7,15 @@ import 'package:shop_app/Features/authentication_feature/domain/authentication_u
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
+import '../../../../core/networks/Hive_manager/token_storage_helper.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
-import '../../../../core/utils/widgets/token_storage_helper.dart';
 import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../home/presentation/screens/layout_screen.dart';
+import '../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
@@ -50,8 +51,6 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
     );
     await TokenHelper.saveData(
         key: 'token', value: state.loginModel.data!.token);
-    //   await CacheHelper.saveData(key: 'token', value: token);
-    // print(token);
 
     if (context.mounted) {
       GetProductsCubit.get(context).getProductsData(
@@ -59,6 +58,7 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       );
       CartsCubit.get(context).getCartItems();
       FavouritesCubit.get(context).getFavorites();
+      UserDataCubit.get(context).getUserData();
       navigateAndFinish(context: context, screen: const LayoutScreen());
     }
   }

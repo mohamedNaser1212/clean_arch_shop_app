@@ -1,5 +1,5 @@
+import '../../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../../core/networks/api_manager/api_request_model.dart';
-import '../../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../../core/networks/api_manager/end_points.dart';
 import '../../home_models/categories_models/categories_data.dart';
 import '../../home_models/products_models/products_model.dart';

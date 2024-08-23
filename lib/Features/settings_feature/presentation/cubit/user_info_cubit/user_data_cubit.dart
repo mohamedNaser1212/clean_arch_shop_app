@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
-import '../../../../../core/networks/api_manager/api_service_interface.dart';
+import '../../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
@@ -43,6 +43,17 @@ class UserDataCubit extends Cubit<GetUserDataState> {
         },
       );
     }
+  }
+
+  bool checkUserDataChanged({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
+    return userModel != null &&
+        (name != userModel!.name ||
+            email != userModel!.email ||
+            phone != userModel!.phone);
   }
 
   Future<void> updateUserData({

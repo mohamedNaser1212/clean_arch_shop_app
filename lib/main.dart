@@ -7,19 +7,19 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.d
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/Features/layout_cubit.dart';
-import 'package:shop_app/core/utils/funactions/start_page.dart';
+import 'package:shop_app/core/networks/Hive_manager/token_storage_helper.dart';
 import 'package:shop_app/core/utils/screens/splash_screen.dart';
-import 'package:shop_app/core/utils/widgets/token_storage_helper.dart';
 
 import 'Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
 import 'Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
 import 'Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import 'Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import 'core/networks/Hive_manager/hive_manager.dart';
-import 'core/networks/api_manager/api_service_interface.dart';
+import 'core/networks/api_manager/api_helper.dart';
 import 'core/payment_gate_way_manager/stripe_payment/stripe_keys.dart';
 import 'core/service_locator/service_locator.dart';
 import 'core/utils/bloc_observer/bloc_observer.dart';
+import 'core/utils/funactions/determine_user_start_page.dart';
 import 'core/utils/screens/error_screen.dart';
 import 'core/utils/widgets/constants.dart';
 

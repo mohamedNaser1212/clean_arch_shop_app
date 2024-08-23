@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/errors_manager/failure.dart';
-import '../../../../core/networks/api_manager/api_service_interface.dart';
+import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../authentication_feature/presentation/screens/login_screen.dart';
 import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';

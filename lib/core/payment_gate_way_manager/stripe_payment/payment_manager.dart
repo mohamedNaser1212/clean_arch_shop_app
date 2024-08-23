@@ -19,7 +19,7 @@ abstract class PaymentManager {
 
       if (!context.mounted) return;
       bool allRemoved =
-          (await CartsCubit.get(context).changeCartsList(itemIds)) ?? false;
+          (await CartsCubit.get(context).changeCartsList(itemIds));
       if (allRemoved) {
         print('Payment and cart removal succeeded');
       } else {

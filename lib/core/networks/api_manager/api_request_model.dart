@@ -1,4 +1,4 @@
-import 'package:shop_app/core/utils/widgets/token_storage_helper.dart';
+import 'package:shop_app/core/networks/Hive_manager/token_storage_helper.dart';
 
 import '../../../Features/authentication_feature/data/authentication_models/authentication_model.dart';
 

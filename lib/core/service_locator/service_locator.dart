@@ -46,8 +46,8 @@ import '../../Features/settings_feature/data/user_data_data_source/save_user_dat
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
+import '../networks/api_manager/api_helper.dart';
 import '../networks/api_manager/api_manager.dart';
-import '../networks/api_manager/api_service_interface.dart';
 
 final getIt = GetIt.instance;
 

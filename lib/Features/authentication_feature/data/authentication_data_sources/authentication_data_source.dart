@@ -1,5 +1,5 @@
+import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
-import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
 import '../authentication_models/authentication_model.dart';

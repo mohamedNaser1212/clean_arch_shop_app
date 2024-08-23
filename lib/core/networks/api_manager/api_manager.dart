@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
+import 'api_helper.dart';
 import 'api_request_model.dart';
-import 'api_service_interface.dart';
 
 class ApiManager implements ApiHelper {
   final Dio dio;

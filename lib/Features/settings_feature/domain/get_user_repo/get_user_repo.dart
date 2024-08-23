@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../core/errors_manager/failure.dart';
-import '../../../../core/networks/api_manager/api_service_interface.dart';
+import '../../../../core/networks/api_manager/api_helper.dart';
 import '../user_entity/user_entity.dart';
 
 abstract class UserDataRepo {
