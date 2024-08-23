@@ -41,6 +41,7 @@ import '../../Features/home/data/data_sources/home_local_data_source/home_local_
 import '../../Features/home/domain/use_case/home_use_case/categories_use_case.dart';
 import '../../Features/home/domain/use_case/home_use_case/products_Use_Case.dart';
 import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
+import '../../Features/layout_cubit.dart';
 import '../../Features/settings_feature/data/user_data_data_source/save_user_data.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../networks/Hive_manager/hive_helper.dart';
@@ -188,6 +189,7 @@ void setUpServiceLocator() async {
 
   getIt.registerFactory(() =>
       GetProductsCubit(fetchHomeItemsUseCase: getIt.get<ProductsUseCase>()));
+  getIt.registerFactory(() => LayoutCubit());
 
   // Use Cases
   getIt.registerFactory(

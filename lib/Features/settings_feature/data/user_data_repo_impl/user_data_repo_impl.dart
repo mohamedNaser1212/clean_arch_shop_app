@@ -1,9 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/api_manager/api_service_interface.dart';
+import '../../../authentication_feature/presentation/screens/login_screen.dart';
+import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
+import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
+import '../../../layout_cubit.dart';
 import '../../domain/get_user_repo/get_user_repo.dart';
 import '../../domain/user_entity/user_entity.dart';
 import '../user_data_data_source/save_user_data.dart';
@@ -63,6 +66,16 @@ class UserDataRepoImpl implements UserDataRepo {
       );
       await userLocalDataSource.clearUserData();
 
+      if (context.mounted) {
+        CartsCubit.get(context).carts.clear();
+        FavouritesCubit.get(context).favorites.clear();
+        LayoutCubit.get(context).currentIndex = 0;
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      }
       return Right(result);
     } catch (error) {
       return Left(ServerFailure(error.toString()));

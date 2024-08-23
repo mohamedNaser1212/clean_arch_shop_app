@@ -44,28 +44,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       },
       (loginModel) async {
         emit(RegisterSuccessState(loginModel: loginModel));
-
-        // Store the token using HiveHelper
-        // await HiveHelper.saveData(key: 'token', value: loginModel.data!.token);
-
-        // if (context.mounted) return;
-        // final shopCubit = GetProductsCubit.get(context);
-        // shopCubit.currentIndex = 0;
-        // shopCubit.getProductsData(
-        //   context: context,
-        // );
-        //
-        // FavouritesCubit.get(context).favorites.clear();
-        // CartsCubit.get(context).carts.clear();
-
-        // Fluttertoast.showToast(
-        //   msg: 'Register Success',
-        //   toastLength: Toast.LENGTH_SHORT,
-        //   gravity: ToastGravity.BOTTOM,
-        //   backgroundColor: Colors.green,
-        //   textColor: Colors.white,
-        //   fontSize: 16.0,
-        // );
       },
     );
   }

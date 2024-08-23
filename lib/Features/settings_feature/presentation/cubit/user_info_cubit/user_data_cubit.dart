@@ -5,9 +5,7 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourit
 
 import '../../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
-import '../../../../authentication_feature/presentation/screens/login_screen.dart';
 import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';
-import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../../domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
 import '../../../domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
@@ -88,16 +86,6 @@ class UserDataCubit extends Cubit<GetUserDataState> {
         emit(GetUserDataError(failure.toString()));
       },
       (success) {
-        CartsCubit.get(context).carts.clear();
-        FavouritesCubit.get(context).favorites.clear();
-        GetProductsCubit.get(context).currentIndex = 0;
-
-        if (context.mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => LoginScreen()),
-          );
-        }
         emit(GetUserDataSignedOutSuccess());
       },
     );

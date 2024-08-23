@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 
-import '../../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
+import '../../../../layout_cubit.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -22,7 +22,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     var result = await loginUseCase.call(email: email, password: password);
     if (!context!.mounted) return;
-    GetProductsCubit.get(context).currentIndex = 0;
+    LayoutCubit.get(context).currentIndex = 0;
     result.fold(
       (failure) {
         emit(AppLoginErrorState(failure.message));

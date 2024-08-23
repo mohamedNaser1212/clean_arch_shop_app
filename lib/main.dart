@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
+import 'package:shop_app/Features/layout_cubit.dart';
 import 'package:shop_app/core/utils/funactions/start_page.dart';
 import 'package:shop_app/core/utils/screens/splash_screen.dart';
 import 'package:shop_app/core/utils/widgets/token_storage_helper.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => getIt<FavouritesCubit>()..getFavorites()),
         BlocProvider(create: (context) => getIt<CartsCubit>()..getCartItems()),
+        BlocProvider(create: (context) => getIt<LayoutCubit>()),
       ],
       child: MaterialApp(
         home: FutureBuilder<Widget>(
