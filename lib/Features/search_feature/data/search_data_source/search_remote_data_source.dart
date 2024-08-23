@@ -25,20 +25,15 @@ class SearchDataSourceImpl implements SearchDataSource {
   Future<Either<Failure, List<SearchProduct>>> search({
     required String text,
   }) async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.searchEndPoint,
-        data: {
-          RequestDataNames.text: text,
-        },
-        headerModel: HeaderModel(),
-      );
-      final response = await apiService.post(request: request);
-      final searchModel = SearchModel.fromJson(response);
-      return Right(searchModel.data?.data ?? []);
-    } catch (e) {
-      print('Error searching: $e');
-      return Left(ServerFailure('Error searching: $e'));
-    }
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: EndPoints.searchEndPoint,
+      data: {
+        RequestDataNames.text: text,
+      },
+      headerModel: HeaderModel(),
+    );
+    final response = await apiService.post(request: request);
+    final searchModel = SearchModel.fromJson(response);
+    return Right(searchModel.data?.data ?? []);
   }
 }

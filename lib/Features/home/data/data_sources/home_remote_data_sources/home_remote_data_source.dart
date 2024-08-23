@@ -20,18 +20,13 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
   @override
   Future<List<Products>> fetchProducts() async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.homeEndPoint,
-        headerModel: HeaderModel(),
-      );
-      var data = await apiService.get(request: request);
-      List<Products> products = getProductsList(data['data']);
-      return products;
-    } catch (e) {
-      print('Error fetching featured products: $e');
-      throw e;
-    }
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: EndPoints.homeEndPoint,
+      headerModel: HeaderModel(),
+    );
+    var data = await apiService.get(request: request);
+    List<Products> products = getProductsList(data['data']);
+    return products;
   }
 
   @override

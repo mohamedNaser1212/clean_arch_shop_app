@@ -17,24 +17,19 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
 
   @override
   Future<List<FavouriteProduct>> getFavourites() async {
-    try {
-      final request = ApiRequestModel(
-        endpoint: EndPoints.favoritesEndPoint,
-        headerModel: HeaderModel(),
-      );
-      final response = await apiService.get(request: request);
+    final request = ApiRequestModel(
+      endpoint: EndPoints.favoritesEndPoint,
+      headerModel: HeaderModel(),
+    );
+    final response = await apiService.get(request: request);
 
-      final data = response['data']['data'] ?? [];
-      final favouriteProducts = data.map<FavouriteProduct>((item) {
-        return FavouriteProduct.fromJson(item['product']);
-      }).toList();
+    final data = response['data']['data'] ?? [];
+    final favouriteProducts = data.map<FavouriteProduct>((item) {
+      return FavouriteProduct.fromJson(item['product']);
+    }).toList();
 
-      print('Favourite items fetched successfully');
-      return favouriteProducts;
-    } catch (error) {
-      print('Failed to fetch favourite items: $error');
-      return [];
-    }
+    print('Favourite items fetched successfully');
+    return favouriteProducts;
   }
 
   @override

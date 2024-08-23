@@ -40,9 +40,7 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
 
     final response = await apiServiceInterface.post(request: request);
 
-    final loginModel = AuthenticationModel.fromJson(response);
-
-    return loginModel;
+    return AuthenticationModel.fromJson(response);
   }
 
   @override
@@ -67,8 +65,6 @@ class AuthenticationDataSourceImpl implements AuthenticationDataSource {
 
     final response = await apiServiceInterface.post(request: request);
 
-    final registerModel = AuthenticationModel.fromJson(response);
-
-    return registerModel;
+    return AuthenticationModel.fromJson(response);
   }
 }

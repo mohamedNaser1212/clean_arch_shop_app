@@ -16,6 +16,11 @@ class SearchRepoImpl implements SearchRepo {
   Future<Either<Failure, List<SearchProduct>>> search({
     required String text,
   }) async {
-    return await searchDataSource.search(text: text);
+    try {
+      final searchResult = await searchDataSource.search(text: text);
+      return searchResult;
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
   }
 }

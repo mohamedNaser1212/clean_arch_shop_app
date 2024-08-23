@@ -27,19 +27,14 @@ class UserDataSourceImpl implements UserDataSource {
 
   @override
   Future<AuthenticationModel> getUserData() async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.profileEndPoint,
-        headerModel: HeaderModel(),
-      );
-      final response = await apiService.get(request: request);
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: EndPoints.profileEndPoint,
+      headerModel: HeaderModel(),
+    );
+    final response = await apiService.get(request: request);
 
-      final loginModel = AuthenticationModel.fromJson(response);
-      return loginModel;
-    } catch (e) {
-      print('Error getting user data: $e');
-      throw e;
-    }
+    final loginModel = AuthenticationModel.fromJson(response);
+    return loginModel;
   }
 
   @override
@@ -48,25 +43,20 @@ class UserDataSourceImpl implements UserDataSource {
     required String email,
     required String phone,
   }) async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.updateProfileEndPoint,
-        data: {
-          RequestDataNames.name: name,
-          RequestDataNames.email: email,
-          RequestDataNames.phone: phone,
-        },
-        headerModel: HeaderModel(),
-      );
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: EndPoints.updateProfileEndPoint,
+      data: {
+        RequestDataNames.name: name,
+        RequestDataNames.email: email,
+        RequestDataNames.phone: phone,
+      },
+      headerModel: HeaderModel(),
+    );
 
-      final response = await apiService.put(request: request);
+    final response = await apiService.put(request: request);
 
-      final loginModel = AuthenticationModel.fromJson(response);
-      return loginModel;
-    } catch (e) {
-      print('Error updating user data: $e');
-      throw e;
-    }
+    final loginModel = AuthenticationModel.fromJson(response);
+    return loginModel;
   }
 
   @override
