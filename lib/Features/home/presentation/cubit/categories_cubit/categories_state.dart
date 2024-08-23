@@ -2,8 +2,6 @@ part of 'categories_cubit.dart';
 
 class CategoriesState {}
 
-class CategoriesInitial extends CategoriesState {}
-
 class CategoriesLoading extends CategoriesState {}
 
 class CategoriesSuccess extends CategoriesState {

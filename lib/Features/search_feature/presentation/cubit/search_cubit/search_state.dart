@@ -2,8 +2,6 @@ part of 'search_cubit.dart';
 
 class SearchState {}
 
-class SearchInitial extends SearchState {}
-
 class SearchLoadingState extends SearchState {}
 
 class SearchSuccessState extends SearchState {

@@ -2,8 +2,6 @@ part of 'favourites_cubit.dart';
 
 class FavouritesState {}
 
-class FavouritesInitial extends FavouritesState {}
-
 class ChangeFavoritesLoadingState extends FavouritesState {}
 
 class ChangeFavouriteSuccessState extends FavouritesState {

@@ -10,7 +10,7 @@ part 'carts_state.dart';
 class CartsCubit extends Cubit<CartsState> {
   CartsCubit(
       this.addToCartUseCase, this.removeFromCartUseCase, this.toggleCartUseCase)
-      : super(CartsInitial());
+      : super(CartsState());
   final FetchCartUseCase addToCartUseCase;
   final RemoveCartUseCase removeFromCartUseCase;
   final ToggleCartUseCase toggleCartUseCase;

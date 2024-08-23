@@ -2,8 +2,6 @@ import 'package:shop_app/Features/authentication_feature/data/authentication_mod
 
 class LoginState {}
 
-class AppInitial extends LoginState {}
-
 class AppLoginLoadingState extends LoginState {}
 
 class AppLoginSuccessState extends LoginState {

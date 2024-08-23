@@ -2,7 +2,6 @@ part of 'carts_cubit.dart';
 
 class CartsState {}
 
-class CartsInitial extends CartsState {}
 class GetCartItemsSuccessState extends CartsState {}
 
 class GetCartItemsErrorState extends CartsState {

@@ -10,7 +10,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   SearchCubit({
     required this.fetchSearchUseCase,
-  }) : super(SearchInitial());
+  }) : super(SearchState());
 
   static SearchCubit get(context) => BlocProvider.of(context);
 

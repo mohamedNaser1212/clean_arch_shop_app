@@ -8,7 +8,7 @@ import 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({
     required this.loginUseCase,
-  }) : super(AppInitial());
+  }) : super(LoginState());
 
   static LoginCubit get(context) => BlocProvider.of(context);
   final LoginUseCase loginUseCase;

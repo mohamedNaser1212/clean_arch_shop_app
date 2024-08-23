@@ -8,7 +8,7 @@ part 'categories_state.dart';
 class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit({
     required this.fetchCategoriesUseCase,
-  }) : super(CategoriesInitial());
+  }) : super(CategoriesState());
 
   final CategoriesUseCase fetchCategoriesUseCase;
 

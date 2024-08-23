@@ -11,7 +11,7 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   final RegisterUseCase loginUseCase;
 
-  RegisterCubit(this.loginUseCase) : super(RegisterInitial());
+  RegisterCubit(this.loginUseCase) : super(RegisterState());
 
   static RegisterCubit get(BuildContext context) => BlocProvider.of(context);
 

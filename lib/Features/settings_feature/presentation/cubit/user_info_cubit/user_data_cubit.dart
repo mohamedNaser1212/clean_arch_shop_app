@@ -22,7 +22,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     required this.updateUserDataUseCase,
     required this.getUserDataUseCase,
     required this.userSignOutUseCase,
-  }) : super(GetUserDataInitial());
+  }) : super(GetUserDataState());
 
   static UserDataCubit get(BuildContext context) => BlocProvider.of(context);
 

@@ -2,8 +2,6 @@ part of 'user_data_cubit.dart';
 
 class GetUserDataState {}
 
-class GetUserDataInitial extends GetUserDataState {}
-
 class GetUserDataLoading extends GetUserDataState {}
 
 class GetUserDataSuccess extends GetUserDataState {
