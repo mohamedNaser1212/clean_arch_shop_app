@@ -25,7 +25,7 @@ class FavouritesRepoImpl extends FavouritesRepo {
       try {
         final cachedFavourites =
             await favouritesLocalDataSource.getFavourites();
-        return right(cachedFavourites.getOrElse(() => []));
+        return right(cachedFavourites);
       } catch (_) {
         return left(ServerFailure(e.toString()));
       }

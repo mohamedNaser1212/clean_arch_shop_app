@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 
 import '../../../../core/errors_manager/failure.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
@@ -21,9 +20,8 @@ class HomeRepoImpl extends HomeRepo {
   Future<Either<Failure, List<CategoriesEntity>>> fetchCategories() async {
     try {
       final cachedCategories = await homeLocalDataSource.getCategories();
-      if (cachedCategories.isRight() &&
-          cachedCategories.getOrElse(() => []).isNotEmpty) {
-        return right(cachedCategories.getOrElse(() => []));
+      if (cachedCategories.isNotEmpty) {
+        return right(cachedCategories);
       }
 
       final categoriesList = await homeRemoteDataSource.fetchCategories();
@@ -31,9 +29,6 @@ class HomeRepoImpl extends HomeRepo {
 
       return right(categoriesList);
     } catch (e) {
-      if (e is DioError) {
-        return left(ServerFailure.fromDiorError(e));
-      }
       return left(ServerFailure(e.toString()));
     }
   }
@@ -42,9 +37,8 @@ class HomeRepoImpl extends HomeRepo {
   Future<Either<Failure, List<ProductEntity>>> fetchProducts() async {
     try {
       final cachedProducts = await homeLocalDataSource.getProducts();
-      if (cachedProducts.isRight() &&
-          cachedProducts.getOrElse(() => []).isNotEmpty) {
-        return right(cachedProducts.getOrElse(() => []));
+      if (cachedProducts.isNotEmpty) {
+        return right(cachedProducts);
       }
 
       final productsList = await homeRemoteDataSource.fetchProducts();
@@ -52,9 +46,6 @@ class HomeRepoImpl extends HomeRepo {
 
       return right(productsList);
     } catch (e) {
-      if (e is DioError) {
-        return left(ServerFailure.fromDiorError(e));
-      }
       return left(ServerFailure(e.toString()));
     }
   }
