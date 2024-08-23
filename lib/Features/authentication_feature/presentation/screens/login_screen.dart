@@ -58,7 +58,7 @@ class LoginScreen extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0,
       );
-      await HiveHelper.saveData(
+      await TokenHelper.saveData(
           key: 'token', value: state.loginMode.data!.token);
       //   await CacheHelper.saveData(key: 'token', value: token);
       // print(token);

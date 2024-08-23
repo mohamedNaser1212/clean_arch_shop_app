@@ -13,8 +13,11 @@ class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
 
   final nameController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final phoneController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -41,20 +44,6 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  static void _listener(BuildContext context, GetUserDataState state) {
-    if (state is UpdateUserDataError) {
-      const ToastWidget(
-        message: 'Could not get user data, pleaSe try again later',
-        isError: true,
-      );
-    } else if (state is UpdateUserDataSuccess) {
-      const ToastWidget(
-        message: 'Data updated successfully',
-        isError: false,
-      );
-    }
-  }
-
   Widget _buildSettingsForm({
     required BuildContext context,
     required GetUserDataState state,
@@ -79,11 +68,17 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  // @override
-  // void dispose() {
-  //   nameController.dispose();
-  //   emailController.dispose();
-  //   phoneController.dispose();
-  //   super.dispose();
-  // }
+  static void _listener(BuildContext context, GetUserDataState state) {
+    if (state is UpdateUserDataError) {
+      const ToastWidget(
+        message: 'Could not get user data, pleaSe try again later',
+        isError: true,
+      );
+    } else if (state is UpdateUserDataSuccess) {
+      const ToastWidget(
+        message: 'Data updated successfully',
+        isError: false,
+      );
+    }
+  }
 }

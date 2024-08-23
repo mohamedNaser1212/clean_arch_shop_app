@@ -11,7 +11,7 @@ abstract class FavouritesRemoteDataSource {
 }
 
 class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
-  final ApiManager apiService;
+  final ApiHelper apiService;
 
   const FavouritesRemoteDataSourceImpl({required this.apiService});
 

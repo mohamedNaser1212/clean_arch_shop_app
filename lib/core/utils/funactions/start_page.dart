@@ -6,7 +6,7 @@ import '../../networks/api_manager/api_request_model.dart';
 import '../../networks/api_manager/api_service_interface.dart';
 import '../../networks/api_manager/end_points.dart';
 
-Future<bool> checkLoginStatus(ApiManager apiService) async {
+Future<bool> checkLoginStatus(ApiHelper apiService) async {
   try {
     final response = await apiService.responseGet(
       request: ApiRequestModel(
@@ -21,7 +21,7 @@ Future<bool> checkLoginStatus(ApiManager apiService) async {
 }
 
 Future<Widget> determineStartPage(
-    BuildContext context, ApiManager apiService) async {
+    BuildContext context, ApiHelper apiService) async {
   final bool isLoggedIn = await checkLoginStatus(apiService);
   if (isLoggedIn) {
     return const LayoutScreen();

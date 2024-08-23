@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'api_request_model.dart';
 
-abstract class ApiManager {
+abstract class ApiHelper {
   Future<Map<String, dynamic>> get({
     required ApiRequestModel request,
   });

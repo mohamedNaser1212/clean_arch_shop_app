@@ -15,6 +15,6 @@ abstract class UserDataRepo {
 
   Future<Either<Failure, bool>> signOut({
     required BuildContext context,
-    required ApiManager apiService,
+    required ApiHelper apiService,
   });
 }

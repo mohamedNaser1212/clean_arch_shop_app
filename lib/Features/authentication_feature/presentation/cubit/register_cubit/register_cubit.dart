@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
-import 'package:shop_app/core/networks/Hive_manager/hive_service.dart';
+import 'package:shop_app/core/networks/Hive_manager/hive_helper.dart';
 
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 

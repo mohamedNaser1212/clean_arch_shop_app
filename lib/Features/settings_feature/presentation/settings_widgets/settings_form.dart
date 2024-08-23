@@ -81,8 +81,12 @@ class SettingsForm extends StatelessWidget {
             ReusableElevatedButton(
               label: 'Sign Out',
               onPressed: () {
+                nameController.dispose();
+                emailController.dispose();
+                phoneController.dispose();
+
                 UserDataCubit.get(context)
-                    .signOut(context, getIt.get<ApiManager>());
+                    .signOut(context, getIt.get<ApiHelper>());
               },
               backColor: ColorController.warningColor,
               textColor: ColorController.buttonTextColor,

@@ -6,6 +6,7 @@ import '../../../../core/networks/api_manager/api_service_interface.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
 import '../search_model/SearchModel.dart';
+import '../search_model/search_data.dart';
 
 abstract class SearchDataSource {
   Future<Either<Failure, List<SearchProduct>>> search({
@@ -14,7 +15,7 @@ abstract class SearchDataSource {
 }
 
 class SearchDataSourceImpl implements SearchDataSource {
-  final ApiManager apiService;
+  final ApiHelper apiService;
 
   const SearchDataSourceImpl({
     required this.apiService,

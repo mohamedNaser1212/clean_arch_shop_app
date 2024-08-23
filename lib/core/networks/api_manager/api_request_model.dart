@@ -13,7 +13,7 @@ class HeaderModel {
     this.contentType = 'application/json',
     String? authorization,
     this.lang = 'en',
-  }) : authorization = HiveHelper.getToken();
+  }) : authorization = TokenHelper.getToken();
 
   Map<String, dynamic> toMap() {
     return {

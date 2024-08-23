@@ -18,12 +18,12 @@ class AddToCartEntityAdapter extends TypeAdapter<AddToCartEntity> {
     };
     return AddToCartEntity(
       id: fields[0] as num?,
-      price: fields[1] as dynamic,
-      oldPrice: fields[2] as dynamic,
-      discount: fields[3] as dynamic,
-      image: fields[4] as dynamic,
-      name: fields[5] as dynamic,
-      description: fields[6] as dynamic,
+      price: fields[1] as num?,
+      oldPrice: fields[2] as num?,
+      discount: fields[3] as num?,
+      image: fields[4] as String?,
+      name: fields[5] as String?,
+      description: fields[6] as String?,
     );
   }
 

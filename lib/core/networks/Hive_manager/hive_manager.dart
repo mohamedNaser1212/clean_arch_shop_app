@@ -6,7 +6,7 @@ import '../../../Features/home/domain/entities/categories_entity/categories_enti
 import '../../../Features/home/domain/entities/products_entity/product_entity.dart';
 import '../../../Features/settings_feature/domain/user_entity/user_entity.dart';
 import 'hive_boxes_names.dart';
-import 'hive_service.dart';
+import 'hive_helper.dart';
 
 class HiveManager implements HiveHelper {
   static final Map<String, Box> _openedBoxes = {};

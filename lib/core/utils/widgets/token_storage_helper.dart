@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-class HiveHelper {
+class TokenHelper {
   static late Box<dynamic> hiveBox;
   static bool _isInitialized = false;
 

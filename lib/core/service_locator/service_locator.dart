@@ -43,9 +43,9 @@ import '../../Features/home/domain/use_case/home_use_case/products_Use_Case.dart
 import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../Features/settings_feature/data/user_data_data_source/save_user_data.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
+import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
-import '../networks/Hive_manager/hive_service.dart';
-import '../networks/api_manager/api_service.dart';
+import '../networks/api_manager/api_manager.dart';
 import '../networks/api_manager/api_service_interface.dart';
 
 final getIt = GetIt.instance;
@@ -55,14 +55,14 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<HiveHelper>(HiveManager());
 
   // Register ApiService
-  getIt.registerSingleton<ApiManager>(
-    ApiHelper(dio: Dio(), baseUrl: "https://student.valuxapps.com/api/"),
+  getIt.registerSingleton<ApiHelper>(
+    ApiManager(dio: Dio(), baseUrl: "https://student.valuxapps.com/api/"),
   );
 
   // Authentication dependencies
   getIt.registerSingleton<AuthenticationRepo>(
     AuthRepoImpl(
-      loginDataSource: AuthenticationDataSourceImpl(getIt.get<ApiManager>()),
+      loginDataSource: AuthenticationDataSourceImpl(getIt.get<ApiHelper>()),
     ),
   );
   getIt.registerSingleton<LoginUseCase>(
@@ -74,7 +74,7 @@ void setUpServiceLocator() async {
 
   // Home dependencies
   getIt.registerSingleton<HomeRemoteDataSource>(
-    HomeRemoteDataSourceImpl(apiService: getIt.get<ApiManager>()),
+    HomeRemoteDataSourceImpl(apiService: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<HomeLocalDataSource>(
     HomeLocalDataSourceImpl(hiveService: getIt.get<HiveHelper>()),
@@ -89,7 +89,7 @@ void setUpServiceLocator() async {
   // User Data dependencies
   getIt.registerSingleton<UserDataSource>(
     UserDataSourceImpl(
-        apiService: getIt.get<ApiManager>(),
+        apiService: getIt.get<ApiHelper>(),
         hiveService: getIt.get<HiveHelper>()),
   );
   getIt.registerSingleton<UserLocalDataSourceImpl>(
@@ -126,7 +126,7 @@ void setUpServiceLocator() async {
   // Favourites dependencies
   getIt.registerSingleton<FavouritesRemoteDataSource>(
     FavouritesRemoteDataSourceImpl(
-      apiService: getIt.get<ApiManager>(),
+      apiService: getIt.get<ApiHelper>(),
     ),
   );
   getIt.registerSingleton<FavouritesLocalDataSource>(
@@ -141,7 +141,7 @@ void setUpServiceLocator() async {
 
   // Search dependencies
   getIt.registerSingleton<SearchDataSource>(
-    SearchDataSourceImpl(apiService: getIt.get<ApiManager>()),
+    SearchDataSourceImpl(apiService: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<SearchRepo>(
     SearchRepoImpl(searchDataSource: getIt.get<SearchDataSource>()),
@@ -155,7 +155,7 @@ void setUpServiceLocator() async {
     CartLocalDataSourceImpl(hiveService: getIt.get<HiveHelper>()),
   );
   getIt.registerSingleton<CartsRemoteDataSource>(
-    CartsRemoteDataSourceImpl(apiService: getIt.get<ApiManager>()),
+    CartsRemoteDataSourceImpl(apiService: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<CartRepo>(
     CartsRepoImpl(

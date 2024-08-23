@@ -14,7 +14,7 @@ class UserSignOutUseCase {
 
   Future<Either<Failure, bool>> call({
     required BuildContext context,
-    required ApiManager apiService,
+    required ApiHelper apiService,
   }) async {
     return await getUserDataRepo.signOut(
       context: context,

@@ -3,11 +3,11 @@ import 'package:dio/dio.dart';
 import 'api_request_model.dart';
 import 'api_service_interface.dart';
 
-class ApiHelper implements ApiManager {
+class ApiManager implements ApiHelper {
   final Dio dio;
   final String baseUrl;
 
-  const ApiHelper({
+  const ApiManager({
     required this.dio,
     required this.baseUrl,
   });

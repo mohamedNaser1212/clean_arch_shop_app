@@ -7,17 +7,17 @@ class AddToCartEntity {
   @HiveField(0)
   final num? id;
   @HiveField(1)
-  final dynamic price;
+  final num? price;
   @HiveField(2)
-  final dynamic oldPrice;
+  final num? oldPrice;
   @HiveField(3)
-  final dynamic discount;
+  final num? discount;
   @HiveField(4)
-  final dynamic image;
+  final String? image;
   @HiveField(5)
-  final dynamic name;
+  final String? name;
   @HiveField(6)
-  final dynamic description;
+  final String? description;
 
   const AddToCartEntity({
     this.id,

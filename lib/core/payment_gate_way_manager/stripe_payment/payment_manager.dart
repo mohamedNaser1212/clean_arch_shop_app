@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:shop_app/core/utils/payment_gate_way_manager/stripe_payment/stripe_keys.dart';
+import 'package:shop_app/core/payment_gate_way_manager/stripe_payment/stripe_keys.dart';
 
 import '../../../../Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import '../../../../Features/carts_feature/presentation/cubit/carts_cubit.dart';

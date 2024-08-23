@@ -1,5 +1,5 @@
 import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
-import '../../../../core/networks/Hive_manager/hive_service.dart';
+import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../domain/user_entity/user_entity.dart';
 
 abstract class UserLocalDataSource {

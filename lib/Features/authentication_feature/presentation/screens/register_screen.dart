@@ -19,7 +19,7 @@ import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
 class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       textColor: Colors.white,
       fontSize: 16.0,
     );
-    await HiveHelper.saveData(
+    await TokenHelper.saveData(
         key: 'token', value: state.loginModel.data!.token);
     //   await CacheHelper.saveData(key: 'token', value: token);
     // print(token);

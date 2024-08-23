@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
-import '../../../../core/networks/Hive_manager/hive_service.dart';
+import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 abstract class CartLocalDataSource {
