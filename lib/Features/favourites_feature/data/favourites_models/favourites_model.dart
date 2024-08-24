@@ -17,7 +17,7 @@ class FavouritesModel extends FavouritesEntity {
       id: json['id'],
       price: json['price'],
       oldPrice: json['old_price'],
-      discount: json['discount'] ?? 0,
+      discount: json['discount'],
       image: json['image'],
       name: json['name'],
       description: json['description'],
