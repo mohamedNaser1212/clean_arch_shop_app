@@ -3,6 +3,7 @@ import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../domain/favourites_entity/favourites_entity.dart';
 
 abstract class FavouritesLocalDataSource {
+  const FavouritesLocalDataSource();
   Future<List<FavouritesEntity>> getFavourites();
   Future<void> saveFavourites(List<FavouritesEntity> favourites);
   Future<void> removeFavourite(num productId);
@@ -11,7 +12,7 @@ abstract class FavouritesLocalDataSource {
 class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
   final HiveHelper hiveService;
 
-  FavouritesLocalDataSourceImpl({
+  const FavouritesLocalDataSourceImpl({
     required this.hiveService,
   });
 

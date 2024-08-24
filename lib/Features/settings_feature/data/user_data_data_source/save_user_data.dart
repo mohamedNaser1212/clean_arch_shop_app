@@ -3,6 +3,7 @@ import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../domain/user_entity/user_entity.dart';
 
 abstract class UserLocalDataSource {
+  const UserLocalDataSource();
   Future<void> saveUserData({required UserEntity user});
   Future<UserEntity?> loadUserData();
   Future<void> clearUserData();

@@ -16,7 +16,7 @@ import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
-import '../../../home/presentation/screens/layout_screen.dart';
+import '../../../layout/presentation/screens/layout_screen.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';

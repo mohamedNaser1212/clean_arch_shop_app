@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
 
-import 'carts_feature/presentation/screens/Cart_screen.dart';
-import 'favourites_feature/presentation/screens/favorites_screen.dart';
-import 'home/presentation/screens/categries_screen.dart';
-import 'home/presentation/screens/products_screen.dart';
+import '../../../carts_feature/presentation/screens/Cart_screen.dart';
+import '../../../favourites_feature/presentation/screens/favorites_screen.dart';
+import '../../../home/presentation/screens/categries_screen.dart';
+import '../../../home/presentation/screens/products_screen.dart';
 
 part 'layout_state.dart';
 

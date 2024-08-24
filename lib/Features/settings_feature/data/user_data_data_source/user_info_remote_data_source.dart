@@ -8,6 +8,7 @@ import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
 
 abstract class UserDataSource {
+  const UserDataSource();
   Future<AuthenticationModel> getUserData();
   Future<AuthenticationModel> updateUserData({
     required String name,

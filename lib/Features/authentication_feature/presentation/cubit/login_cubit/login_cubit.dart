@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 
-import '../../../../layout_cubit.dart';
+import '../../../../layout/presentation/cubit/layout_cubit.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {

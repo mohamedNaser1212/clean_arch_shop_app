@@ -6,6 +6,7 @@ import '../carts_model/add_product_to_cart_model.dart';
 import '../carts_model/changeCartModel.dart';
 
 abstract class CartsRemoteDataSource {
+  const CartsRemoteDataSource();
   Future<List<AddProductToCartModel>> getCarts();
   Future<List<AddProductToCartModel>> removeCarts(num productId);
   Future<bool> toggleCarts(num productId);
@@ -25,11 +26,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     final response = await apiService.get(request: request);
 
     List<AddProductToCartModel> cartProducts = [];
-    if (response['data']['cart_items'] != null) {
-      for (var item in response['data']['cart_items']) {
-        cartProducts.add(AddProductToCartModel.fromJson(item['product']));
-      }
-    }
+    removeCartItems(response, cartProducts);
     print('done');
     print(cartProducts.length);
     return cartProducts;
@@ -65,13 +62,18 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     final response = await apiService.post(request: request);
 
     List<AddProductToCartModel> cartProducts = [];
+    removeCartItems(response, cartProducts);
+    cartProducts.removeWhere((element) => element.id == productId);
+
+    return cartProducts;
+  }
+
+  void removeCartItems(
+      Map<String, dynamic> response, List<AddProductToCartModel> cartProducts) {
     if (response['data']['cart_items'] != null) {
       for (var item in response['data']['cart_items']) {
         cartProducts.add(AddProductToCartModel.fromJson(item['product']));
       }
     }
-    cartProducts.removeWhere((element) => element.id == productId);
-
-    return cartProducts;
   }
 }

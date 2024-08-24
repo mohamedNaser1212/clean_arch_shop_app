@@ -6,7 +6,7 @@ import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../authentication_feature/presentation/screens/login_screen.dart';
 import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
-import '../../../layout_cubit.dart';
+import '../../../layout/presentation/cubit/layout_cubit.dart';
 import '../../domain/get_user_repo/get_user_repo.dart';
 import '../../domain/user_entity/user_entity.dart';
 import '../user_data_data_source/save_user_data.dart';

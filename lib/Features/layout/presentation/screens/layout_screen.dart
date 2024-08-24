@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/layout_cubit.dart';
+import 'package:shop_app/Features/layout/presentation/cubit/layout_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';

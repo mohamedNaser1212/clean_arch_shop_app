@@ -9,6 +9,7 @@ import '../search_model/SearchModel.dart';
 import '../search_model/search_data.dart';
 
 abstract class SearchDataSource {
+  const SearchDataSource();
   Future<Either<Failure, List<SearchProduct>>> search({
     required String text,
   });

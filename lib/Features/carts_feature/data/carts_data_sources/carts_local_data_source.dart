@@ -3,6 +3,7 @@ import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 abstract class CartLocalDataSource {
+  const CartLocalDataSource();
   Future<List<AddToCartEntity>> getCart();
   Future<void> saveCart(List<AddToCartEntity> cart);
   Future<void> removeCart(num productId);

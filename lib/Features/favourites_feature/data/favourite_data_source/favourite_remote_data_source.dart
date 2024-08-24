@@ -6,6 +6,7 @@ import '../favourites_models/favourites_model.dart';
 import '../favourites_models/favoutits_model.dart';
 
 abstract class FavouritesRemoteDataSource {
+  const FavouritesRemoteDataSource();
   Future<List<FavouriteProduct>> getFavourites();
   Future<bool> toggleFavourites(num productId);
 }
@@ -23,10 +24,7 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
     );
     final response = await apiService.get(request: request);
 
-    final data = response['data']['data'] ?? [];
-    final favouriteProducts = data.map<FavouriteProduct>((item) {
-      return FavouriteProduct.fromJson(item['product']);
-    }).toList();
+    var favouriteProducts = getFavouritesItems(response);
 
     print('Favourite items fetched successfully');
     return favouriteProducts;
@@ -50,5 +48,13 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
       print('Failed to toggle favourite item: $error');
       return false;
     }
+  }
+
+  getFavouritesItems(Map<String, dynamic> response) {
+    final data = response['data']['data'] ?? [];
+    final favouriteProducts = data.map<FavouriteProduct>((item) {
+      return FavouriteProduct.fromJson(item['product']);
+    }).toList();
+    return favouriteProducts;
   }
 }
