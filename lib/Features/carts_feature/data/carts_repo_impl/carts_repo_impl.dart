@@ -32,9 +32,9 @@ class CartsRepoImpl extends CartRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> toggleCart(num productId) async {
+  Future<Either<Failure, bool>> toggleCart(num productIds) async {
     try {
-      final result = await cartsDataSource.toggleCarts(productId);
+      final result = await cartsDataSource.toggleCarts(productIds);
       final cartResult = await getCart();
       return cartResult.fold(
         (failure) => left(failure),
@@ -48,10 +48,10 @@ class CartsRepoImpl extends CartRepo {
 
   @override
   Future<Either<Failure, List<AddToCartEntity>>> removeCarts(
-      num productId) async {
+      num products) async {
     try {
-      await cartsDataSource.removeCarts(productId);
-      await cartLocalDataSource.removeCart(productId);
+      await cartsDataSource.removeCarts(products);
+      await cartLocalDataSource.removeCart(products);
       final updatedCart = await cartLocalDataSource.getCart();
       return right(updatedCart);
     } catch (e) {

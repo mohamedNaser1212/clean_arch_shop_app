@@ -8,10 +8,8 @@ part 'product_entity.g.dart';
 class ProductEntity extends BaseProductModel {
   @HiveField(7)
   final List<String> images;
-
   @HiveField(8)
   final bool? inFavorites;
-
   @HiveField(9)
   final bool inCart;
 

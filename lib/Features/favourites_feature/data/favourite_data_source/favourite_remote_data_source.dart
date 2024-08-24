@@ -2,11 +2,11 @@ import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
-import '../favourites_models/favourites_model.dart';
+import '../favourites_models/favourites_response_model.dart';
 
 abstract class FavouritesRemoteDataSource {
   const FavouritesRemoteDataSource();
-  Future<List<FavouritesModel>> getFavourites();
+  Future<List<FavouritesResponseModel>> getFavourites();
   Future<bool> toggleFavourites(num productId);
 }
 
@@ -16,7 +16,7 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
   const FavouritesRemoteDataSourceImpl({required this.apiService});
 
   @override
-  Future<List<FavouritesModel>> getFavourites() async {
+  Future<List<FavouritesResponseModel>> getFavourites() async {
     final request = ApiRequestModel(
       endpoint: EndPoints.favoritesEndPoint,
       headerModel: HeaderModel(),
@@ -50,8 +50,8 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
 
   getFavouritesItems(Map<String, dynamic> response) {
     final data = response['data']['data'] ?? [];
-    final favouriteProducts = data.map<FavouritesModel>((item) {
-      return FavouritesModel.fromJson(item['product']);
+    final favouriteProducts = data.map<FavouritesResponseModel>((item) {
+      return FavouritesResponseModel.fromJson(item['product']);
     }).toList();
     return favouriteProducts;
   }

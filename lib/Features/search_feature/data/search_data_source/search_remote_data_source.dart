@@ -2,12 +2,12 @@ import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
-import '../search_model/search_model.dart';
+import '../search_model/search_response_model.dart';
 
 abstract class SearchRemoteDataSource {
   const SearchRemoteDataSource();
 
-  Future<List<SearchModel>> search({
+  Future<List<SearchResponseModel>> search({
     required String text,
   });
 }
@@ -20,7 +20,7 @@ class SearchDataSourceImpl implements SearchRemoteDataSource {
   });
 
   @override
-  Future<List<SearchModel>> search({
+  Future<List<SearchResponseModel>> search({
     required String text,
   }) async {
     ApiRequestModel request = ApiRequestModel(
@@ -33,10 +33,10 @@ class SearchDataSourceImpl implements SearchRemoteDataSource {
 
     final response = await apiService.post(request: request);
 
-    List<SearchModel> products = [];
+    List<SearchResponseModel> products = [];
     if (response['data'] != null) {
       for (var item in response['data']['data']) {
-        products.add(SearchModel.fromJson(item));
+        products.add(SearchResponseModel.fromJson(item));
       }
     }
     return products;

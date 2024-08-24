@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
 
-import '../../data/home_models/products_models/products_model.dart';
+import '../../data/home_models/products_models/products_response_model.dart';
 
 class FeaturedProductsListView extends StatelessWidget {
   const FeaturedProductsListView(
@@ -11,7 +11,7 @@ class FeaturedProductsListView extends StatelessWidget {
       required this.isCart})
       : super(key: key);
 
-  final List<ProductModel> products;
+  final List<ProductResponseModel> products;
   final bool isFavourite;
   final bool isCart;
   @override

@@ -1,7 +1,7 @@
 import '../../../domain/entities/products_entity/product_entity.dart';
 
-class ProductModel extends ProductEntity {
-  const ProductModel({
+class ProductResponseModel extends ProductEntity {
+  const ProductResponseModel({
     required super.description,
     required super.inFavorites,
     required super.inCart,
@@ -14,16 +14,16 @@ class ProductModel extends ProductEntity {
     required super.images,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
+  factory ProductResponseModel.fromJson(Map<String, dynamic> json) {
+    return ProductResponseModel(
       description: json['description'],
       inFavorites: json['in_favorites'],
       inCart: json['in_cart'],
       id: json['id'],
       name: json['name'],
-      discount: json['discount'],
+      oldPrice: json['old_price'] ?? 0,
+      discount: json['discount'] ?? 0,
       price: json['price'],
-      oldPrice: json['old_price'],
       image: json['image'],
       images: List<String>.from(json['images']),
     );

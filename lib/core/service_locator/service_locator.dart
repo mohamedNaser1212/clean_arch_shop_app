@@ -32,7 +32,7 @@ import 'package:shop_app/Features/settings_feature/domain/settings_use_case/get_
 import 'package:shop_app/Features/settings_feature/domain/settings_use_case/get_user_data_use_case/user_sign_out_use_case.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 
-import '../../Features/authentication_feature/data/authentication_data_sources/authentication_data_source.dart';
+import '../../Features/authentication_feature/data/authentication_data_sources/authentication_remote_data_source.dart';
 import '../../Features/authentication_feature/domain/authentication_repo/authentication_repo.dart';
 import '../../Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
 import '../../Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';

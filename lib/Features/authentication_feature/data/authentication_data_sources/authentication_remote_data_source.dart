@@ -4,7 +4,7 @@ import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
 import '../authentication_models/authentication_model.dart';
 
-abstract class AuthenticationDataSource {
+abstract class AuthenticationRemoteDataSource {
   Future<AuthenticationModel> login({
     required String email,
     required String password,
@@ -17,7 +17,7 @@ abstract class AuthenticationDataSource {
   });
 }
 
-class AuthenticationDataSourceImpl implements AuthenticationDataSource {
+class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
   final ApiHelper apiServiceInterface;
 
   const AuthenticationDataSourceImpl(this.apiServiceInterface);

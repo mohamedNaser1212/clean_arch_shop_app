@@ -1,7 +1,7 @@
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
-class CartModel extends AddToCartEntity {
-  const CartModel({
+class CartResponseModel extends AddToCartEntity {
+  const CartResponseModel({
     required super.id,
     required super.price,
     required super.oldPrice,
@@ -11,11 +11,11 @@ class CartModel extends AddToCartEntity {
     required super.description,
   });
 
-  factory CartModel.fromJson(Map<String, dynamic> json) {
-    return CartModel(
+  factory CartResponseModel.fromJson(Map<String, dynamic> json) {
+    return CartResponseModel(
       id: json['id'],
       price: json['price'],
-      oldPrice: json['old_price'],
+      oldPrice: json['old_price'] ?? 0,
       discount: json['discount'] ?? 0,
       image: json['image'],
       name: json['name'],

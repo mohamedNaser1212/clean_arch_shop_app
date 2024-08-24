@@ -2,12 +2,12 @@ import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
-import '../carts_model/cart_model.dart';
+import '../carts_model/cart_response_model.dart';
 
 abstract class CartsRemoteDataSource {
   const CartsRemoteDataSource();
-  Future<List<CartModel>> getCarts();
-  Future<List<CartModel>> removeCarts(num productId);
+  Future<List<CartResponseModel>> getCarts();
+  Future<List<CartResponseModel>> removeCarts(num productId);
   Future<bool> toggleCarts(num productId);
 }
 
@@ -17,14 +17,13 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   const CartsRemoteDataSourceImpl({required this.apiService});
 
   @override
-  Future<List<CartModel>> getCarts() async {
-    // final token = HiveHelper.getToken();
+  Future<List<CartResponseModel>> getCarts() async {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.cartEndPoint, headerModel: HeaderModel());
 
     final response = await apiService.get(request: request);
 
-    List<CartModel> cartProducts = [];
+    List<CartResponseModel> cartProducts = [];
     removeCartItems(response, cartProducts);
     print('done');
     print(cartProducts.length);
@@ -48,7 +47,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   }
 
   @override
-  Future<List<CartModel>> removeCarts(num productId) async {
+  Future<List<CartResponseModel>> removeCarts(num productId) async {
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.cartEndPoint,
       data: {
@@ -58,7 +57,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     );
     final response = await apiService.post(request: request);
 
-    List<CartModel> cartProducts = [];
+    List<CartResponseModel> cartProducts = [];
     removeCartItems(response, cartProducts);
     cartProducts.removeWhere((element) => element.id == productId);
 
@@ -66,10 +65,10 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   }
 
   void removeCartItems(
-      Map<String, dynamic> response, List<CartModel> cartProducts) {
+      Map<String, dynamic> response, List<CartResponseModel> cartProducts) {
     if (response['data']['cart_items'] != null) {
       for (var item in response['data']['cart_items']) {
-        cartProducts.add(CartModel.fromJson(item['product']));
+        cartProducts.add(CartResponseModel.fromJson(item['product']));
       }
     }
   }

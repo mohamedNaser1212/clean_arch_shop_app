@@ -1,4 +1,4 @@
-class SearchModel {
+class SearchResponseModel {
   final num id;
   final num price;
   final num oldPrice;
@@ -7,7 +7,7 @@ class SearchModel {
   final String name;
   final String description;
 
-  const SearchModel({
+  const SearchResponseModel({
     required this.id,
     required this.price,
     required this.oldPrice,
@@ -17,8 +17,8 @@ class SearchModel {
     required this.description,
   });
 
-  factory SearchModel.fromJson(Map<String, dynamic> json) {
-    return SearchModel(
+  factory SearchResponseModel.fromJson(Map<String, dynamic> json) {
+    return SearchResponseModel(
       id: json['id'],
       price: json['price'],
       oldPrice: json['old_price'] ?? 0,

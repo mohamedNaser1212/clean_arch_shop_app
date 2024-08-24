@@ -2,11 +2,11 @@ import '../../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../../core/networks/api_manager/end_points.dart';
 import '../../home_models/categories_models/categories_model.dart';
-import '../../home_models/products_models/products_model.dart';
+import '../../home_models/products_models/products_response_model.dart';
 
 abstract class HomeRemoteDataSource {
   const HomeRemoteDataSource();
-  Future<List<ProductModel>> fetchProducts();
+  Future<List<ProductResponseModel>> fetchProducts();
 
   Future<List<CategoryModel>> fetchCategories();
 }
@@ -19,13 +19,13 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   });
 
   @override
-  Future<List<ProductModel>> fetchProducts() async {
+  Future<List<ProductResponseModel>> fetchProducts() async {
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.homeEndPoint,
       headerModel: HeaderModel(),
     );
     var data = await apiService.get(request: request);
-    List<ProductModel> products = getProductsList(data['data']);
+    List<ProductResponseModel> products = getProductsList(data['data']);
     return products;
   }
 
@@ -46,10 +46,10 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     }
   }
 
-  List<ProductModel> getProductsList(Map<String, dynamic> data) {
-    List<ProductModel> products = [];
+  List<ProductResponseModel> getProductsList(Map<String, dynamic> data) {
+    List<ProductResponseModel> products = [];
     for (var productMap in data['products']) {
-      products.add(ProductModel.fromJson(productMap));
+      products.add(ProductResponseModel.fromJson(productMap));
     }
     return products;
   }
