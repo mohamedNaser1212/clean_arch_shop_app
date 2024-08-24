@@ -16,6 +16,7 @@ class FavouritesEntityAdapter extends TypeAdapter<FavouritesEntity> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
+
     return FavouritesEntity(
       id: fields[0] as num,
       price: fields[1] as num,

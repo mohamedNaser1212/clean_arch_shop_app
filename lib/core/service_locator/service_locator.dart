@@ -141,11 +141,11 @@ void setUpServiceLocator() async {
   );
 
   // Search dependencies
-  getIt.registerSingleton<SearchDataSource>(
+  getIt.registerSingleton<SearchRemoteDataSource>(
     SearchDataSourceImpl(apiService: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<SearchRepo>(
-    SearchRepoImpl(searchDataSource: getIt.get<SearchDataSource>()),
+    SearchRepoImpl(searchDataSource: getIt.get<SearchRemoteDataSource>()),
   );
   getIt.registerSingleton<SearchUseCase>(
     SearchUseCase(searchRepo: getIt.get<SearchRepo>()),

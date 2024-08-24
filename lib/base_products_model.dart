@@ -1,4 +1,4 @@
-abstract class BaseModel {
+abstract class BaseProductModel {
   final num id;
   final num price;
   final num oldPrice;
@@ -7,7 +7,7 @@ abstract class BaseModel {
   final String name;
   final String description;
 
-  const BaseModel({
+  const BaseProductModel({
     required this.id,
     required this.price,
     required this.oldPrice,

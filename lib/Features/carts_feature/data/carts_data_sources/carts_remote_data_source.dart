@@ -2,7 +2,7 @@ import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
-import '../carts_model/add_product_to_cart_model.dart';
+import '../carts_model/cart_model.dart';
 
 abstract class CartsRemoteDataSource {
   const CartsRemoteDataSource();

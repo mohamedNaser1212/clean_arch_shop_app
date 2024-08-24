@@ -21,7 +21,7 @@ class ProductModel extends ProductEntity {
       inCart: json['in_cart'],
       id: json['id'],
       name: json['name'],
-      discount: json['discount'] ?? 0,
+      discount: json['discount'],
       price: json['price'],
       oldPrice: json['old_price'],
       image: json['image'],

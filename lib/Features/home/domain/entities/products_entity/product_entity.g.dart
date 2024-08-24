@@ -16,15 +16,16 @@ class ProductEntityAdapter extends TypeAdapter<ProductEntity> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
+
     return ProductEntity(
       id: fields[0] as num,
       name: fields[1] as String,
       discount: fields[2] as num,
-      oldPrice: fields[4] as num,
       price: fields[3] as num,
+      oldPrice: fields[4] as num,
       image: fields[5] as String,
       images: (fields[6] as List).cast<String>(),
-      description: fields[7] as String?,
+      description: fields[7] as String,
       inFavorites: fields[8] as bool?,
       inCart: fields[9] as bool,
     );
