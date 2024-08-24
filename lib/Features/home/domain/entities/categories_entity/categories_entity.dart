@@ -8,9 +8,12 @@ class CategoriesEntity {
   final String name;
   @HiveField(1)
   final String image;
+  @HiveField(2)
+  final num id;
 
   const CategoriesEntity({
     required this.name,
     required this.image,
+    required this.id,
   });
 }

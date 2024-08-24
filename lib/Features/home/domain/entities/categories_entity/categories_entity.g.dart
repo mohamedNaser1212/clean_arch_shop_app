@@ -19,17 +19,20 @@ class CategoriesEntityAdapter extends TypeAdapter<CategoriesEntity> {
     return CategoriesEntity(
       name: fields[0] as String,
       image: fields[1] as String,
+      id: fields[2] as num,
     );
   }
 
   @override
   void write(BinaryWriter writer, CategoriesEntity obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.image);
+      ..write(obj.image)
+      ..writeByte(2)
+      ..write(obj.id);
   }
 
   @override

@@ -1,20 +1,20 @@
 class SearchProduct {
-  final num? id;
-  final num? price;
-  final num? oldPrice;
-  final num? discount;
-  final String? image;
-  final String? name;
-  final String? description;
+  final num id;
+  final num price;
+  final num oldPrice;
+  final num discount;
+  final String image;
+  final String name;
+  final String description;
 
   const SearchProduct({
-    this.id,
-    this.price,
-    this.oldPrice,
-    this.discount,
-    this.image,
-    this.name,
-    this.description,
+    required this.id,
+    required this.price,
+    required this.oldPrice,
+    required this.discount,
+    required this.image,
+    required this.name,
+    required this.description,
   });
 
   factory SearchProduct.fromJson(Map<String, dynamic> json) {
@@ -22,7 +22,7 @@ class SearchProduct {
       id: json['id'],
       price: json['price'],
       oldPrice: json['old_price'],
-      discount: json['discount'],
+      discount: json['discount'] ?? 0,
       image: json['image'],
       name: json['name'],
       description: json['description'],

@@ -5,27 +5,27 @@ part 'add_to_cart_entity.g.dart';
 @HiveType(typeId: 3)
 class AddToCartEntity {
   @HiveField(0)
-  final num? id;
+  final num id;
   @HiveField(1)
-  final num? price;
+  final num price;
   @HiveField(2)
-  final num? oldPrice;
+  final num oldPrice;
   @HiveField(3)
-  final num? discount;
+  final num discount;
   @HiveField(4)
-  final String? image;
+  final String image;
   @HiveField(5)
-  final String? name;
+  final String name;
   @HiveField(6)
-  final String? description;
+  final String description;
 
   const AddToCartEntity({
-    this.id,
-    this.price,
-    this.oldPrice,
-    this.discount,
-    this.image,
-    this.name,
-    this.description,
+    required this.id,
+    required this.price,
+    required this.oldPrice,
+    required this.discount,
+    required this.image,
+    required this.name,
+    required this.description,
   });
 }

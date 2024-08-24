@@ -41,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
 Future<void> _listener(BuildContext context, RegisterState state) async {
   if (state is RegisterSuccessState) {
     Fluttertoast.showToast(
-      msg: state.loginModel.message!,
+      msg: state.loginModel.message,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 5,
@@ -49,8 +49,7 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       textColor: Colors.white,
       fontSize: 16.0,
     );
-    await TokenHelper.saveData(
-        key: 'token', value: state.loginModel.data!.token);
+    await TokenHelper.saveData(key: 'token', value: state.loginModel.token);
 
     if (context.mounted) {
       GetProductsCubit.get(context).getProductsData(
@@ -61,6 +60,16 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       UserDataCubit.get(context).getUserData();
       navigateAndFinish(context: context, screen: const LayoutScreen());
     }
+  } else if (state is RegisterErrorState) {
+    Fluttertoast.showToast(
+      msg: state.message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 5,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 }
 

@@ -1,23 +1,25 @@
-import 'categories_data.dart';
+import '../../../domain/entities/categories_entity/categories_entity.dart';
 
-class CategoriesModel {
-  bool? status;
-  CategoriesListModel? data;
+class CategoryModel extends CategoriesEntity {
+  const CategoryModel({
+    required super.id,
+    required super.name,
+    required super.image,
+  });
 
-  CategoriesModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    data = CategoriesListModel.fromJson(json['data']);
+  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+    return CategoryModel(
+      id: json['id'],
+      name: json['name'],
+      image: json['image'],
+    );
   }
-}
 
-class CategoriesListModel {
-  num? currentPage;
-  List<CategoriesData> data = [];
-
-  CategoriesListModel.fromJson(Map<String, dynamic> json) {
-    currentPage = json['current_page'];
-    json['data'].forEach((element) {
-      data.add(CategoriesData.fromJson(element));
-    });
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image,
+    };
   }
 }

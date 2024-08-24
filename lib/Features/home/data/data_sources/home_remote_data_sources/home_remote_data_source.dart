@@ -1,14 +1,14 @@
 import '../../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../../core/networks/api_manager/end_points.dart';
-import '../../home_models/categories_models/categories_data.dart';
+import '../../home_models/categories_models/categories_model.dart';
 import '../../home_models/products_models/products_model.dart';
 
 abstract class HomeRemoteDataSource {
   const HomeRemoteDataSource();
-  Future<List<Products>> fetchProducts();
+  Future<List<ProductModel>> fetchProducts();
 
-  Future<List<CategoriesData>> fetchCategories();
+  Future<List<CategoryModel>> fetchCategories();
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
@@ -19,25 +19,25 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   });
 
   @override
-  Future<List<Products>> fetchProducts() async {
+  Future<List<ProductModel>> fetchProducts() async {
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.homeEndPoint,
       headerModel: HeaderModel(),
     );
     var data = await apiService.get(request: request);
-    List<Products> products = getProductsList(data['data']);
+    List<ProductModel> products = getProductsList(data['data']);
     return products;
   }
 
   @override
-  Future<List<CategoriesData>> fetchCategories() async {
+  Future<List<CategoryModel>> fetchCategories() async {
     try {
       ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.categoriesEndPoint,
         headerModel: HeaderModel(),
       );
       var data = await apiService.get(request: request);
-      List<CategoriesData> categories = getCategoriesList(data['data']);
+      List<CategoryModel> categories = getCategoriesList(data['data']);
 
       return categories;
     } catch (e) {
@@ -46,18 +46,18 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     }
   }
 
-  List<Products> getProductsList(Map<String, dynamic> data) {
-    List<Products> products = [];
+  List<ProductModel> getProductsList(Map<String, dynamic> data) {
+    List<ProductModel> products = [];
     for (var productMap in data['products']) {
-      products.add(Products.fromJson(productMap));
+      products.add(ProductModel.fromJson(productMap));
     }
     return products;
   }
 
-  List<CategoriesData> getCategoriesList(Map<String, dynamic> data) {
-    List<CategoriesData> categories = [];
+  List<CategoryModel> getCategoriesList(Map<String, dynamic> data) {
+    List<CategoryModel> categories = [];
     for (var categoryMap in data['data']) {
-      categories.add(CategoriesData.fromJson(categoryMap));
+      categories.add(CategoryModel.fromJson(categoryMap));
     }
     return categories;
   }

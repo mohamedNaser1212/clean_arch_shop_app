@@ -35,33 +35,6 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  // void userLogin({
-  //   required String email,
-  //   required String password,
-  // }) {
-  //   emit(AppLoginLoadingState());
-  //   DioHelper.postData(
-  //     url: loginEndPoint,
-  //     data: {
-  //       'email': email,
-  //       'password': password,
-  //     },
-  //     token: token,
-  //   ).then((value) {
-  //     print(value.data);
-  //     loginModel = LoginModel.fromJson(value.data);
-  //     print(loginModel!.message);
-  //     print(loginModel!.status);
-  //     //print(loginModel!.data!.token);
-  //     emit(AppLoginSuccessState(
-  //       loginModel!,
-  //     ));
-  //   }).catchError((error) {
-  //     print(error.toString());
-  //     emit(AppLoginErrorState(error.toString()));
-  //   });
-  // }
-
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 

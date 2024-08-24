@@ -3,12 +3,11 @@ import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
 import '../carts_model/add_product_to_cart_model.dart';
-import '../carts_model/changeCartModel.dart';
 
 abstract class CartsRemoteDataSource {
   const CartsRemoteDataSource();
-  Future<List<AddProductToCartModel>> getCarts();
-  Future<List<AddProductToCartModel>> removeCarts(num productId);
+  Future<List<CartModel>> getCarts();
+  Future<List<CartModel>> removeCarts(num productId);
   Future<bool> toggleCarts(num productId);
 }
 
@@ -18,14 +17,14 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   const CartsRemoteDataSourceImpl({required this.apiService});
 
   @override
-  Future<List<AddProductToCartModel>> getCarts() async {
+  Future<List<CartModel>> getCarts() async {
     // final token = HiveHelper.getToken();
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.cartEndPoint, headerModel: HeaderModel());
 
     final response = await apiService.get(request: request);
 
-    List<AddProductToCartModel> cartProducts = [];
+    List<CartModel> cartProducts = [];
     removeCartItems(response, cartProducts);
     print('done');
     print(cartProducts.length);
@@ -34,8 +33,6 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
 
   @override
   Future<bool> toggleCarts(num productId) async {
-    ChangeCartModel? changeCartModel;
-
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.cartEndPoint,
       data: {
@@ -45,13 +42,13 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     );
 
     final response = await apiService.post(request: request);
-    changeCartModel = ChangeCartModel.fromJson(response);
+
     getCarts();
-    return changeCartModel.status ?? false;
+    return response['status'] == true ? true : false;
   }
 
   @override
-  Future<List<AddProductToCartModel>> removeCarts(num productId) async {
+  Future<List<CartModel>> removeCarts(num productId) async {
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.cartEndPoint,
       data: {
@@ -61,7 +58,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     );
     final response = await apiService.post(request: request);
 
-    List<AddProductToCartModel> cartProducts = [];
+    List<CartModel> cartProducts = [];
     removeCartItems(response, cartProducts);
     cartProducts.removeWhere((element) => element.id == productId);
 
@@ -69,10 +66,10 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   }
 
   void removeCartItems(
-      Map<String, dynamic> response, List<AddProductToCartModel> cartProducts) {
+      Map<String, dynamic> response, List<CartModel> cartProducts) {
     if (response['data']['cart_items'] != null) {
       for (var item in response['data']['cart_items']) {
-        cartProducts.add(AddProductToCartModel.fromJson(item['product']));
+        cartProducts.add(CartModel.fromJson(item['product']));
       }
     }
   }

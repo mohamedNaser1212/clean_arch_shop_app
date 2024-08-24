@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
   Future<void> _loginListener(BuildContext context, LoginState state) async {
     if (state is AppLoginSuccessState) {
       Fluttertoast.showToast(
-        msg: state.loginMode.message!,
+        msg: state.loginMode.message,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 5,
@@ -59,8 +59,7 @@ class LoginScreen extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0,
       );
-      await TokenHelper.saveData(
-          key: 'token', value: state.loginMode.data!.token);
+      await TokenHelper.saveData(key: 'token', value: state.loginMode.token);
 
       if (context.mounted) {
         GetProductsCubit.get(context).getProductsData(
@@ -71,6 +70,16 @@ class LoginScreen extends StatelessWidget {
         UserDataCubit.get(context).getUserData();
         navigateAndFinish(context: context, screen: const LayoutScreen());
       }
+    } else if (state is AppLoginErrorState) {
+      Fluttertoast.showToast(
+        msg: state.error,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 5,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     }
   }
 

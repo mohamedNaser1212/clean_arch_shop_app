@@ -55,7 +55,6 @@ class UserDataSourceImpl implements UserDataSource {
     );
 
     final response = await apiService.put(request: request);
-
     final loginModel = AuthenticationModel.fromJson(response);
     return loginModel;
   }
@@ -66,7 +65,6 @@ class UserDataSourceImpl implements UserDataSource {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.logOutEndPoint, headerModel: HeaderModel());
     final response = await apiService.post(request: request);
-
     return response['status'];
   }
 }

@@ -18,7 +18,7 @@ class SearchRepoImpl implements SearchRepo {
   }) async {
     try {
       final searchResult = await searchDataSource.search(text: text);
-      return searchResult;
+      return right(searchResult);
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }

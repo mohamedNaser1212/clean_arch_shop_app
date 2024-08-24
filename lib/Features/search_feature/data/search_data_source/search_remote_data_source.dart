@@ -1,16 +1,13 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
-import '../search_model/SearchModel.dart';
 import '../search_model/search_data.dart';
 
 abstract class SearchDataSource {
   const SearchDataSource();
-  Future<Either<Failure, List<SearchProduct>>> search({
+
+  Future<List<SearchProduct>> search({
     required String text,
   });
 }
@@ -23,7 +20,7 @@ class SearchDataSourceImpl implements SearchDataSource {
   });
 
   @override
-  Future<Either<Failure, List<SearchProduct>>> search({
+  Future<List<SearchProduct>> search({
     required String text,
   }) async {
     ApiRequestModel request = ApiRequestModel(
@@ -33,8 +30,15 @@ class SearchDataSourceImpl implements SearchDataSource {
       },
       headerModel: HeaderModel(),
     );
+
     final response = await apiService.post(request: request);
-    final searchModel = SearchModel.fromJson(response);
-    return Right(searchModel.data?.data ?? []);
+
+    List<SearchProduct> products = [];
+    if (response['data'] != null) {
+      for (var item in response['data']['data']) {
+        products.add(SearchProduct.fromJson(item));
+      }
+    }
+    return products;
   }
 }

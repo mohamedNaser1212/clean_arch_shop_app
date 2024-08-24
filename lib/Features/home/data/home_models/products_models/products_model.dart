@@ -1,42 +1,27 @@
 import '../../../domain/entities/products_entity/product_entity.dart';
 
-class Products extends ProductEntity {
-  final String description;
-  final bool inFavorites;
-  final bool? inCart;
+class ProductModel extends ProductEntity {
+  const ProductModel({
+    required super.description,
+    required super.inFavorites,
+    required super.inCart,
+    required super.id,
+    required super.price,
+    required super.oldPrice,
+    required super.discount,
+    required super.image,
+    required super.name,
+    required super.images,
+  });
 
-  const Products({
-    required this.description,
-    required this.inFavorites,
-    this.inCart,
-    required num id,
-    required num price,
-    required num oldPrice,
-    required num discount,
-    required String image,
-    required String name,
-    required List<String> images,
-  }) : super(
-          id: id,
-          name: name,
-          discount: discount,
-          oldPrice: oldPrice,
-          price: price,
-          image: image,
-          images: images,
-          description: description,
-          inFavorites: inFavorites,
-          inCart: inCart,
-        );
-
-  factory Products.fromJson(Map<String, dynamic> json) {
-    return Products(
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
       description: json['description'],
       inFavorites: json['in_favorites'],
       inCart: json['in_cart'],
       id: json['id'],
       name: json['name'],
-      discount: json['discount'],
+      discount: json['discount'] ?? 0,
       price: json['price'],
       oldPrice: json['old_price'],
       image: json['image'],

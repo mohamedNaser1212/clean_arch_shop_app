@@ -11,7 +11,7 @@ class FeaturedProductsListView extends StatelessWidget {
       required this.isCart})
       : super(key: key);
 
-  final List<Products> products;
+  final List<ProductModel> products;
   final bool isFavourite;
   final bool isCart;
   @override

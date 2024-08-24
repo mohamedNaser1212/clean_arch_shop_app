@@ -23,7 +23,7 @@ class ProductEntity {
   @HiveField(8)
   final bool? inFavorites;
   @HiveField(9)
-  final bool? inCart;
+  final bool inCart;
 
   const ProductEntity({
     required this.id,
@@ -35,6 +35,6 @@ class ProductEntity {
     required this.images,
     this.description,
     required this.inFavorites,
-    this.inCart = false,
+    required this.inCart,
   });
 }
