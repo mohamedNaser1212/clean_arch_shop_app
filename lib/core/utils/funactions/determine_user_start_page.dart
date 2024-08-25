@@ -9,7 +9,7 @@ Future<Widget> determineStartPage(
     BuildContext context, ApiHelper apiService) async {
   final bool isLoggedIn = await checkUserStatus(apiService);
   if (isLoggedIn) {
-    return const LayoutScreen();
+    return LayoutScreen();
   } else {
     return LoginScreen();
   }
