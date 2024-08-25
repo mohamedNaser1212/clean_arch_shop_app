@@ -177,8 +177,8 @@ void setUpServiceLocator() async {
         fetchCategoriesUseCase: getIt.get<CategoriesUseCase>(),
       ));
   getIt.registerFactory(() => FavouritesCubit(
-        getIt.get<GetFavouritesUseCases>(),
-        getIt.get<ToggleFavouritesUseCase>(),
+        fetchFavouritesUseCase: getIt.get<GetFavouritesUseCases>(),
+        toggleFavouritesUseCase: getIt.get<ToggleFavouritesUseCase>(),
       ));
   getIt.registerFactory(() => CartsCubit(
         getIt.get<FetchCartUseCase>(),

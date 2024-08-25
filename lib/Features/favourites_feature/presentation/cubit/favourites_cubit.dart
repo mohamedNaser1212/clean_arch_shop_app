@@ -7,8 +7,10 @@ import '../../domain/favourites_use_case/toggle_favourites_use_case.dart';
 part 'favourites_state.dart';
 
 class FavouritesCubit extends Cubit<FavouritesState> {
-  FavouritesCubit(this.fetchFavouritesUseCase, this.toggleFavouritesUseCase)
-      : super(FavouritesState());
+  FavouritesCubit({
+    required this.fetchFavouritesUseCase,
+    required this.toggleFavouritesUseCase,
+  }) : super(FavouritesState());
   final GetFavouritesUseCases fetchFavouritesUseCase;
   final ToggleFavouritesUseCase toggleFavouritesUseCase;
   static FavouritesCubit get(context) => BlocProvider.of(context);
