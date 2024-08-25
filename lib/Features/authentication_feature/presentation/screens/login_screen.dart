@@ -159,7 +159,6 @@ class LoginScreen extends StatelessWidget {
         return null;
       },
       label: 'Password',
-      obscure: LoginCubit.get(context).isPassword,
       onSubmit: (value) {
         if (formKey.currentState!.validate()) {
           LoginCubit.get(context).userLogin(
@@ -167,6 +166,7 @@ class LoginScreen extends StatelessWidget {
             password: passwordController.text,
           );
         }
+        return null;
       },
       prefix: const Icon(Icons.lock_outline),
       onTap: () {},

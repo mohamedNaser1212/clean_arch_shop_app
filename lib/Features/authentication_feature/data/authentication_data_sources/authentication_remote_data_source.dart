@@ -20,22 +20,22 @@ abstract class AuthenticationRemoteDataSource {
 class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
   final ApiHelper apiHelper;
 
-  const AuthenticationDataSourceImpl(this.apiHelper);
+  const AuthenticationDataSourceImpl({
+    required this.apiHelper,
+  });
 
   @override
   Future<AuthenticationModel> login({
     required String email,
     required String password,
   }) async {
-    final headerModel = HeaderModel();
-
     final request = ApiRequestModel(
       endpoint: EndPoints.loginEndPoint,
       data: {
         RequestDataNames.email: email,
         RequestDataNames.password: password,
       },
-      headerModel: headerModel,
+      headerModel: HeaderModel(),
     );
 
     final response = await apiHelper.post(request: request);
@@ -50,8 +50,6 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
     required String name,
     required String phone,
   }) async {
-    final headerModel = HeaderModel();
-
     final request = ApiRequestModel(
       endpoint: EndPoints.registerEndPoint,
       data: {
@@ -60,7 +58,7 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
         RequestDataNames.name: name,
         RequestDataNames.phone: phone,
       },
-      headerModel: headerModel,
+      headerModel: HeaderModel(),
     );
 
     final response = await apiHelper.post(request: request);

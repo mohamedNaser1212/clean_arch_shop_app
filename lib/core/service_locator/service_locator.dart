@@ -62,7 +62,8 @@ void setUpServiceLocator() async {
   // Authentication dependencies
   getIt.registerSingleton<AuthenticationRepo>(
     AuthRepoImpl(
-      loginDataSource: AuthenticationDataSourceImpl(getIt.get<ApiHelper>()),
+      loginDataSource:
+          AuthenticationDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
     ),
   );
   getIt.registerSingleton<LoginUseCase>(
@@ -87,7 +88,7 @@ void setUpServiceLocator() async {
   );
 
   // User Data dependencies
-  getIt.registerSingleton<UserDataSource>(
+  getIt.registerSingleton<UserRemoteDataSource>(
     UserDataSourceImpl(
       apiHelper: getIt.get<ApiHelper>(),
     ),
@@ -100,7 +101,7 @@ void setUpServiceLocator() async {
   );
   getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
-      getUserDataDataSource: getIt.get<UserDataSource>(),
+      getUserDataDataSource: getIt.get<UserRemoteDataSource>(),
       userLocalDataSource: getIt.get<UserLocalDataSourceImpl>(),
     ),
   );

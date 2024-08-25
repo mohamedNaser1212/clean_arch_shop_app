@@ -23,7 +23,6 @@ class HomeRepoImpl extends HomeRepo {
       if (cachedCategories.isNotEmpty) {
         return right(cachedCategories);
       }
-
       final categoriesList = await homeRemoteDataSource.fetchCategories();
       await homeLocalDataSource.saveCategories(categoriesList);
 

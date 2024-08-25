@@ -6,8 +6,8 @@ import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
 
-abstract class UserDataSource {
-  const UserDataSource();
+abstract class UserRemoteDataSource {
+  const UserRemoteDataSource();
   Future<AuthenticationModel> getUserData();
   Future<AuthenticationModel> updateUserData({
     required String name,
@@ -18,7 +18,7 @@ abstract class UserDataSource {
       {required BuildContext context, required ApiHelper apiService});
 }
 
-class UserDataSourceImpl implements UserDataSource {
+class UserDataSourceImpl implements UserRemoteDataSource {
   final ApiHelper apiHelper;
 
   const UserDataSourceImpl({

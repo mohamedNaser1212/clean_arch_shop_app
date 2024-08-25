@@ -34,11 +34,16 @@ class SearchDataSourceImpl implements SearchRemoteDataSource {
     final response = await apiHelper.post(request: request);
 
     List<SearchResponseModel> products = [];
-    if (response['data'] != null) {
-      for (var item in response['data']['data']) {
-        products.add(SearchResponseModel.fromJson(item));
-      }
-    }
+    searchList(response, products);
     return products;
+  }
+}
+
+void searchList(
+    Map<String, dynamic> response, List<SearchResponseModel> products) {
+  if (response['data'] != null) {
+    for (var item in response['data']['data']) {
+      products.add(SearchResponseModel.fromJson(item));
+    }
   }
 }

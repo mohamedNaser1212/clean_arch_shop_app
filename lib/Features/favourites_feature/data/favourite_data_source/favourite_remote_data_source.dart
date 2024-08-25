@@ -13,7 +13,9 @@ abstract class FavouritesRemoteDataSource {
 class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
   final ApiHelper apiHelper;
 
-  const FavouritesRemoteDataSourceImpl({required this.apiHelper});
+  const FavouritesRemoteDataSourceImpl({
+    required this.apiHelper,
+  });
 
   @override
   Future<List<FavouritesResponseModel>> getFavourites() async {
@@ -48,7 +50,8 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
     }
   }
 
-  getFavouritesItems(Map<String, dynamic> response) {
+  List<FavouritesResponseModel> getFavouritesItems(
+      Map<String, dynamic> response) {
     final data = response['data']['data'] ?? [];
     final favouriteProducts = data.map<FavouritesResponseModel>((item) {
       return FavouritesResponseModel.fromJson(item['product']);

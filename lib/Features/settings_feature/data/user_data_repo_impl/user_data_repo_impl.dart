@@ -12,7 +12,7 @@ import '../user_data_data_source/user_local_data_source.dart';
 import '../user_data_data_source/user_remote_remote_data_source.dart';
 
 class UserDataRepoImpl implements UserDataRepo {
-  final UserDataSource getUserDataDataSource;
+  final UserRemoteDataSource getUserDataDataSource;
   final UserLocalDataSource userLocalDataSource;
 
   const UserDataRepoImpl({
