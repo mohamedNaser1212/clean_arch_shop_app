@@ -12,10 +12,10 @@ abstract class HomeRemoteDataSource {
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
-  final ApiHelper apiService;
+  final ApiHelper apiHelper;
 
   const HomeRemoteDataSourceImpl({
-    required this.apiService,
+    required this.apiHelper,
   });
 
   @override
@@ -24,7 +24,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       endpoint: EndPoints.homeEndPoint,
       headerModel: HeaderModel(),
     );
-    var data = await apiService.get(request: request);
+    var data = await apiHelper.get(request: request);
     List<ProductResponseModel> products = getProductsList(data['data']);
     return products;
   }
@@ -36,7 +36,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
         endpoint: EndPoints.categoriesEndPoint,
         headerModel: HeaderModel(),
       );
-      var data = await apiService.get(request: request);
+      var data = await apiHelper.get(request: request);
       List<CategoryModel> categories = getCategoriesList(data['data']);
 
       return categories;

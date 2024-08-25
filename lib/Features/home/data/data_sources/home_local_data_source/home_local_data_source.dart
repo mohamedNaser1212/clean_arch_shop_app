@@ -12,35 +12,35 @@ abstract class HomeLocalDataSource {
 }
 
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
-  final HiveHelper hiveService;
+  final HiveHelper hiveHelper;
 
   const HomeLocalDataSourceImpl({
-    required this.hiveService,
+    required this.hiveHelper,
   });
 
   @override
   Future<List<CategoriesEntity>> getCategories() async {
-    final categories = await hiveService
+    final categories = await hiveHelper
         .loadData<CategoriesEntity>(HiveBoxesNames.kCategoriesBox);
     return categories;
   }
 
   @override
   Future<void> saveCategories(List<CategoriesEntity> categories) async {
-    await hiveService.saveData<CategoriesEntity>(
+    await hiveHelper.saveData<CategoriesEntity>(
         categories, HiveBoxesNames.kCategoriesBox);
   }
 
   @override
   Future<List<ProductEntity>> getProducts() async {
     final products =
-        await hiveService.loadData<ProductEntity>(HiveBoxesNames.kProductsBox);
+        await hiveHelper.loadData<ProductEntity>(HiveBoxesNames.kProductsBox);
     return products;
   }
 
   @override
   Future<void> saveProducts(List<ProductEntity> products) async {
-    await hiveService.saveData<ProductEntity>(
+    await hiveHelper.saveData<ProductEntity>(
         products, HiveBoxesNames.kProductsBox);
   }
 }

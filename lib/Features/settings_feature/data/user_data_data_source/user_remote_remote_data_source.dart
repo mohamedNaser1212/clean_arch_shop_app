@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/authentication_feature/data/authentication_models/authentication_model.dart';
 
-import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
@@ -20,11 +19,11 @@ abstract class UserDataSource {
 }
 
 class UserDataSourceImpl implements UserDataSource {
-  final ApiHelper apiService;
-  final HiveHelper hiveService;
+  final ApiHelper apiHelper;
 
-  const UserDataSourceImpl(
-      {required this.apiService, required this.hiveService});
+  const UserDataSourceImpl({
+    required this.apiHelper,
+  });
 
   @override
   Future<AuthenticationModel> getUserData() async {
@@ -32,7 +31,7 @@ class UserDataSourceImpl implements UserDataSource {
       endpoint: EndPoints.profileEndPoint,
       headerModel: HeaderModel(),
     );
-    final response = await apiService.get(request: request);
+    final response = await apiHelper.get(request: request);
 
     final loginModel = AuthenticationModel.fromJson(response);
     return loginModel;
@@ -54,7 +53,7 @@ class UserDataSourceImpl implements UserDataSource {
       headerModel: HeaderModel(),
     );
 
-    final response = await apiService.put(request: request);
+    final response = await apiHelper.put(request: request);
     final loginModel = AuthenticationModel.fromJson(response);
     return loginModel;
   }

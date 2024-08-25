@@ -27,7 +27,7 @@ class BuildSearchResultList extends StatelessWidget {
               child: Row(
                 children: [
                   Image.network(
-                    result.image!,
+                    result.image,
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
@@ -39,8 +39,9 @@ class BuildSearchResultList extends StatelessWidget {
                       SizedBox(
                         width: 200,
                         child: CustomTitle(
-                          title: result.name!,
+                          title: result.name,
                           style: TitleStyle.style20,
+                          maxLines: 2,
                           color: ColorController.blackColor,
                         ),
                       ),

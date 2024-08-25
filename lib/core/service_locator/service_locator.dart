@@ -74,10 +74,10 @@ void setUpServiceLocator() async {
 
   // Home dependencies
   getIt.registerSingleton<HomeRemoteDataSource>(
-    HomeRemoteDataSourceImpl(apiService: getIt.get<ApiHelper>()),
+    HomeRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<HomeLocalDataSource>(
-    HomeLocalDataSourceImpl(hiveService: getIt.get<HiveHelper>()),
+    HomeLocalDataSourceImpl(hiveHelper: getIt.get<HiveHelper>()),
   );
   getIt.registerLazySingleton<HomeRepo>(
     () => HomeRepoImpl(
@@ -89,14 +89,14 @@ void setUpServiceLocator() async {
   // User Data dependencies
   getIt.registerSingleton<UserDataSource>(
     UserDataSourceImpl(
-        apiService: getIt.get<ApiHelper>(),
-        hiveService: getIt.get<HiveHelper>()),
+      apiHelper: getIt.get<ApiHelper>(),
+    ),
   );
   getIt.registerSingleton<UserLocalDataSourceImpl>(
-    UserLocalDataSourceImpl(hiveService: getIt.get<HiveHelper>()),
+    UserLocalDataSourceImpl(hiveHelper: getIt.get<HiveHelper>()),
   );
   getIt.registerSingleton<UserLocalDataSource>(
-    UserLocalDataSourceImpl(hiveService: getIt.get<HiveHelper>()),
+    UserLocalDataSourceImpl(hiveHelper: getIt.get<HiveHelper>()),
   );
   getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
@@ -126,11 +126,11 @@ void setUpServiceLocator() async {
   // Favourites dependencies
   getIt.registerSingleton<FavouritesRemoteDataSource>(
     FavouritesRemoteDataSourceImpl(
-      apiService: getIt.get<ApiHelper>(),
+      apiHelper: getIt.get<ApiHelper>(),
     ),
   );
   getIt.registerSingleton<FavouritesLocalDataSource>(
-    FavouritesLocalDataSourceImpl(hiveService: getIt.get<HiveHelper>()),
+    FavouritesLocalDataSourceImpl(hiveHelper: getIt.get<HiveHelper>()),
   );
   getIt.registerSingleton<FavouritesRepo>(
     FavouritesRepoImpl(
@@ -141,7 +141,7 @@ void setUpServiceLocator() async {
 
   // Search dependencies
   getIt.registerSingleton<SearchRemoteDataSource>(
-    SearchDataSourceImpl(apiService: getIt.get<ApiHelper>()),
+    SearchDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<SearchRepo>(
     SearchRepoImpl(searchDataSource: getIt.get<SearchRemoteDataSource>()),
@@ -152,10 +152,10 @@ void setUpServiceLocator() async {
 
   // Cart dependencies
   getIt.registerSingleton<CartLocalDataSource>(
-    CartLocalDataSourceImpl(hiveService: getIt.get<HiveHelper>()),
+    CartLocalDataSourceImpl(hiveHelper: getIt.get<HiveHelper>()),
   );
   getIt.registerSingleton<CartsRemoteDataSource>(
-    CartsRemoteDataSourceImpl(apiService: getIt.get<ApiHelper>()),
+    CartsRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<CartRepo>(
     CartsRepoImpl(

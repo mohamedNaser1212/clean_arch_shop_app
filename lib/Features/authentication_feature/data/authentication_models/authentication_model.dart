@@ -13,7 +13,7 @@ class AuthenticationModel extends UserEntity {
 
   factory AuthenticationModel.fromJson(Map<String, dynamic> json) {
     return AuthenticationModel(
-      message: json['message'] ?? '',
+      message: json['message'],
       name: json['data']['name'],
       email: json['data']['email'],
       phone: json['data']['phone'],

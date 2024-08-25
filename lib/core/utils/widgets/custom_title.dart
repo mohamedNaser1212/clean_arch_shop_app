@@ -18,12 +18,16 @@ class CustomTitle extends StatelessWidget {
   final String title;
   final TitleStyle style;
   final Color? color;
+  final int maxLines;
+  final TextOverflow overflow;
 
   const CustomTitle({
     required this.title,
-    Key? key,
     required this.style,
     this.color,
+    this.maxLines = 1,
+    this.overflow = TextOverflow.ellipsis,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -62,6 +66,8 @@ class CustomTitle extends StatelessWidget {
     return Text(
       title,
       style: textStyle,
+      maxLines: maxLines,
+      overflow: overflow,
     );
   }
 }

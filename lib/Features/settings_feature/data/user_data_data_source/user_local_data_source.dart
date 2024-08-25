@@ -10,26 +10,26 @@ abstract class UserLocalDataSource {
 }
 
 class UserLocalDataSourceImpl implements UserLocalDataSource {
-  final HiveHelper hiveService;
+  final HiveHelper hiveHelper;
 
-  const UserLocalDataSourceImpl({required this.hiveService});
+  const UserLocalDataSourceImpl({required this.hiveHelper});
 
   @override
   Future<void> saveUserData({required UserEntity user}) async {
-    await hiveService.saveSingleItem<UserEntity>(
+    await hiveHelper.saveSingleItem<UserEntity>(
         'user', user, HiveBoxesNames.kUserBox);
     print('User data saved to Hive');
   }
 
   @override
   Future<UserEntity?> loadUserData() async {
-    return await hiveService.loadSingleItem<UserEntity>(
+    return await hiveHelper.loadSingleItem<UserEntity>(
         'user', HiveBoxesNames.kUserBox);
   }
 
   @override
   Future<void> clearUserData() async {
-    await hiveService.clearSingleItem<UserEntity>(
+    await hiveHelper.clearSingleItem<UserEntity>(
         'user', HiveBoxesNames.kUserBox);
     print('User data cleared from Hive');
   }

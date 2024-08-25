@@ -22,16 +22,4 @@ class CartResponseModel extends AddToCartEntity {
       description: json['description'],
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'price': price,
-      'old_price': oldPrice,
-      'discount': discount,
-      'image': image,
-      'name': name,
-      'description': description,
-    };
-  }
 }

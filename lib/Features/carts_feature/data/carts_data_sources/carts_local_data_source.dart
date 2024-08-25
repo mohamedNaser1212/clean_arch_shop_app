@@ -4,30 +4,32 @@ import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 abstract class CartLocalDataSource {
   const CartLocalDataSource();
+
   Future<List<AddToCartEntity>> getCart();
   Future<void> saveCart(List<AddToCartEntity> cart);
-  Future<void> removeCart(num productId);
+  Future<void> removeCartItem(num productId);
 }
 
 class CartLocalDataSourceImpl implements CartLocalDataSource {
-  final HiveHelper hiveService;
+  final HiveHelper hiveHelper;
 
-  const CartLocalDataSourceImpl({required this.hiveService});
+  const CartLocalDataSourceImpl({required this.hiveHelper});
 
   @override
   Future<List<AddToCartEntity>> getCart() async {
-    return await hiveService.loadData<AddToCartEntity>(HiveBoxesNames.kCartBox);
+    return await hiveHelper.loadData<AddToCartEntity>(HiveBoxesNames.kCartBox);
   }
 
   @override
   Future<void> saveCart(List<AddToCartEntity> cart) async {
-    await hiveService.saveData<AddToCartEntity>(cart, HiveBoxesNames.kCartBox);
+    await hiveHelper.saveData<AddToCartEntity>(cart, HiveBoxesNames.kCartBox);
   }
 
   @override
-  Future<void> removeCart(num productId) async {
-    final cart = await getCart();
-    final updatedCart = cart.where((item) => item.id != productId).toList();
-    await saveCart(updatedCart);
+  Future<void> removeCartItem(num productId) async {
+    final cartItems = await getCart();
+    final updatedCartItems =
+        cartItems.where((item) => item.id != productId).toList();
+    await saveCart(updatedCartItems);
   }
 }

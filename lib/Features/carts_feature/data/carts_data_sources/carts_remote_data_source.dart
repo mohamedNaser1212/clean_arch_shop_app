@@ -12,16 +12,16 @@ abstract class CartsRemoteDataSource {
 }
 
 class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
-  final ApiHelper apiService;
+  final ApiHelper apiHelper;
 
-  const CartsRemoteDataSourceImpl({required this.apiService});
+  const CartsRemoteDataSourceImpl({required this.apiHelper});
 
   @override
   Future<List<CartResponseModel>> getCarts() async {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.cartEndPoint, headerModel: HeaderModel());
 
-    final response = await apiService.get(request: request);
+    final response = await apiHelper.get(request: request);
 
     List<CartResponseModel> cartProducts = [];
     removeCartItems(response, cartProducts);
@@ -40,7 +40,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
       headerModel: HeaderModel(),
     );
 
-    final response = await apiService.post(request: request);
+    final response = await apiHelper.post(request: request);
 
     getCarts();
     return response['status'] == true ? true : false;
@@ -55,7 +55,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
       },
       headerModel: HeaderModel(),
     );
-    final response = await apiService.post(request: request);
+    final response = await apiHelper.post(request: request);
 
     List<CartResponseModel> cartProducts = [];
     removeCartItems(response, cartProducts);

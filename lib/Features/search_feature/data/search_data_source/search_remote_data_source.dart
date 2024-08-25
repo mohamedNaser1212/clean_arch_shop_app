@@ -13,10 +13,10 @@ abstract class SearchRemoteDataSource {
 }
 
 class SearchDataSourceImpl implements SearchRemoteDataSource {
-  final ApiHelper apiService;
+  final ApiHelper apiHelper;
 
   const SearchDataSourceImpl({
-    required this.apiService,
+    required this.apiHelper,
   });
 
   @override
@@ -31,7 +31,7 @@ class SearchDataSourceImpl implements SearchRemoteDataSource {
       headerModel: HeaderModel(),
     );
 
-    final response = await apiService.post(request: request);
+    final response = await apiHelper.post(request: request);
 
     List<SearchResponseModel> products = [];
     if (response['data'] != null) {

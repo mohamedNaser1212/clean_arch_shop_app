@@ -10,22 +10,22 @@ abstract class FavouritesLocalDataSource {
 }
 
 class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
-  final HiveHelper hiveService;
+  final HiveHelper hiveHelper;
 
   const FavouritesLocalDataSourceImpl({
-    required this.hiveService,
+    required this.hiveHelper,
   });
 
   @override
   Future<List<FavouritesEntity>> getFavourites() async {
-    final favourites = await hiveService
+    final favourites = await hiveHelper
         .loadData<FavouritesEntity>(HiveBoxesNames.kFavouritesBox);
     return favourites;
   }
 
   @override
   Future<void> saveFavourites(List<FavouritesEntity> favourites) async {
-    await hiveService.saveData<FavouritesEntity>(
+    await hiveHelper.saveData<FavouritesEntity>(
         favourites, HiveBoxesNames.kFavouritesBox);
   }
 

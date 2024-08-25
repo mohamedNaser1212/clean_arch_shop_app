@@ -18,9 +18,9 @@ abstract class AuthenticationRemoteDataSource {
 }
 
 class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
-  final ApiHelper apiServiceInterface;
+  final ApiHelper apiHelper;
 
-  const AuthenticationDataSourceImpl(this.apiServiceInterface);
+  const AuthenticationDataSourceImpl(this.apiHelper);
 
   @override
   Future<AuthenticationModel> login({
@@ -38,7 +38,7 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
       headerModel: headerModel,
     );
 
-    final response = await apiServiceInterface.post(request: request);
+    final response = await apiHelper.post(request: request);
 
     return AuthenticationModel.fromJson(response);
   }
@@ -63,7 +63,7 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
       headerModel: headerModel,
     );
 
-    final response = await apiServiceInterface.post(request: request);
+    final response = await apiHelper.post(request: request);
 
     return AuthenticationModel.fromJson(response);
   }

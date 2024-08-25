@@ -11,9 +11,9 @@ abstract class FavouritesRemoteDataSource {
 }
 
 class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
-  final ApiHelper apiService;
+  final ApiHelper apiHelper;
 
-  const FavouritesRemoteDataSourceImpl({required this.apiService});
+  const FavouritesRemoteDataSourceImpl({required this.apiHelper});
 
   @override
   Future<List<FavouritesResponseModel>> getFavourites() async {
@@ -21,7 +21,7 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
       endpoint: EndPoints.favoritesEndPoint,
       headerModel: HeaderModel(),
     );
-    final response = await apiService.get(request: request);
+    final response = await apiHelper.get(request: request);
 
     var favouriteProducts = getFavouritesItems(response);
 
@@ -39,7 +39,7 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
         },
         headerModel: HeaderModel(),
       );
-      final response = await apiService.post(request: request);
+      final response = await apiHelper.post(request: request);
 
       return response['status'] == true ? true : false;
     } catch (error) {

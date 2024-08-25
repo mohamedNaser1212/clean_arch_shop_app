@@ -1,20 +1,14 @@
-class SearchResponseModel {
-  final num id;
-  final num price;
-  final num oldPrice;
-  final num discount;
-  final String image;
-  final String name;
-  final String description;
+import 'package:shop_app/core/models/base_products_model.dart';
 
+class SearchResponseModel extends BaseProductModel {
   const SearchResponseModel({
-    required this.id,
-    required this.price,
-    required this.oldPrice,
-    required this.discount,
-    required this.image,
-    required this.name,
-    required this.description,
+    required super.id,
+    required super.price,
+    required super.oldPrice,
+    required super.discount,
+    required super.image,
+    required super.name,
+    required super.description,
   });
 
   factory SearchResponseModel.fromJson(Map<String, dynamic> json) {
@@ -27,17 +21,5 @@ class SearchResponseModel {
       name: json['name'],
       description: json['description'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['price'] = price;
-    map['old_price'] = oldPrice;
-    map['discount'] = discount;
-    map['image'] = image;
-    map['name'] = name;
-    map['description'] = description;
-    return map;
   }
 }

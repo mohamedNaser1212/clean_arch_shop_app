@@ -51,7 +51,7 @@ class CartsRepoImpl extends CartRepo {
       num products) async {
     try {
       await cartsDataSource.removeCarts(products);
-      await cartLocalDataSource.removeCart(products);
+      await cartLocalDataSource.removeCartItem(products);
       final updatedCart = await cartLocalDataSource.getCart();
       return right(updatedCart);
     } catch (e) {
