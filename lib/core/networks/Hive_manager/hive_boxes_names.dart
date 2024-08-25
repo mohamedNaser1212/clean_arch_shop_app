@@ -5,4 +5,5 @@ abstract class HiveBoxesNames {
   static const String kFavouritesBox = 'favourites';
   static const String kCartBox = 'carts';
   static const String kAddToCartBox = 'addToCart';
+  static const String kSaveTokenBox = 'userBox';
 }

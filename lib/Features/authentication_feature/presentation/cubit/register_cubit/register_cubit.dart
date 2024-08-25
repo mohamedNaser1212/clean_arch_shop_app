@@ -23,7 +23,6 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String password,
     required String name,
     required String phone,
-    required BuildContext context,
   }) async {
     emit(RegisterLoadingState());
 

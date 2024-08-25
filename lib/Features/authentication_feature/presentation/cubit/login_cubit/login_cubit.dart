@@ -15,12 +15,10 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> userLogin({
     required String email,
     required String password,
-    BuildContext? context,
   }) async {
     emit(AppLoginLoadingState());
 
     var result = await loginUseCase.call(email: email, password: password);
-    if (!context!.mounted) return;
     result.fold(
       (failure) {
         emit(AppLoginErrorState(failure.message));

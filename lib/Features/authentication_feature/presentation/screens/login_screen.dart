@@ -9,7 +9,8 @@ import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../../core/networks/Hive_manager/token_storage_helper.dart';
+import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
+import '../../../../core/networks/Hive_manager/hive_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
@@ -51,7 +52,7 @@ class LoginScreen extends StatelessWidget {
   Future<void> _loginListener(BuildContext context, LoginState state) async {
     if (state is AppLoginSuccessState) {
       Fluttertoast.showToast(
-        msg: state.loginMode.message,
+        msg: state.loginMode.message!,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 5,
@@ -59,7 +60,10 @@ class LoginScreen extends StatelessWidget {
         textColor: Colors.white,
         fontSize: 16.0,
       );
-      await TokenHelper.saveData(key: 'token', value: state.loginMode.token);
+
+      final hiveManager = HiveManager();
+      await hiveManager.saveSingleItem<String>(
+          'token', state.loginMode.token, HiveBoxesNames.kSaveTokenBox);
 
       if (context.mounted) {
         GetProductsCubit.get(context).getProductsData(
@@ -161,7 +165,6 @@ class LoginScreen extends StatelessWidget {
           LoginCubit.get(context).userLogin(
             email: emailController.text,
             password: passwordController.text,
-            context: context,
           );
         }
       },
@@ -179,7 +182,6 @@ class LoginScreen extends StatelessWidget {
             LoginCubit.get(context).userLogin(
               email: emailController.text,
               password: passwordController.text,
-              context: context,
             );
           }
         },

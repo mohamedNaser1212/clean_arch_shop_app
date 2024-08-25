@@ -6,7 +6,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
-import 'package:shop_app/core/networks/Hive_manager/token_storage_helper.dart';
 import 'package:shop_app/core/utils/screens/splash_screen.dart';
 
 import 'Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
@@ -28,10 +27,11 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  await TokenHelper.init();
+  // await TokenHelper.init();
 
   setUpServiceLocator();
-  HiveManager().initialize();
+  final hiveManager = HiveManager();
+  await hiveManager.initialize();
 
   Bloc.observer = MyBlocObserver();
   Stripe.publishableKey = ApiKeys.publishableKey;

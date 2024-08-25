@@ -16,11 +16,16 @@ class ApiManager implements ApiHelper {
     return Options(headers: headers ?? {});
   }
 
+  Future<Map<String, dynamic>> _getHeaders(ApiRequestModel request) async {
+    return await request.headers; // Wait for headers to resolve
+  }
+
   @override
   Future<Map<String, dynamic>> get({
     required ApiRequestModel request,
   }) async {
-    var options = _createOptions(request.headers);
+    final headers = await _getHeaders(request);
+    var options = _createOptions(headers);
     var response =
         await dio.get('$baseUrl${request.endpoint}', options: options);
     return response.data;
@@ -30,7 +35,8 @@ class ApiManager implements ApiHelper {
   Future<Map<String, dynamic>> post({
     required ApiRequestModel request,
   }) async {
-    var options = _createOptions(request.headers);
+    final headers = await _getHeaders(request);
+    var options = _createOptions(headers);
     var response = await dio.post('$baseUrl${request.endpoint}',
         data: request.data, options: options);
     return response.data;
@@ -40,7 +46,8 @@ class ApiManager implements ApiHelper {
   Future<Map<String, dynamic>> put({
     required ApiRequestModel request,
   }) async {
-    var options = _createOptions(request.headers);
+    final headers = await _getHeaders(request);
+    var options = _createOptions(headers);
     var response = await dio.put('$baseUrl${request.endpoint}',
         data: request.data, options: options);
     return response.data;
@@ -50,7 +57,8 @@ class ApiManager implements ApiHelper {
   Future<Map<String, dynamic>> delete({
     required ApiRequestModel request,
   }) async {
-    var options = _createOptions(request.headers);
+    final headers = await _getHeaders(request);
+    var options = _createOptions(headers);
     var response =
         await dio.delete('$baseUrl${request.endpoint}', options: options);
     return response.data;
@@ -60,7 +68,8 @@ class ApiManager implements ApiHelper {
   Future<Response> responsePost({
     required ApiRequestModel request,
   }) async {
-    var options = _createOptions(request.headers);
+    final headers = await _getHeaders(request);
+    var options = _createOptions(headers);
     return await dio.post('$baseUrl${request.endpoint}',
         data: request.data, options: options);
   }
@@ -69,7 +78,8 @@ class ApiManager implements ApiHelper {
   Future<Response> responsePut({
     required ApiRequestModel request,
   }) async {
-    var options = _createOptions(request.headers);
+    final headers = await _getHeaders(request);
+    var options = _createOptions(headers);
     return await dio.put('$baseUrl${request.endpoint}',
         data: request.data, options: options);
   }
@@ -78,7 +88,8 @@ class ApiManager implements ApiHelper {
   Future<Response> responseDelete({
     required ApiRequestModel request,
   }) async {
-    var options = _createOptions(request.headers);
+    final headers = await _getHeaders(request);
+    var options = _createOptions(headers);
     return await dio.delete('$baseUrl${request.endpoint}', options: options);
   }
 
@@ -89,7 +100,8 @@ class ApiManager implements ApiHelper {
     String? token,
     Map<String, dynamic>? query,
   }) async {
-    var options = _createOptions(request.headers);
+    final headers = await _getHeaders(request);
+    var options = _createOptions(headers);
 
     return await dio.get(
       '$baseUrl${request.endpoint}',

@@ -7,7 +7,8 @@ import 'package:shop_app/Features/authentication_feature/domain/authentication_u
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../../core/networks/Hive_manager/token_storage_helper.dart';
+import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
+import '../../../../core/networks/Hive_manager/hive_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
@@ -41,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
 Future<void> _listener(BuildContext context, RegisterState state) async {
   if (state is RegisterSuccessState) {
     Fluttertoast.showToast(
-      msg: state.loginModel.message,
+      msg: state.loginModel.message!,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 5,
@@ -49,8 +50,9 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       textColor: Colors.white,
       fontSize: 16.0,
     );
-    await TokenHelper.saveData(key: 'token', value: state.loginModel.token);
-
+    final hiveManager = HiveManager();
+    await hiveManager.saveSingleItem<String>(
+        'token', state.loginModel.token, HiveBoxesNames.kSaveTokenBox);
     if (context.mounted) {
       GetProductsCubit.get(context).getProductsData(
         context: context,
@@ -195,7 +197,6 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                             password: passwordController.text,
                             name: nameController.text,
                             phone: phoneController.text,
-                            context: context,
                           );
                         }
                       },

@@ -1,24 +1,34 @@
-import 'package:shop_app/core/networks/Hive_manager/token_storage_helper.dart';
+import 'package:shop_app/core/networks/Hive_manager/hive_boxes_names.dart';
 
 import '../../../Features/authentication_feature/data/authentication_models/authentication_model.dart';
+import '../Hive_manager/hive_manager.dart';
 
 AuthenticationModel? loginModel;
 
 class HeaderModel {
   final String contentType;
-  final String authorization;
+  final Future<String> authorization;
   final String lang;
 
   HeaderModel({
     this.contentType = 'application/json',
     String? authorization,
     this.lang = 'en',
-  }) : authorization = TokenHelper.getToken();
+  }) : authorization = _getToken();
 
-  Map<String, dynamic> toMap() {
+  static Future<String> _getToken() async {
+    final hiveManager = HiveManager();
+    final token = await hiveManager.loadSingleItem<String>(
+        'token', HiveBoxesNames.kSaveTokenBox);
+    print('Token: $token');
+    return token ?? ''; // Handle null case
+  }
+
+  Future<Map<String, dynamic>> toMap() async {
+    final auth = await authorization;
     return {
       'Content-Type': contentType,
-      'Authorization': authorization,
+      'Authorization': auth,
       'lang': lang,
     };
   }
@@ -30,15 +40,17 @@ class ApiRequestModel {
   final Map<String, dynamic>? query;
   final Map<String, dynamic>? data;
 
+  late final Future<Map<String, dynamic>> headers;
+
   ApiRequestModel({
     required this.endpoint,
-    HeaderModel? headerModel,
+    required this.headerModel,
     this.query,
     this.data,
-  })  : headerModel = headerModel!,
-        headers = headerModel.toMap();
-
-  final Map<String, dynamic> headers;
+  }) {
+    // Initialize the headers asynchronously
+    headers = headerModel.toMap();
+  }
 
   @override
   String toString() {

@@ -9,7 +9,7 @@ import 'hive_boxes_names.dart';
 import 'hive_helper.dart';
 
 class HiveManager implements HiveHelper {
-  static final Map<String, Box> _openedBoxes = {};
+  static final Map<String, Box<dynamic>> _openedBoxes = {};
 
   @override
   Future<void> initialize() async {
@@ -29,6 +29,7 @@ class HiveManager implements HiveHelper {
       _openBox<FavouritesEntity>(HiveBoxesNames.kFavouritesBox),
       _openBox<AddToCartEntity>(HiveBoxesNames.kCartBox),
       _openBox<UserEntity>(HiveBoxesNames.kUserBox),
+      _openBox<String>('userBox'),
     ]);
   }
 
