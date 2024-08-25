@@ -1,18 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/cart_entity/add_to_cart_entity.dart';
-import '../../domain/carts_use_case/get_cart_use_case.dart';
+import '../../domain/carts_use_case/fetch_cart_use_case.dart';
 import '../../domain/carts_use_case/remove_cart_use_case.dart';
 import '../../domain/carts_use_case/toggle_cart_use_case.dart';
 
 part 'carts_state.dart';
 
 class CartsCubit extends Cubit<CartsState> {
-  CartsCubit(
-      this.addToCartUseCase, this.removeFromCartUseCase, this.toggleCartUseCase)
-      : super(CartsState());
-  final FetchCartUseCase addToCartUseCase;
-  final RemoveCartUseCase removeFromCartUseCase;
+  CartsCubit({
+    required this.fetchCartUseCase,
+    required this.removeCartUseCase,
+    required this.toggleCartUseCase,
+  }) : super(CartsState());
+  final FetchCartUseCase fetchCartUseCase;
+  final RemoveCartUseCase removeCartUseCase;
   final ToggleCartUseCase toggleCartUseCase;
 
   static CartsCubit get(context) => BlocProvider.of(context);
@@ -22,7 +24,7 @@ class CartsCubit extends Cubit<CartsState> {
   Future<void> getCartItems() async {
     emit(GetCartItemsLoadingState());
 
-    final result = await addToCartUseCase.call();
+    final result = await fetchCartUseCase.call();
     result.fold(
       (failure) {
         print('Failed to fetch cart items: $failure');
@@ -59,7 +61,7 @@ class CartsCubit extends Cubit<CartsState> {
     try {
       bool allRemoved = true;
       for (var prodId in prodIds) {
-        final result = await removeFromCartUseCase.call(products: prodId);
+        final result = await removeCartUseCase.call(products: prodId);
         if (result.isLeft()) {
           print('Failed to remove item with id $prodId');
           allRemoved = false;

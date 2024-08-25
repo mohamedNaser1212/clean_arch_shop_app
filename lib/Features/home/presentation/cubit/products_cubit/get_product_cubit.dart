@@ -16,38 +16,9 @@ class GetProductsCubit extends Cubit<GetProductsState> {
 
   static GetProductsCubit get(context) => BlocProvider.of(context);
 
-  // int currentIndex = 0;
-
   List<ProductEntity>? homeModel;
 
   final ProductsUseCase fetchHomeItemsUseCase;
-
-  // List<Widget> screens = [
-  //   const ProductsScreen(),
-  //   const CategoriesScreen(),
-  //   const FavoritesScreen(),
-  //   const CartScreen(),
-  //   SettingsScreen(),
-  // ];
-  //
-  // List<BottomNavigationBarItem> get bottomNavigationBarItems {
-  //   return [
-  //     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-  //     const BottomNavigationBarItem(
-  //         icon: Icon(Icons.apps), label: 'Categories'),
-  //     const BottomNavigationBarItem(
-  //         icon: Icon(Icons.favorite), label: 'Favorites'),
-  //     const BottomNavigationBarItem(
-  //         icon: Icon(Icons.add_shopping_cart), label: 'Carts'),
-  //     const BottomNavigationBarItem(
-  //         icon: Icon(Icons.settings), label: 'Settings'),
-  //   ];
-  // }
-  //
-  // void changeScreen(int index) {
-  //   currentIndex = index;
-  //   emit(ShopChangeBottomNavState());
-  // }
 
   Future<void> getProductsData({required BuildContext context}) async {
     emit(GetProductsLoadingState());

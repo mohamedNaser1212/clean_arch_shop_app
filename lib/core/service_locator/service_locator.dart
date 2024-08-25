@@ -7,7 +7,7 @@ import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_lo
 import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_remote_data_source.dart';
 import 'package:shop_app/Features/carts_feature/data/carts_repo_impl/carts_repo_impl.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_repo/cart_repo.dart';
-import 'package:shop_app/Features/carts_feature/domain/carts_use_case/get_cart_use_case.dart';
+import 'package:shop_app/Features/carts_feature/domain/carts_use_case/fetch_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/remove_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
@@ -181,9 +181,9 @@ void setUpServiceLocator() async {
         toggleFavouritesUseCase: getIt.get<ToggleFavouritesUseCase>(),
       ));
   getIt.registerFactory(() => CartsCubit(
-        getIt.get<FetchCartUseCase>(),
-        getIt.get<RemoveCartUseCase>(),
-        getIt.get<ToggleCartUseCase>(),
+        fetchCartUseCase: getIt.get<FetchCartUseCase>(),
+        removeCartUseCase: getIt.get<RemoveCartUseCase>(),
+        toggleCartUseCase: getIt.get<ToggleCartUseCase>(),
       ));
 
   getIt.registerFactory(() =>
