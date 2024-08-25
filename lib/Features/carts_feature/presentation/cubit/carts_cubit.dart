@@ -19,7 +19,7 @@ class CartsCubit extends Cubit<CartsState> {
 
   static CartsCubit get(context) => BlocProvider.of(context);
 
-  List<AddToCartEntity> cartModel = [];
+  List<CartEntity> cartModel = [];
   Map<num, bool> carts = {};
   Future<void> getCartItems() async {
     emit(GetCartItemsLoadingState());

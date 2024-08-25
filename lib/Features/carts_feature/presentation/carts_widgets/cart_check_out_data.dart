@@ -8,7 +8,7 @@ import '../../domain/cart_entity/add_to_cart_entity.dart';
 class CartCheckoutData extends StatelessWidget {
   final num? subtotal;
   final num? total;
-  final List<AddToCartEntity>? cartModel;
+  final List<CartEntity>? cartModel;
 
   const CartCheckoutData({
     super.key,

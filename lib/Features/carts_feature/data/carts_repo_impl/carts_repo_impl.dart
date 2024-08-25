@@ -16,7 +16,7 @@ class CartsRepoImpl extends CartRepo {
   });
 
   @override
-  Future<Either<Failure, List<AddToCartEntity>>> getCart() async {
+  Future<Either<Failure, List<CartEntity>>> getCart() async {
     try {
       final cart = await cartsDataSource.getCarts();
       await cartLocalDataSource.saveCart(cart);
@@ -26,7 +26,7 @@ class CartsRepoImpl extends CartRepo {
         final cachedCart = await cartLocalDataSource.getCart();
         return right(cachedCart);
       } catch (_) {
-        return left(ServerFailure(e.toString()));
+        return left(ServerFailure(message: e.toString()));
       }
     }
   }
@@ -42,13 +42,12 @@ class CartsRepoImpl extends CartRepo {
       );
     } catch (e) {
       print('Error in toggleCart: $e');
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure(message: e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, List<AddToCartEntity>>> removeCarts(
-      num products) async {
+  Future<Either<Failure, List<CartEntity>>> removeCarts(num products) async {
     try {
       await cartsDataSource.removeCarts(products);
       await cartLocalDataSource.removeCartItem(products);
@@ -56,7 +55,7 @@ class CartsRepoImpl extends CartRepo {
       return right(updatedCart);
     } catch (e) {
       print('Error in removeCarts: $e');
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure(message: e.toString()));
     }
   }
 }

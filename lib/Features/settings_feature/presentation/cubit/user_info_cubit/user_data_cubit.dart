@@ -7,9 +7,9 @@ import '../../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
-import '../../../domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
-import '../../../domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
-import '../../../domain/settings_use_case/get_user_data_use_case/user_sign_out_use_case.dart';
+import '../../../domain/settings_use_case/update_user_data_use_case.dart';
+import '../../../domain/settings_use_case/user_data_use_case.dart';
+import '../../../domain/settings_use_case/user_sign_out_use_case.dart';
 
 part 'user_data_state.dart';
 

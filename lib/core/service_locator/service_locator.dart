@@ -27,9 +27,8 @@ import 'package:shop_app/Features/search_feature/domain/search_repo/search_repo.
 import 'package:shop_app/Features/search_feature/domain/search_use_case/fetch_search_use_case.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
-import 'package:shop_app/Features/settings_feature/domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
-import 'package:shop_app/Features/settings_feature/domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
-import 'package:shop_app/Features/settings_feature/domain/settings_use_case/get_user_data_use_case/user_sign_out_use_case.dart';
+import 'package:shop_app/Features/settings_feature/domain/settings_use_case/update_user_data_use_case.dart';
+import 'package:shop_app/Features/settings_feature/domain/settings_use_case/user_data_use_case.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 
 import '../../Features/authentication_feature/data/authentication_data_sources/authentication_remote_data_source.dart';
@@ -43,6 +42,7 @@ import '../../Features/home/domain/use_case/home_use_case/products_Use_Case.dart
 import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../Features/settings_feature/data/user_data_data_source/user_local_data_source.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
+import '../../Features/settings_feature/domain/settings_use_case/user_sign_out_use_case.dart';
 import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_helper.dart';

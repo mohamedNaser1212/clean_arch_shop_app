@@ -11,7 +11,7 @@ class FetchCartUseCase {
     required this.cartRepo,
   });
 
-  Future<Either<Failure, List<AddToCartEntity>>> call() {
+  Future<Either<Failure, List<CartEntity>>> call() {
     return cartRepo.getCart();
   }
 }

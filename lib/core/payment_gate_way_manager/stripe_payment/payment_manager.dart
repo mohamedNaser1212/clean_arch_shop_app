@@ -8,7 +8,7 @@ import '../../../../Features/carts_feature/presentation/cubit/carts_cubit.dart';
 
 abstract class PaymentManager {
   static Future<void> makePayment(int amount, String currency,
-      BuildContext context, List<AddToCartEntity> model) async {
+      BuildContext context, List<CartEntity> model) async {
     try {
       String clientSecret =
           await _getClientSecret((amount * 100).toString(), currency);

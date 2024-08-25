@@ -31,19 +31,14 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
   @override
   Future<List<CategoryModel>> fetchCategories() async {
-    try {
-      ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.categoriesEndPoint,
-        headerModel: HeaderModel(),
-      );
-      var data = await apiHelper.get(request: request);
-      List<CategoryModel> categories = getCategoriesList(data['data']);
+    ApiRequestModel request = ApiRequestModel(
+      endpoint: EndPoints.categoriesEndPoint,
+      headerModel: HeaderModel(),
+    );
+    var data = await apiHelper.get(request: request);
+    List<CategoryModel> categories = getCategoriesList(data['data']);
 
-      return categories;
-    } catch (e) {
-      print('Error fetching categories: $e');
-      throw e;
-    }
+    return categories;
   }
 
   List<ProductResponseModel> getProductsList(Map<String, dynamic> data) {

@@ -5,8 +5,8 @@ import '../../../../core/models/base_products_model.dart';
 part 'add_to_cart_entity.g.dart';
 
 @HiveType(typeId: 3)
-class AddToCartEntity extends BaseProductModel {
-  const AddToCartEntity({
+class CartEntity extends BaseProductModel {
+  const CartEntity({
     @HiveField(0) required super.id,
     @HiveField(1) required super.price,
     @HiveField(2) required super.oldPrice,

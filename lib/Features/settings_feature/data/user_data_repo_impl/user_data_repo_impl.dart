@@ -33,7 +33,7 @@ class UserDataRepoImpl implements UserDataRepo {
         return Right(userData);
       }
     } catch (error) {
-      return Left(ServerFailure(error.toString()));
+      return Left(ServerFailure(message: error.toString()));
     }
   }
 
@@ -49,7 +49,7 @@ class UserDataRepoImpl implements UserDataRepo {
       await userLocalDataSource.saveUserData(user: userData);
       return Right(userData);
     } catch (error) {
-      return Left(ServerFailure(error.toString()));
+      return Left(ServerFailure(message: error.toString()));
     }
   }
 
@@ -76,7 +76,7 @@ class UserDataRepoImpl implements UserDataRepo {
       }
       return Right(result);
     } catch (error) {
-      return Left(ServerFailure(error.toString()));
+      return Left(ServerFailure(message: error.toString()));
     }
   }
 }

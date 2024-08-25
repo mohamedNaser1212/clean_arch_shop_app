@@ -27,7 +27,7 @@ class HiveManager implements HiveHelper {
       _openBox<ProductEntity>(HiveBoxesNames.kProductsBox),
       _openBox<CategoriesEntity>(HiveBoxesNames.kCategoriesBox),
       _openBox<FavouritesEntity>(HiveBoxesNames.kFavouritesBox),
-      _openBox<AddToCartEntity>(HiveBoxesNames.kCartBox),
+      _openBox<CartEntity>(HiveBoxesNames.kCartBox),
       _openBox<UserEntity>(HiveBoxesNames.kUserBox),
       _openBox<String>(HiveBoxesNames.kSaveTokenBox),
     ]);

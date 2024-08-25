@@ -10,7 +10,7 @@ import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
 import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
-import '../../../../core/networks/Hive_manager/hive_manager.dart';
+import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
@@ -50,6 +50,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<void> _loginListener(BuildContext context, LoginState state) async {
+    final hiveHelper = getIt.get<HiveHelper>();
     if (state is AppLoginSuccessState) {
       Fluttertoast.showToast(
         msg: state.loginMode.message!,
@@ -61,8 +62,7 @@ class LoginScreen extends StatelessWidget {
         fontSize: 16.0,
       );
 
-      final hiveManager = HiveManager();
-      await hiveManager.saveSingleItem<String>(
+      await hiveHelper.saveSingleItem<String>(
           'token', state.loginMode.token, HiveBoxesNames.kSaveTokenBox);
 
       if (context.mounted) {

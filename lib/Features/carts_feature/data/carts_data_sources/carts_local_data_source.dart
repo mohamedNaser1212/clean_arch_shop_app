@@ -4,9 +4,8 @@ import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 abstract class CartLocalDataSource {
   const CartLocalDataSource();
-
-  Future<List<AddToCartEntity>> getCart();
-  Future<void> saveCart(List<AddToCartEntity> cart);
+  Future<List<CartEntity>> getCart();
+  Future<void> saveCart(List<CartEntity> cart);
   Future<void> removeCartItem(num productId);
 }
 
@@ -16,13 +15,13 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   const CartLocalDataSourceImpl({required this.hiveHelper});
 
   @override
-  Future<List<AddToCartEntity>> getCart() async {
-    return await hiveHelper.loadData<AddToCartEntity>(HiveBoxesNames.kCartBox);
+  Future<List<CartEntity>> getCart() async {
+    return await hiveHelper.loadData<CartEntity>(HiveBoxesNames.kCartBox);
   }
 
   @override
-  Future<void> saveCart(List<AddToCartEntity> cart) async {
-    await hiveHelper.saveData<AddToCartEntity>(cart, HiveBoxesNames.kCartBox);
+  Future<void> saveCart(List<CartEntity> cart) async {
+    await hiveHelper.saveData<CartEntity>(cart, HiveBoxesNames.kCartBox);
   }
 
   @override

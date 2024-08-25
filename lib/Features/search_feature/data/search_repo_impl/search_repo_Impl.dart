@@ -20,7 +20,7 @@ class SearchRepoImpl implements SearchRepo {
       final searchResult = await searchDataSource.search(text: text);
       return right(searchResult);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure(message: e.toString()));
     }
   }
 }

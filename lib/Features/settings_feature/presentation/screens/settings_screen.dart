@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/managers/reusable_widgets_manager/toast_widget.dart';
 import '../../../../core/service_locator/service_locator.dart';
-import '../../domain/settings_use_case/get_user_data_use_case/update_user_data_use_case.dart';
-import '../../domain/settings_use_case/get_user_data_use_case/user_data_use_case.dart';
-import '../../domain/settings_use_case/get_user_data_use_case/user_sign_out_use_case.dart';
+import '../../domain/settings_use_case/update_user_data_use_case.dart';
+import '../../domain/settings_use_case/user_data_use_case.dart';
+import '../../domain/settings_use_case/user_sign_out_use_case.dart';
 import '../cubit/user_info_cubit/user_data_cubit.dart';
 import '../settings_widgets/settings_form.dart';
 

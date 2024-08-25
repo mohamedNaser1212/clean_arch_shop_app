@@ -20,7 +20,7 @@ class AuthRepoImpl implements AuthenticationRepo {
           await loginDataSource.login(email: email, password: password);
       return Right(response);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
@@ -35,7 +35,7 @@ class AuthRepoImpl implements AuthenticationRepo {
           email: email, password: password, name: name, phone: phone);
       return Right(registerEntity);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 }

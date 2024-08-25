@@ -1,7 +1,8 @@
 import 'package:shop_app/core/networks/Hive_manager/hive_boxes_names.dart';
+import 'package:shop_app/core/networks/Hive_manager/hive_helper.dart';
 
 import '../../../Features/authentication_feature/data/authentication_models/authentication_model.dart';
-import '../Hive_manager/hive_manager.dart';
+import '../../service_locator/service_locator.dart';
 
 AuthenticationModel? loginModel;
 
@@ -17,11 +18,11 @@ class HeaderModel {
   }) : authorization = _getToken();
 
   static Future<String> _getToken() async {
-    final hiveManager = HiveManager();
-    final token = await hiveManager.loadSingleItem<String>(
+    final hiveHelper = getIt.get<HiveHelper>();
+    final token = await hiveHelper.loadSingleItem<String>(
         'token', HiveBoxesNames.kSaveTokenBox);
     print('Token: $token');
-    return token ?? ''; // Handle null case
+    return token ?? '';
   }
 
   Future<Map<String, dynamic>> toMap() async {

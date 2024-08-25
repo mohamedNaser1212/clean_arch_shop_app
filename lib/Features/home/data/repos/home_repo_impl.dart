@@ -29,7 +29,7 @@ class HomeRepoImpl extends HomeRepo {
 
       return right(categoriesList);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure(message: e.toString()));
     }
   }
 
@@ -46,7 +46,7 @@ class HomeRepoImpl extends HomeRepo {
 
       return right(productsList);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure(message: e.toString()));
     }
   }
 }

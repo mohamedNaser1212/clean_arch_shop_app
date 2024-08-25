@@ -27,7 +27,7 @@ class FavouritesRepoImpl extends FavouritesRepo {
             await favouritesLocalDataSource.getFavourites();
         return right(cachedFavourites);
       } catch (_) {
-        return left(ServerFailure(e.toString()));
+        return left(ServerFailure(message: e.toString()));
       }
     }
   }
@@ -39,7 +39,7 @@ class FavouritesRepoImpl extends FavouritesRepo {
       final result = await favouritesDataSource.toggleFavourites(productId);
       return right(result);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure(message: e.toString()));
     }
   }
 }

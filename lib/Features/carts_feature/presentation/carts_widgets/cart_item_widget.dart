@@ -9,7 +9,7 @@ import '../../../home/presentation/products_widgets/products_information_widget.
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class CartItemWidget extends StatelessWidget {
-  final AddToCartEntity model;
+  final CartEntity model;
 
   const CartItemWidget({super.key, required this.model});
 

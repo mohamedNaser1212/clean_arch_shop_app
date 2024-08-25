@@ -1,6 +1,6 @@
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
-class CartResponseModel extends AddToCartEntity {
+class CartResponseModel extends CartEntity {
   const CartResponseModel({
     required super.id,
     required super.price,

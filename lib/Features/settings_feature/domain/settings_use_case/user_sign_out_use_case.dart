@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/errors_manager/failure.dart';
 import '../../../../../core/networks/api_manager/api_helper.dart';
-import '../../get_user_repo/get_user_repo.dart';
+import '../get_user_repo/get_user_repo.dart';
 
 class UserSignOutUseCase {
   final UserDataRepo getUserDataRepo;

@@ -8,7 +8,7 @@ import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
 import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
-import '../../../../core/networks/Hive_manager/hive_manager.dart';
+import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
@@ -40,6 +40,8 @@ class RegisterScreen extends StatelessWidget {
 }
 
 Future<void> _listener(BuildContext context, RegisterState state) async {
+  final hiveHelper = getIt.get<HiveHelper>();
+
   if (state is RegisterSuccessState) {
     Fluttertoast.showToast(
       msg: state.loginModel.message!,
@@ -50,13 +52,15 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       textColor: Colors.white,
       fontSize: 16.0,
     );
-    final hiveManager = HiveManager();
-    await hiveManager.saveSingleItem<String>(
-        'token', state.loginModel.token, HiveBoxesNames.kSaveTokenBox);
+
+    await hiveHelper.saveSingleItem<String>(
+      'token',
+      state.loginModel.token,
+      HiveBoxesNames.kSaveTokenBox,
+    );
+
     if (context.mounted) {
-      GetProductsCubit.get(context).getProductsData(
-        context: context,
-      );
+      GetProductsCubit.get(context).getProductsData(context: context);
       CartsCubit.get(context).getCartItems();
       FavouritesCubit.get(context).getFavorites();
       UserDataCubit.get(context).getUserData();
@@ -131,7 +135,7 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                   prefix: const Icon(Icons.key_rounded),
                   suffix: IconButton(
                     onPressed: () {
-                      //   RegisterCubit.get(context).changePasswordVisibility();
+                      // RegisterCubit.get(context).changePasswordVisibility();
                     },
                     icon: Icon(RegisterCubit.get(context).suffixPasswordIcon),
                   ),

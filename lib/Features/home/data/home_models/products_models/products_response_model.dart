@@ -28,19 +28,4 @@ class ProductResponseModel extends ProductEntity {
       images: List<String>.from(json['images']),
     );
   }
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['description'] = description;
-    map['in_favorites'] = inFavorites;
-    map['in_cart'] = inCart;
-    map['id'] = id;
-    map['name'] = name;
-    map['discount'] = discount;
-    map['price'] = price;
-    map['old_price'] = oldPrice;
-    map['image'] = image;
-    map['images'] = images;
-    return map;
-  }
 }

@@ -17,7 +17,7 @@ class ApiManager implements ApiHelper {
   }
 
   Future<Map<String, dynamic>> _getHeaders(ApiRequestModel request) async {
-    return await request.headers; // Wait for headers to resolve
+    return await request.headers;
   }
 
   @override

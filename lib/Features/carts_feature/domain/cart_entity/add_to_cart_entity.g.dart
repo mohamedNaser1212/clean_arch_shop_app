@@ -6,18 +6,18 @@ part of 'add_to_cart_entity.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class AddToCartEntityAdapter extends TypeAdapter<AddToCartEntity> {
+class AddToCartEntityAdapter extends TypeAdapter<CartEntity> {
   @override
   final int typeId = 3;
 
   @override
-  AddToCartEntity read(BinaryReader reader) {
+  CartEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
 
-    return AddToCartEntity(
+    return CartEntity(
       id: fields[0] as num,
       price: fields[1] as num,
       oldPrice: fields[2] as num,
@@ -29,7 +29,7 @@ class AddToCartEntityAdapter extends TypeAdapter<AddToCartEntity> {
   }
 
   @override
-  void write(BinaryWriter writer, AddToCartEntity obj) {
+  void write(BinaryWriter writer, CartEntity obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
