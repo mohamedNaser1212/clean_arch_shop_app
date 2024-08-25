@@ -59,7 +59,13 @@ class BuildProductDetailsInfo extends StatelessWidget {
             CustomTitle(
               title: 'Discount: $discount%',
               style: TitleStyle.style18,
-              color: ColorController.blackColor,
+              color: ColorController.redAccent,
+            ),
+          if (discount != 0)
+            CustomTitle(
+              title: 'Old Price: ${oldPrice ?? ''}',
+              style: TitleStyle.style18,
+              color: ColorController.accentColor,
             ),
           const SizedBox(height: 8),
           CustomTitle(
@@ -67,12 +73,6 @@ class BuildProductDetailsInfo extends StatelessWidget {
             style: TitleStyle.style20,
             color: ColorController.blackColor,
           ),
-          if (discount != 0)
-            CustomTitle(
-              title: 'Old Price: ${oldPrice ?? ''}',
-              style: TitleStyle.style18,
-              color: ColorController.blackColor,
-            ),
           const SizedBox(height: 16),
           if (isProduct)
             const CustomTitle(

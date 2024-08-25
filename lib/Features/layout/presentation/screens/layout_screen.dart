@@ -10,7 +10,7 @@ class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
 
   @override
-  _LayoutScreenState createState() => _LayoutScreenState();
+  State<LayoutScreen> createState() => _LayoutScreenState();
 }
 
 class _LayoutScreenState extends State<LayoutScreen> {

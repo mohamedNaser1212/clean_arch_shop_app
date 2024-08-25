@@ -58,7 +58,7 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       CartsCubit.get(context).getCartItems();
       FavouritesCubit.get(context).getFavorites();
       UserDataCubit.get(context).getUserData();
-      navigateAndFinish(context: context, screen: LayoutScreen());
+      navigateAndFinish(context: context, screen: const LayoutScreen());
     }
   } else if (state is RegisterErrorState) {
     Fluttertoast.showToast(
