@@ -9,7 +9,7 @@ class UserDataUseCase {
 
   const UserDataUseCase({required this.getUserDataRepo});
 
-  Future<Either<Failure, UserEntity>> getUserData() async {
+  Future<Either<Failure, UserEntity>> call() async {
     return await getUserDataRepo.getUserData();
   }
 }

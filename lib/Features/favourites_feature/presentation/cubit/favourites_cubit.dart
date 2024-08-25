@@ -38,8 +38,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
     favorites[productId] = !(favorites[productId] ?? false);
     emit(ChangeFavouriteSuccessState(favorites[productId] ?? false));
 
-    final result = await toggleFavouritesUseCase.toggleFavouriteCall(
-        productIds: productId);
+    final result = await toggleFavouritesUseCase.call(productIds: productId);
     result.fold(
       (failure) {
         print('Failed to add/remove favorite items: $failure');

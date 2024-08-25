@@ -32,7 +32,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     if (userModel != null) {
       emit(GetUserDataSuccess(userModel!));
     } else {
-      final result = await getUserDataUseCase.getUserData();
+      final result = await getUserDataUseCase.call();
       result.fold(
         (failure) {
           emit(GetUserDataError(failure.toString()));
@@ -63,7 +63,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
   }) async {
     emit(GetUserDataLoading());
 
-    final result = await updateUserDataUseCase.updateUserData(
+    final result = await updateUserDataUseCase.call(
       name: name,
       email: email,
       phone: phone,

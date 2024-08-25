@@ -52,7 +52,7 @@ class GetProductsCubit extends Cubit<GetProductsState> {
   Future<void> getProductsData({required BuildContext context}) async {
     emit(GetProductsLoadingState());
 
-    final result = await fetchHomeItemsUseCase.productsCall();
+    final result = await fetchHomeItemsUseCase.call();
     result.fold(
       (failure) {
         print('Failed to fetch products: $failure');

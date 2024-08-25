@@ -10,7 +10,7 @@ class ProductsUseCase {
     required this.homeRepo,
   });
 
-  Future<Either<Failure, List<ProductEntity>>> productsCall() {
+  Future<Either<Failure, List<ProductEntity>>> call() {
     return homeRepo.fetchProducts();
   }
 }

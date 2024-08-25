@@ -11,7 +11,7 @@ class CategoriesUseCase {
     required this.homeRepo,
   });
 
-  Future<Either<Failure, List<CategoriesEntity>>> categoriesCall() {
+  Future<Either<Failure, List<CategoriesEntity>>> call() {
     return homeRepo.fetchCategories();
   }
 }

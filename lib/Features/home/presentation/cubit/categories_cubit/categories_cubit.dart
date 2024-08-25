@@ -19,7 +19,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   Future<void> getCategoriesData() async {
     emit(CategoriesLoading());
 
-    final result = await fetchCategoriesUseCase.categoriesCall();
+    final result = await fetchCategoriesUseCase.call();
     result.fold(
       (failure) {
         print('Failed to fetch categories: $failure');

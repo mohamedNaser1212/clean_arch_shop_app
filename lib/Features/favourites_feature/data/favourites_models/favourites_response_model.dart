@@ -1,5 +1,4 @@
 import '../../domain/favourites_entity/favourites_entity.dart';
-//
 
 class FavouritesResponseModel extends FavouritesEntity {
   const FavouritesResponseModel({
@@ -23,6 +22,4 @@ class FavouritesResponseModel extends FavouritesEntity {
       description: json['description'],
     );
   }
-
-
 }

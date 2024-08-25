@@ -41,7 +41,7 @@ class CartsCubit extends Cubit<CartsState> {
     carts[prodId] = !(carts[prodId] ?? false);
     emit(ChangeCartSuccessState(carts[prodId] ?? false));
 
-    final result = await toggleCartUseCase.toggleCartCall(products: prodId);
+    final result = await toggleCartUseCase.call(products: prodId);
     result.fold(
       (failure) {
         print('Failed to add/remove cart items: $failure');
@@ -59,8 +59,7 @@ class CartsCubit extends Cubit<CartsState> {
     try {
       bool allRemoved = true;
       for (var prodId in prodIds) {
-        final result =
-            await removeFromCartUseCase.removeFromCartCall(products: prodId);
+        final result = await removeFromCartUseCase.call(products: prodId);
         if (result.isLeft()) {
           print('Failed to remove item with id $prodId');
           allRemoved = false;

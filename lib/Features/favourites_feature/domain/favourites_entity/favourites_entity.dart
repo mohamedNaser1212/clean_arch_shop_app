@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-import '../../../../base_products_model.dart';
+import '../../../../core/models/base_products_model.dart';
 
 part 'favourites_entity.g.dart';
 
