@@ -29,7 +29,7 @@ class HiveManager implements HiveHelper {
       _openBox<FavouritesEntity>(HiveBoxesNames.kFavouritesBox),
       _openBox<AddToCartEntity>(HiveBoxesNames.kCartBox),
       _openBox<UserEntity>(HiveBoxesNames.kUserBox),
-      _openBox<String>('userBox'),
+      _openBox<String>(HiveBoxesNames.kSaveTokenBox),
     ]);
   }
 

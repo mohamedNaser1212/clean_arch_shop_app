@@ -25,6 +25,7 @@ class SearchCubit extends Cubit<SearchState> {
       (failure) => emit(SearchErrorState(failure.toString())),
       (data) {
         searchResults = data;
+
         emit(SearchSuccessState());
       },
     );

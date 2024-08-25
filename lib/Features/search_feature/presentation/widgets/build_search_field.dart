@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../search_feature/presentation/cubit/search_cubit/search_cubit.dart';
+import '../cubit/search_cubit/search_cubit.dart';
 
 class BuildSearchField extends StatelessWidget {
   BuildSearchField({super.key});
@@ -26,6 +26,7 @@ class BuildSearchField extends StatelessWidget {
           if (_formKey.currentState?.validate() ?? false) {
             SearchCubit.get(context).search(text: value!);
           }
+          return null;
         },
         prefix: const Icon(Icons.search),
         onTap: () {},
