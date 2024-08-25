@@ -18,14 +18,14 @@ class CustomTitle extends StatelessWidget {
   final String title;
   final TitleStyle style;
   final Color? color;
-  final int? maxLines; // Change maxLines to be nullable
+  final int? maxLines;
   final TextOverflow overflow;
 
   const CustomTitle({
     required this.title,
     required this.style,
     this.color,
-    this.maxLines, // Make maxLines optional
+    this.maxLines,
     this.overflow = TextOverflow.ellipsis,
     Key? key,
   }) : super(key: key);
@@ -66,10 +66,8 @@ class CustomTitle extends StatelessWidget {
     return Text(
       title,
       style: textStyle,
-      maxLines: maxLines, // Use maxLines, which can be null
-      overflow: maxLines == null
-          ? TextOverflow.visible
-          : overflow, // Only apply overflow if maxLines is set
+      maxLines: maxLines,
+      overflow: maxLines == null ? TextOverflow.visible : overflow,
     );
   }
 }
