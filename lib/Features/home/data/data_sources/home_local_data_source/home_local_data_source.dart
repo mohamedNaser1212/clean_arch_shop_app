@@ -12,7 +12,7 @@ abstract class HomeLocalDataSource {
 }
 
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
-  final HiveHelper hiveHelper;
+  final LocalStorageHelper hiveHelper;
 
   const HomeLocalDataSourceImpl({
     required this.hiveHelper,

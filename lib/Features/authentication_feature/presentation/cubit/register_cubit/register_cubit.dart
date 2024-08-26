@@ -17,7 +17,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   bool obsecurePassword = true;
   IconData suffixPasswordIcon = Icons.visibility_rounded;
-  HiveHelper? hiveService;
+  LocalStorageHelper? hiveService;
   Future<void> userRegister({
     required String email,
     required String password,

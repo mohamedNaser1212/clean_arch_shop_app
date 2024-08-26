@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
 import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/api_manager/api_helper.dart';
@@ -14,10 +15,12 @@ import '../user_data_data_source/user_remote_remote_data_source.dart';
 class UserDataRepoImpl implements UserDataRepo {
   final UserRemoteDataSource getUserDataDataSource;
   final UserLocalDataSource userLocalDataSource;
+  final UserInfoLocalDataSource userInfoLocalDataSource;
 
   const UserDataRepoImpl({
     required this.getUserDataDataSource,
     required this.userLocalDataSource,
+    required this.userInfoLocalDataSource,
   });
 
   @override
@@ -30,6 +33,8 @@ class UserDataRepoImpl implements UserDataRepo {
       } else {
         final userData = await getUserDataDataSource.getUserData();
         await userLocalDataSource.saveUserData(user: userData);
+        //     await userInfoLocalDataSource.saveToken(token: userData.token);
+        //   await userInfoLocalDataSource.getUserToken();
         return Right(userData);
       }
     } catch (error) {
@@ -47,6 +52,7 @@ class UserDataRepoImpl implements UserDataRepo {
       final userData = await getUserDataDataSource.updateUserData(
           name: name, email: email, phone: phone);
       await userLocalDataSource.saveUserData(user: userData);
+      await userInfoLocalDataSource.saveToken(token: userData.token);
       return Right(userData);
     } catch (error) {
       return Left(ServerFailure(message: error.toString()));
@@ -63,6 +69,7 @@ class UserDataRepoImpl implements UserDataRepo {
         context: context,
         apiService: apiService,
       );
+      await userInfoLocalDataSource.clearUserData();
       await userLocalDataSource.clearUserData();
 
       if (context.mounted) {

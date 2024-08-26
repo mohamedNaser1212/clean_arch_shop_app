@@ -18,17 +18,18 @@ class FavouritesRepoImpl extends FavouritesRepo {
   @override
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites() async {
     try {
-      final favourites = await favouritesDataSource.getFavourites();
-      await favouritesLocalDataSource.saveFavourites(favourites);
-      return right(favourites);
-    } catch (e) {
-      try {
-        final cachedFavourites =
-            await favouritesLocalDataSource.getFavourites();
-        return right(cachedFavourites);
-      } catch (_) {
-        return left(ServerFailure(message: e.toString()));
+      final cachedFavouriteData =
+          await favouritesLocalDataSource.getFavourites();
+
+      if (cachedFavouriteData.isNotEmpty) {
+        return right(cachedFavouriteData);
+      } else {
+        final favourites = await favouritesDataSource.getFavourites();
+        await favouritesLocalDataSource.saveFavourites(favourites);
+        return right(favourites);
       }
+    } catch (e) {
+      return left(ServerFailure(message: e.toString()));
     }
   }
 
@@ -37,8 +38,12 @@ class FavouritesRepoImpl extends FavouritesRepo {
       {required num productId}) async {
     try {
       final result = await favouritesDataSource.toggleFavourites(productId);
+      await favouritesLocalDataSource.removeFavourite(productId);
+      await getFavourites();
+
       return right(result);
     } catch (e) {
+      print('Error in toggleFavourite: $e');
       return left(ServerFailure(message: e.toString()));
     }
   }

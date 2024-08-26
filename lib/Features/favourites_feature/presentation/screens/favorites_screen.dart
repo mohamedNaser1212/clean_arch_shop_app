@@ -31,16 +31,16 @@ class FavoritesScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return _FavoritesScreenContent(state: state);
+        return FavoritesScreenContent(state: state);
       },
     );
   }
 }
 
-class _FavoritesScreenContent extends StatelessWidget {
+class FavoritesScreenContent extends StatelessWidget {
   final FavouritesState state;
 
-  const _FavoritesScreenContent({required this.state});
+  const FavoritesScreenContent({required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _FavoritesScreenContent extends StatelessWidget {
     }
 
     return ConditionalBuilder(
-      condition: state is! ChangeFavoritesLoadingState,
+      condition: true,
       builder: (context) => ListView.separated(
         itemBuilder: (context, index) =>
             FavoriteItem(model: favouritesModel[index]),

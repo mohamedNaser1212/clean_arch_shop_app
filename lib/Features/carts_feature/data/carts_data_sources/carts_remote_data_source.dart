@@ -24,7 +24,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     final response = await apiHelper.get(request: request);
 
     List<CartResponseModel> cartProducts = [];
-    removeCartItems(response, cartProducts);
+    cartItems(response, cartProducts);
     print('done');
     print(cartProducts.length);
     return cartProducts;
@@ -58,13 +58,13 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     final response = await apiHelper.post(request: request);
 
     List<CartResponseModel> cartProducts = [];
-    removeCartItems(response, cartProducts);
+    cartItems(response, cartProducts);
     cartProducts.removeWhere((element) => element.id == productId);
 
     return cartProducts;
   }
 
-  void removeCartItems(
+  void cartItems(
       Map<String, dynamic> response, List<CartResponseModel> cartProducts) {
     if (response['data']['cart_items'] != null) {
       for (var item in response['data']['cart_items']) {

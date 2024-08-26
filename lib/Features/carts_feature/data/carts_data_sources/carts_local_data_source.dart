@@ -10,13 +10,15 @@ abstract class CartLocalDataSource {
 }
 
 class CartLocalDataSourceImpl implements CartLocalDataSource {
-  final HiveHelper hiveHelper;
+  final LocalStorageHelper hiveHelper;
 
   const CartLocalDataSourceImpl({required this.hiveHelper});
 
   @override
   Future<List<CartEntity>> getCart() async {
-    return await hiveHelper.loadData<CartEntity>(HiveBoxesNames.kCartBox);
+    final cartItems =
+        await hiveHelper.loadData<CartEntity>(HiveBoxesNames.kCartBox);
+    return cartItems.cast<CartEntity>().toList();
   }
 
   @override

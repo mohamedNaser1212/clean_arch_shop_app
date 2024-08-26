@@ -1,35 +1,29 @@
-import 'package:shop_app/core/networks/Hive_manager/hive_boxes_names.dart';
-import 'package:shop_app/core/networks/Hive_manager/hive_helper.dart';
+import 'package:shop_app/core/service_locator/service_locator.dart';
+import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
 import '../../../Features/authentication_feature/data/authentication_models/authentication_model.dart';
-import '../../service_locator/service_locator.dart';
 
 AuthenticationModel? loginModel;
+UserInfoLocalDataSource userInfoLocalDataSource =
+    getIt.get<UserInfoLocalDataSource>();
 
 class HeaderModel {
   final String contentType;
-  final Future<String> authorization;
+  final Future<String?> authorization;
   final String lang;
 
   HeaderModel({
     this.contentType = 'application/json',
     String? authorization,
     this.lang = 'en',
-  }) : authorization = _getToken();
-
-  static Future<String> _getToken() async {
-    final hiveHelper = getIt.get<HiveHelper>();
-    final token = await hiveHelper.loadSingleItem<String>(
-        'token', HiveBoxesNames.kSaveTokenBox);
-    print('Token: $token');
-    return token ?? '';
-  }
+  }) : authorization = userInfoLocalDataSource?.getUserToken() ??
+            Future.value(''); // Fallback to empty Future
 
   Future<Map<String, dynamic>> toMap() async {
     final auth = await authorization;
     return {
       'Content-Type': contentType,
-      'Authorization': auth,
+      'Authorization': auth ?? '',
       'lang': lang,
     };
   }

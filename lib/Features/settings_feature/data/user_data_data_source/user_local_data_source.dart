@@ -10,7 +10,7 @@ abstract class UserLocalDataSource {
 }
 
 class UserLocalDataSourceImpl implements UserLocalDataSource {
-  final HiveHelper hiveHelper;
+  final LocalStorageHelper hiveHelper;
 
   const UserLocalDataSourceImpl({required this.hiveHelper});
 

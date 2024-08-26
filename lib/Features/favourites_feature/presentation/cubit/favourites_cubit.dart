@@ -21,6 +21,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
     emit(ShopGetFavoritesLoadingState());
 
     final result = await fetchFavouritesUseCase.call();
+
     result.fold(
       (failure) {
         print('Failed to fetch favorites: $failure');
@@ -28,8 +29,8 @@ class FavouritesCubit extends Cubit<FavouritesState> {
       },
       (favourites) {
         getFavouritesModel = favourites;
-        favorites = {for (var p in favourites) p.id!: true};
 
+        favorites = {for (var p in favourites) p.id!: true};
         emit(ShopGetFavoritesSuccessState(getFavouritesModel));
       },
     );

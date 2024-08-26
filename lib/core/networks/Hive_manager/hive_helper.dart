@@ -1,4 +1,4 @@
-abstract class HiveHelper {
+abstract class LocalStorageHelper {
   Future<void> initialize();
   Future<void> saveData<T>(List<T> data, String boxName);
   Future<List<T>> loadData<T>(String boxName);

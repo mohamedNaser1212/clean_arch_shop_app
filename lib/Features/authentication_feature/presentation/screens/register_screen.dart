@@ -7,7 +7,6 @@ import 'package:shop_app/Features/authentication_feature/domain/authentication_u
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../../core/networks/Hive_manager/hive_boxes_names.dart';
 import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/text_styles_manager.dart';
@@ -40,7 +39,7 @@ class RegisterScreen extends StatelessWidget {
 }
 
 Future<void> _listener(BuildContext context, RegisterState state) async {
-  final hiveHelper = getIt.get<HiveHelper>();
+  final hiveHelper = getIt.get<LocalStorageHelper>();
 
   if (state is RegisterSuccessState) {
     Fluttertoast.showToast(
@@ -53,11 +52,11 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       fontSize: 16.0,
     );
 
-    await hiveHelper.saveSingleItem<String>(
-      'token',
-      state.loginModel.token,
-      HiveBoxesNames.kSaveTokenBox,
-    );
+    // await hiveHelper.saveSingleItem<String>(
+    //   'token',
+    //   state.loginModel.token,
+    //   HiveBoxesNames.kSaveTokenBox,
+    // );
 
     if (context.mounted) {
       GetProductsCubit.get(context).getProductsData(context: context);

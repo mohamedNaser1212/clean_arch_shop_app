@@ -32,7 +32,7 @@ class CartsCubit extends Cubit<CartsState> {
       },
       (cartItems) {
         cartModel = cartItems;
-        carts = {for (var p in cartItems) p.id!: true};
+        carts = {for (var p in cartItems) p.id: true};
         emit(GetCartItemsSuccessState());
       },
     );

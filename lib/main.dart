@@ -13,12 +13,10 @@ import 'Features/authentication_feature/presentation/cubit/register_cubit/regist
 import 'Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import 'Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import 'core/networks/Hive_manager/hive_manager.dart';
-import 'core/networks/api_manager/api_helper.dart';
 import 'core/payment_gate_way_manager/stripe_payment/stripe_keys.dart';
 import 'core/service_locator/service_locator.dart';
+import 'core/user_info/cubit/user_info_cubit.dart';
 import 'core/utils/bloc_observer/bloc_observer.dart';
-import 'core/utils/funactions/determine_user_start_page.dart';
-import 'core/utils/screens/error_screen.dart';
 import 'core/utils/widgets/constants.dart';
 
 void main() async {
@@ -58,19 +56,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => getIt<FavouritesCubit>()..getFavorites()),
         BlocProvider(create: (context) => getIt<CartsCubit>()..getCartItems()),
+        BlocProvider(create: (context) => getIt<UserInfoCubit>()..getToken()),
       ],
       child: MaterialApp(
-        home: FutureBuilder<Widget>(
-          future: determineStartPage(context, getIt<ApiHelper>()),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const SplashScreen();
-            } else if (snapshot.hasError) {
-              return ErrorScreen(error: snapshot.error.toString());
-            }
-            return snapshot.data!;
-          },
-        ),
+        home: const SplashScreen(),
         theme: lightTheme,
       ),
     );
