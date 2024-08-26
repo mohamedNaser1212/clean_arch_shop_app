@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/errors_manager/failure.dart';
 import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
-import 'package:shop_app/core/networks/api_manager/api_helper.dart';
 
 import '../../../../Features/authentication_feature/presentation/screens/login_screen.dart';
 import '../../../../Features/layout/presentation/screens/layout_screen.dart';
@@ -50,7 +49,6 @@ class UserInfoRepoImpl implements UserInfoRepo {
   @override
   Future<Either<Failure, bool>> checkUserStatus({
     required BuildContext context,
-    required ApiHelper apiService,
   }) async {
     try {
       final token = await localDataSource.getUserToken();

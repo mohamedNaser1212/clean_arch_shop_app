@@ -16,6 +16,7 @@ import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../layout/presentation/screens/layout_screen.dart';
+import '../../../settings_feature/domain/settings_use_case/user_data_use_case.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';
@@ -34,6 +35,7 @@ class LoginScreen extends StatelessWidget {
         loginUseCase: LoginUseCase(
           authenticationRepo: getIt.get<AuthenticationRepo>(),
         ),
+        userDataUseCase: getIt.get<UserDataUseCase>(),
       ),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: _loginListener,
@@ -50,7 +52,7 @@ class LoginScreen extends StatelessWidget {
   Future<void> _loginListener(BuildContext context, LoginState state) async {
     if (state is AppLoginSuccessState) {
       Fluttertoast.showToast(
-        msg: state.loginMode.message!,
+        msg: 'Login Success',
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 5,
@@ -154,7 +156,7 @@ class LoginScreen extends StatelessWidget {
       label: 'Password',
       onSubmit: (value) {
         if (formKey.currentState!.validate()) {
-          LoginCubit.get(context).userLogin(
+          LoginCubit.get(context).login(
             email: emailController.text,
             password: passwordController.text,
           );
@@ -172,7 +174,7 @@ class LoginScreen extends StatelessWidget {
       builder: (context) => ReusableElevatedButton(
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            LoginCubit.get(context).userLogin(
+            LoginCubit.get(context).login(
               email: emailController.text,
               password: passwordController.text,
             );
@@ -200,7 +202,7 @@ class LoginScreen extends StatelessWidget {
           onPressed: () {
             navigateTo(
               context: context,
-              screen: RegisterScreen(),
+              screen: const RegisterScreen(),
             );
           },
           child: const CustomTitle(

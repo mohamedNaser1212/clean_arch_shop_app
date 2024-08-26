@@ -1,31 +1,45 @@
+// LoginCubit.dart (Example)
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/cubit/login_cubit/login_state.dart';
+import 'package:shop_app/Features/settings_feature/domain/settings_use_case/user_data_use_case.dart';
 
-import 'login_state.dart';
+import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 
 class LoginCubit extends Cubit<LoginState> {
+  final LoginUseCase loginUseCase;
+  final UserDataUseCase userDataUseCase;
+
   LoginCubit({
     required this.loginUseCase,
+    required this.userDataUseCase,
   }) : super(LoginState());
 
   static LoginCubit get(context) => BlocProvider.of(context);
-  final LoginUseCase loginUseCase;
+  UserEntity? userModel;
 
-  Future<void> userLogin({
+  Future<void> login({
     required String email,
     required String password,
   }) async {
     emit(AppLoginLoadingState());
 
-    var result = await loginUseCase.call(email: email, password: password);
+    final result = await loginUseCase.call(email: email, password: password);
     result.fold(
       (failure) {
         emit(AppLoginErrorState(failure.message));
-        print(failure.message);
       },
-      (loginModel) async {
-        print('Login Success');
-        emit(AppLoginSuccessState(loginModel));
+      (success) async {
+        final userDataResult = await userDataUseCase.call();
+        userDataResult.fold(
+          (failure) {
+            emit(AppLoginErrorState(failure.message));
+          },
+          (userData) {
+            userModel = userData;
+            emit(AppLoginSuccessState(userData));
+          },
+        );
       },
     );
   }

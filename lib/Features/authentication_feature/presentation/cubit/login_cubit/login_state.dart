@@ -1,11 +1,11 @@
-import 'package:shop_app/Features/authentication_feature/data/authentication_models/authentication_model.dart';
+import 'package:shop_app/Features/settings_feature/domain/user_entity/user_entity.dart';
 
 class LoginState {}
 
 class AppLoginLoadingState extends LoginState {}
 
 class AppLoginSuccessState extends LoginState {
-  final AuthenticationModel loginMode;
+  final UserEntity loginMode;
   AppLoginSuccessState(this.loginMode);
 }
 

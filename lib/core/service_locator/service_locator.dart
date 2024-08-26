@@ -144,6 +144,7 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<UserLocalDataSource>(
     UserLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
   );
+
   getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
       getUserDataDataSource: getIt.get<UserRemoteDataSource>(),
@@ -213,7 +214,11 @@ void setUpServiceLocator() async {
 
   // Cubits
   getIt.registerFactory(
-      () => LoginCubit(loginUseCase: getIt.get<LoginUseCase>()));
+    () => LoginCubit(
+      loginUseCase: getIt.get<LoginUseCase>(),
+      userDataUseCase: getIt.get<UserDataUseCase>(),
+    ),
+  );
   getIt.registerFactory(() => RegisterCubit(getIt.get<RegisterUseCase>()));
   getIt.registerFactory(() => UserDataCubit(
         getUserDataUseCase: getIt.get<UserDataUseCase>(),

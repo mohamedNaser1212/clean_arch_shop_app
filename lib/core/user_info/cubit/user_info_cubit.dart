@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/check_user_status_use_case.dart';
 
-import '../../networks/api_manager/api_helper.dart';
 import '../domain/use_cases/get_token_use_case.dart';
 import '../domain/use_cases/save_token_use_case.dart';
 
@@ -54,13 +53,11 @@ class UserInfoCubit extends Cubit<UserInfoState> {
   }
 
   Future<bool> checkUserStatus({
-    required ApiHelper apiService,
     required BuildContext context,
   }) async {
     emit(CheckUserStatusLoadingState());
 
-    var result = await checkUserStatusUseCase.call(
-        apiService: apiService, context: context);
+    var result = await checkUserStatusUseCase.call(context: context);
     return result.fold(
       (failure) {
         emit(CheckUserStatusErrorState(message: failure.message));
