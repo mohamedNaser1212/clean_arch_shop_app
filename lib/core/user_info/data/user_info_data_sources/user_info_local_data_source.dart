@@ -25,7 +25,7 @@ class UserInfoLocalDataSourceImpl implements UserInfoLocalDataSource {
       final token = await hiveHelper.loadSingleItem<String>(
           'token', HiveBoxesNames.kSaveTokenBox);
       print('Token retrieved: $token');
-      return token ?? '';
+      return token; // Return null if token is not found
     } catch (e) {
       print('Error retrieving token: $e');
       return null;

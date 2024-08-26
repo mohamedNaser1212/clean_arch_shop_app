@@ -21,7 +21,6 @@ class FavouritesCubit extends Cubit<FavouritesState> {
     emit(ShopGetFavoritesLoadingState());
 
     final result = await fetchFavouritesUseCase.call();
-
     result.fold(
       (failure) {
         print('Failed to fetch favorites: $failure');
@@ -29,23 +28,27 @@ class FavouritesCubit extends Cubit<FavouritesState> {
       },
       (favourites) {
         getFavouritesModel = favourites;
-
         favorites = {for (var p in favourites) p.id!: true};
+
         emit(ShopGetFavoritesSuccessState(getFavouritesModel));
       },
     );
   }
 
   Future<void> changeFavourite(num productId) async {
-    emit(ChangeFavoritesLoadingState());
-    favorites[productId] = !(favorites[productId] ?? false);
-    emit(ChangeFavouriteSuccessState(favorites[productId] ?? false));
+    final currentFavoriteStatus = favorites[productId] ?? false;
+
+    // Optimistic UI update
+    favorites[productId] = !currentFavoriteStatus;
+    emit(ChangeFavouriteSuccessState(favorites[productId]!));
 
     final result = await toggleFavouritesUseCase.call(productIds: productId);
+
     result.fold(
       (failure) {
-        print('Failed to add/remove favorite items: $failure');
-        emit(ToggleFavoriteErrorState(failure.toString()));
+        favorites[productId] = currentFavoriteStatus;
+        emit(ChangeFavouriteSuccessState(favorites[productId]!));
+        emit(ToggleFavoriteErrorState(failure.message));
       },
       (isFavourite) async {
         await getFavorites();

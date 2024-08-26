@@ -22,7 +22,9 @@ class FavouritesRepoImpl extends FavouritesRepo {
           await favouritesLocalDataSource.getFavourites();
 
       if (cachedFavouriteData.isNotEmpty) {
-        return right(cachedFavouriteData);
+        final nonNullableCachedFavourites =
+            cachedFavouriteData.whereType<FavouritesEntity>().toList();
+        return right(nonNullableCachedFavourites);
       } else {
         final favourites = await favouritesDataSource.getFavourites();
         await favouritesLocalDataSource.saveFavourites(favourites);
@@ -38,8 +40,11 @@ class FavouritesRepoImpl extends FavouritesRepo {
       {required num productId}) async {
     try {
       final result = await favouritesDataSource.toggleFavourites(productId);
-      await favouritesLocalDataSource.removeFavourite(productId);
-      await getFavourites();
+
+      if (result) {
+        final updatedFavourites = await favouritesDataSource.getFavourites();
+        await favouritesLocalDataSource.saveFavourites(updatedFavourites);
+      }
 
       return right(result);
     } catch (e) {

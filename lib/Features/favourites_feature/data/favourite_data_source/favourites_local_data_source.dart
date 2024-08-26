@@ -20,7 +20,7 @@ class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
   Future<List<FavouritesEntity>> getFavourites() async {
     final favourites = await hiveHelper
         .loadData<FavouritesEntity>(HiveBoxesNames.kFavouritesBox);
-    return favourites.cast<FavouritesEntity>().toList();
+    return favourites;
   }
 
   @override

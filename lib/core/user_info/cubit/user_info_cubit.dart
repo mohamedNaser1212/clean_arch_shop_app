@@ -65,12 +65,17 @@ class UserInfoCubit extends Cubit<UserInfoState> {
       (failure) {
         emit(CheckUserStatusErrorState(message: failure.message));
         print(failure.message);
+        //  navigateAndFinish(context: context, screen: LoginScreen());
         return false;
       },
-      (token) async {
-        print('Token: $token');
-        emit(CheckUserStatusSuccessState(token: token));
-        return true;
+      (isLoggedIn) {
+        // if (isLoggedIn) {
+        //   navigateAndFinish(context: context, screen: const LayoutScreen());
+        // } else {
+        //   navigateAndFinish(context: context, screen: LoginScreen());
+        // }
+        emit(CheckUserStatusSuccessState(token: isLoggedIn));
+        return isLoggedIn;
       },
     );
   }

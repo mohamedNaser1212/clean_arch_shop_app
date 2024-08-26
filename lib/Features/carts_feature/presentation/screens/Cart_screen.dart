@@ -54,8 +54,8 @@ class _CartScreenContent extends StatelessWidget {
     }
 
     return ConditionalBuilder(
-      condition: state is! GetCartItemsLoadingState &&
-          state is! ChangeCartLoadingState,
+      condition: state is! ChangeCartLoadingState &&
+          state is! GetCartItemsLoadingState,
       builder: (context) => Column(
         children: [
           Expanded(

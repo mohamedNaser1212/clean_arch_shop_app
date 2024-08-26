@@ -28,7 +28,7 @@ class CartsCubit extends Cubit<CartsState> {
     result.fold(
       (failure) {
         print('Failed to fetch cart items: $failure');
-        emit(GetCartItemsErrorState(failure.message));
+        emit(GetCartItemsErrorState(error: failure.message));
       },
       (cartItems) {
         cartModel = cartItems;
@@ -41,58 +41,40 @@ class CartsCubit extends Cubit<CartsState> {
   Future<void> changeCarts(num prodId) async {
     emit(ChangeCartLoadingState());
     carts[prodId] = !(carts[prodId] ?? false);
-    emit(ChangeCartSuccessState(carts[prodId] ?? false));
+    emit(ChangeCartSuccessState(model: carts[prodId] ?? false));
 
     final result = await toggleCartUseCase.call(products: prodId);
     result.fold(
       (failure) {
         print('Failed to add/remove cart items: $failure');
-        emit(AddCartItemsErrorState(failure.toString()));
+        emit(AddCartItemsErrorState(error: failure.toString()));
       },
       (isAdded) async {
         await getCartItems();
-        emit(ChangeCartSuccessState(carts[prodId] ?? false));
+        emit(ChangeCartSuccessState(
+          model: carts[prodId] ?? false,
+        ));
       },
     );
   }
 
   Future<bool> changeCartsList(List<num> prodIds) async {
     emit(ChangeCartLoadingState());
-    try {
-      bool allRemoved = true;
-      for (var prodId in prodIds) {
-        final result = await removeCartUseCase.call(products: prodId);
-        if (result.isLeft()) {
-          print('Failed to remove item with id $prodId');
-          allRemoved = false;
-        } else {
-          final removeResult = result;
-          removeResult.fold(
-            (failure) {
-              allRemoved = false;
-              emit(AddCartItemsErrorState(failure.message));
-            },
-            (cartItems) {
-              carts.remove(prodId);
-              cartModel.removeWhere((item) => prodIds.contains(item.id));
-            },
-          );
-        }
-      }
 
-      if (allRemoved) {
-        emit(ChangeCartSuccessState(allRemoved));
-      } else {
-        emit(AddCartItemsErrorState(
-            "Failed to remove some items from the cart"));
-      }
-
-      return allRemoved;
-    } catch (e) {
-      print('Error in changeCartsList: $e');
-      emit(AddCartItemsErrorState(e.toString()));
-      return false;
+    for (var prodId in prodIds) {
+      final result = await removeCartUseCase.call(products: prodId);
+      result.fold(
+        (failure) {
+          print('Failed to remove cart items: $failure');
+          emit(AddCartItemsErrorState(error: failure.toString()));
+        },
+        (cartItem) async {
+          await getCartItems();
+          emit(AddToCartSuccessState(cartItem: cartItem));
+        },
+      );
     }
+    return true;
   }
 
   num get cartSubtotal {

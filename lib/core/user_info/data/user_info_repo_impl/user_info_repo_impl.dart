@@ -53,37 +53,18 @@ class UserInfoRepoImpl implements UserInfoRepo {
     required ApiHelper apiService,
   }) async {
     try {
-      // final isLoggedIn = await remoteDataSource
-      //     .checkUserStatus(apiService: apiService)
-      //     .timeout(const Duration(seconds: 5), onTimeout: () {
-      //   navigateAndFinish(context: context, screen: LoginScreen());
-      //   throw TimeoutException('Connection timed out');
-      // });
-      final isLoggedIn = await localDataSource.getUserToken();
+      final token = await localDataSource.getUserToken();
 
-      // final isLoggedIn = await remoteDataSource
-      //     .checkUserStatus(
-      //   apiService: apiService,
-      // )
-      //     .timeout(const Duration(seconds: 10), onTimeout: () {
-      //   navigateAndFinish(context: context, screen: LoginScreen());
-      //   throw TimeoutException('Connection timed out');
-      // });
-
-      if (isLoggedIn != null) {
+      if (token != null) {
         navigateAndFinish(context: context, screen: const LayoutScreen());
+        return const Right(true);
       } else {
         navigateAndFinish(context: context, screen: LoginScreen());
+        return const Right(false);
       }
-      return const Right(true);
     } catch (error) {
-      if (error is TimeoutException) {
-        return const Left(
-            ServerFailure(message: 'Connection timed out, please try again'));
-      } else {
-        navigateAndFinish(context: context, screen: LoginScreen());
-        return const Left(ServerFailure(message: 'Error checking user status'));
-      }
+      navigateAndFinish(context: context, screen: LoginScreen());
+      return const Left(ServerFailure(message: 'Error checking user status'));
     }
   }
 }

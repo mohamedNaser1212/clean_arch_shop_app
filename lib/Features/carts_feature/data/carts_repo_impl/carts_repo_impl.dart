@@ -37,7 +37,10 @@ class CartsRepoImpl extends CartRepo {
     try {
       final result = await cartsDataSource.toggleCarts(productIds);
 
-      await getCart();
+      if (result) {
+        final updatedCart = await cartsDataSource.getCarts();
+        await cartLocalDataSource.saveCart(updatedCart);
+      }
 
       return right(result);
     } catch (e) {

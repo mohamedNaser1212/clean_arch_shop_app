@@ -7,7 +7,9 @@ class GetCartItemsSuccessState extends CartsState {}
 class GetCartItemsErrorState extends CartsState {
   final String error;
 
-  GetCartItemsErrorState(this.error);
+  GetCartItemsErrorState({
+    required this.error,
+  });
 }
 
 class GetCartItemsLoadingState extends CartsState {}
@@ -15,7 +17,17 @@ class GetCartItemsLoadingState extends CartsState {}
 class AddCartItemsErrorState extends CartsState {
   final String error;
 
-  AddCartItemsErrorState(this.error);
+  AddCartItemsErrorState({
+    required this.error,
+  });
+}
+
+class AddToCartSuccessState extends CartsState {
+  final List<CartEntity> cartItem;
+
+  AddToCartSuccessState({
+    required this.cartItem,
+  });
 }
 
 class AddCartItemsLoadingState extends CartsState {}
@@ -23,8 +35,12 @@ class AddCartItemsLoadingState extends CartsState {}
 class ChangeCartSuccessState extends CartsState {
   final bool model;
 
-  ChangeCartSuccessState(this.model);
+  ChangeCartSuccessState({
+    required this.model,
+  });
 }
+
+class CartEmptyState extends CartsState {}
 
 class ChangeCartLoadingState extends CartsState {}
 
@@ -33,3 +49,5 @@ class ChangeCartErrorState extends CartsState {
 
   ChangeCartErrorState([this.error]);
 }
+
+class CheckoutLoadingState extends CartsState {}
