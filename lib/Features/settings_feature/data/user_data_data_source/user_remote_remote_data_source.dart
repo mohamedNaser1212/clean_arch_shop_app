@@ -8,7 +8,7 @@ import '../../../../core/networks/api_manager/end_points.dart';
 
 abstract class UserRemoteDataSource {
   const UserRemoteDataSource();
-  Future<AuthenticationModel> getUserData();
+
   Future<AuthenticationModel> updateUserData({
     required String name,
     required String email,
@@ -24,18 +24,6 @@ class UserDataSourceImpl implements UserRemoteDataSource {
   const UserDataSourceImpl({
     required this.apiHelper,
   });
-
-  @override
-  Future<AuthenticationModel> getUserData() async {
-    ApiRequestModel request = ApiRequestModel(
-      endpoint: EndPoints.profileEndPoint,
-      headerModel: HeaderModel(),
-    );
-    final response = await apiHelper.get(request: request);
-
-    final loginModel = AuthenticationModel.fromJson(response);
-    return loginModel;
-  }
 
   @override
   Future<AuthenticationModel> updateUserData({

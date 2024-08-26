@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 
-import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
-import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../../core/managers/reusable_widgets_manager/toast_widget.dart';
 import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/toast_widget.dart';
 import '../cubit/user_info_cubit/user_data_cubit.dart';
 
 class SettingsForm extends StatelessWidget {

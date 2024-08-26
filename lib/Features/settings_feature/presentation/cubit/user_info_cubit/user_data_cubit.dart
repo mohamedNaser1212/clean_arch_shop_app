@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/core/user_info/domain/use_cases/get_token_use_case.dart';
 
 import '../../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
 import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../../domain/settings_use_case/update_user_data_use_case.dart';
-import '../../../domain/settings_use_case/user_data_use_case.dart';
 import '../../../domain/settings_use_case/user_sign_out_use_case.dart';
 
 part 'user_data_state.dart';
 
 class UserDataCubit extends Cubit<GetUserDataState> {
-  final UserDataUseCase getUserDataUseCase;
+  final GetInfoUserUseCase getInfoUserDataUseCase;
   final UpdateUserDataUseCase updateUserDataUseCase;
   final UserSignOutUseCase userSignOutUseCase;
 
   UserDataCubit({
     required this.updateUserDataUseCase,
-    required this.getUserDataUseCase,
+    required this.getInfoUserDataUseCase,
     required this.userSignOutUseCase,
   }) : super(GetUserDataState());
 
@@ -32,7 +32,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     if (userModel != null) {
       emit(GetUserDataSuccess(userModel!));
     } else {
-      final result = await getUserDataUseCase.call();
+      final result = await getInfoUserDataUseCase.call();
       result.fold(
         (failure) {
           emit(GetUserDataError(failure.toString()));

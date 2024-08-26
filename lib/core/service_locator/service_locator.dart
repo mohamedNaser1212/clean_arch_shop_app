@@ -27,7 +27,6 @@ import 'package:shop_app/Features/search_feature/domain/search_repo/search_repo.
 import 'package:shop_app/Features/search_feature/domain/search_use_case/fetch_search_use_case.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
 import 'package:shop_app/Features/settings_feature/domain/settings_use_case/update_user_data_use_case.dart';
-import 'package:shop_app/Features/settings_feature/domain/settings_use_case/user_data_use_case.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 
 import '../../Features/authentication_feature/data/authentication_data_sources/authentication_remote_data_source.dart';
@@ -47,12 +46,9 @@ import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_helper.dart';
 import '../networks/api_manager/api_manager.dart';
-import '../user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 import '../user_info/data/user_info_repo_impl/user_info_repo_impl.dart';
-import '../user_info/domain/use_cases/check_user_status_use_case.dart';
 import '../user_info/domain/use_cases/get_token_use_case.dart';
-import '../user_info/domain/use_cases/save_token_use_case.dart';
 import '../user_info/domain/user_info_repo/user_info_repo.dart';
 import '../user_info/presentation/cubit/user_info_cubit.dart';
 
@@ -64,53 +60,28 @@ void setUpServiceLocator() async {
 
   // Register ApiService
   getIt.registerSingleton<ApiHelper>(
-    ApiManager(dio: Dio(), baseUrl: "https://student.valuxapps.com/api/"),
+    DioManager(dio: Dio(), baseUrl: "https://student.valuxapps.com/api/"),
   );
 
   // Authentication dependencies
-  getIt.registerSingleton<UserInfoLocalDataSourceImpl>(
-    UserInfoLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
+//register this UserLocalDataSource
+  getIt.registerSingleton<UserLocalDataSource>(
+    UserLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
   );
-  //register this UserInfoLocalDataSource
-  getIt.registerSingleton<UserInfoLocalDataSource>(
-    UserInfoLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
-  );
-  // Authentication dependencies
   getIt.registerSingleton<AuthenticationRepo>(
     AuthRepoImpl(
       loginDataSource:
           AuthenticationDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
-      userInfoLocalDataSourceImpl: getIt.get<UserInfoLocalDataSourceImpl>(),
+      userInfoLocalDataSourceImpl: getIt.get<UserLocalDataSource>(),
     ),
   );
 
-  // Register UserInfoRemoteDataSource
   getIt.registerSingleton<UserInfoRemoteDataSource>(
     UserInfoRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
 
-  // Register UserInfoRepo
-  getIt.registerSingleton<UserInfoRepo>(
-    UserInfoRepoImpl(
-      localDataSource: getIt.get<UserInfoLocalDataSource>(),
-      remoteDataSource: getIt.get<UserInfoRemoteDataSource>(),
-    ),
-  );
-
   // Register UseCases
-  getIt.registerFactory(() => SaveTokenUseCase(getIt.get<UserInfoRepo>()));
-  getIt.registerFactory(
-      () => GetTokenUseCase(userInfoRepo: getIt.get<UserInfoRepo>()));
 
-  getIt.registerFactory(
-      () => CheckUserStatusUseCase(userRepo: getIt.get<UserInfoRepo>()));
-
-  // Register UserInfoCubit
-  getIt.registerFactory(() => UserInfoCubit(
-        saveTokenUseCase: getIt.get<SaveTokenUseCase>(),
-        getTokenUseCase: getIt.get<GetTokenUseCase>(),
-        checkUserStatusUseCase: getIt.get<CheckUserStatusUseCase>(),
-      ));
   getIt.registerSingleton<LoginUseCase>(
     LoginUseCase(authenticationRepo: getIt.get<AuthenticationRepo>()),
   );
@@ -131,25 +102,23 @@ void setUpServiceLocator() async {
       homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
     ),
   );
+  getIt.registerLazySingleton<UserInfoRepo>(
+    () => UserInfoRepoImpl(
+      remoteDataSource: getIt.get<UserInfoRemoteDataSource>(),
+      userLocalDataSource: getIt.get<UserLocalDataSource>(),
+    ),
+  );
 
   // User Data dependencies
   getIt.registerSingleton<UserRemoteDataSource>(
-    UserDataSourceImpl(
-      apiHelper: getIt.get<ApiHelper>(),
-    ),
-  );
-  getIt.registerSingleton<UserLocalDataSourceImpl>(
-    UserLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
-  );
-  getIt.registerSingleton<UserLocalDataSource>(
-    UserLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
+    UserDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
 
   getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
-      getUserDataDataSource: getIt.get<UserRemoteDataSource>(),
+      getUserDataSource: getIt.get<UserRemoteDataSource>(),
       userLocalDataSource: getIt.get<UserLocalDataSource>(),
-      userInfoLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
+      getUserInfoDataSource: getIt.get<UserInfoRemoteDataSource>(),
     ),
   );
 
@@ -157,26 +126,18 @@ void setUpServiceLocator() async {
     CategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
   getIt.registerSingleton<UserSignOutUseCase>(
-    UserSignOutUseCase(
-      getUserDataRepo: getIt.get<UserDataRepo>(),
-    ),
+    UserSignOutUseCase(getUserDataRepo: getIt.get<UserDataRepo>()),
   );
-  getIt.registerSingleton<UserDataUseCase>(
-    UserDataUseCase(
-      getUserDataRepo: getIt.get<UserDataRepo>(),
-    ),
+  getIt.registerSingleton<GetInfoUserUseCase>(
+    GetInfoUserUseCase(userInfoRepo: getIt.get<UserInfoRepo>()),
   );
   getIt.registerSingleton<UpdateUserDataUseCase>(
-    UpdateUserDataUseCase(
-      getUserDataRepo: getIt.get<UserDataRepo>(),
-    ),
+    UpdateUserDataUseCase(getUserDataRepo: getIt.get<UserDataRepo>()),
   );
 
   // Favourites dependencies
   getIt.registerSingleton<FavouritesRemoteDataSource>(
-    FavouritesRemoteDataSourceImpl(
-      apiHelper: getIt.get<ApiHelper>(),
-    ),
+    FavouritesRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<FavouritesLocalDataSource>(
     FavouritesLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
@@ -217,12 +178,12 @@ void setUpServiceLocator() async {
   getIt.registerFactory(
     () => LoginCubit(
       loginUseCase: getIt.get<LoginUseCase>(),
-      userDataUseCase: getIt.get<UserDataUseCase>(),
+      userDataUseCase: getIt.get<GetInfoUserUseCase>(),
     ),
   );
   getIt.registerFactory(() => RegisterCubit(getIt.get<RegisterUseCase>()));
   getIt.registerFactory(() => UserDataCubit(
-        getUserDataUseCase: getIt.get<UserDataUseCase>(),
+        getInfoUserDataUseCase: getIt.get<GetInfoUserUseCase>(),
         updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
         userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
       ));
@@ -238,9 +199,11 @@ void setUpServiceLocator() async {
         removeCartUseCase: getIt.get<RemoveCartUseCase>(),
         toggleCartUseCase: getIt.get<ToggleCartUseCase>(),
       ));
-
-  getIt.registerFactory(() =>
-      GetProductsCubit(fetchHomeItemsUseCase: getIt.get<ProductsUseCase>()));
+  getIt.registerFactory(() => GetProductsCubit(
+        fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
+      ));
+  getIt.registerFactory(
+      () => UserInfoCubit(getUserUseCase: getIt.get<GetInfoUserUseCase>()));
 
   // Use Cases
   getIt.registerFactory(

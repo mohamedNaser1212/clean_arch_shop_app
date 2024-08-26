@@ -1,69 +1,36 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:shop_app/core/errors_manager/failure.dart';
-import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
 
-import '../../../../Features/authentication_feature/presentation/screens/login_screen.dart';
-import '../../../../Features/layout/presentation/screens/layout_screen.dart';
+import '../../../../Features/settings_feature/data/user_data_data_source/user_local_data_source.dart';
+import '../../../../Features/settings_feature/domain/user_entity/user_entity.dart';
 import '../../domain/user_info_repo/user_info_repo.dart';
-import '../user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info_data_sources/user_info_remote_data_source.dart';
 
 class UserInfoRepoImpl implements UserInfoRepo {
-  final UserInfoLocalDataSource localDataSource;
   final UserInfoRemoteDataSource remoteDataSource;
+  final UserLocalDataSource userLocalDataSource;
 
   UserInfoRepoImpl({
-    required this.localDataSource,
     required this.remoteDataSource,
+    required this.userLocalDataSource,
   });
 
   @override
-  Future<Either<Failure, String?>> getUserToken() async {
+  Future<Either<Failure, UserEntity>> getUser() async {
     try {
-      final token = await localDataSource.getUserToken();
-      if (token != null) {
-        return Right(token);
+      final cachedUserData = await userLocalDataSource.loadUserData();
+
+      if (cachedUserData != null) {
+        return Right(cachedUserData);
       } else {
-        final remoteToken = await remoteDataSource.getUserToken();
-        await localDataSource.saveToken(token: remoteToken);
-        return Right(remoteToken);
+        final userData = await remoteDataSource.getUser();
+        await userLocalDataSource.saveUserData(user: userData);
+        return Right(userData);
       }
     } catch (error) {
-      return const Left(ServerFailure(message: 'Error getting token'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> saveToken({required String token}) async {
-    try {
-      await localDataSource.saveToken(token: token);
-      return const Right(null);
-    } catch (error) {
-      return const Left(ServerFailure(message: 'Error saving token'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, bool>> checkUserStatus({
-    required BuildContext context,
-  }) async {
-    try {
-      final token = await localDataSource.getUserToken();
-      await Future.delayed(const Duration(seconds: 2));
-
-      if (token != null) {
-        navigateAndFinish(context: context, screen: const LayoutScreen());
-        return const Right(true);
-      } else {
-        navigateAndFinish(context: context, screen: LoginScreen());
-        return const Right(false);
-      }
-    } catch (error) {
-      navigateAndFinish(context: context, screen: LoginScreen());
-      return const Left(ServerFailure(message: 'Error checking user status'));
+      return Left(ServerFailure(message: error.toString()));
     }
   }
 }

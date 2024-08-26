@@ -15,7 +15,6 @@ import 'Features/settings_feature/presentation/cubit/user_info_cubit/user_data_c
 import 'core/networks/Hive_manager/hive_manager.dart';
 import 'core/payment_gate_way_manager/stripe_payment/stripe_keys.dart';
 import 'core/service_locator/service_locator.dart';
-import 'core/user_info/presentation/cubit/user_info_cubit.dart';
 import 'core/utils/bloc_observer/bloc_observer.dart';
 import 'core/utils/widgets/constants.dart';
 
@@ -56,7 +55,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => getIt<FavouritesCubit>()..getFavorites()),
         BlocProvider(create: (context) => getIt<CartsCubit>()..getCartItems()),
-        BlocProvider(create: (context) => getIt<UserInfoCubit>()..getToken()),
       ],
       child: MaterialApp(
         home: const SplashScreen(),

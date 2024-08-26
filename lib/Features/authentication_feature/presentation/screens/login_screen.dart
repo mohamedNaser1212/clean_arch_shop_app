@@ -7,16 +7,16 @@ import 'package:shop_app/Features/authentication_feature/presentation/screens/re
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
-import '../../../../core/managers/reusable_widgets_manager/reusable_elevated_botton.dart';
-import '../../../../core/managers/reusable_widgets_manager/reusable_text_form_field.dart';
 import '../../../../core/service_locator/service_locator.dart';
+import '../../../../core/user_info/domain/use_cases/get_token_use_case.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
 import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../layout/presentation/screens/layout_screen.dart';
-import '../../../settings_feature/domain/settings_use_case/user_data_use_case.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';
@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  final NavigationManager navigationManager = NavigationManagerImpl();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -35,7 +35,7 @@ class LoginScreen extends StatelessWidget {
         loginUseCase: LoginUseCase(
           authenticationRepo: getIt.get<AuthenticationRepo>(),
         ),
-        userDataUseCase: getIt.get<UserDataUseCase>(),
+        userDataUseCase: getIt.get<GetInfoUserUseCase>(),
       ),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: _loginListener,
@@ -67,7 +67,8 @@ class LoginScreen extends StatelessWidget {
         CartsCubit.get(context).getCartItems();
         FavouritesCubit.get(context).getFavorites();
         UserDataCubit.get(context).getUserData();
-        navigateAndFinish(context: context, screen: const LayoutScreen());
+        navigationManager.navigateAndFinish(
+            context: context, screen: const LayoutScreen());
       }
     } else if (state is AppLoginErrorState) {
       Fluttertoast.showToast(
@@ -200,7 +201,7 @@ class LoginScreen extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            navigateTo(
+            navigationManager.navigateTo(
               context: context,
               screen: const RegisterScreen(),
             );

@@ -1,7 +1,7 @@
 // UserDataRepoImpl.dart
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
+import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 
 import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/api_manager/api_helper.dart';
@@ -12,14 +12,14 @@ import '../user_data_data_source/user_local_data_source.dart';
 import '../user_data_data_source/user_remote_remote_data_source.dart';
 
 class UserDataRepoImpl implements UserDataRepo {
-  final UserRemoteDataSource getUserDataDataSource;
+  final UserInfoRemoteDataSource getUserInfoDataSource;
+  final UserRemoteDataSource getUserDataSource;
   final UserLocalDataSource userLocalDataSource;
-  final UserInfoLocalDataSource userInfoLocalDataSource;
 
   const UserDataRepoImpl({
-    required this.getUserDataDataSource,
+    required this.getUserInfoDataSource,
     required this.userLocalDataSource,
-    required this.userInfoLocalDataSource,
+    required this.getUserDataSource,
   });
 
   @override
@@ -30,7 +30,7 @@ class UserDataRepoImpl implements UserDataRepo {
       if (cachedUserData != null) {
         return Right(cachedUserData);
       } else {
-        final userData = await getUserDataDataSource.getUserData();
+        final userData = await getUserInfoDataSource.getUser();
         await userLocalDataSource.saveUserData(user: userData);
         return Right(userData);
       }
@@ -46,10 +46,9 @@ class UserDataRepoImpl implements UserDataRepo {
     required String phone,
   }) async {
     try {
-      final userData = await getUserDataDataSource.updateUserData(
+      final userData = await getUserDataSource.updateUserData(
           name: name, email: email, phone: phone);
       await userLocalDataSource.saveUserData(user: userData);
-      await userInfoLocalDataSource.saveToken(token: userData.token);
       return Right(userData);
     } catch (error) {
       return Left(ServerFailure(message: error.toString()));
@@ -62,12 +61,11 @@ class UserDataRepoImpl implements UserDataRepo {
     required ApiHelper apiService,
   }) async {
     try {
-      final result = await getUserDataDataSource.signOut(
+      final result = await getUserDataSource.signOut(
         context: context,
         apiService: apiService,
       );
       await userLocalDataSource.clearUserData();
-      await userInfoLocalDataSource.clearUserData();
 
       if (context.mounted) {
         Navigator.pushReplacement(

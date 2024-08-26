@@ -18,11 +18,12 @@ class FavoriteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavigationManager navigationManager = NavigationManagerImpl();
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
         onTap: () {
-          navigateTo(
+          navigationManager.navigateTo(
             context: context,
             screen: ProductsDetailsScreen(
               model: model,

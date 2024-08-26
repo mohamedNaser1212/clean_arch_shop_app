@@ -24,9 +24,10 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GetProductsCubit, GetProductsState>(
       builder: (context, state) {
+        final NavigationManager navigationManager = NavigationManagerImpl();
         return InkWell(
           onTap: () {
-            navigateTo(
+            navigationManager.navigateTo(
               context: context,
               screen: ProductsDetailsScreen(model: product),
             );

@@ -1,14 +1,13 @@
-// LoginCubit.dart (Example)
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/cubit/login_cubit/login_state.dart';
-import 'package:shop_app/Features/settings_feature/domain/settings_use_case/user_data_use_case.dart';
+import 'package:shop_app/core/user_info/domain/use_cases/get_token_use_case.dart';
 
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase loginUseCase;
-  final UserDataUseCase userDataUseCase;
+  final GetInfoUserUseCase userDataUseCase;
 
   LoginCubit({
     required this.loginUseCase,

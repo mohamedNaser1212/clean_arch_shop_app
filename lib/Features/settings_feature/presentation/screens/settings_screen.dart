@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/core/user_info/domain/use_cases/get_token_use_case.dart';
 
-import '../../../../core/managers/reusable_widgets_manager/toast_widget.dart';
 import '../../../../core/service_locator/service_locator.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/toast_widget.dart';
 import '../../domain/settings_use_case/update_user_data_use_case.dart';
-import '../../domain/settings_use_case/user_data_use_case.dart';
 import '../../domain/settings_use_case/user_sign_out_use_case.dart';
 import '../cubit/user_info_cubit/user_data_cubit.dart';
 import '../settings_widgets/settings_form.dart';
@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UserDataCubit(
-          getUserDataUseCase: getIt.get<UserDataUseCase>(),
+          getInfoUserDataUseCase: getIt.get<GetInfoUserUseCase>(),
           updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
           userSignOutUseCase: getIt.get<UserSignOutUseCase>())
         ..getUserData(),
