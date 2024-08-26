@@ -54,6 +54,7 @@ class UserInfoRepoImpl implements UserInfoRepo {
   }) async {
     try {
       final token = await localDataSource.getUserToken();
+      await Future.delayed(const Duration(seconds: 2));
 
       if (token != null) {
         navigateAndFinish(context: context, screen: const LayoutScreen());
