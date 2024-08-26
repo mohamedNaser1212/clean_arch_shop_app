@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/check_user_status_use_case.dart';
 
-import '../domain/use_cases/get_token_use_case.dart';
-import '../domain/use_cases/save_token_use_case.dart';
+import '../../domain/use_cases/get_token_use_case.dart';
+import '../../domain/use_cases/save_token_use_case.dart';
 
 part 'user_info_state.dart';
 
@@ -62,15 +62,9 @@ class UserInfoCubit extends Cubit<UserInfoState> {
       (failure) {
         emit(CheckUserStatusErrorState(message: failure.message));
         print(failure.message);
-        //  navigateAndFinish(context: context, screen: LoginScreen());
         return false;
       },
       (isLoggedIn) {
-        // if (isLoggedIn) {
-        //   navigateAndFinish(context: context, screen: const LayoutScreen());
-        // } else {
-        //   navigateAndFinish(context: context, screen: LoginScreen());
-        // }
         emit(CheckUserStatusSuccessState(token: isLoggedIn));
         return isLoggedIn;
       },

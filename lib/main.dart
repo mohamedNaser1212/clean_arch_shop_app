@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
-import 'package:shop_app/core/utils/screens/splash_screen.dart';
+import 'package:shop_app/core/user_info/presentation/screens/splash_screen.dart';
 
 import 'Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
 import 'Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
@@ -15,7 +15,7 @@ import 'Features/settings_feature/presentation/cubit/user_info_cubit/user_data_c
 import 'core/networks/Hive_manager/hive_manager.dart';
 import 'core/payment_gate_way_manager/stripe_payment/stripe_keys.dart';
 import 'core/service_locator/service_locator.dart';
-import 'core/user_info/cubit/user_info_cubit.dart';
+import 'core/user_info/presentation/cubit/user_info_cubit.dart';
 import 'core/utils/bloc_observer/bloc_observer.dart';
 import 'core/utils/widgets/constants.dart';
 

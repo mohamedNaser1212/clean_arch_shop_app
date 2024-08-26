@@ -26,7 +26,6 @@ import 'package:shop_app/Features/search_feature/data/search_repo_impl/search_re
 import 'package:shop_app/Features/search_feature/domain/search_repo/search_repo.dart';
 import 'package:shop_app/Features/search_feature/domain/search_use_case/fetch_search_use_case.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
-import 'package:shop_app/Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import 'package:shop_app/Features/settings_feature/domain/settings_use_case/update_user_data_use_case.dart';
 import 'package:shop_app/Features/settings_feature/domain/settings_use_case/user_data_use_case.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
@@ -41,13 +40,13 @@ import '../../Features/home/domain/use_case/home_use_case/categories_use_case.da
 import '../../Features/home/domain/use_case/home_use_case/products_Use_Case.dart';
 import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../Features/settings_feature/data/user_data_data_source/user_local_data_source.dart';
+import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../../Features/settings_feature/domain/settings_use_case/user_sign_out_use_case.dart';
 import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_helper.dart';
 import '../networks/api_manager/api_manager.dart';
-import '../user_info/cubit/user_info_cubit.dart';
 import '../user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 import '../user_info/data/user_info_repo_impl/user_info_repo_impl.dart';
@@ -55,6 +54,7 @@ import '../user_info/domain/use_cases/check_user_status_use_case.dart';
 import '../user_info/domain/use_cases/get_token_use_case.dart';
 import '../user_info/domain/use_cases/save_token_use_case.dart';
 import '../user_info/domain/user_info_repo/user_info_repo.dart';
+import '../user_info/presentation/cubit/user_info_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -148,10 +148,11 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
       getUserDataDataSource: getIt.get<UserRemoteDataSource>(),
-      userLocalDataSource: getIt.get<UserLocalDataSourceImpl>(),
-      userInfoLocalDataSource: getIt.get<UserInfoLocalDataSourceImpl>(),
+      userLocalDataSource: getIt.get<UserLocalDataSource>(),
+      userInfoLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
     ),
   );
+
   getIt.registerSingleton<CategoriesUseCase>(
     CategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
