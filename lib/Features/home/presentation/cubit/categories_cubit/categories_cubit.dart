@@ -31,4 +31,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       },
     );
   }
+
+  void clearCategoriesData() {
+    categoriesModel = null;
+    emit(ClearCategories());
+  }
 }

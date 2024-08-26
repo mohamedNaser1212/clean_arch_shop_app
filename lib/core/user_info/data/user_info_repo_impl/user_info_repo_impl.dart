@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/errors_manager/failure.dart';
 
-import '../../../../Features/settings_feature/data/user_data_data_source/user_local_data_source.dart';
 import '../../../../Features/settings_feature/domain/user_entity/user_entity.dart';
 import '../../domain/user_info_repo/user_info_repo.dart';
+import '../user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info_data_sources/user_info_remote_data_source.dart';
 
 class UserInfoRepoImpl implements UserInfoRepo {
   final UserInfoRemoteDataSource remoteDataSource;
-  final UserLocalDataSource userLocalDataSource;
+  final UserInfoLocalDataSource userLocalDataSource;
 
   UserInfoRepoImpl({
     required this.remoteDataSource,

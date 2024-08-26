@@ -5,14 +5,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
-import '../../../../core/networks/Hive_manager/hive_helper.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
-import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../layout/presentation/screens/layout_screen.dart';
 import '../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
@@ -38,12 +35,11 @@ class RegisterScreen extends StatelessWidget {
 }
 
 Future<void> _listener(BuildContext context, RegisterState state) async {
-  final hiveHelper = getIt.get<LocalStorageHelper>();
   final NavigationManager navigationManager = NavigationManagerImpl();
 
   if (state is RegisterSuccessState) {
     Fluttertoast.showToast(
-      msg: state.loginModel.message!,
+      msg: 'Register Successfully',
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 5,
@@ -59,11 +55,10 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
     // );
 
     if (context.mounted) {
-      GetProductsCubit.get(context).getProductsData(context: context);
-      CartsCubit.get(context).getCartItems();
-      FavouritesCubit.get(context).getFavorites();
+      GetProductsCubit.get(context).homeModel;
+      // CartsCubit.get(context).getCartItems();
+      // FavouritesCubit.get(context).getFavorites();
       UserDataCubit.get(context).getUserData();
-
       navigationManager.navigateAndFinish(
           context: context, screen: const LayoutScreen());
     }

@@ -5,8 +5,9 @@ import 'package:shop_app/Features/layout/presentation/screens/layout_screen.dart
 import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 
-import '../../domain/use_cases/get_token_use_case.dart';
-import '../cubit/user_info_cubit.dart';
+import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
+import '../user_info/domain/use_cases/get_user_info_use_case.dart';
+import '../user_info/presentation/cubit/user_info_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     userInfoCubit.getUserData();
+    GetProductsCubit.get(context).getProductsData(context: context);
   }
 
   @override
@@ -29,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final NavigationManager navigationManager = NavigationManagerImpl();
     return BlocProvider(
       create: (context) => UserInfoCubit(
-        getUserUseCase: getIt.get<GetInfoUserUseCase>(),
+        getUserUseCase: getIt.get<GetUserInfoUseCase>(),
       )..getUserData(),
       child: BlocConsumer<UserInfoCubit, UserInfoState>(
         listener: (context, state) {

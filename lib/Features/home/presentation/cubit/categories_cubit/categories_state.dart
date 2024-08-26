@@ -15,3 +15,5 @@ class CategoriesError extends CategoriesState {
 
   CategoriesError(this.error);
 }
+
+class ClearCategories extends CategoriesState {}

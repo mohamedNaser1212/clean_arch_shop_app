@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 import 'package:shop_app/core/networks/Hive_manager/hive_helper.dart';
 
-import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
+import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 
 part 'register_state.dart';
 
@@ -18,6 +18,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   bool obsecurePassword = true;
   IconData suffixPasswordIcon = Icons.visibility_rounded;
   LocalStorageHelper? hiveService;
+
+  UserEntity? userModel;
   Future<void> userRegister({
     required String email,
     required String password,
@@ -42,6 +44,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         );
       },
       (loginModel) async {
+        userModel = loginModel;
         emit(RegisterSuccessState(loginModel: loginModel));
       },
     );

@@ -20,7 +20,9 @@ class GetProductsCubit extends Cubit<GetProductsState> {
 
   final ProductsUseCase fetchHomeItemsUseCase;
 
-  Future<void> getProductsData({required BuildContext context}) async {
+  Future<void> getProductsData({
+    required BuildContext context,
+  }) async {
     emit(GetProductsLoadingState());
 
     final result = await fetchHomeItemsUseCase.call();
@@ -38,10 +40,16 @@ class GetProductsCubit extends Cubit<GetProductsState> {
         CartsCubit.get(context).carts = {
           for (var p in products) p.id: p.inCart ?? false
         };
+
         print(CartsCubit.get(context).carts);
         emit(GetproductsSuccessState(products));
       },
     );
+  }
+
+  void clearProductsData() {
+    homeModel = null;
+    emit(ClearProductsState());
   }
 
   /*

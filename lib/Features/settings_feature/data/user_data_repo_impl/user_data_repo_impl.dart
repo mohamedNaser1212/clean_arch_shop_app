@@ -5,33 +5,32 @@ import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_re
 
 import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/api_manager/api_helper.dart';
-import '../../../authentication_feature/presentation/screens/login_screen.dart';
+import '../../../../core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 import '../../domain/get_user_repo/get_user_repo.dart';
 import '../../domain/user_entity/user_entity.dart';
-import '../user_data_data_source/user_local_data_source.dart';
 import '../user_data_data_source/user_remote_remote_data_source.dart';
 
 class UserDataRepoImpl implements UserDataRepo {
   final UserInfoRemoteDataSource getUserInfoDataSource;
   final UserRemoteDataSource getUserDataSource;
-  final UserLocalDataSource userLocalDataSource;
+  final UserInfoLocalDataSource userInfoLocalDataSource;
 
   const UserDataRepoImpl({
     required this.getUserInfoDataSource,
-    required this.userLocalDataSource,
+    required this.userInfoLocalDataSource,
     required this.getUserDataSource,
   });
 
   @override
   Future<Either<Failure, UserEntity>> getUserData() async {
     try {
-      final cachedUserData = await userLocalDataSource.loadUserData();
+      final cachedUserData = await userInfoLocalDataSource.loadUserData();
 
       if (cachedUserData != null) {
         return Right(cachedUserData);
       } else {
         final userData = await getUserInfoDataSource.getUser();
-        await userLocalDataSource.saveUserData(user: userData);
+        await userInfoLocalDataSource.saveUserData(user: userData);
         return Right(userData);
       }
     } catch (error) {
@@ -48,7 +47,7 @@ class UserDataRepoImpl implements UserDataRepo {
     try {
       final userData = await getUserDataSource.updateUserData(
           name: name, email: email, phone: phone);
-      await userLocalDataSource.saveUserData(user: userData);
+      await userInfoLocalDataSource.saveUserData(user: userData);
       return Right(userData);
     } catch (error) {
       return Left(ServerFailure(message: error.toString()));
@@ -65,14 +64,9 @@ class UserDataRepoImpl implements UserDataRepo {
         context: context,
         apiService: apiService,
       );
-      await userLocalDataSource.clearUserData();
+      // Clear user data from local storage
+      await userInfoLocalDataSource.clearUserData();
 
-      if (context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
-        );
-      }
       return Right(result);
     } catch (error) {
       return Left(ServerFailure(message: error.toString()));

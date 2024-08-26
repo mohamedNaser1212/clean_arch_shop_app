@@ -38,7 +38,6 @@ import '../../Features/home/data/data_sources/home_local_data_source/home_local_
 import '../../Features/home/domain/use_case/home_use_case/categories_use_case.dart';
 import '../../Features/home/domain/use_case/home_use_case/products_Use_Case.dart';
 import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
-import '../../Features/settings_feature/data/user_data_data_source/user_local_data_source.dart';
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../../Features/settings_feature/domain/settings_use_case/user_sign_out_use_case.dart';
@@ -46,9 +45,10 @@ import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_helper.dart';
 import '../networks/api_manager/api_manager.dart';
+import '../user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 import '../user_info/data/user_info_repo_impl/user_info_repo_impl.dart';
-import '../user_info/domain/use_cases/get_token_use_case.dart';
+import '../user_info/domain/use_cases/get_user_info_use_case.dart';
 import '../user_info/domain/user_info_repo/user_info_repo.dart';
 import '../user_info/presentation/cubit/user_info_cubit.dart';
 
@@ -65,14 +65,14 @@ void setUpServiceLocator() async {
 
   // Authentication dependencies
 //register this UserLocalDataSource
-  getIt.registerSingleton<UserLocalDataSource>(
+  getIt.registerSingleton<UserInfoLocalDataSource>(
     UserLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
   );
   getIt.registerSingleton<AuthenticationRepo>(
     AuthRepoImpl(
       loginDataSource:
           AuthenticationDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
-      userInfoLocalDataSourceImpl: getIt.get<UserLocalDataSource>(),
+      userInfoLocalDataSourceImpl: getIt.get<UserInfoLocalDataSource>(),
     ),
   );
 
@@ -105,7 +105,7 @@ void setUpServiceLocator() async {
   getIt.registerLazySingleton<UserInfoRepo>(
     () => UserInfoRepoImpl(
       remoteDataSource: getIt.get<UserInfoRemoteDataSource>(),
-      userLocalDataSource: getIt.get<UserLocalDataSource>(),
+      userLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
     ),
   );
 
@@ -117,7 +117,7 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
       getUserDataSource: getIt.get<UserRemoteDataSource>(),
-      userLocalDataSource: getIt.get<UserLocalDataSource>(),
+      userInfoLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
       getUserInfoDataSource: getIt.get<UserInfoRemoteDataSource>(),
     ),
   );
@@ -128,8 +128,8 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<UserSignOutUseCase>(
     UserSignOutUseCase(getUserDataRepo: getIt.get<UserDataRepo>()),
   );
-  getIt.registerSingleton<GetInfoUserUseCase>(
-    GetInfoUserUseCase(userInfoRepo: getIt.get<UserInfoRepo>()),
+  getIt.registerSingleton<GetUserInfoUseCase>(
+    GetUserInfoUseCase(userInfoRepo: getIt.get<UserInfoRepo>()),
   );
   getIt.registerSingleton<UpdateUserDataUseCase>(
     UpdateUserDataUseCase(getUserDataRepo: getIt.get<UserDataRepo>()),
@@ -178,12 +178,12 @@ void setUpServiceLocator() async {
   getIt.registerFactory(
     () => LoginCubit(
       loginUseCase: getIt.get<LoginUseCase>(),
-      userDataUseCase: getIt.get<GetInfoUserUseCase>(),
+      userDataUseCase: getIt.get<GetUserInfoUseCase>(),
     ),
   );
   getIt.registerFactory(() => RegisterCubit(getIt.get<RegisterUseCase>()));
   getIt.registerFactory(() => UserDataCubit(
-        getInfoUserDataUseCase: getIt.get<GetInfoUserUseCase>(),
+        getInfoUserDataUseCase: getIt.get<GetUserInfoUseCase>(),
         updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
         userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
       ));
@@ -203,7 +203,7 @@ void setUpServiceLocator() async {
         fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
       ));
   getIt.registerFactory(
-      () => UserInfoCubit(getUserUseCase: getIt.get<GetInfoUserUseCase>()));
+      () => UserInfoCubit(getUserUseCase: getIt.get<GetUserInfoUseCase>()));
 
   // Use Cases
   getIt.registerFactory(

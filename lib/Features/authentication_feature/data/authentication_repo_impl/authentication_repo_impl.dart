@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/Features/authentication_feature/data/authentication_models/authentication_model.dart';
-import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_local_data_source.dart';
+import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
 import '../../../../core/errors_manager/failure.dart';
+import '../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../authentication_data_sources/authentication_remote_data_source.dart';
 
 class AuthRepoImpl implements AuthenticationRepo {
   final AuthenticationRemoteDataSource loginDataSource;
-  final UserLocalDataSource userInfoLocalDataSourceImpl;
+  final UserInfoLocalDataSource userInfoLocalDataSourceImpl;
 
   const AuthRepoImpl({
     required this.loginDataSource,
@@ -16,7 +16,7 @@ class AuthRepoImpl implements AuthenticationRepo {
   });
 
   @override
-  Future<Either<Failure, AuthenticationModel>> login({
+  Future<Either<Failure, UserEntity>> login({
     required String email,
     required String password,
   }) async {
@@ -32,7 +32,7 @@ class AuthRepoImpl implements AuthenticationRepo {
   }
 
   @override
-  Future<Either<Failure, AuthenticationModel>> register({
+  Future<Either<Failure, UserEntity>> register({
     required String email,
     required String password,
     required String name,

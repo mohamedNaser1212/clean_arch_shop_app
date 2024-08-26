@@ -1,61 +1,36 @@
-// import '../../../networks/Hive_manager/hive_boxes_names.dart';
-// import '../../../networks/Hive_manager/hive_helper.dart';
-//
-// abstract class UserInfoLocalDataSource {
-//   const UserInfoLocalDataSource();
-//
-//   Future<String?> getUserToken();
-//   Future<void> saveToken({
-//     required String token,
-//   });
-//
-//   Future<void> clearUserData();
-// }
-//
-// class UserInfoLocalDataSourceImpl implements UserInfoLocalDataSource {
-//   final LocalStorageHelper hiveHelper;
-//
-//   UserInfoLocalDataSourceImpl({
-//     required this.hiveHelper,
-//   });
-//
-//   @override
-//   Future<String?> getUserToken() async {
-//     try {
-//       final token = await hiveHelper.loadSingleItem<String>(
-//           'token', HiveBoxesNames.kSaveTokenBox);
-//       print('Token retrieved: $token');
-//       return token;
-//     } catch (e) {
-//       print('Error retrieving token: $e');
-//       return null;
-//     }
-//   }
-//
-//   @override
-//   Future<void> saveToken({required String token}) async {
-//     try {
-//       await hiveHelper.saveSingleItem<String>(
-//         'token',
-//         token,
-//         HiveBoxesNames.kSaveTokenBox,
-//       );
-//       print('Token saved: $token');
-//     } catch (e) {
-//       print('Error saving token: $e');
-//     }
-//   }
-//
-//   @override
-//   Future<void> clearUserData() async {
-//     try {
-//       hiveHelper.clearSingleItem<String>(
-//         'token',
-//         HiveBoxesNames.kSaveTokenBox,
-//       );
-//       print('Token cleared');
-//     } catch (e) {
-//       print('Error clearing token: $e');
-//     }
-//   }
-// }
+import '../../../../Features/settings_feature/domain/user_entity/user_entity.dart';
+import '../../../networks/Hive_manager/hive_boxes_names.dart';
+import '../../../networks/Hive_manager/hive_helper.dart';
+
+abstract class UserInfoLocalDataSource {
+  const UserInfoLocalDataSource();
+  Future<void> saveUserData({required UserEntity user});
+  Future<UserEntity?> loadUserData();
+  Future<void> clearUserData();
+}
+
+class UserLocalDataSourceImpl implements UserInfoLocalDataSource {
+  final LocalStorageHelper hiveHelper;
+
+  const UserLocalDataSourceImpl({required this.hiveHelper});
+
+  @override
+  Future<void> saveUserData({required UserEntity user}) async {
+    await hiveHelper.saveSingleItem<UserEntity>(
+        HiveBoxesNames.kUserBox, user, HiveBoxesNames.kUserBox);
+    print('User data saved to Hive');
+  }
+
+  @override
+  Future<UserEntity?> loadUserData() async {
+    return await hiveHelper.loadSingleItem<UserEntity>(
+        HiveBoxesNames.kUserBox, HiveBoxesNames.kUserBox);
+  }
+
+  @override
+  Future<void> clearUserData() async {
+    await hiveHelper.clearSingleItem<UserEntity>(
+        HiveBoxesNames.kUserBox, HiveBoxesNames.kUserBox);
+    print('User data cleared from Hive');
+  }
+}

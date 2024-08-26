@@ -27,3 +27,14 @@ class UpdateUserDataError extends GetUserDataState {
 class UpdateUserDataLoading extends GetUserDataState {}
 
 class GetUserDataSignedOutSuccess extends GetUserDataState {}
+
+class UserSignOutError extends GetUserDataState {
+  final String error;
+  UserSignOutError({
+    required this.error,
+  });
+}
+
+class UserSignOutLoading extends GetUserDataState {}
+
+class UserSignOutSuccess extends GetUserDataState {}

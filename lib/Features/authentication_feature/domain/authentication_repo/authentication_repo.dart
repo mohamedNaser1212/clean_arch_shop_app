@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors_manager/failure.dart';
-import '../../data/authentication_models/authentication_model.dart';
+import '../../../settings_feature/domain/user_entity/user_entity.dart';
 
 abstract class AuthenticationRepo {
   const AuthenticationRepo();
-  Future<Either<Failure, AuthenticationModel>> login(
+  Future<Either<Failure, UserEntity>> login(
       {required String email, required String password});
-  Future<Either<Failure, AuthenticationModel>> register({
+  Future<Either<Failure, UserEntity>> register({
     required String email,
     required String password,
     required String name,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
-import 'package:shop_app/core/user_info/domain/use_cases/get_token_use_case.dart';
+import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
 
 import '../../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
@@ -14,7 +14,8 @@ import '../../../domain/settings_use_case/user_sign_out_use_case.dart';
 part 'user_data_state.dart';
 
 class UserDataCubit extends Cubit<GetUserDataState> {
-  final GetInfoUserUseCase getInfoUserDataUseCase;
+  final GetUserInfoUseCase getInfoUserDataUseCase;
+
   final UpdateUserDataUseCase updateUserDataUseCase;
   final UserSignOutUseCase userSignOutUseCase;
 
@@ -85,7 +86,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     BuildContext context,
     ApiHelper apiService,
   ) async {
-    emit(GetUserDataLoading());
+    emit(UserSignOutLoading());
 
     final result = await userSignOutUseCase.call(
       context: context,
@@ -94,10 +95,10 @@ class UserDataCubit extends Cubit<GetUserDataState> {
 
     result.fold(
       (failure) {
-        emit(GetUserDataError(failure.toString()));
+        emit(UserSignOutError(error: failure.toString()));
       },
       (success) {
-        emit(GetUserDataSignedOutSuccess());
+        emit(UserSignOutSuccess());
       },
     );
   }

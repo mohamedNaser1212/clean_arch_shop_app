@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/core/user_info/domain/use_cases/get_token_use_case.dart';
+import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/toast_widget.dart';
+import '../../../authentication_feature/presentation/screens/login_screen.dart';
 import '../../domain/settings_use_case/update_user_data_use_case.dart';
 import '../../domain/settings_use_case/user_sign_out_use_case.dart';
 import '../cubit/user_info_cubit/user_data_cubit.dart';
@@ -24,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UserDataCubit(
-          getInfoUserDataUseCase: getIt.get<GetInfoUserUseCase>(),
+          getInfoUserDataUseCase: getIt.get<GetUserInfoUseCase>(),
           updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
           userSignOutUseCase: getIt.get<UserSignOutUseCase>())
         ..getUserData(),
@@ -78,6 +79,24 @@ class SettingsScreen extends StatelessWidget {
       const ToastWidget(
         message: 'Data updated successfully',
         isError: false,
+      );
+    } else if (state is UserSignOutSuccess) {
+      // final productCubit = GetProductsCubit.get(context);
+      // productCubit.clearProductsData();
+      //
+      // final favourites = FavouritesCubit.get(context);
+      //
+      // final cartsCubit = CartsCubit.get(context);
+      //
+      // cartsCubit.carts = {};
+      // favourites.favorites = {};
+      //
+      // final categoriesCubit = CategoriesCubit.get(context);
+      // categoriesCubit.clearCategoriesData();
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     }
   }

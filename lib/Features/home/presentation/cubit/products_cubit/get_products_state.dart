@@ -19,3 +19,5 @@ class GetProductsErrorState extends GetProductsState {
 
   GetProductsErrorState([this.error]);
 }
+
+class ClearProductsState extends GetProductsState {}

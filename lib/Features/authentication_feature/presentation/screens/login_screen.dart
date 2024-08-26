@@ -4,19 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
-import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/user_info/domain/use_cases/get_token_use_case.dart';
+import '../../../../core/user_info/domain/use_cases/get_user_info_use_case.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
-import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../layout/presentation/screens/layout_screen.dart';
+import '../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';
@@ -35,7 +33,7 @@ class LoginScreen extends StatelessWidget {
         loginUseCase: LoginUseCase(
           authenticationRepo: getIt.get<AuthenticationRepo>(),
         ),
-        userDataUseCase: getIt.get<GetInfoUserUseCase>(),
+        userDataUseCase: getIt.get<GetUserInfoUseCase>(),
       ),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: _loginListener,
@@ -61,11 +59,9 @@ class LoginScreen extends StatelessWidget {
         fontSize: 16.0,
       );
       if (context.mounted) {
-        GetProductsCubit.get(context).getProductsData(
-          context: context,
-        );
-        CartsCubit.get(context).getCartItems();
-        FavouritesCubit.get(context).getFavorites();
+        GetProductsCubit.get(context).homeModel;
+        // CartsCubit.get(context).getCartItems();
+        // FavouritesCubit.get(context).getFavorites();
         UserDataCubit.get(context).getUserData();
         navigationManager.navigateAndFinish(
             context: context, screen: const LayoutScreen());
