@@ -98,7 +98,7 @@ class SettingsForm extends StatelessWidget {
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   final cubit = UserDataCubit.get(context);
-                  if (cubit.checkUserDataChanged(
+                  if (cubit.checkDataChanges(
                     name: nameController.text,
                     email: emailController.text,
                     phone: phoneController.text,

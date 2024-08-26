@@ -46,7 +46,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     }
   }
 
-  bool checkUserDataChanged({
+  bool checkDataChanges({
     required String name,
     required String email,
     required String phone,
