@@ -1,9 +1,6 @@
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
-import '../../../Features/authentication_feature/data/authentication_models/authentication_model.dart';
-
-AuthenticationModel? loginModel;
 UserInfoLocalDataSource userInfoLocalDataSource =
     getIt.get<UserInfoLocalDataSource>();
 
@@ -18,10 +15,11 @@ class HeaderModel {
     this.lang = 'en',
   }) : authorization = userInfoLocalDataSource
             .loadUserData()
-            .then((value) => value?.token ?? '');
+            .then((value) => value?.token ?? authorization);
 
   Future<Map<String, dynamic>> toMap() async {
     final auth = await authorization;
+    print('auth: $auth');
     return {
       'Content-Type': contentType,
       'Authorization': auth ?? '',

@@ -7,11 +7,11 @@ import '../carts_data_sources/carts_local_data_source.dart';
 import '../carts_data_sources/carts_remote_data_source.dart';
 
 class CartsRepoImpl extends CartRepo {
-  final CartsRemoteDataSource cartsDataSource;
+  final CartsRemoteDataSource cartsRemoteDataSource;
   final CartLocalDataSource cartLocalDataSource;
 
   const CartsRepoImpl({
-    required this.cartsDataSource,
+    required this.cartsRemoteDataSource,
     required this.cartLocalDataSource,
   });
 
@@ -23,7 +23,7 @@ class CartsRepoImpl extends CartRepo {
       if (cachedCartItems.isNotEmpty) {
         return right(cachedCartItems);
       } else {
-        final cart = await cartsDataSource.getCarts();
+        final cart = await cartsRemoteDataSource.getCarts();
         await cartLocalDataSource.saveCart(cart);
         return right(cart);
       }
@@ -35,10 +35,10 @@ class CartsRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, bool>> toggleCart(num productIds) async {
     try {
-      final result = await cartsDataSource.toggleCarts(productIds);
+      final result = await cartsRemoteDataSource.toggleCarts(productIds);
 
       if (result) {
-        final updatedCart = await cartsDataSource.getCarts();
+        final updatedCart = await cartsRemoteDataSource.getCarts();
         await cartLocalDataSource.saveCart(updatedCart);
       }
 
@@ -52,7 +52,7 @@ class CartsRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, List<CartEntity>>> removeCarts(num products) async {
     try {
-      await cartsDataSource.removeCarts(products);
+      await cartsRemoteDataSource.removeCarts(products);
       await cartLocalDataSource.removeCartItem(products);
       final updatedCart = await cartLocalDataSource.getCart();
 

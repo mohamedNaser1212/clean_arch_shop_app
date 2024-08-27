@@ -9,6 +9,10 @@ abstract class HomeLocalDataSource {
   Future<void> saveCategories(List<CategoriesEntity> categories);
   Future<List<ProductEntity>> getProducts();
   Future<void> saveProducts(List<ProductEntity> products);
+  //make a clear products and categories
+  Future<void> clearCategories();
+
+  Future<void> clearProducts();
 }
 
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {
@@ -42,5 +46,15 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   Future<void> saveProducts(List<ProductEntity> products) async {
     await hiveHelper.saveData<ProductEntity>(
         products, HiveBoxesNames.kProductsBox);
+  }
+
+  @override
+  Future<void> clearCategories() async {
+    await hiveHelper.clearData(HiveBoxesNames.kCategoriesBox);
+  }
+
+  @override
+  Future<void> clearProducts() async {
+    await hiveHelper.clearData(HiveBoxesNames.kProductsBox);
   }
 }

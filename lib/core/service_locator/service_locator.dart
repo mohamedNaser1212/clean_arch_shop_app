@@ -64,7 +64,6 @@ void setUpServiceLocator() async {
   );
 
   // Authentication dependencies
-//register this UserLocalDataSource
   getIt.registerSingleton<UserInfoLocalDataSource>(
     UserLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
   );
@@ -81,7 +80,6 @@ void setUpServiceLocator() async {
   );
 
   // Register UseCases
-
   getIt.registerSingleton<LoginUseCase>(
     LoginUseCase(authenticationRepo: getIt.get<AuthenticationRepo>()),
   );
@@ -113,17 +111,26 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<UserRemoteDataSource>(
     UserDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
-
+  getIt.registerSingleton<CartLocalDataSource>(
+    CartLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
+  );
+  getIt.registerSingleton<FavouritesLocalDataSource>(
+    FavouritesLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
+  );
   getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
       getUserDataSource: getIt.get<UserRemoteDataSource>(),
       userInfoLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
       getUserInfoDataSource: getIt.get<UserInfoRemoteDataSource>(),
+      cartLocalDataSource: getIt.get<CartLocalDataSource>(),
+      favouritesLocalDataSource: getIt.get<FavouritesLocalDataSource>(),
     ),
   );
-
   getIt.registerSingleton<CategoriesUseCase>(
     CategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
+  );
+  getIt.registerSingleton<ProductsUseCase>(
+    ProductsUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
   getIt.registerSingleton<UserSignOutUseCase>(
     UserSignOutUseCase(getUserDataRepo: getIt.get<UserDataRepo>()),
@@ -139,9 +146,7 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<FavouritesRemoteDataSource>(
     FavouritesRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
-  getIt.registerSingleton<FavouritesLocalDataSource>(
-    FavouritesLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
-  );
+
   getIt.registerSingleton<FavouritesRepo>(
     FavouritesRepoImpl(
       favouritesDataSource: getIt.get<FavouritesRemoteDataSource>(),
@@ -156,21 +161,20 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<SearchRepo>(
     SearchRepoImpl(searchDataSource: getIt.get<SearchRemoteDataSource>()),
   );
+
   getIt.registerSingleton<SearchUseCase>(
     SearchUseCase(searchRepo: getIt.get<SearchRepo>()),
   );
 
   // Cart dependencies
-  getIt.registerSingleton<CartLocalDataSource>(
-    CartLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
-  );
+
   getIt.registerSingleton<CartsRemoteDataSource>(
     CartsRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<CartRepo>(
     CartsRepoImpl(
       cartLocalDataSource: getIt.get<CartLocalDataSource>(),
-      cartsDataSource: getIt.get<CartsRemoteDataSource>(),
+      cartsRemoteDataSource: getIt.get<CartsRemoteDataSource>(),
     ),
   );
 
@@ -184,37 +188,31 @@ void setUpServiceLocator() async {
   getIt.registerFactory(() => RegisterCubit(getIt.get<RegisterUseCase>()));
   getIt.registerFactory(() => UserDataCubit(
         getInfoUserDataUseCase: getIt.get<GetUserInfoUseCase>(),
-        updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
         userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
+        updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
+      ));
+
+  getIt.registerFactory(() => GetProductsCubit(
+        fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
       ));
   getIt.registerFactory(() => CategoriesCubit(
         fetchCategoriesUseCase: getIt.get<CategoriesUseCase>(),
       ));
-  getIt.registerFactory(() => FavouritesCubit(
-        fetchFavouritesUseCase: getIt.get<GetFavouritesUseCases>(),
-        toggleFavouritesUseCase: getIt.get<ToggleFavouritesUseCase>(),
-      ));
-  getIt.registerFactory(() => CartsCubit(
-        fetchCartUseCase: getIt.get<FetchCartUseCase>(),
-        removeCartUseCase: getIt.get<RemoveCartUseCase>(),
-        toggleCartUseCase: getIt.get<ToggleCartUseCase>(),
-      ));
-  getIt.registerFactory(() => GetProductsCubit(
-        fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
-      ));
-  getIt.registerFactory(
-      () => UserInfoCubit(getUserUseCase: getIt.get<GetUserInfoUseCase>()));
 
-  // Use Cases
-  getIt.registerFactory(
-      () => GetFavouritesUseCases(favouritesRepo: getIt.get<FavouritesRepo>()));
-  getIt.registerFactory(() => ToggleFavouritesUseCase(
-      favouritesRepository: getIt.get<FavouritesRepo>()));
-  getIt.registerFactory(
-      () => ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()));
-  getIt
-      .registerFactory(() => FetchCartUseCase(cartRepo: getIt.get<CartRepo>()));
-  getIt.registerFactory(
-      () => RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()));
-  getIt.registerFactory(() => ProductsUseCase(homeRepo: getIt.get<HomeRepo>()));
+  getIt.registerFactory(() => CartsCubit(
+        fetchCartUseCase: FetchCartUseCase(cartRepo: getIt.get<CartRepo>()),
+        toggleCartUseCase: ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()),
+        removeCartUseCase: RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()),
+      ));
+
+  getIt.registerFactory(() => FavouritesCubit(
+        toggleFavouritesUseCase: ToggleFavouritesUseCase(
+            favouritesRepository: getIt.get<FavouritesRepo>()),
+        fetchFavouritesUseCase:
+            GetFavouritesUseCases(favouritesRepo: getIt.get<FavouritesRepo>()),
+      ));
+
+  getIt.registerFactory(() => UserInfoCubit(
+        getUserUseCase: getIt.get<GetUserInfoUseCase>(),
+      ));
 }

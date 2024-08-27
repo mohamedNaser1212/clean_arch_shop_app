@@ -29,8 +29,10 @@ class UserLocalDataSourceImpl implements UserInfoLocalDataSource {
 
   @override
   Future<void> clearUserData() async {
-    await hiveHelper.clearSingleItem<UserEntity>(
-        HiveBoxesNames.kUserBox, HiveBoxesNames.kUserBox);
+    return await hiveHelper.clearData<UserEntity>(HiveBoxesNames.kUserBox);
+
+    // hiveHelper.clearSingleItem<UserEntity>(
+    //     HiveBoxesNames.kUserBox, HiveBoxesNames.kUserBox);
     print('User data cleared from Hive');
   }
 }

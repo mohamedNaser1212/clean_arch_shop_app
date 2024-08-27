@@ -38,7 +38,7 @@ class GetProductsCubit extends Cubit<GetProductsState> {
           for (var p in products) p.id: p.inFavorites ?? false
         };
         CartsCubit.get(context).carts = {
-          for (var p in products) p.id: p.inCart ?? false
+          for (var p in products) p.id: p.inCart
         };
 
         print(CartsCubit.get(context).carts);

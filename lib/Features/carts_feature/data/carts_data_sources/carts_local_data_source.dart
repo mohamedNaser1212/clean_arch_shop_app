@@ -7,6 +7,7 @@ abstract class CartLocalDataSource {
   Future<List<CartEntity>> getCart();
   Future<void> saveCart(List<CartEntity> cart);
   Future<void> removeCartItem(num productId);
+  Future<void> clearCart();
 }
 
 class CartLocalDataSourceImpl implements CartLocalDataSource {
@@ -32,5 +33,10 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
     final updatedCartItems =
         cartItems.where((item) => item.id != productId).toList();
     await saveCart(updatedCartItems);
+  }
+
+  @override
+  Future<void> clearCart() async {
+    await hiveHelper.clearData<CartEntity>(HiveBoxesNames.kCartBox);
   }
 }

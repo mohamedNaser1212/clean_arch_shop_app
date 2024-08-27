@@ -1,24 +1,29 @@
-// UserDataRepoImpl.dart
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
+import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_local_data_source.dart';
+import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
+import 'package:shop_app/core/errors_manager/failure.dart';
+import 'package:shop_app/core/networks/api_manager/api_helper.dart';
+import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
-import '../../../../core/errors_manager/failure.dart';
-import '../../../../core/networks/api_manager/api_helper.dart';
-import '../../../../core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
+import '../../../../core/user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
+import '../../../favourites_feature/data/favourite_data_source/favourites_local_data_source.dart';
 import '../../domain/get_user_repo/get_user_repo.dart';
 import '../../domain/user_entity/user_entity.dart';
-import '../user_data_data_source/user_remote_remote_data_source.dart';
 
 class UserDataRepoImpl implements UserDataRepo {
   final UserInfoRemoteDataSource getUserInfoDataSource;
   final UserRemoteDataSource getUserDataSource;
   final UserInfoLocalDataSource userInfoLocalDataSource;
+  final CartLocalDataSource cartLocalDataSource;
+  final FavouritesLocalDataSource favouritesLocalDataSource;
 
   const UserDataRepoImpl({
     required this.getUserInfoDataSource,
     required this.userInfoLocalDataSource,
     required this.getUserDataSource,
+    required this.cartLocalDataSource,
+    required this.favouritesLocalDataSource,
   });
 
   @override
@@ -64,8 +69,17 @@ class UserDataRepoImpl implements UserDataRepo {
         context: context,
         apiService: apiService,
       );
-      // Clear user data from local storage
-      await userInfoLocalDataSource.clearUserData();
+
+      if (result) {
+        // Clear cart items
+        await cartLocalDataSource.clearCart();
+
+        // Clear favorite items
+        await favouritesLocalDataSource.clearFavourites();
+
+        // Clear user data
+        await userInfoLocalDataSource.clearUserData();
+      }
 
       return Right(result);
     } catch (error) {

@@ -7,6 +7,7 @@ abstract class FavouritesLocalDataSource {
   Future<List<FavouritesEntity>> getFavourites();
   Future<void> saveFavourites(List<FavouritesEntity> favourites);
   Future<void> removeFavourite(num productId);
+  Future<void> clearFavourites();
 }
 
 class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
@@ -37,5 +38,10 @@ class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
         favouritesResult.where((item) => item.id != productId).toList();
 
     await saveFavourites(updatedFavourites);
+  }
+
+  @override
+  Future<void> clearFavourites() async {
+    await hiveHelper.clearData<FavouritesEntity>(HiveBoxesNames.kFavouritesBox);
   }
 }

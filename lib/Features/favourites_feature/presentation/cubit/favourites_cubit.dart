@@ -28,7 +28,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
       },
       (favourites) {
         getFavouritesModel = favourites;
-        favorites = {for (var p in favourites) p.id!: true};
+        favorites = {for (var p in favourites) p.id: true};
 
         emit(ShopGetFavoritesSuccessState(getFavouritesModel));
       },

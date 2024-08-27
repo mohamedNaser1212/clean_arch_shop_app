@@ -81,19 +81,6 @@ class SettingsScreen extends StatelessWidget {
         isError: false,
       );
     } else if (state is UserSignOutSuccess) {
-      // final productCubit = GetProductsCubit.get(context);
-      // productCubit.clearProductsData();
-      //
-      // final favourites = FavouritesCubit.get(context);
-      //
-      // final cartsCubit = CartsCubit.get(context);
-      //
-      // cartsCubit.carts = {};
-      // favourites.favorites = {};
-      //
-      // final categoriesCubit = CategoriesCubit.get(context);
-      // categoriesCubit.clearCategoriesData();
-
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginScreen()),

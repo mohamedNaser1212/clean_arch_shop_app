@@ -17,14 +17,14 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoriesCubit = CategoriesCubit.get(context);
-    if (categoriesCubit.categoriesModel == null) {
-      categoriesCubit.getCategoriesData();
-    }
+    // if (categoriesCubit.categoriesModel != null) {
+    //   categoriesCubit.getCategoriesData();
+    // }
 
     final shopCubit = GetProductsCubit.get(context);
-    if (shopCubit.homeModel == null) {
-      shopCubit.getProductsData(context: context);
-    }
+    // if (shopCubit.homeModel != null) {
+    //   shopCubit.getProductsData(context: context);
+    // }
 
     return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, CategoriesState categoriesState) {
