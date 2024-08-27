@@ -21,7 +21,7 @@ class ProductsScreen extends StatelessWidget {
     //   categoriesCubit.getCategoriesData();
     // }
 
-    final shopCubit = GetProductsCubit.get(context);
+    final shopCubit = ProductsCubit.get(context);
     // if (shopCubit.homeModel != null) {
     //   shopCubit.getProductsData(context: context);
     // }
@@ -37,7 +37,7 @@ class ProductsScreen extends StatelessWidget {
           return const LoadingIndicatorWidget();
         } else if (categoriesState is CategoriesSuccess ||
             categoriesCubit.categoriesModel != null) {
-          return BlocConsumer<GetProductsCubit, GetProductsState>(
+          return BlocConsumer<ProductsCubit, GetProductsState>(
             listener: (context, GetProductsState shopState) {},
             builder: (context, shopState) {
               if (shopState is GetProductsLoadingState) {
@@ -53,7 +53,7 @@ class ProductsScreen extends StatelessWidget {
                 );
               } else {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: Text('Unexpected error occurred'),
                 );
               }
             },
@@ -72,7 +72,7 @@ class ProductsScreen extends StatelessWidget {
   }
 
   Widget _buildProductsScreen(BuildContext context) {
-    final homeModel = GetProductsCubit.get(context).homeModel;
+    final homeModel = ProductsCubit.get(context).homeModel;
     final categoryModel = CategoriesCubit.get(context).categoriesModel;
 
     return Padding(

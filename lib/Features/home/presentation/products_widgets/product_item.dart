@@ -22,7 +22,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetProductsCubit, GetProductsState>(
+    return BlocBuilder<ProductsCubit, GetProductsState>(
       builder: (context, state) {
         final NavigationManager navigationManager = NavigationManagerImpl();
         return InkWell(

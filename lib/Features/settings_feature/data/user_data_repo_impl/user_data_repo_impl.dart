@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_local_data_source.dart';
+import 'package:shop_app/Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
 import 'package:shop_app/core/errors_manager/failure.dart';
 import 'package:shop_app/core/networks/api_manager/api_helper.dart';
@@ -17,6 +18,7 @@ class UserDataRepoImpl implements UserDataRepo {
   final UserInfoLocalDataSource userInfoLocalDataSource;
   final CartLocalDataSource cartLocalDataSource;
   final FavouritesLocalDataSource favouritesLocalDataSource;
+  final HomeLocalDataSource homeLocalDataSource;
 
   const UserDataRepoImpl({
     required this.getUserInfoDataSource,
@@ -24,6 +26,7 @@ class UserDataRepoImpl implements UserDataRepo {
     required this.getUserDataSource,
     required this.cartLocalDataSource,
     required this.favouritesLocalDataSource,
+    required this.homeLocalDataSource,
   });
 
   @override
@@ -71,14 +74,12 @@ class UserDataRepoImpl implements UserDataRepo {
       );
 
       if (result) {
-        // Clear cart items
         await cartLocalDataSource.clearCart();
 
-        // Clear favorite items
         await favouritesLocalDataSource.clearFavourites();
 
-        // Clear user data
         await userInfoLocalDataSource.clearUserData();
+        await homeLocalDataSource.clearProducts();
       }
 
       return Right(result);

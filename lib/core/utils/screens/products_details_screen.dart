@@ -23,7 +23,7 @@ class ProductsDetailsScreen extends StatelessWidget {
 
     final images = isProduct ? model.images : [image];
 
-    return BlocConsumer<GetProductsCubit, GetProductsState>(
+    return BlocConsumer<ProductsCubit, GetProductsState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(

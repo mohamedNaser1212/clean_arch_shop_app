@@ -21,3 +21,17 @@ class GetProductsErrorState extends GetProductsState {
 }
 
 class ClearProductsState extends GetProductsState {}
+
+class ChangeproductsSuccessState extends GetProductsState {
+  final List<ProductEntity> products;
+
+  ChangeproductsSuccessState(this.products);
+}
+
+class ChangeProductsLoadingState extends GetProductsState {}
+
+class ChangeProductsErrorState extends GetProductsState {
+  final String? error;
+
+  ChangeProductsErrorState([this.error]);
+}

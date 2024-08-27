@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) =>
-                getIt<GetProductsCubit>()..getProductsData(context: context)),
+                getIt<ProductsCubit>()..getProductsData(context: context)),
         BlocProvider(
             create: (context) => getIt<CategoriesCubit>()..getCategoriesData()),
         BlocProvider(create: (context) => getIt<LoginCubit>()),

@@ -10,6 +10,8 @@ import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
+import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
+import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../layout/presentation/screens/layout_screen.dart';
 import '../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
@@ -55,10 +57,12 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
     // );
 
     if (context.mounted) {
-      GetProductsCubit.get(context).homeModel;
+      ProductsCubit.get(context).homeModel;
       // CartsCubit.get(context).getCartItems();
       // FavouritesCubit.get(context).getFavorites();
       UserDataCubit.get(context).getUserData();
+      FavouritesCubit.get(context).getFavorites();
+      CartsCubit.get(context).getCartItems();
       navigationManager.navigateAndFinish(
           context: context, screen: const LayoutScreen());
     }

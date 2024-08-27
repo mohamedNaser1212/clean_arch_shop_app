@@ -9,12 +9,12 @@ import '../../../domain/entities/products_entity/product_entity.dart';
 import '../../../domain/use_case/home_use_case/products_Use_Case.dart';
 import 'get_products_state.dart';
 
-class GetProductsCubit extends Cubit<GetProductsState> {
-  GetProductsCubit({
+class ProductsCubit extends Cubit<GetProductsState> {
+  ProductsCubit({
     required this.fetchHomeItemsUseCase,
   }) : super(ProductsInitialState());
 
-  static GetProductsCubit get(context) => BlocProvider.of(context);
+  static ProductsCubit get(context) => BlocProvider.of(context);
 
   List<ProductEntity>? homeModel;
 
@@ -45,11 +45,6 @@ class GetProductsCubit extends Cubit<GetProductsState> {
         emit(GetproductsSuccessState(products));
       },
     );
-  }
-
-  void clearProductsData() {
-    homeModel = null;
-    emit(ClearProductsState());
   }
 
   /*

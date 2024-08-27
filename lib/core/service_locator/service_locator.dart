@@ -63,6 +63,11 @@ void setUpServiceLocator() async {
     DioManager(dio: Dio(), baseUrl: "https://student.valuxapps.com/api/"),
   );
 
+  // Register HomeLocalDataSource
+  getIt.registerSingleton<HomeLocalDataSource>(
+    HomeLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
+  );
+
   // Authentication dependencies
   getIt.registerSingleton<UserInfoLocalDataSource>(
     UserLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
@@ -91,19 +96,10 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<HomeRemoteDataSource>(
     HomeRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
-  getIt.registerSingleton<HomeLocalDataSource>(
-    HomeLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
-  );
   getIt.registerLazySingleton<HomeRepo>(
     () => HomeRepoImpl(
       homeRemoteDataSource: getIt.get<HomeRemoteDataSource>(),
       homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
-    ),
-  );
-  getIt.registerLazySingleton<UserInfoRepo>(
-    () => UserInfoRepoImpl(
-      remoteDataSource: getIt.get<UserInfoRemoteDataSource>(),
-      userLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
     ),
   );
 
@@ -124,6 +120,7 @@ void setUpServiceLocator() async {
       getUserInfoDataSource: getIt.get<UserInfoRemoteDataSource>(),
       cartLocalDataSource: getIt.get<CartLocalDataSource>(),
       favouritesLocalDataSource: getIt.get<FavouritesLocalDataSource>(),
+      homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
     ),
   );
   getIt.registerSingleton<CategoriesUseCase>(
@@ -134,6 +131,13 @@ void setUpServiceLocator() async {
   );
   getIt.registerSingleton<UserSignOutUseCase>(
     UserSignOutUseCase(getUserDataRepo: getIt.get<UserDataRepo>()),
+  );
+  //register UserInfoRepo
+  getIt.registerSingleton<UserInfoRepo>(
+    UserInfoRepoImpl(
+      remoteDataSource: getIt.get<UserInfoRemoteDataSource>(),
+      userLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
+    ),
   );
   getIt.registerSingleton<GetUserInfoUseCase>(
     GetUserInfoUseCase(userInfoRepo: getIt.get<UserInfoRepo>()),
@@ -167,7 +171,6 @@ void setUpServiceLocator() async {
   );
 
   // Cart dependencies
-
   getIt.registerSingleton<CartsRemoteDataSource>(
     CartsRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
@@ -192,7 +195,7 @@ void setUpServiceLocator() async {
         updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
       ));
 
-  getIt.registerFactory(() => GetProductsCubit(
+  getIt.registerFactory(() => ProductsCubit(
         fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
       ));
   getIt.registerFactory(() => CategoriesCubit(

@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
@@ -59,10 +61,12 @@ class LoginScreen extends StatelessWidget {
         fontSize: 16.0,
       );
       if (context.mounted) {
-        GetProductsCubit.get(context).homeModel;
+        ProductsCubit.get(context).getProductsData(context: context);
         // CartsCubit.get(context).getCartItems();
         // FavouritesCubit.get(context).getFavorites();
         UserDataCubit.get(context).getUserData();
+        FavouritesCubit.get(context).getFavorites();
+        CartsCubit.get(context).getCartItems();
         navigationManager.navigateAndFinish(
             context: context, screen: const LayoutScreen());
       }

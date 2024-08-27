@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     userInfoCubit.getUserData();
-    GetProductsCubit.get(context).getProductsData(context: context);
+    ProductsCubit.get(context).getProductsData(context: context);
   }
 
   @override
