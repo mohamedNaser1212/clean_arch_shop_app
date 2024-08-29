@@ -45,6 +45,11 @@ import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_helper.dart';
 import '../networks/api_manager/api_manager.dart';
+import '../payment_gate_way_manager/cubit/payment_cubit.dart';
+import '../payment_gate_way_manager/data/payment_data_source/payment_data_source.dart';
+import '../payment_gate_way_manager/data/payment_repo_impl/payment_repo_impl.dart';
+import '../payment_gate_way_manager/domain/payment_repo/payment_repo.dart';
+import '../payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
 import '../user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 import '../user_info/data/user_info_repo_impl/user_info_repo_impl.dart';
@@ -113,6 +118,16 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<FavouritesLocalDataSource>(
     FavouritesLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageHelper>()),
   );
+  getIt.registerSingleton<CartsRemoteDataSource>(
+    CartsRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
+  );
+  // Register CartRepo
+  getIt.registerSingleton<CartRepo>(
+    CartsRepoImpl(
+      cartLocalDataSource: getIt.get<CartLocalDataSource>(),
+      cartsRemoteDataSource: getIt.get<CartsRemoteDataSource>(),
+    ),
+  );
   getIt.registerSingleton<UserDataRepo>(
     UserDataRepoImpl(
       getUserDataSource: getIt.get<UserRemoteDataSource>(),
@@ -123,6 +138,17 @@ void setUpServiceLocator() async {
       homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
     ),
   );
+
+  getIt.registerSingleton<FetchCartUseCase>(
+      FetchCartUseCase(cartRepo: getIt.get<CartRepo>()));
+  getIt.registerSingleton<ToggleCartUseCase>(
+      ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()));
+  getIt.registerSingleton<RemoveCartUseCase>(
+      RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()));
+
+  getIt.registerFactory(() => UserInfoCubit(
+        getUserUseCase: getIt.get<GetUserInfoUseCase>(),
+      ));
   getIt.registerSingleton<CategoriesUseCase>(
     CategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
@@ -162,6 +188,7 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<SearchRemoteDataSource>(
     SearchDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
+
   getIt.registerSingleton<SearchRepo>(
     SearchRepoImpl(searchDataSource: getIt.get<SearchRemoteDataSource>()),
   );
@@ -170,18 +197,27 @@ void setUpServiceLocator() async {
     SearchUseCase(searchRepo: getIt.get<SearchRepo>()),
   );
 
-  // Cart dependencies
-  getIt.registerSingleton<CartsRemoteDataSource>(
-    CartsRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
-  );
-  getIt.registerSingleton<CartRepo>(
-    CartsRepoImpl(
-      cartLocalDataSource: getIt.get<CartLocalDataSource>(),
-      cartsRemoteDataSource: getIt.get<CartsRemoteDataSource>(),
-    ),
+  // Register Payment DataSource
+  getIt.registerSingleton<PaymentDataSource>(
+    PaymentPaymentDataSourceImpl(),
   );
 
+  // Register PaymentRepo
+  getIt.registerSingleton<PaymentRepo>(
+    PaymentRepoImpl(paymentManager: getIt.get<PaymentDataSource>()),
+  );
+
+  // Register PaymentUseCase
+  getIt.registerSingleton<PaymentUseCase>(
+    PaymentUseCase(paymentRepo: getIt.get<PaymentRepo>()),
+  );
+
+  // Register PaymentCubit
+  getIt.registerFactory<PaymentCubit>(
+    () => PaymentCubit(paymentUseCase: getIt.get<PaymentUseCase>()),
+  );
   // Cubits
+
   getIt.registerFactory(
     () => LoginCubit(
       loginUseCase: getIt.get<LoginUseCase>(),
@@ -194,7 +230,11 @@ void setUpServiceLocator() async {
         userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
         updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
       ));
-
+  getIt.registerFactory(() => CartsCubit(
+        fetchCartUseCase: FetchCartUseCase(cartRepo: getIt.get<CartRepo>()),
+        toggleCartUseCase: ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()),
+        removeCartUseCase: RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()),
+      ));
   getIt.registerFactory(() => ProductsCubit(
         fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
       ));
@@ -202,20 +242,10 @@ void setUpServiceLocator() async {
         fetchCategoriesUseCase: getIt.get<CategoriesUseCase>(),
       ));
 
-  getIt.registerFactory(() => CartsCubit(
-        fetchCartUseCase: FetchCartUseCase(cartRepo: getIt.get<CartRepo>()),
-        toggleCartUseCase: ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()),
-        removeCartUseCase: RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()),
-      ));
-
   getIt.registerFactory(() => FavouritesCubit(
         toggleFavouritesUseCase: ToggleFavouritesUseCase(
             favouritesRepository: getIt.get<FavouritesRepo>()),
         fetchFavouritesUseCase:
             GetFavouritesUseCases(favouritesRepo: getIt.get<FavouritesRepo>()),
-      ));
-
-  getIt.registerFactory(() => UserInfoCubit(
-        getUserUseCase: getIt.get<GetUserInfoUseCase>(),
       ));
 }

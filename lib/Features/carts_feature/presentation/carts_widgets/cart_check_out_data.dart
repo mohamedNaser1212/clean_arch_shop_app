@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/payment_gate_way_manager/stripe_payment/payment_manager.dart';
+import '../../../../core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
@@ -36,12 +36,19 @@ class CartCheckoutData extends StatelessWidget {
           ReusableElevatedButton(
               label: 'CheckOut',
               onPressed: () {
-                PaymentManager.makePayment(
+                PaymentCubit.get(context).makePayment(
                   total!.toInt(),
                   'EGP',
                   context,
                   cartModel!,
                 );
+
+                // PaymentManager.makePayment(
+                //   total!.toInt(),
+                //   'EGP',
+                //   context,
+                //   cartModel!,
+                // );
               })
         ],
       ),
