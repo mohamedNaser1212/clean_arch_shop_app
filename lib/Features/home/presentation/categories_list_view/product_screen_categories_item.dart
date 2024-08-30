@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entities/categories_entity/categories_entity.dart';
 
-class CategoryItem extends StatelessWidget {
+class CategoriesHomeItem extends StatelessWidget {
   final CategoriesEntity category;
 
-  const CategoryItem({required this.category, Key? key}) : super(key: key);
+  const CategoriesHomeItem({required this.category, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

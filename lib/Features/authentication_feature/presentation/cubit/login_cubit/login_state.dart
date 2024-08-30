@@ -11,7 +11,9 @@ class AppLoginSuccessState extends LoginState {
 
 class AppLoginErrorState extends LoginState {
   final String error;
-  AppLoginErrorState(this.error);
+  AppLoginErrorState({
+    required this.error,
+  });
 }
 
 class AppChangePasswordVisibilityState extends LoginState {}

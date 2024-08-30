@@ -37,7 +37,7 @@ class CategoriesItemBuilder extends StatelessWidget {
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
-                itemBuilder: (context, index) => CategoryItem(
+                itemBuilder: (context, index) => CategoriesPageItems(
                   context: context,
                   itemHeight: itemHeight,
                   itemWidth: itemWidth,

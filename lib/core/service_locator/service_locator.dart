@@ -50,12 +50,12 @@ import '../payment_gate_way_manager/data/payment_data_source/payment_data_source
 import '../payment_gate_way_manager/data/payment_repo_impl/payment_repo_impl.dart';
 import '../payment_gate_way_manager/domain/payment_repo/payment_repo.dart';
 import '../payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
+import '../user_info/cubit/user_info_cubit.dart';
 import '../user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 import '../user_info/data/user_info_repo_impl/user_info_repo_impl.dart';
 import '../user_info/domain/use_cases/get_user_info_use_case.dart';
 import '../user_info/domain/user_info_repo/user_info_repo.dart';
-import '../user_info/presentation/cubit/user_info_cubit.dart';
 
 final getIt = GetIt.instance;
 

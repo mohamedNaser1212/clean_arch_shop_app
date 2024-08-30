@@ -15,7 +15,7 @@ class CategoriesListView extends StatelessWidget {
       height: 160,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => CategoryItem(
+        itemBuilder: (context, index) => CategoriesHomeItem(
           category: categories[index],
         ),
         separatorBuilder: (context, index) => const SizedBox(width: 10),

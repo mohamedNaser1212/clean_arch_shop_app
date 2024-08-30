@@ -63,13 +63,11 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     required String phone,
   }) async {
     emit(GetUserDataLoading());
-
     final result = await updateUserDataUseCase.call(
       name: name,
       email: email,
       phone: phone,
     );
-
     result.fold(
       (failure) {
         emit(UpdateUserDataError(failure.toString()));

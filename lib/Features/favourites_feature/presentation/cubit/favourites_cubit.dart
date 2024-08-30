@@ -38,7 +38,6 @@ class FavouritesCubit extends Cubit<FavouritesState> {
   Future<void> changeFavourite(num productId) async {
     final currentFavoriteStatus = favorites[productId] ?? false;
 
-    // Optimistic UI update
     favorites[productId] = !currentFavoriteStatus;
     emit(ChangeFavouriteSuccessState(favorites[productId]!));
 

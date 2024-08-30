@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 import 'package:shop_app/core/networks/Hive_manager/hive_helper.dart';
 
@@ -19,7 +18,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   IconData suffixPasswordIcon = Icons.visibility_rounded;
   LocalStorageHelper? hiveService;
 
-  UserEntity? userModel;
+  //UserEntity? userModel;
   Future<void> userRegister({
     required String email,
     required String password,
@@ -34,17 +33,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     result.fold(
       (failure) {
         emit(RegisterErrorState(failure.message));
-        Fluttertoast.showToast(
-          msg: failure.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
       },
       (loginModel) async {
-        userModel = loginModel;
+        //  userModel = loginModel;
         emit(RegisterSuccessState(loginModel: loginModel));
       },
     );
