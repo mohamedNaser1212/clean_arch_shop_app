@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
 import '../../../../core/errors_manager/failure.dart';
+import '../../../../core/errors_manager/internet_failure.dart';
+import '../../../../core/initial_screen/manager/internet_manager/internet_manager.dart';
 import '../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../authentication_data_sources/authentication_remote_data_source.dart';
@@ -9,10 +12,12 @@ import '../authentication_data_sources/authentication_remote_data_source.dart';
 class AuthRepoImpl implements AuthenticationRepo {
   final AuthenticationRemoteDataSource loginDataSource;
   final UserInfoLocalDataSource userInfoLocalDataSourceImpl;
+  final InternetManager internetManager;
 
   const AuthRepoImpl({
     required this.loginDataSource,
     required this.userInfoLocalDataSourceImpl,
+    required this.internetManager,
   });
 
   @override
@@ -21,6 +26,13 @@ class AuthRepoImpl implements AuthenticationRepo {
     required String password,
   }) async {
     try {
+      final isConnected = await internetManager.checkConnection();
+      if (!isConnected) {
+        return Left(
+          InternetFailure.fromConnectionStatus(
+              InternetConnectionStatus.disconnected),
+        );
+      }
       final response =
           await loginDataSource.login(email: email, password: password);
       await userInfoLocalDataSourceImpl.saveUserData(user: response);
@@ -39,6 +51,12 @@ class AuthRepoImpl implements AuthenticationRepo {
     required String phone,
   }) async {
     try {
+      final isConnected = await internetManager.checkConnection();
+      if (!isConnected) {
+        InternetFailure.fromConnectionStatus(
+            InternetConnectionStatus.disconnected);
+      }
+
       final registerEntity = await loginDataSource.register(
           email: email, password: password, name: name, phone: phone);
       await userInfoLocalDataSourceImpl.saveUserData(user: registerEntity);

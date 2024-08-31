@@ -42,12 +42,12 @@ class CartsCubit extends Cubit<CartsState> {
     emit(ChangeCartLoadingState());
     carts[prodId] = !(carts[prodId] ?? false);
     emit(ChangeCartSuccessState(model: carts[prodId] ?? false));
-
     final result = await toggleCartUseCase.call(products: prodId);
     result.fold(
       (failure) {
         print('Failed to add/remove cart items: $failure');
-        emit(AddCartItemsErrorState(error: failure.toString()));
+        emit(AddCartItemsErrorState(error: failure.message));
+        carts[prodId] = !(carts[prodId] ?? false);
       },
       (isAdded) async {
         await getCartItems();
@@ -66,7 +66,7 @@ class CartsCubit extends Cubit<CartsState> {
       result.fold(
         (failure) {
           print('Failed to remove cart items: $failure');
-          emit(AddCartItemsErrorState(error: failure.toString()));
+          emit(AddCartItemsErrorState(error: failure.message));
         },
         (cartItem) async {
           await getCartItems();

@@ -45,9 +45,11 @@ class CartEmptyState extends CartsState {}
 class ChangeCartLoadingState extends CartsState {}
 
 class ChangeCartErrorState extends CartsState {
-  final String? error;
+  final String error;
 
-  ChangeCartErrorState([this.error]);
+  ChangeCartErrorState({
+    required this.error,
+  });
 }
 
 class CheckoutLoadingState extends CartsState {}

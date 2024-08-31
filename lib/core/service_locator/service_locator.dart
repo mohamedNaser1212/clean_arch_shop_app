@@ -108,6 +108,7 @@ void setUpServiceLocator() async {
       loginDataSource:
           AuthenticationDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
       userInfoLocalDataSourceImpl: getIt.get<UserInfoLocalDataSource>(),
+      internetManager: getIt.get<InternetManager>(),
     ),
   );
 
@@ -148,6 +149,7 @@ void setUpServiceLocator() async {
     CartsRepoImpl(
       cartLocalDataSource: getIt.get<CartLocalDataSource>(),
       cartsRemoteDataSource: getIt.get<CartsRemoteDataSource>(),
+      internetManager: getIt.get<InternetManager>(),
     ),
   );
   getIt.registerSingleton<UserDataRepo>(

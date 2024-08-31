@@ -28,18 +28,25 @@ class CartScreen extends StatelessWidget {
       ],
       child: BlocConsumer<CartsCubit, CartsState>(
         listener: (context, state) {
-          if (state is ChangeCartSuccessState) {
-            if (state.model) {
-              const ToastWidget(
-                message: 'Item added to cart successfully',
-                isError: false,
-              );
-            } else {
-              const ToastWidget(
-                message: 'Item removed from cart successfully',
-                isError: false,
-              );
-            }
+          // if (state is ChangeCartSuccessState) {
+          //   if (state.model) {
+          //     const ToastWidget(
+          //       message: 'Item added to cart successfully',
+          //       isError: false,
+          //     );
+          //   }
+          // } else
+
+          if (state is ChangeCartErrorState) {
+            ToastWidget(
+              message: state.error,
+              isError: true,
+            );
+          } else if (state is AddCartItemsErrorState) {
+            ToastWidget(
+              message: state.error,
+              isError: true,
+            );
           }
         },
         builder: (context, state) {
