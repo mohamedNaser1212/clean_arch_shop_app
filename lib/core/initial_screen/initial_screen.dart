@@ -26,22 +26,17 @@ class _InitialScreenState extends State<InitialScreen> {
   @override
   void initState() {
     super.initState();
-    _initialize();
+    _checkConnection();
     ProductsCubit.get(context).getProductsData(context: context);
-  }
-
-  Future<void> _initialize() async {
-    await _checkConnection();
   }
 
   Future<void> _checkConnection() async {
     final hasConnection = await internetManager.checkConnection();
-    if (mounted) {
-      setState(() {
-        isConnected = hasConnection;
-        isInitializing = false;
-      });
-    }
+
+    setState(() {
+      isConnected = hasConnection;
+      isInitializing = false;
+    });
   }
 
   void _retryInitialization() async {
@@ -50,7 +45,7 @@ class _InitialScreenState extends State<InitialScreen> {
     });
     await _checkConnection();
     if (isConnected) {
-      _initialize();
+      await _checkConnection();
     }
   }
 
