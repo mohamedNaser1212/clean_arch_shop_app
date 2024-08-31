@@ -39,17 +39,4 @@ class NavigationManagerImpl implements NavigationManager {
       (route) => false,
     );
   }
-
-  // Uncomment and use as needed
-  // @override
-  // void signout({
-  //   required BuildContext context,
-  //   required Widget screen,
-  // }) {
-  //   CacheHelper.removeData(key: 'token');
-  //   navigateAndFinish(
-  //     context: context,
-  //     screen: screen,
-  //   );
-  // }
 }

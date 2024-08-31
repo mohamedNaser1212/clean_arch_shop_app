@@ -35,31 +35,58 @@ class CustomTitle extends StatelessWidget {
     TextStyle textStyle;
     switch (style) {
       case TitleStyle.style14:
-        textStyle = StylesManager.textStyle14.copyWith(color: color);
+        textStyle = StylesManager.textStyle14.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
       case TitleStyle.style12:
-        textStyle = StylesManager.textStyle12.copyWith(color: color);
+        textStyle = StylesManager.textStyle12.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
       case TitleStyle.style16:
-        textStyle = StylesManager.textStyle16.copyWith(color: color);
+        textStyle = StylesManager.textStyle16.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
       case TitleStyle.style18:
-        textStyle = StylesManager.textStyle18.copyWith(color: color);
+        textStyle = StylesManager.textStyle18.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
       case TitleStyle.styleBold18:
-        textStyle = StylesManager.textStyleBold18.copyWith(color: color);
+        textStyle = StylesManager.textStyleBold18.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
       case TitleStyle.style20:
-        textStyle = StylesManager.textStyle20.copyWith(color: color);
+        textStyle = StylesManager.textStyle20.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
       case TitleStyle.styleBold20:
-        textStyle = StylesManager.textStyleBold20.copyWith(color: color);
+        textStyle = StylesManager.textStyleBold20.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
       case TitleStyle.style24:
-        textStyle = StylesManager.textStyle24.copyWith(color: color);
+        textStyle = StylesManager.textStyle24.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
       case TitleStyle.style30:
-        textStyle = StylesManager.textStyle30.copyWith(color: color);
+        textStyle = StylesManager.textStyle30.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
         break;
     }
 
