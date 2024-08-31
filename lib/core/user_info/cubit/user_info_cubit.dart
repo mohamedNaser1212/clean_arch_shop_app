@@ -11,6 +11,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
   }) : super(UserInfoState());
 
   final GetUserInfoUseCase getUserUseCase;
+  UserEntity? userEntity;
 
   Future<void> getUserData() async {
     final result = await getUserUseCase.call();
@@ -19,6 +20,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
         emit(GetUserInfoErrorState(message: failure.toString()));
       },
       (user) {
+        userEntity = user;
         emit(GetUserInfoSuccessState(user));
       },
     );

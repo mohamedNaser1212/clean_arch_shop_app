@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:shop_app/core/initial_screen/initial_screen.dart';
+import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 
 import '../../../payment_gate_way_manager/stripe_payment/stripe_keys.dart';
@@ -22,24 +24,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
     setUpServiceLocator();
 
-    // Delay navigation to the next screen for 2-3 seconds
-    Future.delayed(const Duration(seconds: 3), () async {
-      // Fetch user data or check login status
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.microtask(() async {
+        await Future.delayed(const Duration(seconds: 3));
 
-      // final userInfoCubit = getIt<UserInfoCubit>();
-      // userInfoCubit.getUserData();
-      //
-      // userInfoCubit.((state) {
-      //   if (state is GetUserInfoSuccessState) {
-      //     Navigator.of(context).pushReplacement(
-      //       MaterialPageRoute(builder: (context) => const LayoutScreen()),
-      //     );
-      //   } else if (state is GetUserInfoErrorState) {
-      //     Navigator.of(context).pushReplacement(
-      //       MaterialPageRoute(builder: (context) => const LoginScreen()),
-      //     );
-      //   }
-      // });
+        if (mounted) {
+          NavigationManager.navigateAndFinish(
+            context: context,
+            screen: InitialScreen(),
+          );
+        }
+      });
     });
   }
 

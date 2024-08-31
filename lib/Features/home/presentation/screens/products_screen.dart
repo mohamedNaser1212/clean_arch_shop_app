@@ -17,15 +17,7 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoriesCubit = CategoriesCubit.get(context);
-    // if (categoriesCubit.categoriesModel != null) {
-    //   categoriesCubit.getCategoriesData();
-    // }
-
     final shopCubit = ProductsCubit.get(context);
-    // if (shopCubit.homeModel != null) {
-    //   shopCubit.getProductsData(context: context);
-    // }
-
     return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, CategoriesState categoriesState) {
         if (categoriesState is CategoriesError) {
@@ -46,6 +38,15 @@ class ProductsScreen extends StatelessWidget {
                 );
               } else if (shopState is GetproductsSuccessState ||
                   shopCubit.homeModel != null) {
+                // FavouritesCubit.get(context).favorites = {
+                //   for (var p in shopCubit.homeModel!)
+                //     p.id: p.inFavorites ?? false
+                // };
+                //
+                // CartsCubit.get(context).carts = {
+                //   for (var p in shopCubit.homeModel!) p.id: p.inCart ?? false
+                // };
+
                 return _buildProductsScreen(context);
               } else if (shopState is GetProductsErrorState) {
                 return Center(

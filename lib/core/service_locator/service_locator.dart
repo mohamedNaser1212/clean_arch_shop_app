@@ -41,6 +41,8 @@ import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../../Features/settings_feature/domain/settings_use_case/user_sign_out_use_case.dart';
+import '../initial_screen/manager/internet_manager/internet_manager.dart';
+import '../initial_screen/manager/internet_manager/internet_manager_impl.dart';
 import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_helper.dart';
@@ -64,6 +66,8 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<ApiManager>(
     DioManager(dio: Dio(), baseUrl: "https://student.valuxapps.com/api/"),
   );
+  getIt.registerSingleton<InternetManager>(InternetManagerImpl());
+
   // Register HiveService
   getIt.registerSingleton<LocalStorageManager>(HiveManager());
   await getIt.get<LocalStorageManager>().initialize();
