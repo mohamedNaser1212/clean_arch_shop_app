@@ -18,7 +18,7 @@ abstract class AuthenticationRemoteDataSource {
 }
 
 class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
-  final ApiHelper apiHelper;
+  final ApiManager apiHelper;
 
   const AuthenticationDataSourceImpl({
     required this.apiHelper,

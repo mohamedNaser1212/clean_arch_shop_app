@@ -27,7 +27,6 @@ class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final NavigationManager navigationManager = NavigationManagerImpl();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -67,7 +66,7 @@ class LoginScreen extends StatelessWidget {
         UserDataCubit.get(context).getUserData();
         FavouritesCubit.get(context).getFavorites();
         CartsCubit.get(context).getCartItems();
-        navigationManager.navigateAndFinish(
+        NavigationManager.navigateAndFinish(
             context: context, screen: const LayoutScreen());
       }
     } else if (state is AppLoginErrorState) {
@@ -201,7 +200,7 @@ class LoginScreen extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            navigationManager.navigateTo(
+            NavigationManager.navigateTo(
               context: context,
               screen: const RegisterScreen(),
             );

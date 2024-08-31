@@ -37,8 +37,6 @@ class RegisterScreen extends StatelessWidget {
 }
 
 Future<void> _listener(BuildContext context, RegisterState state) async {
-  final NavigationManager navigationManager = NavigationManagerImpl();
-
   if (state is RegisterSuccessState) {
     Fluttertoast.showToast(
       msg: 'Register Successfully',
@@ -63,7 +61,7 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       UserDataCubit.get(context).getUserData();
       FavouritesCubit.get(context).getFavorites();
       CartsCubit.get(context).getCartItems();
-      navigationManager.navigateAndFinish(
+      NavigationManager.navigateAndFinish(
           context: context, screen: const LayoutScreen());
     }
   } else if (state is RegisterErrorState) {

@@ -11,7 +11,7 @@ abstract class FavouritesLocalDataSource {
 }
 
 class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
-  final LocalStorageHelper hiveHelper;
+  final LocalStorageManager hiveHelper;
 
   const FavouritesLocalDataSourceImpl({
     required this.hiveHelper,

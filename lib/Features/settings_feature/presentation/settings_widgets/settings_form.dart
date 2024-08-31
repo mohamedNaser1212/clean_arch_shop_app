@@ -84,7 +84,7 @@ class SettingsForm extends StatelessWidget {
               onPressed: () {
                 UserDataCubit.get(context).signOut(
                   context,
-                  getIt.get<ApiHelper>(),
+                  getIt.get<ApiManager>(),
                 );
               },
               backColor: ColorController.warningColor,

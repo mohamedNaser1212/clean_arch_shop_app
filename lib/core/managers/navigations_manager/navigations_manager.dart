@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class NavigationManager {
-  void navigateTo({
-    required BuildContext context,
-    required Widget screen,
-  });
-
-  void navigateAndFinish({
-    required BuildContext context,
-    required Widget screen,
-  });
-}
-
-class NavigationManagerImpl implements NavigationManager {
-  @override
-  void navigateTo({
+  static void navigateTo({
     required BuildContext context,
     required Widget screen,
   }) {
@@ -26,8 +13,7 @@ class NavigationManagerImpl implements NavigationManager {
     );
   }
 
-  @override
-  void navigateAndFinish({
+  static void navigateAndFinish({
     required BuildContext context,
     required Widget screen,
   }) {

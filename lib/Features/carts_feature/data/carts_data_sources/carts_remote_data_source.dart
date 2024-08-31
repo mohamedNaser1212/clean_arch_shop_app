@@ -12,7 +12,7 @@ abstract class CartsRemoteDataSource {
 }
 
 class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
-  final ApiHelper apiHelper;
+  final ApiManager apiHelper;
 
   const CartsRemoteDataSourceImpl({required this.apiHelper});
 

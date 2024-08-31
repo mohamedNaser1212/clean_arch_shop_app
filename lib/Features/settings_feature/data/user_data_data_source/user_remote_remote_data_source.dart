@@ -15,11 +15,11 @@ abstract class UserRemoteDataSource {
     required String phone,
   });
   Future<bool> signOut(
-      {required BuildContext context, required ApiHelper apiService});
+      {required BuildContext context, required ApiManager apiService});
 }
 
 class UserDataSourceImpl implements UserRemoteDataSource {
-  final ApiHelper apiHelper;
+  final ApiManager apiHelper;
 
   const UserDataSourceImpl({
     required this.apiHelper,
@@ -48,7 +48,7 @@ class UserDataSourceImpl implements UserRemoteDataSource {
 
   @override
   Future<bool> signOut(
-      {required BuildContext context, required ApiHelper apiService}) async {
+      {required BuildContext context, required ApiManager apiService}) async {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.logOutEndPoint, headerModel: HeaderModel());
     final response = await apiService.post(request: request);

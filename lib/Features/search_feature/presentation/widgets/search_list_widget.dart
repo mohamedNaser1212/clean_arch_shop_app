@@ -12,8 +12,6 @@ class SearchListWidget extends StatelessWidget {
   final List<SearchResponseModel> results;
   @override
   Widget build(BuildContext context) {
-    final NavigationManager navigationManager = NavigationManagerImpl();
-
     return Expanded(
       child: ListView.separated(
         itemCount: results.length,
@@ -23,7 +21,7 @@ class SearchListWidget extends StatelessWidget {
           return ConditionalBuilder(
             condition: results.isNotEmpty,
             builder: (context) => InkWell(
-              onTap: () => navigationManager.navigateTo(
+              onTap: () => NavigationManager.navigateTo(
                 context: context,
                 screen: ProductsDetailsScreen(model: result),
               ),

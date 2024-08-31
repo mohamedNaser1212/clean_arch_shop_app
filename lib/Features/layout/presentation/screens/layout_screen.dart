@@ -15,7 +15,6 @@ class LayoutScreen extends StatefulWidget {
 
 class _LayoutScreenState extends State<LayoutScreen> {
   final LayoutModel _layoutModel = LayoutModel();
-  final NavigationManager navigationManager = NavigationManagerImpl();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       actions: [
         IconButton(
           onPressed: () {
-            navigationManager.navigateTo(
+            NavigationManager.navigateTo(
                 context: context, screen: const SearchScreen());
           },
           icon: Icon(

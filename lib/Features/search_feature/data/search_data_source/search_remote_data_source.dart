@@ -13,7 +13,7 @@ abstract class SearchRemoteDataSource {
 }
 
 class SearchDataSourceImpl implements SearchRemoteDataSource {
-  final ApiHelper apiHelper;
+  final ApiManager apiHelper;
 
   const SearchDataSourceImpl({
     required this.apiHelper,

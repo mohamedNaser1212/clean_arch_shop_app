@@ -8,7 +8,7 @@ import '../../../Features/settings_feature/domain/user_entity/user_entity.dart';
 import 'hive_boxes_names.dart';
 import 'hive_helper.dart';
 
-class HiveManager implements LocalStorageHelper {
+class HiveManager implements LocalStorageManager {
   static final Map<String, Box<dynamic>> _openedBoxes = {};
 
   @override

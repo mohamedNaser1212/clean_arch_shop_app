@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'api_helper.dart';
 import 'api_request_model.dart';
 
-class DioManager implements ApiHelper {
+class DioManager implements ApiManager {
   final Dio dio;
   final String baseUrl;
 

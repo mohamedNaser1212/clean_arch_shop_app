@@ -11,7 +11,7 @@ abstract class CartLocalDataSource {
 }
 
 class CartLocalDataSourceImpl implements CartLocalDataSource {
-  final LocalStorageHelper hiveHelper;
+  final LocalStorageManager hiveHelper;
 
   const CartLocalDataSourceImpl({required this.hiveHelper});
 

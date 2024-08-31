@@ -13,26 +13,26 @@ class ServerFailure extends Failure {
     required super.message,
   });
 
-  factory ServerFailure.fromDiorError(DioError e) {
+  factory ServerFailure.fromDiorError(DioException e) {
     switch (e.type) {
-      case DioErrorType.connectionTimeout:
+      case DioExceptionType.connectionTimeout:
         return const ServerFailure(
             message: 'Connection timeout with api server');
 
-      case DioErrorType.sendTimeout:
+      case DioExceptionType.sendTimeout:
         return const ServerFailure(message: 'Send timeout with ApiServer');
-      case DioErrorType.receiveTimeout:
+      case DioExceptionType.receiveTimeout:
         return const ServerFailure(message: 'Receive timeout with ApiServer');
-      case DioErrorType.badCertificate:
+      case DioExceptionType.badCertificate:
         return const ServerFailure(message: 'badCertificate with api server');
-      case DioErrorType.badResponse:
+      case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
-            e.response!.statusCode!, e.response!.data);
-      case DioErrorType.cancel:
+            e.response!.statusCode!, e.toString());
+      case DioExceptionType.cancel:
         return const ServerFailure(message: 'Request to ApiServer was canceld');
-      case DioErrorType.connectionError:
+      case DioExceptionType.connectionError:
         return const ServerFailure(message: 'No Internet Connection');
-      case DioErrorType.unknown:
+      case DioExceptionType.unknown:
         return const ServerFailure(
             message: 'Opps There was an Error, Please try again');
     }

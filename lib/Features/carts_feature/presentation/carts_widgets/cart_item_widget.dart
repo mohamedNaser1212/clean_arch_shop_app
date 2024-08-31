@@ -16,12 +16,11 @@ class CartItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartItem = CartsCubit.get(context).carts[model.id] ?? false;
-    final NavigationManager navigationManager = NavigationManagerImpl();
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
         onTap: () {
-          navigationManager.navigateTo(
+          NavigationManager.navigateTo(
             context: context,
             screen: ProductsDetailsScreen(model: model),
           );

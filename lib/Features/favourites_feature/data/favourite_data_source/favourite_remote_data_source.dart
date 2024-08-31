@@ -11,7 +11,7 @@ abstract class FavouritesRemoteDataSource {
 }
 
 class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
-  final ApiHelper apiHelper;
+  final ApiManager apiHelper;
 
   const FavouritesRemoteDataSourceImpl({
     required this.apiHelper,
