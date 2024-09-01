@@ -35,6 +35,7 @@ void showToast({
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 1,
+    fontAsset: 'assets/fonts/Inter_24pt-Medium.ttf',
     backgroundColor: isError ? Colors.red : Colors.green,
     textColor: Colors.white,
     fontSize: 16.0,

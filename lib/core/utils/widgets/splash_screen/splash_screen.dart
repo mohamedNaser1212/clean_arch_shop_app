@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:shop_app/core/initial_screen/initial_screen.dart';
 import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 
 import '../../../payment_gate_way_manager/stripe_payment/stripe_keys.dart';
 import '../../bloc_observer/bloc_observer.dart';
+import '../initial_screen/initial_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (mounted) {
           NavigationManager.navigateAndFinish(
             context: context,
-            screen: InitialScreen(),
+            screen: const InitialScreen(),
           );
         }
       });

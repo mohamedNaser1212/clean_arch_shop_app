@@ -4,10 +4,9 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 
-import '../../../../Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../errors_manager/failure.dart';
 import '../../../errors_manager/internet_failure.dart';
-import '../../../initial_screen/manager/internet_manager/internet_manager.dart';
+import '../../../managers/internet_manager/internet_manager.dart';
 import '../../domain/payment_repo/payment_repo.dart';
 import '../payment_data_source/payment_data_source.dart';
 
@@ -32,7 +31,6 @@ class PaymentRepoImpl implements PaymentRepo {
           (amount * 100).toString(), currency);
       await paymentManager.initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
-
 
       return right(true);
     } catch (e) {

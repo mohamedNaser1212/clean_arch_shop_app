@@ -18,7 +18,6 @@ import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/
 import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/toggle_favourites_use_case.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/data/data_sources/home_remote_data_sources/home_remote_data_source.dart';
-import 'package:shop_app/Features/home/data/repos/home_repo_impl.dart';
 import 'package:shop_app/Features/home/domain/home_repo/home_repo.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/Features/search_feature/data/search_data_source/search_remote_data_source.dart';
@@ -28,6 +27,7 @@ import 'package:shop_app/Features/search_feature/domain/search_use_case/fetch_se
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
 import 'package:shop_app/Features/settings_feature/domain/settings_use_case/update_user_data_use_case.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
+import 'package:shop_app/core/managers/repo_manager/repo_manager_impl.dart';
 
 import '../../Features/authentication_feature/data/authentication_data_sources/authentication_remote_data_source.dart';
 import '../../Features/authentication_feature/domain/authentication_repo/authentication_repo.dart';
@@ -35,14 +35,16 @@ import '../../Features/authentication_feature/presentation/cubit/login_cubit/log
 import '../../Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
 import '../../Features/favourites_feature/domain/favourites_repo/favourites_repo.dart';
 import '../../Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
+import '../../Features/home/data/repo/home_repo_impl.dart';
 import '../../Features/home/domain/use_case/home_use_case/categories_use_case.dart';
 import '../../Features/home/domain/use_case/home_use_case/products_Use_Case.dart';
 import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../../Features/settings_feature/domain/settings_use_case/user_sign_out_use_case.dart';
-import '../initial_screen/manager/internet_manager/internet_manager.dart';
-import '../initial_screen/manager/internet_manager/internet_manager_impl.dart';
+import '../managers/internet_manager/internet_manager.dart';
+import '../managers/internet_manager/internet_manager_impl.dart';
+import '../managers/repo_manager/repo_manager.dart';
 import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_helper.dart';
@@ -72,6 +74,12 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<LocalStorageManager>(HiveManager());
   await getIt.get<LocalStorageManager>().initialize();
   print("Hive Initialized");
+
+  getIt.registerSingleton<RepoManager>(
+    RepoManagerImpl(
+      getIt.get<InternetManager>(),
+    ),
+  );
   getIt.registerSingleton<UserInfoLocalDataSource>(
     UserLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageManager>()),
   );
@@ -109,7 +117,7 @@ void setUpServiceLocator() async {
       loginDataSource:
           AuthenticationDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
       userInfoLocalDataSourceImpl: getIt.get<UserInfoLocalDataSource>(),
-      internetManager: getIt.get<InternetManager>(),
+      repoManager: getIt.get<RepoManager>(),
     ),
   );
 
@@ -129,7 +137,7 @@ void setUpServiceLocator() async {
     () => HomeRepoImpl(
       homeRemoteDataSource: getIt.get<HomeRemoteDataSource>(),
       homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
-      internetManager: getIt.get<InternetManager>(),
+      repoManager: getIt.get<RepoManager>(),
     ),
   );
 
@@ -151,7 +159,7 @@ void setUpServiceLocator() async {
     CartsRepoImpl(
       cartLocalDataSource: getIt.get<CartLocalDataSource>(),
       cartsRemoteDataSource: getIt.get<CartsRemoteDataSource>(),
-      internetManager: getIt.get<InternetManager>(),
+      repoManager: getIt.get<RepoManager>(),
     ),
   );
   getIt.registerSingleton<UserDataRepo>(
@@ -162,7 +170,7 @@ void setUpServiceLocator() async {
       cartLocalDataSource: getIt.get<CartLocalDataSource>(),
       favouritesLocalDataSource: getIt.get<FavouritesLocalDataSource>(),
       homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
-      internetManager: getIt.get<InternetManager>(),
+      repoManager: getIt.get<RepoManager>(),
     ),
   );
 
@@ -196,7 +204,7 @@ void setUpServiceLocator() async {
     FavouritesRepoImpl(
       favouritesDataSource: getIt.get<FavouritesRemoteDataSource>(),
       favouritesLocalDataSource: getIt.get<FavouritesLocalDataSource>(),
-      internetManager: getIt.get<InternetManager>(),
+      repoManager: getIt.get<RepoManager>(),
     ),
   );
 
@@ -208,14 +216,13 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<SearchRepo>(
     SearchRepoImpl(
         searchDataSource: getIt.get<SearchRemoteDataSource>(),
-        internetManager: getIt.get<InternetManager>()),
+        repoManager: getIt.get<RepoManager>()),
   );
 
   getIt.registerSingleton<SearchUseCase>(
     SearchUseCase(searchRepo: getIt.get<SearchRepo>()),
   );
 
-  // Register Payment DataSource
   getIt.registerSingleton<PaymentDataSource>(
     PaymentPaymentDataSourceImpl(),
   );

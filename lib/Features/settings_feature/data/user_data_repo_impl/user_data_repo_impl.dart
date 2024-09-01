@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_local_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
@@ -7,8 +6,7 @@ import 'package:shop_app/core/errors_manager/failure.dart';
 import 'package:shop_app/core/networks/api_manager/api_helper.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
-import '../../../../core/errors_manager/internet_failure.dart';
-import '../../../../core/initial_screen/manager/internet_manager/internet_manager.dart';
+import '../../../../core/managers/repo_manager/repo_manager.dart';
 import '../../../../core/user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 import '../../../favourites_feature/data/favourite_data_source/favourites_local_data_source.dart';
 import '../../domain/get_user_repo/get_user_repo.dart';
@@ -21,7 +19,7 @@ class UserDataRepoImpl implements UserDataRepo {
   final CartLocalDataSource cartLocalDataSource;
   final FavouritesLocalDataSource favouritesLocalDataSource;
   final HomeLocalDataSource homeLocalDataSource;
-  final InternetManager internetManager;
+  final RepoManager repoManager;
   const UserDataRepoImpl({
     required this.getUserInfoDataSource,
     required this.userInfoLocalDataSource,
@@ -29,32 +27,24 @@ class UserDataRepoImpl implements UserDataRepo {
     required this.cartLocalDataSource,
     required this.favouritesLocalDataSource,
     required this.homeLocalDataSource,
-    required this.internetManager,
+    required this.repoManager,
   });
 
   @override
   Future<Either<Failure, UserEntity>> getUserData() async {
-    try {
-      final isConnected = await internetManager.checkConnection();
-      if (!isConnected) {
-        return left(
-          InternetFailure.fromConnectionStatus(
-            InternetConnectionStatus.disconnected,
-          ),
-        );
-      }
-      final cachedUserData = await userInfoLocalDataSource.loadUserData();
+    return repoManager.call(
+      action: () async {
+        final cachedUserData = await userInfoLocalDataSource.loadUserData();
 
-      if (cachedUserData != null) {
-        return Right(cachedUserData);
-      } else {
-        final userData = await getUserInfoDataSource.getUser();
-        await userInfoLocalDataSource.saveUserData(user: userData);
-        return Right(userData);
-      }
-    } catch (error) {
-      return Left(ServerFailure(message: error.toString()));
-    }
+        if (cachedUserData != null) {
+          return cachedUserData;
+        } else {
+          final userData = await getUserInfoDataSource.getUser();
+          await userInfoLocalDataSource.saveUserData(user: userData);
+          return userData;
+        }
+      },
+    );
   }
 
   @override
@@ -63,53 +53,37 @@ class UserDataRepoImpl implements UserDataRepo {
     required String email,
     required String phone,
   }) async {
-    try {
-      final isConnected = await internetManager.checkConnection();
-      if (!isConnected) {
-        return left(
-          InternetFailure.fromConnectionStatus(
-            InternetConnectionStatus.disconnected,
-          ),
-        );
-      }
-      final userData = await getUserDataSource.updateUserData(
-          name: name, email: email, phone: phone);
-      await userInfoLocalDataSource.saveUserData(user: userData);
-      return Right(userData);
-    } catch (error) {
-      return Left(ServerFailure(message: error.toString()));
-    }
+    return repoManager.call(
+      action: () async {
+        final userData = await getUserDataSource.updateUserData(
+            name: name, email: email, phone: phone);
+        await userInfoLocalDataSource.saveUserData(user: userData);
+        return userData;
+      },
+    );
   }
 
   @override
   Future<Either<Failure, bool>> signOut({
     required ApiManager apiService,
   }) async {
-    try {
-      final isConnected = await internetManager.checkConnection();
-      if (!isConnected) {
-        return left(
-          InternetFailure.fromConnectionStatus(
-            InternetConnectionStatus.disconnected,
-          ),
+    return repoManager.call(
+      action: () async {
+        final result = await getUserDataSource.signOut(
+          apiService: apiService,
         );
-      }
-      final result = await getUserDataSource.signOut(
-        apiService: apiService,
-      );
 
-      if (result) {
-        await cartLocalDataSource.clearCart();
+        if (result) {
+          await cartLocalDataSource.clearCart();
 
-        await favouritesLocalDataSource.clearFavourites();
+          await favouritesLocalDataSource.clearFavourites();
 
-        await userInfoLocalDataSource.clearUserData();
-        await homeLocalDataSource.clearProducts();
-      }
+          await userInfoLocalDataSource.clearUserData();
+          await homeLocalDataSource.clearProducts();
+        }
 
-      return Right(result);
-    } catch (error) {
-      return Left(ServerFailure(message: error.toString()));
-    }
+        return result;
+      },
+    );
   }
 }

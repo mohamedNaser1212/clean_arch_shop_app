@@ -1,10 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
 import '../../../../core/errors_manager/failure.dart';
-import '../../../../core/errors_manager/internet_failure.dart';
-import '../../../../core/initial_screen/manager/internet_manager/internet_manager.dart';
+import '../../../../core/managers/repo_manager/repo_manager.dart';
 import '../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../authentication_data_sources/authentication_remote_data_source.dart';
@@ -12,12 +10,12 @@ import '../authentication_data_sources/authentication_remote_data_source.dart';
 class AuthRepoImpl implements AuthenticationRepo {
   final AuthenticationRemoteDataSource loginDataSource;
   final UserInfoLocalDataSource userInfoLocalDataSourceImpl;
-  final InternetManager internetManager;
+  final RepoManager repoManager;
 
   const AuthRepoImpl({
     required this.loginDataSource,
     required this.userInfoLocalDataSourceImpl,
-    required this.internetManager,
+    required this.repoManager,
   });
 
   @override
@@ -25,22 +23,14 @@ class AuthRepoImpl implements AuthenticationRepo {
     required String email,
     required String password,
   }) async {
-    try {
-      final isConnected = await internetManager.checkConnection();
-      if (!isConnected) {
-        return Left(
-          InternetFailure.fromConnectionStatus(
-              InternetConnectionStatus.disconnected),
-        );
-      }
-      final response =
-          await loginDataSource.login(email: email, password: password);
-      await userInfoLocalDataSourceImpl.saveUserData(user: response);
-      print('Token from login is : ${response.token}');
-      return Right(response);
-    } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
-    }
+    return repoManager.call(
+      action: () async {
+        final loginEntity =
+            await loginDataSource.login(email: email, password: password);
+        await userInfoLocalDataSourceImpl.saveUserData(user: loginEntity);
+        return loginEntity;
+      },
+    );
   }
 
   @override
@@ -50,21 +40,17 @@ class AuthRepoImpl implements AuthenticationRepo {
     required String name,
     required String phone,
   }) async {
-    try {
-      final isConnected = await internetManager.checkConnection();
-      if (!isConnected) {
-        return left(
-          InternetFailure.fromConnectionStatus(
-              InternetConnectionStatus.disconnected),
+    return repoManager.call(
+      action: () async {
+        final registerEntity = await loginDataSource.register(
+          email: email,
+          password: password,
+          name: name,
+          phone: phone,
         );
-      }
-
-      final registerEntity = await loginDataSource.register(
-          email: email, password: password, name: name, phone: phone);
-      await userInfoLocalDataSourceImpl.saveUserData(user: registerEntity);
-      return Right(registerEntity);
-    } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
-    }
+        await userInfoLocalDataSourceImpl.saveUserData(user: registerEntity);
+        return registerEntity;
+      },
+    );
   }
 }
