@@ -24,13 +24,13 @@ class _InitialScreenState extends State<InitialScreen> {
         getUserUseCase: getIt<GetUserInfoUseCase>(),
       )..getUserData(),
       child: BlocConsumer<UserInfoCubit, UserInfoState>(
-        listener: _handleStateListener,
-        builder: _buildBody,
+        listener: _listeners,
+        builder: _body,
       ),
     );
   }
 
-  void _handleStateListener(BuildContext context, UserInfoState state) {
+  void _listeners(BuildContext context, UserInfoState state) {
     if (state is GetUserInfoSuccessState) {
       if (state.userEntity.name!.isEmpty) {
         NavigationManager.navigateAndFinish(
@@ -51,7 +51,7 @@ class _InitialScreenState extends State<InitialScreen> {
     }
   }
 
-  Widget _buildBody(BuildContext context, UserInfoState state) {
+  Widget _body(BuildContext context, UserInfoState state) {
     if (state is InternetFailureState) {
       return ConnectionFailureWidget(
         onPressed: () {
