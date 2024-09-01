@@ -23,11 +23,13 @@ class CartsRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, List<CartEntity>>> getCart() async {
     try {
-      // final isConnected = await internetManager.checkConnection();
-      // if (!isConnected) {
-      //   InternetFailure.fromConnectionStatus(
-      //       InternetConnectionStatus.disconnected);
-      // }
+      final isConnected = await internetManager.checkConnection();
+      if (!isConnected) {
+        return left(
+          InternetFailure.fromConnectionStatus(
+              InternetConnectionStatus.disconnected),
+        );
+      }
       final cachedCartItems = await cartLocalDataSource.getCart();
 
       if (cachedCartItems.isNotEmpty) {
@@ -51,15 +53,15 @@ class CartsRepoImpl extends CartRepo {
           InternetFailure.fromConnectionStatus(
               InternetConnectionStatus.disconnected),
         );
-      }
-      final result = await cartsRemoteDataSource.toggleCarts(productIds);
+      } else {
+        final result = await cartsRemoteDataSource.toggleCarts(productIds);
 
-      if (result) {
-        final updatedCart = await cartsRemoteDataSource.getCarts();
-        await cartLocalDataSource.saveCart(updatedCart);
+        if (result) {
+          final updatedCart = await cartsRemoteDataSource.getCarts();
+          await cartLocalDataSource.saveCart(updatedCart);
+        }
+        return right(result);
       }
-
-      return right(result);
     } catch (e) {
       print('Error in toggleCart: $e');
       return left(ServerFailure(message: e.toString()));

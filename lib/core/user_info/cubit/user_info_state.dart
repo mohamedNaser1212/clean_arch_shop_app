@@ -15,3 +15,9 @@ class GetUserInfoErrorState extends UserInfoState {
 
   GetUserInfoErrorState({required this.message});
 }
+
+class InternetFailureState extends UserInfoState {
+  final String message;
+
+  InternetFailureState({required this.message});
+}

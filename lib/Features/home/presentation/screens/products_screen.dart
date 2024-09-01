@@ -4,7 +4,6 @@ import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categ
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
-import '../../../../core/utils/widgets/loading_indicator.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../categories_list_view/product_screen_categories_widget.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';
@@ -17,56 +16,42 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoriesCubit = CategoriesCubit.get(context);
-    final shopCubit = ProductsCubit.get(context);
+    final productsCubit = ProductsCubit.get(context);
+
     return BlocConsumer<CategoriesCubit, CategoriesState>(
-      listener: (context, CategoriesState categoriesState) {
+      listener: (context, categoriesState) {
         if (categoriesState is CategoriesError) {
           showToast(message: categoriesState.error, isError: true);
         }
       },
       builder: (context, categoriesState) {
-        if (categoriesState is CategoriesLoading) {
-          return const LoadingIndicatorWidget();
-        } else if (categoriesState is CategoriesSuccess ||
+        if (categoriesState is CategoriesSuccess ||
             categoriesCubit.categoriesModel != null) {
           return BlocConsumer<ProductsCubit, GetProductsState>(
-            listener: (context, GetProductsState shopState) {},
-            builder: (context, shopState) {
-              if (shopState is GetProductsLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (shopState is GetproductsSuccessState ||
-                  shopCubit.homeModel != null) {
-                // FavouritesCubit.get(context).favorites = {
-                //   for (var p in shopCubit.homeModel!)
-                //     p.id: p.inFavorites ?? false
-                // };
-                //
-                // CartsCubit.get(context).carts = {
-                //   for (var p in shopCubit.homeModel!) p.id: p.inCart ?? false
-                // };
-
+            listener: (context, productsState) {
+              if (productsState is GetProductsErrorState) {
+                showToast(message: productsState.error!, isError: true);
+              }
+            },
+            builder: (context, productsState) {
+              if (productsState is GetProductsLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (productsState is GetProductsErrorState) {
+                return Center(child: Text(' ${productsState.error}'));
+              } else if (productsState is GetproductsSuccessState ||
+                  productsCubit.homeModel != null) {
                 return _buildProductsScreen(context);
-              } else if (shopState is GetProductsErrorState) {
-                return Center(
-                  child: Text('Failed to load products: ${shopState.error}'),
-                );
               } else {
-                return const Center(
-                  child: Text('Unexpected error occurred'),
-                );
+                return const Center(child: Text('No products available'));
               }
             },
           );
         } else if (categoriesState is CategoriesError) {
           return Center(
-            child: Text('Failed to load categories: ${categoriesState.error}'),
-          );
+              child:
+                  Text('Failed to load categories: ${categoriesState.error}'));
         } else {
-          return const Center(
-            child: Text('Unexpected error occurred'),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );
@@ -89,14 +74,20 @@ class ProductsScreen extends StatelessWidget {
               color: ColorController.blackColor,
             ),
             const SizedBox(height: 10),
-            CategoriesSection(categories: categoryModel!),
+            if (categoryModel != null)
+              CategoriesSection(categories: categoryModel)
+            else
+              const Text('No categories available'),
             const SizedBox(height: 10),
             const CustomTitle(
               title: 'New Products',
               style: TitleStyle.style24,
               color: ColorController.blackColor,
             ),
-            ProductsGridView(products: homeModel!),
+            if (homeModel != null)
+              ProductsGridView(products: homeModel)
+            else
+              const Text('No products available'),
           ],
         ),
       ),

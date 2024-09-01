@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 
 import '../../../../../core/errors_manager/failure.dart';
 import '../../../../../core/networks/api_manager/api_helper.dart';
@@ -13,11 +12,9 @@ class UserSignOutUseCase {
   });
 
   Future<Either<Failure, bool>> call({
-    required BuildContext context,
     required ApiManager apiService,
   }) async {
     return await getUserDataRepo.signOut(
-      context: context,
       apiService: apiService,
     );
   }

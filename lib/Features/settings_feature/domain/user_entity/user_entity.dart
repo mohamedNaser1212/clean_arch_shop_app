@@ -5,13 +5,13 @@ part 'user_entity.g.dart';
 @HiveType(typeId: 5)
 class UserEntity {
   @HiveField(0)
-  final String name;
+  final String? name;
   @HiveField(1)
-  final String email;
+  final String? email;
   @HiveField(2)
-  final String phone;
+  final String? phone;
   @HiveField(3)
-  final String token;
+  final String? token;
 
   const UserEntity({
     required this.name,

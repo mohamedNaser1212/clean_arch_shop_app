@@ -53,8 +53,10 @@ class AuthRepoImpl implements AuthenticationRepo {
     try {
       final isConnected = await internetManager.checkConnection();
       if (!isConnected) {
-        InternetFailure.fromConnectionStatus(
-            InternetConnectionStatus.disconnected);
+        return left(
+          InternetFailure.fromConnectionStatus(
+              InternetConnectionStatus.disconnected),
+        );
       }
 
       final registerEntity = await loginDataSource.register(

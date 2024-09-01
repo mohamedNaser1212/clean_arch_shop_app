@@ -3,7 +3,7 @@ import 'package:shop_app/core/utils/widgets/custom_title.dart';
 import 'package:shop_app/core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 
 class ConnectionFailureWidget extends StatelessWidget {
-  const ConnectionFailureWidget({super.key, required this.onPressed});
+  const ConnectionFailureWidget({super.key, this.onPressed});
   final Function()? onPressed;
   @override
   Widget build(BuildContext context) {

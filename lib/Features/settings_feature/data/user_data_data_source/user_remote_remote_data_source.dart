@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:shop_app/Features/authentication_feature/data/authentication_models/authentication_model.dart';
 
 import '../../../../core/networks/api_manager/api_helper.dart';
@@ -14,8 +13,7 @@ abstract class UserRemoteDataSource {
     required String email,
     required String phone,
   });
-  Future<bool> signOut(
-      {required BuildContext context, required ApiManager apiService});
+  Future<bool> signOut({required ApiManager apiService});
 }
 
 class UserDataSourceImpl implements UserRemoteDataSource {
@@ -47,8 +45,7 @@ class UserDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<bool> signOut(
-      {required BuildContext context, required ApiManager apiService}) async {
+  Future<bool> signOut({required ApiManager apiService}) async {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.logOutEndPoint, headerModel: HeaderModel());
     final response = await apiService.post(request: request);

@@ -55,9 +55,9 @@ class SettingsScreen extends StatelessWidget {
   }) {
     final userModel = UserDataCubit.get(context).userModel;
     if (userModel != null) {
-      nameController.text = userModel.name;
-      emailController.text = userModel.email;
-      phoneController.text = userModel.phone;
+      nameController.text = userModel.name!;
+      emailController.text = userModel.email!;
+      phoneController.text = userModel.phone!;
     }
 
     return SettingsForm(

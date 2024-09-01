@@ -1,6 +1,7 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../Features/settings_feature/domain/user_entity/user_entity.dart';
+import '../../errors_manager/internet_failure.dart';
 import '../domain/use_cases/get_user_info_use_case.dart';
 
 part 'user_info_state.dart';
@@ -10,18 +11,31 @@ class UserInfoCubit extends Cubit<UserInfoState> {
     required this.getUserUseCase,
   }) : super(UserInfoState());
 
+  static UserInfoCubit get(context) => BlocProvider.of(context);
+
   final GetUserInfoUseCase getUserUseCase;
   UserEntity? userEntity;
 
   Future<void> getUserData() async {
+    emit(GetUserInfoLoadingState());
     final result = await getUserUseCase.call();
     result.fold(
       (failure) {
-        emit(GetUserInfoErrorState(message: failure.toString()));
+        print(failure.message);
+        if (failure is InternetFailure) {
+          emit(InternetFailureState(message: failure.message));
+        } else {
+          print(failure.message);
+          emit(GetUserInfoErrorState(message: failure.message));
+        }
       },
       (user) {
         userEntity = user;
-        emit(GetUserInfoSuccessState(user));
+        // if (userEntity == null || userEntity!.name.isEmpty) {
+        //   emit(GetUserInfoErrorState(message: 'User not found'));
+        // } else {
+        emit(GetUserInfoSuccessState(userEntity!));
+        // }
       },
     );
   }

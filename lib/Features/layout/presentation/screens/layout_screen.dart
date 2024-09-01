@@ -3,6 +3,7 @@ import 'package:shop_app/Features/search_feature/presentation/screens/search_scr
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
+import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../data/layouts_model.dart';
 import '../widgets/bottom_nav_bar_widget.dart';
 
@@ -15,6 +16,13 @@ class LayoutScreen extends StatefulWidget {
 
 class _LayoutScreenState extends State<LayoutScreen> {
   final LayoutModel _layoutModel = LayoutModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ProductsCubit.get(context).getProductsData(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {

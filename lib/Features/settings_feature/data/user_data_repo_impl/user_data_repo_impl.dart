@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_local_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
@@ -36,6 +35,14 @@ class UserDataRepoImpl implements UserDataRepo {
   @override
   Future<Either<Failure, UserEntity>> getUserData() async {
     try {
+      final isConnected = await internetManager.checkConnection();
+      if (!isConnected) {
+        return left(
+          InternetFailure.fromConnectionStatus(
+            InternetConnectionStatus.disconnected,
+          ),
+        );
+      }
       final cachedUserData = await userInfoLocalDataSource.loadUserData();
 
       if (cachedUserData != null) {
@@ -76,7 +83,6 @@ class UserDataRepoImpl implements UserDataRepo {
 
   @override
   Future<Either<Failure, bool>> signOut({
-    required BuildContext context,
     required ApiManager apiService,
   }) async {
     try {
@@ -89,7 +95,6 @@ class UserDataRepoImpl implements UserDataRepo {
         );
       }
       final result = await getUserDataSource.signOut(
-        context: context,
         apiService: apiService,
       );
 

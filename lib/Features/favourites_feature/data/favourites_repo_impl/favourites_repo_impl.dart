@@ -23,17 +23,25 @@ class FavouritesRepoImpl extends FavouritesRepo {
   @override
   Future<Either<Failure, List<FavouritesEntity>>> getFavourites() async {
     try {
-      final cachedFavouriteData =
-          await favouritesLocalDataSource.getFavourites();
-
-      if (cachedFavouriteData.isNotEmpty) {
-        final nonNullableCachedFavourites =
-            cachedFavouriteData.whereType<FavouritesEntity>().toList();
-        return right(nonNullableCachedFavourites);
+      final isConnected = await internetManager.checkConnection();
+      if (!isConnected) {
+        return left(
+          InternetFailure.fromConnectionStatus(
+              InternetConnectionStatus.disconnected),
+        );
       } else {
-        final favourites = await favouritesDataSource.getFavourites();
-        await favouritesLocalDataSource.saveFavourites(favourites);
-        return right(favourites);
+        final cachedFavouriteData =
+            await favouritesLocalDataSource.getFavourites();
+
+        if (cachedFavouriteData.isNotEmpty) {
+          final nonNullableCachedFavourites =
+              cachedFavouriteData.whereType<FavouritesEntity>().toList();
+          return right(nonNullableCachedFavourites);
+        } else {
+          final favourites = await favouritesDataSource.getFavourites();
+          await favouritesLocalDataSource.saveFavourites(favourites);
+          return right(favourites);
+        }
       }
     } catch (e) {
       return left(ServerFailure(message: e.toString()));

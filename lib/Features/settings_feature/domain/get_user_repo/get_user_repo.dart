@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../../../core/errors_manager/failure.dart';
 import '../../../../core/networks/api_manager/api_helper.dart';
@@ -15,7 +14,6 @@ abstract class UserDataRepo {
   });
 
   Future<Either<Failure, bool>> signOut({
-    required BuildContext context,
     required ApiManager apiService,
   });
 }

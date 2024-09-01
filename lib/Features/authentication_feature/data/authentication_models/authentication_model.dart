@@ -1,4 +1,4 @@
-import '../../../settings_feature/domain/user_entity/user_entity.dart';
+import 'package:shop_app/Features/settings_feature/domain/user_entity/user_entity.dart';
 
 class AuthenticationModel extends UserEntity {
   final String? message;
@@ -12,12 +12,13 @@ class AuthenticationModel extends UserEntity {
   });
 
   factory AuthenticationModel.fromJson(Map<String, dynamic> json) {
+    final data = json['data'] as Map<String, dynamic>? ?? {};
     return AuthenticationModel(
-      message: json['message'],
-      name: json['data']['name'],
-      email: json['data']['email'],
-      phone: json['data']['phone'],
-      token: json['data']['token'],
+      message: json['message'] as String?,
+      name: data['name'] ?? '',
+      email: data['email'] ?? '',
+      phone: data['phone'] ?? '',
+      token: data['token'] ?? '',
     );
   }
 }

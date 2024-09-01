@@ -87,6 +87,7 @@ void setUpServiceLocator() async {
     UserInfoRepoImpl(
       remoteDataSource: getIt.get<UserInfoRemoteDataSource>(),
       userLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
+      internetManager: getIt.get<InternetManager>(),
     ),
   );
 
@@ -128,6 +129,7 @@ void setUpServiceLocator() async {
     () => HomeRepoImpl(
       homeRemoteDataSource: getIt.get<HomeRemoteDataSource>(),
       homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
+      internetManager: getIt.get<InternetManager>(),
     ),
   );
 

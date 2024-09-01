@@ -82,13 +82,11 @@ class UserDataCubit extends Cubit<GetUserDataState> {
   }
 
   Future<void> signOut(
-    BuildContext context,
     ApiManager apiService,
   ) async {
     emit(UserSignOutLoading());
 
     final result = await userSignOutUseCase.call(
-      context: context,
       apiService: apiService,
     );
 

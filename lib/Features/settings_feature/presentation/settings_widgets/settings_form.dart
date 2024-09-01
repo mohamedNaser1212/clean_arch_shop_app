@@ -83,7 +83,6 @@ class SettingsForm extends StatelessWidget {
               label: 'Sign Out',
               onPressed: () {
                 UserDataCubit.get(context).signOut(
-                  context,
                   getIt.get<ApiManager>(),
                 );
               },
