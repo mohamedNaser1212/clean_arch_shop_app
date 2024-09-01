@@ -95,7 +95,7 @@ void setUpServiceLocator() async {
     UserInfoRepoImpl(
       remoteDataSource: getIt.get<UserInfoRemoteDataSource>(),
       userLocalDataSource: getIt.get<UserInfoLocalDataSource>(),
-      internetManager: getIt.get<InternetManager>(),
+      repoManager: getIt.get<RepoManager>(),
     ),
   );
 
@@ -103,14 +103,9 @@ void setUpServiceLocator() async {
     GetUserInfoUseCase(userInfoRepo: getIt.get<UserInfoRepo>()),
   );
 
-  // Register ApiService
-
-  // Register HomeLocalDataSource
   getIt.registerSingleton<HomeLocalDataSource>(
     HomeLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageManager>()),
   );
-
-  // Authentication dependencies
 
   getIt.registerSingleton<AuthenticationRepo>(
     AuthRepoImpl(
@@ -231,7 +226,7 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<PaymentRepo>(
     PaymentRepoImpl(
       paymentManager: getIt.get<PaymentDataSource>(),
-      internetManager: getIt.get<InternetManager>(),
+      repoManager: getIt.get<RepoManager>(),
     ),
   );
 
