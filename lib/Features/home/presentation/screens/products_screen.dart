@@ -47,9 +47,7 @@ class ProductsScreen extends StatelessWidget {
             },
           );
         } else if (categoriesState is CategoriesError) {
-          return Center(
-              child:
-                  Text('Failed to load categories: ${categoriesState.error}'));
+          return Center(child: Text(categoriesState.error));
         } else {
           return const Center(child: CircularProgressIndicator());
         }
