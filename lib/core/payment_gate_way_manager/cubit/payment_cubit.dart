@@ -18,11 +18,15 @@ class PaymentCubit extends Cubit<PaymentState> {
   Future<void> makePayment(int amount, String currency, BuildContext context,
       List<CartEntity> model) async {
     emit(PaymentLoading());
-    try {
-      await paymentUseCase.makePayment(amount, currency, context, model);
-      emit(PaymentSuccess());
-    } catch (e) {
-      emit(PaymentError(message: e.toString()));
-    }
+    final result =
+        await paymentUseCase.makePayment(amount, currency, context, model);
+    result.fold(
+      (failure) {
+        emit(PaymentError(message: failure.message));
+      },
+      (success) {
+        emit(PaymentSuccess(model: model));
+      },
+    );
   }
 }

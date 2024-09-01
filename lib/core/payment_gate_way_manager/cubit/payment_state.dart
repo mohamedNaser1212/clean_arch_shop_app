@@ -4,7 +4,13 @@ class PaymentState {}
 
 class PaymentLoading extends PaymentState {}
 
-class PaymentSuccess extends PaymentState {}
+class PaymentSuccess extends PaymentState {
+  final List<CartEntity> model;
+
+  PaymentSuccess({
+    required this.model,
+  });
+}
 
 class PaymentError extends PaymentState {
   final String message;

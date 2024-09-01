@@ -220,7 +220,10 @@ void setUpServiceLocator() async {
 
   // Register PaymentRepo
   getIt.registerSingleton<PaymentRepo>(
-    PaymentRepoImpl(paymentManager: getIt.get<PaymentDataSource>()),
+    PaymentRepoImpl(
+      paymentManager: getIt.get<PaymentDataSource>(),
+      internetManager: getIt.get<InternetManager>(),
+    ),
   );
 
   // Register PaymentUseCase
@@ -230,7 +233,9 @@ void setUpServiceLocator() async {
 
   // Register PaymentCubit
   getIt.registerFactory<PaymentCubit>(
-    () => PaymentCubit(paymentUseCase: getIt.get<PaymentUseCase>()),
+    () => PaymentCubit(
+      paymentUseCase: getIt.get<PaymentUseCase>(),
+    ),
   );
   // Cubits
 

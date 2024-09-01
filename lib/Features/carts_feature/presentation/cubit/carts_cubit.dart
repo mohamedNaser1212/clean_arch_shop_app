@@ -66,11 +66,11 @@ class CartsCubit extends Cubit<CartsState> {
       result.fold(
         (failure) {
           print('Failed to remove cart items: $failure');
-          emit(AddCartItemsErrorState(error: failure.message));
+          emit(ChangeCartErrorState(error: failure.message));
         },
         (cartItem) async {
           await getCartItems();
-          emit(AddToCartSuccessState(cartItem: cartItem));
+          emit(ChangeCartSuccessState(model: true));
         },
       );
     }

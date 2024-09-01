@@ -27,7 +27,7 @@ class CartScreen extends StatelessWidget {
         ),
       ],
       child: BlocConsumer<CartsCubit, CartsState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           // if (state is ChangeCartSuccessState) {
           //   if (state.model) {
           //     const ToastWidget(
