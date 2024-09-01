@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_local_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
@@ -7,6 +8,8 @@ import 'package:shop_app/core/errors_manager/failure.dart';
 import 'package:shop_app/core/networks/api_manager/api_helper.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
+import '../../../../core/errors_manager/internet_failure.dart';
+import '../../../../core/initial_screen/manager/internet_manager/internet_manager.dart';
 import '../../../../core/user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 import '../../../favourites_feature/data/favourite_data_source/favourites_local_data_source.dart';
 import '../../domain/get_user_repo/get_user_repo.dart';
@@ -19,7 +22,7 @@ class UserDataRepoImpl implements UserDataRepo {
   final CartLocalDataSource cartLocalDataSource;
   final FavouritesLocalDataSource favouritesLocalDataSource;
   final HomeLocalDataSource homeLocalDataSource;
-
+  final InternetManager internetManager;
   const UserDataRepoImpl({
     required this.getUserInfoDataSource,
     required this.userInfoLocalDataSource,
@@ -27,6 +30,7 @@ class UserDataRepoImpl implements UserDataRepo {
     required this.cartLocalDataSource,
     required this.favouritesLocalDataSource,
     required this.homeLocalDataSource,
+    required this.internetManager,
   });
 
   @override
@@ -53,6 +57,14 @@ class UserDataRepoImpl implements UserDataRepo {
     required String phone,
   }) async {
     try {
+      final isConnected = await internetManager.checkConnection();
+      if (!isConnected) {
+        return left(
+          InternetFailure.fromConnectionStatus(
+            InternetConnectionStatus.disconnected,
+          ),
+        );
+      }
       final userData = await getUserDataSource.updateUserData(
           name: name, email: email, phone: phone);
       await userInfoLocalDataSource.saveUserData(user: userData);
@@ -68,6 +80,14 @@ class UserDataRepoImpl implements UserDataRepo {
     required ApiManager apiService,
   }) async {
     try {
+      final isConnected = await internetManager.checkConnection();
+      if (!isConnected) {
+        return left(
+          InternetFailure.fromConnectionStatus(
+            InternetConnectionStatus.disconnected,
+          ),
+        );
+      }
       final result = await getUserDataSource.signOut(
         context: context,
         apiService: apiService,

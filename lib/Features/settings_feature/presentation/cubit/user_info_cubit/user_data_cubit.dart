@@ -71,7 +71,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
     );
     result.fold(
       (failure) {
-        emit(UpdateUserDataError(failure.toString()));
+        emit(UpdateUserDataError(failure.message));
       },
       (user) {
         userModel = user;
@@ -94,7 +94,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
 
     result.fold(
       (failure) {
-        emit(UserSignOutError(error: failure.toString()));
+        emit(UserSignOutError(error: failure.message));
       },
       (success) {
         emit(UserSignOutSuccess());

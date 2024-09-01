@@ -11,9 +11,11 @@ class ChangeFavouriteSuccessState extends FavouritesState {
 }
 
 class ToggleFavoriteErrorState extends FavouritesState {
-  final String? error;
+  final String error;
 
-  ToggleFavoriteErrorState([this.error]);
+  ToggleFavoriteErrorState({
+    required this.error,
+  });
 }
 
 class ShopGetFavoritesLoadingState extends FavouritesState {}

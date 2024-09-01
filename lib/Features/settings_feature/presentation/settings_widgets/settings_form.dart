@@ -5,7 +5,7 @@ import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/toast_widget.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../cubit/user_info_cubit/user_data_cubit.dart';
 
 class SettingsForm extends StatelessWidget {
@@ -109,7 +109,7 @@ class SettingsForm extends StatelessWidget {
                       phone: phoneController.text,
                     );
                   } else {
-                    const ToastWidget(
+                    showToast(
                       message: 'No changes detected. Your data are up-to-date.',
                       isError: false,
                     );

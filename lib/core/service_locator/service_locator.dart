@@ -160,6 +160,7 @@ void setUpServiceLocator() async {
       cartLocalDataSource: getIt.get<CartLocalDataSource>(),
       favouritesLocalDataSource: getIt.get<FavouritesLocalDataSource>(),
       homeLocalDataSource: getIt.get<HomeLocalDataSource>(),
+      internetManager: getIt.get<InternetManager>(),
     ),
   );
 
@@ -193,6 +194,7 @@ void setUpServiceLocator() async {
     FavouritesRepoImpl(
       favouritesDataSource: getIt.get<FavouritesRemoteDataSource>(),
       favouritesLocalDataSource: getIt.get<FavouritesLocalDataSource>(),
+      internetManager: getIt.get<InternetManager>(),
     ),
   );
 
@@ -202,7 +204,9 @@ void setUpServiceLocator() async {
   );
 
   getIt.registerSingleton<SearchRepo>(
-    SearchRepoImpl(searchDataSource: getIt.get<SearchRemoteDataSource>()),
+    SearchRepoImpl(
+        searchDataSource: getIt.get<SearchRemoteDataSource>(),
+        internetManager: getIt.get<InternetManager>()),
   );
 
   getIt.registerSingleton<SearchUseCase>(

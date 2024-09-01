@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
-import '../../../../core/utils/widgets/reusable_widgets_manager/toast_widget.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 
 class FavouriteAndCartIcons extends StatelessWidget {
   const FavouriteAndCartIcons({super.key, required this.product});
@@ -14,7 +14,14 @@ class FavouriteAndCartIcons extends StatelessWidget {
     return Row(
       children: [
         BlocConsumer<FavouritesCubit, FavouritesState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is ToggleFavoriteErrorState) {
+              showToast(
+                message: state.error,
+                isError: true,
+              );
+            }
+          },
           builder: (context, state) {
             final isFavorite =
                 FavouritesCubit.get(context).favorites[product.id] ?? false;
@@ -37,7 +44,7 @@ class FavouriteAndCartIcons extends StatelessWidget {
         BlocConsumer<CartsCubit, CartsState>(
           listener: (context, state) {
             if (state is AddCartItemsErrorState) {
-              ToastWidget(
+              showToast(
                 message: state.error,
                 isError: true,
               );

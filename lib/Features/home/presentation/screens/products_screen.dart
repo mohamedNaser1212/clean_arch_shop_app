@@ -5,7 +5,7 @@ import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categ
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../../core/utils/widgets/loading_indicator.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/toast_widget.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../categories_list_view/product_screen_categories_widget.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';
 import '../cubit/products_cubit/get_products_state.dart';
@@ -21,7 +21,7 @@ class ProductsScreen extends StatelessWidget {
     return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, CategoriesState categoriesState) {
         if (categoriesState is CategoriesError) {
-          ToastWidget(message: categoriesState.error, isError: true);
+          showToast(message: categoriesState.error, isError: true);
         }
       },
       builder: (context, categoriesState) {

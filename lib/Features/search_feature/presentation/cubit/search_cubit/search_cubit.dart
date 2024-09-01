@@ -22,7 +22,7 @@ class SearchCubit extends Cubit<SearchState> {
     emit(SearchLoadingState());
     final result = await fetchSearchUseCase.call(text: text);
     result.fold(
-      (failure) => emit(SearchErrorState(failure.toString())),
+      (failure) => emit(SearchErrorState(error: failure.message)),
       (data) {
         searchResults = data;
 

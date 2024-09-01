@@ -61,9 +61,9 @@ class SearchScreen extends StatelessWidget {
     } else if (state is SearchSuccessState) {
       return const BuildSearchResultList();
     } else if (state is SearchErrorState) {
-      return const Center(
+      return Center(
           child: CustomTitle(
-        title: 'Error fetching data',
+        title: state.error,
         style: TitleStyle.style20,
         color: ColorController.blackColor,
       ));

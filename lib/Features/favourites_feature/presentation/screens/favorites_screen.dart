@@ -1,12 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../favourites_widgets/favourite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -16,17 +16,23 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<FavouritesCubit, FavouritesState>(
       listener: (context, state) {
-        if (state is ChangeFavouriteSuccessState) {
-          Fluttertoast.showToast(
-            msg: state.isFavourite
-                ? 'Added to favourites'
-                : 'Removed from favourites',
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: state.isFavourite ? Colors.green : Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0,
+        // if (state is ChangeFavouriteSuccessState) {
+        //   Fluttertoast.showToast(
+        //     msg: state.isFavourite
+        //         ? 'Added to favourites'
+        //         : 'Removed from favourites',
+        //     toastLength: Toast.LENGTH_LONG,
+        //     gravity: ToastGravity.BOTTOM,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: state.isFavourite ? Colors.green : Colors.red,
+        //     textColor: Colors.white,
+        //     fontSize: 16.0,
+        //   );
+        // } else
+        if (state is ToggleFavoriteErrorState) {
+          showToast(
+            message: state.error,
+            isError: true,
           );
         }
       },

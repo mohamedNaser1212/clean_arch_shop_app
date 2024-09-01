@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/toast_widget.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../../../authentication_feature/presentation/screens/login_screen.dart';
 import '../../domain/settings_use_case/update_user_data_use_case.dart';
 import '../../domain/settings_use_case/user_sign_out_use_case.dart';
@@ -71,12 +71,12 @@ class SettingsScreen extends StatelessWidget {
 
   static void _listener(BuildContext context, GetUserDataState state) {
     if (state is UpdateUserDataError) {
-      const ToastWidget(
-        message: 'Could not get user data, pleaSe try again later',
+      showToast(
+        message: state.error,
         isError: true,
       );
     } else if (state is UpdateUserDataSuccess) {
-      const ToastWidget(
+      showToast(
         message: 'Data updated successfully',
         isError: false,
       );
@@ -84,6 +84,11 @@ class SettingsScreen extends StatelessWidget {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+    } else if (state is UserSignOutError) {
+      showToast(
+        message: state.error,
+        isError: true,
       );
     }
   }

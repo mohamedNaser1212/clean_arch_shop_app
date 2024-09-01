@@ -9,7 +9,7 @@ import '../../../../core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/toast_widget.dart';
+import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../carts_widgets/cart_check_out_data.dart';
 import '../carts_widgets/cart_item_widget.dart';
 
@@ -38,12 +38,12 @@ class CartScreen extends StatelessWidget {
           // } else
 
           if (state is ChangeCartErrorState) {
-            ToastWidget(
+            showToast(
               message: state.error,
               isError: true,
             );
           } else if (state is AddCartItemsErrorState) {
-            ToastWidget(
+            showToast(
               message: state.error,
               isError: true,
             );

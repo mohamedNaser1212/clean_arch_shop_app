@@ -36,18 +36,16 @@ class FavouritesCubit extends Cubit<FavouritesState> {
   }
 
   Future<void> changeFavourite(num productId) async {
-    final currentFavoriteStatus = favorites[productId] ?? false;
-
-    favorites[productId] = !currentFavoriteStatus;
-    emit(ChangeFavouriteSuccessState(favorites[productId]!));
+    emit(ChangeFavoritesLoadingState());
+    favorites[productId] = !(favorites[productId] ?? false);
+    emit(ChangeFavouriteSuccessState(favorites[productId] ?? false));
 
     final result = await toggleFavouritesUseCase.call(productIds: productId);
 
     result.fold(
       (failure) {
-        favorites[productId] = currentFavoriteStatus;
-        emit(ChangeFavouriteSuccessState(favorites[productId]!));
-        emit(ToggleFavoriteErrorState(failure.message));
+        emit(ToggleFavoriteErrorState(error: failure.message));
+        favorites[productId] = !(favorites[productId] ?? false);
       },
       (isFavourite) async {
         await getFavorites();

@@ -23,11 +23,11 @@ class CartsRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, List<CartEntity>>> getCart() async {
     try {
-      final isConnected = await internetManager.checkConnection();
-      if (!isConnected) {
-        InternetFailure.fromConnectionStatus(
-            InternetConnectionStatus.disconnected);
-      }
+      // final isConnected = await internetManager.checkConnection();
+      // if (!isConnected) {
+      //   InternetFailure.fromConnectionStatus(
+      //       InternetConnectionStatus.disconnected);
+      // }
       final cachedCartItems = await cartLocalDataSource.getCart();
 
       if (cachedCartItems.isNotEmpty) {

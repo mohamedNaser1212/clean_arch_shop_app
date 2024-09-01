@@ -11,5 +11,7 @@ class SearchSuccessState extends SearchState {
 
 class SearchErrorState extends SearchState {
   final String error;
-  SearchErrorState(this.error);
+  SearchErrorState({
+    required this.error,
+  });
 }

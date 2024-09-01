@@ -8,6 +8,7 @@ import 'package:shop_app/core/service_locator/service_locator.dart';
 
 import '../user_info/cubit/user_info_cubit.dart';
 import '../user_info/domain/use_cases/get_user_info_use_case.dart';
+import '../utils/widgets/connection_failure_widget.dart';
 import 'manager/internet_manager/internet_manager.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -58,31 +59,8 @@ class _InitialScreenState extends State<InitialScreen> {
     }
 
     if (!isConnected) {
-      return Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.wifi_off, size: 80, color: Colors.red),
-              const SizedBox(height: 20),
-              const Text(
-                'No Internet Connection',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Please check your connection and try again.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _retryInitialization,
-                child: const Text('Retry'),
-              ),
-            ],
-          ),
-        ),
+      return ConnectionFailureWidget(
+        onPressed: _retryInitialization,
       );
     }
 
