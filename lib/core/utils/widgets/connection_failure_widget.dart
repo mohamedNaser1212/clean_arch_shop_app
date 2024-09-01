@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/utils/widgets/custom_title.dart';
+import 'package:shop_app/core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 
 class ConnectionFailureWidget extends StatelessWidget {
   const ConnectionFailureWidget({super.key, required this.onPressed});
@@ -12,21 +14,21 @@ class ConnectionFailureWidget extends StatelessWidget {
           children: [
             const Icon(Icons.wifi_off, size: 80, color: Colors.red),
             const SizedBox(height: 20),
-            const Text(
-              'No Internet Connection',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const CustomTitle(
+              title: 'No Internet Connection',
+              style: TitleStyle.styleBold20,
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Please check your connection and try again.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
+            const CustomTitle(
+              title: 'Please check your internet connection and try again',
+              style: TitleStyle.style16,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: onPressed,
-              child: const Text('Retry'),
-            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child:
+                  ReusableElevatedButton(label: 'Retry', onPressed: onPressed),
+            )
           ],
         ),
       ),
