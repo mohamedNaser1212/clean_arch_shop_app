@@ -30,6 +30,7 @@ class UserInfoRepoImpl implements UserInfoRepo {
           return cachedUserData;
         }
         final userData = await remoteDataSource.getUser();
+
         await userLocalDataSource.saveUserData(user: userData);
         return userData;
       },

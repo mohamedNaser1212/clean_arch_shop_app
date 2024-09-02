@@ -11,6 +11,7 @@ import 'package:shop_app/Features/carts_feature/domain/carts_use_case/fetch_cart
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/remove_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/favourite_remote_data_source.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/favourites_local_data_source.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourites_repo_impl/favourites_repo_impl.dart';
@@ -48,7 +49,7 @@ import '../managers/repo_manager/repo_manager.dart';
 import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_helper.dart';
-import '../networks/api_manager/api_manager.dart';
+import '../networks/api_manager/dio_manager.dart';
 import '../payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../payment_gate_way_manager/data/payment_data_source/payment_data_source.dart';
 import '../payment_gate_way_manager/data/payment_repo_impl/payment_repo_impl.dart';
@@ -77,7 +78,7 @@ void setUpServiceLocator() async {
 
   getIt.registerSingleton<RepoManager>(
     RepoManagerImpl(
-      getIt.get<InternetManager>(),
+      internetManager: getIt.get<InternetManager>(),
     ),
   );
   getIt.registerSingleton<UserInfoLocalDataSource>(
@@ -257,8 +258,10 @@ void setUpServiceLocator() async {
       ));
   getIt.registerFactory(() => CartsCubit(
         fetchCartUseCase: FetchCartUseCase(cartRepo: getIt.get<CartRepo>()),
-        toggleCartUseCase: ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()),
         removeCartUseCase: RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()),
+      ));
+  getIt.registerFactory(() => ToggleCartCubit(
+        toggleCartUseCase: ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()),
       ));
   getIt.registerFactory(() => ProductsCubit(
         fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),

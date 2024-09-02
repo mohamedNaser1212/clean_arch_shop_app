@@ -11,7 +11,9 @@ class GetUserDataSuccess extends GetUserDataState {
 
 class GetUserDataError extends GetUserDataState {
   final String error;
-  GetUserDataError(this.error);
+  GetUserDataError({
+    required this.error,
+  });
 }
 
 class UpdateUserDataSuccess extends GetUserDataState {

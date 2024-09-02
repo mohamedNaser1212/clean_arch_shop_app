@@ -1,4 +1,4 @@
-import '../../../../Features/authentication_feature/data/authentication_models/authentication_model.dart';
+import '../../../../Features/authentication_feature/data/user_model/user_model.dart';
 import '../../../networks/api_manager/api_helper.dart';
 import '../../../networks/api_manager/api_request_model.dart';
 import '../../../networks/api_manager/end_points.dart';
@@ -6,7 +6,7 @@ import '../../../networks/api_manager/end_points.dart';
 abstract class UserInfoRemoteDataSource {
   const UserInfoRemoteDataSource();
 
-  Future<AuthenticationModel> getUser();
+  Future<UserModel> getUser();
 }
 
 class UserInfoRemoteDataSourceImpl implements UserInfoRemoteDataSource {
@@ -17,14 +17,14 @@ class UserInfoRemoteDataSourceImpl implements UserInfoRemoteDataSource {
   });
 
   @override
-  Future<AuthenticationModel> getUser() async {
+  Future<UserModel> getUser() async {
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.profileEndPoint,
       headerModel: HeaderModel(),
     );
     final response = await apiHelper.get(request: request);
 
-    final loginModel = AuthenticationModel.fromJson(response);
+    final loginModel = UserModel.fromJson(response);
     return loginModel;
   }
 }

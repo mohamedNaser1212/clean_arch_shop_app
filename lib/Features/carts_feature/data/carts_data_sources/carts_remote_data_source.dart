@@ -19,14 +19,13 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   @override
   Future<List<CartResponseModel>> getCarts() async {
     ApiRequestModel request = ApiRequestModel(
-        endpoint: EndPoints.cartEndPoint, headerModel: HeaderModel());
+      endpoint: EndPoints.cartEndPoint,
+      headerModel: HeaderModel(),
+    );
 
     final response = await apiHelper.get(request: request);
-
     List<CartResponseModel> cartProducts = [];
-    cartItems(response, cartProducts);
-    print('done');
-    print(cartProducts.length);
+    _cartItems(response, cartProducts);
     return cartProducts;
   }
 
@@ -39,10 +38,8 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
       },
       headerModel: HeaderModel(),
     );
-
     final response = await apiHelper.post(request: request);
-
-    getCarts();
+    await getCarts();
     return response['status'] == true ? true : false;
   }
 
@@ -55,19 +52,19 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
       },
       headerModel: HeaderModel(),
     );
+
     final response = await apiHelper.post(request: request);
-
     List<CartResponseModel> cartProducts = [];
-    cartItems(response, cartProducts);
+    _cartItems(response, cartProducts);
     cartProducts.removeWhere((element) => element.id == productId);
-
     return cartProducts;
   }
 
-  void cartItems(
+  void _cartItems(
       Map<String, dynamic> response, List<CartResponseModel> cartProducts) {
-    if (response['data']['cart_items'] != null) {
-      for (var item in response['data']['cart_items']) {
+    final cartItems = response['data']?['cart_items'];
+    if (cartItems != null) {
+      for (var item in cartItems) {
         cartProducts.add(CartResponseModel.fromJson(item['product']));
       }
     }

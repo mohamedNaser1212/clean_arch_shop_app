@@ -25,5 +25,5 @@ TextEditingController emailController=TextEditingController();
 TextEditingController passwordController=TextEditingController();
 
 // String token='';
-
+  Map<num, bool> carts = {};
 Color defaultColor=Colors.white;

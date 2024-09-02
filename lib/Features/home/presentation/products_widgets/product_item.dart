@@ -54,8 +54,7 @@ class ProductItem extends StatelessWidget {
                           child: const CustomTitle(
                             title: 'DISCOUNT',
                             style: TitleStyle.style12,
-                            color: ColorController
-                                .blackColor, // Use blackColor from ColorController
+                            color: ColorController.blackColor,
                           ),
                         ),
                     ],

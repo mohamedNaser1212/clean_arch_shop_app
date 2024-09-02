@@ -90,6 +90,8 @@ class SettingsScreen extends StatelessWidget {
         message: state.error,
         isError: true,
       );
+    } else if (state is GetUserDataError) {
+      showToast(message: state.error, isError: true);
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => getIt<FavouritesCubit>()..getFavorites()),
         BlocProvider(create: (context) => getIt<CartsCubit>()..getCartItems()),
+        BlocProvider(
+          create: (context) => getIt<ToggleCartCubit>(),
+        ),
       ],
       child: MaterialApp(
         home: const SplashScreen(),

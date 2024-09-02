@@ -1,4 +1,6 @@
+// RepoManager Implementation with Error Handling
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../errors_manager/failure.dart';
@@ -9,7 +11,9 @@ import 'repo_manager.dart';
 class RepoManagerImpl extends RepoManager {
   final InternetManager internetManager;
 
-  RepoManagerImpl(this.internetManager);
+  RepoManagerImpl({
+    required this.internetManager,
+  });
 
   @override
   Future<Either<Failure, T>> call<T>({
@@ -26,6 +30,8 @@ class RepoManagerImpl extends RepoManager {
       }
       final result = await action();
       return right(result);
+    } on DioException catch (e) {
+      return left(ServerFailure.fromDioError(e));
     } catch (e) {
       return left(ServerFailure(message: e.toString()));
     }

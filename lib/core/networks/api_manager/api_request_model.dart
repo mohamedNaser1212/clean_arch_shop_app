@@ -11,7 +11,7 @@ class HeaderModel {
 
   HeaderModel({
     this.contentType = 'application/json',
-    String? authorization,
+    String? authorization = '',
     this.lang = 'en',
   }) : authorization = userInfoLocalDataSource
             .loadUserData()
@@ -42,7 +42,6 @@ class ApiRequestModel {
     this.query,
     this.data,
   }) {
-    // Initialize the headers asynchronously
     headers = headerModel.toMap();
   }
 

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
-import '../../stripe_payment/stripe_keys.dart';
+import '../../../stripe_key/stripe_keys.dart';
 
 abstract class PaymentDataSource {
   Future<String> getClientSecret(String amount, String currency);

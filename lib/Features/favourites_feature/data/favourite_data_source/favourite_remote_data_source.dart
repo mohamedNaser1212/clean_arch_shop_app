@@ -33,21 +33,16 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
 
   @override
   Future<bool> toggleFavourites(num productId) async {
-    try {
-      final request = ApiRequestModel(
-        endpoint: EndPoints.favoritesEndPoint,
-        data: {
-          RequestDataNames.productId: productId,
-        },
-        headerModel: HeaderModel(),
-      );
-      final response = await apiHelper.post(request: request);
+    final request = ApiRequestModel(
+      endpoint: EndPoints.favoritesEndPoint,
+      data: {
+        RequestDataNames.productId: productId,
+      },
+      headerModel: HeaderModel(),
+    );
+    final response = await apiHelper.post(request: request);
 
-      return response['status'] == true ? true : false;
-    } catch (error) {
-      print('Failed to toggle favourite item: $error');
-      return false;
-    }
+    return response['status'] == true ? true : false;
   }
 
   List<FavouritesResponseModel> getFavouritesItems(

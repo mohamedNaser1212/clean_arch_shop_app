@@ -14,42 +14,22 @@ class GetCartItemsErrorState extends CartsState {
 
 class GetCartItemsLoadingState extends CartsState {}
 
-class AddCartItemsErrorState extends CartsState {
-  final String error;
 
-  AddCartItemsErrorState({
-    required this.error,
-  });
-}
 
-class AddToCartSuccessState extends CartsState {
-  final List<CartEntity> cartItem;
-
-  AddToCartSuccessState({
-    required this.cartItem,
-  });
-}
-
-class AddCartItemsLoadingState extends CartsState {}
-
-class ChangeCartSuccessState extends CartsState {
+class ChangeCartListSuccessState extends CartsState {
   final bool model;
 
-  ChangeCartSuccessState({
+  ChangeCartListSuccessState({
     required this.model,
   });
 }
 
-class CartEmptyState extends CartsState {}
+class ChangeCartListLoadingState extends CartsState {}
 
-class ChangeCartLoadingState extends CartsState {}
-
-class ChangeCartErrorState extends CartsState {
+class ChangeCartListErrorState extends CartsState {
   final String error;
 
-  ChangeCartErrorState({
+  ChangeCartListErrorState({
     required this.error,
   });
 }
-
-class CheckoutLoadingState extends CartsState {}

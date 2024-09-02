@@ -12,6 +12,7 @@ import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../carts_widgets/cart_check_out_data.dart';
 import '../carts_widgets/cart_item_widget.dart';
+import '../cubit/toggle_cart_cubit.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -26,31 +27,38 @@ class CartScreen extends StatelessWidget {
           ),
         ),
       ],
-      child: BlocConsumer<CartsCubit, CartsState>(
-        listener: (context, state) async {
-          // if (state is ChangeCartSuccessState) {
-          //   if (state.model) {
-          //     const ToastWidget(
-          //       message: 'Item added to cart successfully',
-          //       isError: false,
-          //     );
-          //   }
-          // } else
-
-          if (state is ChangeCartErrorState) {
+      child: BlocBuilder<ToggleCartCubit, ToggleCartState>(
+        builder: (context, state) {
+          if (state is ToggleCartSuccessState) {
+            CartsCubit.get(context).getCartItems();
+          } else if (state is ToggleCartItemsErrorState) {
             showToast(
               message: state.error,
               isError: true,
             );
-          } else if (state is AddCartItemsErrorState) {
-            showToast(
-              message: state.error,
-              isError: true,
+          } else if (state is! ToggleCartSuccessState &&
+              state is ToggleCartLoadingState) {
+            Center(
+              child: LoadingAnimationWidget.waveDots(
+                color: Colors.grey,
+                size: 90,
+              ),
             );
           }
-        },
-        builder: (context, state) {
-          return _CartScreenContent(state: state);
+
+          return BlocConsumer<CartsCubit, CartsState>(
+            listener: (context, state) async {
+              if (state is ChangeCartListErrorState) {
+                showToast(
+                  message: state.error,
+                  isError: true,
+                );
+              }
+            },
+            builder: (context, state) {
+              return _CartScreenContent(state: state);
+            },
+          );
         },
       ),
     );
@@ -64,7 +72,7 @@ class _CartScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cartModel = CartsCubit.get(context).cartModel;
+    var cartModel = CartsCubit.get(context).cartEntity;
     var subtotal = CartsCubit.get(context).cartSubtotal;
     var total = CartsCubit.get(context).cartTotal;
 
@@ -79,7 +87,7 @@ class _CartScreenContent extends StatelessWidget {
     }
 
     return ConditionalBuilder(
-      condition: state is! ChangeCartLoadingState &&
+      condition: state is! ToggleCartLoadingState &&
           state is! GetCartItemsLoadingState,
       builder: (context) => Column(
         children: [

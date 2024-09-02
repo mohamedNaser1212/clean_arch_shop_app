@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
@@ -18,39 +19,49 @@ class ProductsScreen extends StatelessWidget {
     final categoriesCubit = CategoriesCubit.get(context);
     final productsCubit = ProductsCubit.get(context);
 
-    return BlocConsumer<CategoriesCubit, CategoriesState>(
-      listener: (context, categoriesState) {
-        if (categoriesState is CategoriesError) {
-          showToast(message: categoriesState.error, isError: true);
-        }
+    return BlocConsumer<CartsCubit, CartsState>(
+      listener: (context, state) {
+        // if (state is GetCartItemsErrorState) {
+        //   showToast(message: state.error, isError: true);
+        // }
       },
-      builder: (context, categoriesState) {
-        if (categoriesState is CategoriesSuccess ||
-            categoriesCubit.categoriesModel != null) {
-          return BlocConsumer<ProductsCubit, GetProductsState>(
-            listener: (context, productsState) {
-              if (productsState is GetProductsErrorState) {
-                showToast(message: productsState.error!, isError: true);
-              }
-            },
-            builder: (context, productsState) {
-              if (productsState is GetProductsLoadingState) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (productsState is GetProductsErrorState) {
-                return Center(child: Text(' ${productsState.error}'));
-              } else if (productsState is GetproductsSuccessState ||
-                  productsCubit.homeModel != null) {
-                return _buildProductsScreen(context);
-              } else {
-                return const Center(child: Text('No products available'));
-              }
-            },
-          );
-        } else if (categoriesState is CategoriesError) {
-          return Center(child: Text(categoriesState.error));
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
+      builder: (context, state) {
+        return BlocConsumer<CategoriesCubit, CategoriesState>(
+          listener: (context, categoriesState) {
+            if (categoriesState is CategoriesError) {
+              showToast(message: categoriesState.error, isError: true);
+            }
+          },
+          builder: (context, categoriesState) {
+            if (categoriesState is CategoriesSuccess ||
+                categoriesCubit.categoriesModel != null) {
+              return BlocConsumer<ProductsCubit, GetProductsState>(
+                listener: (context, productsState) {},
+                builder: (context, productsState) {
+                  if (productsState is GetProductsLoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (productsState is GetProductsErrorState) {
+                    return Center(
+                        child: CustomTitle(
+                      title:
+                          ' ${productsState.error ?? 'oops, please try again later'}',
+                      style: TitleStyle.style16,
+                    ));
+                  } else if (productsState is GetproductsSuccessState ||
+                      productsCubit.homeModel != null) {
+                    return _buildProductsScreen(context);
+                  } else {
+                    return const Center(child: Text('No products available'));
+                  }
+                },
+              );
+            } else if (categoriesState is CategoriesError) {
+              return Center(child: Text(categoriesState.error));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        );
       },
     );
   }

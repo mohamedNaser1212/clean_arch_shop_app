@@ -6,8 +6,8 @@ import 'package:shop_app/core/networks/Hive_manager/hive_boxes_names.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
 
 import '../../../../../core/networks/api_manager/api_helper.dart';
-import '../../../../authentication_feature/data/authentication_models/authentication_model.dart';
-import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';
+import '../../../../../core/utils/widgets/constants.dart';
+import '../../../../authentication_feature/data/user_model/user_model.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../../domain/settings_use_case/update_user_data_use_case.dart';
 import '../../../domain/settings_use_case/user_sign_out_use_case.dart';
@@ -37,7 +37,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
       final result = await getInfoUserDataUseCase.call();
       result.fold(
         (failure) {
-          emit(GetUserDataError(failure.toString()));
+          emit(GetUserDataError(error: failure.message));
         },
         (user) {
           userModel = user;
@@ -101,12 +101,12 @@ class UserDataCubit extends Cubit<GetUserDataState> {
   }
 
   Future<void> registerNewUser({
-    required AuthenticationModel user,
+    required UserModel user,
     required BuildContext context,
   }) async {
     await clearUserData();
     if (context.mounted) {
-      CartsCubit.get(context).carts.clear();
+      carts.clear();
       FavouritesCubit.get(context).favorites.clear();
     }
   }

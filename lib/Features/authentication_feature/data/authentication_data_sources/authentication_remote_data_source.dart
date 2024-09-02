@@ -2,14 +2,14 @@ import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
-import '../authentication_models/authentication_model.dart';
+import '../user_model/user_model.dart';
 
 abstract class AuthenticationRemoteDataSource {
-  Future<AuthenticationModel> login({
+  Future<UserModel> login({
     required String email,
     required String password,
   });
-  Future<AuthenticationModel> register({
+  Future<UserModel> register({
     required String email,
     required String password,
     required String name,
@@ -25,7 +25,7 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
   });
 
   @override
-  Future<AuthenticationModel> login({
+  Future<UserModel> login({
     required String email,
     required String password,
   }) async {
@@ -40,11 +40,11 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
 
     final response = await apiHelper.post(request: request);
 
-    return AuthenticationModel.fromJson(response);
+    return UserModel.fromJson(response);
   }
 
   @override
-  Future<AuthenticationModel> register({
+  Future<UserModel> register({
     required String email,
     required String password,
     required String name,
@@ -63,6 +63,6 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
 
     final response = await apiHelper.post(request: request);
 
-    return AuthenticationModel.fromJson(response);
+    return UserModel.fromJson(response);
   }
 }

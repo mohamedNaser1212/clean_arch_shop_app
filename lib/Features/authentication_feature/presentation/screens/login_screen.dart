@@ -61,8 +61,7 @@ class LoginScreen extends StatelessWidget {
       );
       if (context.mounted) {
         ProductsCubit.get(context).getProductsData(context: context);
-        // CartsCubit.get(context).getCartItems();
-        // FavouritesCubit.get(context).getFavorites();
+
         UserDataCubit.get(context).getUserData();
         FavouritesCubit.get(context).getFavorites();
         CartsCubit.get(context).getCartItems();

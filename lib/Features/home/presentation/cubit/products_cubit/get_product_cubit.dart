@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../carts_feature/presentation/cubit/carts_cubit.dart';
+import '../../../../../core/utils/widgets/constants.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 import '../../../domain/use_case/home_use_case/products_Use_Case.dart';
 import 'get_products_state.dart';
@@ -27,7 +27,7 @@ class ProductsCubit extends Cubit<GetProductsState> {
     final result = await fetchHomeItemsUseCase.call();
     result.fold(
       (failure) {
-        print('Failed to fetch products: $failure');
+        print('Failed to fetch products: ${failure.message}');
         emit(GetProductsErrorState());
       },
       (products) {
@@ -40,7 +40,7 @@ class ProductsCubit extends Cubit<GetProductsState> {
         //   for (var p in products) p.id: p.inCart
         // };
 
-        print(CartsCubit.get(context).carts);
+        print(carts);
         emit(GetproductsSuccessState(products));
       },
     );

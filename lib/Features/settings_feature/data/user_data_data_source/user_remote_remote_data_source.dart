@@ -1,14 +1,13 @@
-import 'package:shop_app/Features/authentication_feature/data/authentication_models/authentication_model.dart';
-
 import '../../../../core/networks/api_manager/api_helper.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/dio_data_name.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
+import '../../../authentication_feature/data/user_model/user_model.dart';
 
 abstract class UserRemoteDataSource {
   const UserRemoteDataSource();
 
-  Future<AuthenticationModel> updateUserData({
+  Future<UserModel> updateUserData({
     required String name,
     required String email,
     required String phone,
@@ -24,7 +23,7 @@ class UserDataSourceImpl implements UserRemoteDataSource {
   });
 
   @override
-  Future<AuthenticationModel> updateUserData({
+  Future<UserModel> updateUserData({
     required String name,
     required String email,
     required String phone,
@@ -40,7 +39,7 @@ class UserDataSourceImpl implements UserRemoteDataSource {
     );
 
     final response = await apiHelper.put(request: request);
-    final loginModel = AuthenticationModel.fromJson(response);
+    final loginModel = UserModel.fromJson(response);
     return loginModel;
   }
 

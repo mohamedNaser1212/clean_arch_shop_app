@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+// Failure classes
 abstract class Failure {
   final String message;
 
@@ -13,28 +14,30 @@ class ServerFailure extends Failure {
     required super.message,
   });
 
-  factory ServerFailure.fromDiorError(DioException e) {
+  factory ServerFailure.fromDioError(DioException e) {
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
         return const ServerFailure(
-            message: 'Connection timeout with api server');
-
+            message: 'Connection timeout with API server');
       case DioExceptionType.sendTimeout:
-        return const ServerFailure(message: 'Send timeout with ApiServer');
+        return const ServerFailure(message: 'Send timeout with API server');
       case DioExceptionType.receiveTimeout:
-        return const ServerFailure(message: 'Receive timeout with ApiServer');
+        return const ServerFailure(message: 'Receive timeout with API server');
       case DioExceptionType.badCertificate:
-        return const ServerFailure(message: 'badCertificate with api server');
+        return const ServerFailure(message: 'Bad certificate with API server');
       case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
-            e.response!.statusCode!, e.toString());
+          e.response?.statusCode ?? 500,
+          e.response?.data ?? 'Bad response from server',
+        );
       case DioExceptionType.cancel:
-        return const ServerFailure(message: 'Request to ApiServer was canceld');
+        return const ServerFailure(
+            message: 'Request to API server was canceled');
       case DioExceptionType.connectionError:
-        return const ServerFailure(message: 'No Internet Connection');
+        return const ServerFailure(message: 'No internet connection');
       case DioExceptionType.unknown:
         return const ServerFailure(
-            message: 'Opps There was an Error, Please try again');
+            message: 'Oops! There was an error, please try again');
     }
   }
 
@@ -44,12 +47,13 @@ class ServerFailure extends Failure {
           message: 'Your request was not found, please try later');
     } else if (statusCode == 500) {
       return const ServerFailure(
-          message: 'There is a problem with server, please try later');
+          message: 'There is a problem with the server, please try later');
     } else if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(message: response['error']['message']);
+      return ServerFailure(
+          message: response['error']['message'] ?? 'Unauthorized request');
     } else {
       return const ServerFailure(
-          message: 'There was an error , please try again');
+          message: 'There was an error, pleaSe try again');
     }
   }
 }

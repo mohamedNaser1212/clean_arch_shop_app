@@ -4,7 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 
-import '../../../payment_gate_way_manager/stripe_payment/stripe_keys.dart';
+import '../../../stripe_key/stripe_keys.dart';
 import '../../bloc_observer/bloc_observer.dart';
 import '../initial_screen/initial_screen.dart';
 
