@@ -26,13 +26,13 @@ class DioManager implements ApiManager {
       if (response.data['status'] == false) {
         print('response.data: ${response.data['message']}');
         throw Exception(
-          'Error: ${response.data['message']}',
+          '${response.data['message']}',
         );
       }
       return response.data ?? {};
     } else {
       throw Exception(
-        'Error: ${response.statusCode} - ${response.statusMessage}',
+        '${response.data['message']}',
       );
     }
   }
