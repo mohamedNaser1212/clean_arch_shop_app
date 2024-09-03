@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_information_widget.dart';
+import 'package:shop_app/core/models/base_products_model.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
-import '../../domain/entities/products_entity/product_entity.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';
 import '../cubit/products_cubit/get_products_state.dart';
 
@@ -18,7 +18,7 @@ class ProductItem extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  final ProductEntity product;
+  final BaseProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,7 @@ class ProductItem extends StatelessWidget {
             );
           },
           child: Container(
-            color: ColorController
-                .backgroundColor, // Use backgroundColor from ColorController
+            color: ColorController.backgroundColor,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

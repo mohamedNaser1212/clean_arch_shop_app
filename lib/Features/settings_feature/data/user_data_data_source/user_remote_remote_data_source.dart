@@ -12,7 +12,7 @@ abstract class UserRemoteDataSource {
     required String email,
     required String phone,
   });
-  Future<bool> signOut({required ApiManager apiService});
+  Future<bool> signOut();
 }
 
 class UserDataSourceImpl implements UserRemoteDataSource {
@@ -44,10 +44,10 @@ class UserDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<bool> signOut({required ApiManager apiService}) async {
+  Future<bool> signOut() async {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.logOutEndPoint, headerModel: HeaderModel());
-    final response = await apiService.post(request: request);
+    final response = await apiHelper.post(request: request);
     return response['status'];
   }
 }

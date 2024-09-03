@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/widgets/constants.dart';
 import '../../domain/favourites_entity/favourites_entity.dart';
 import '../../domain/favourites_use_case/get_favourites_use_case.dart';
 import '../../domain/favourites_use_case/toggle_favourites_use_case.dart';
@@ -15,6 +14,7 @@ class FavouritesCubit extends Cubit<FavouritesState> {
   final GetFavouritesUseCases fetchFavouritesUseCase;
   final ToggleFavouritesUseCase toggleFavouritesUseCase;
   static FavouritesCubit get(context) => BlocProvider.of(context);
+  Map<num, bool> favorites = {};
 
   List<FavouritesEntity> getFavouritesModel = [];
   Future<void> getFavorites() async {

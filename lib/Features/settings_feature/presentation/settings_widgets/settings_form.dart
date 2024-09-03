@@ -9,7 +9,7 @@ import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
-import '../cubit/user_info_cubit/user_data_cubit.dart';
+import '../cubit/user_info_cubit/sign_out_cubit.dart';
 
 class SettingsForm extends StatelessWidget {
   final TextEditingController nameController;
@@ -85,7 +85,7 @@ class SettingsForm extends StatelessWidget {
             ReusableElevatedButton(
               label: 'Sign Out',
               onPressed: () {
-                UserDataCubit.get(context).signOut(getIt<ApiManager>());
+                SignOutCubit.get(context).signOut(getIt<ApiManager>());
               },
               backColor: ColorController.warningColor,
               textColor: ColorController.buttonTextColor,

@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors_manager/failure.dart';
-import '../../../../core/networks/api_manager/api_manager.dart';
 import '../user_entity/user_entity.dart';
 
 abstract class UserDataRepo {
@@ -13,7 +12,5 @@ abstract class UserDataRepo {
     required String phone,
   });
 
-  Future<Either<Failure, bool>> signOut({
-    required ApiManager apiService,
-  });
+  Future<Either<Failure, bool>> signOut();
 }

@@ -3,7 +3,6 @@ import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_lo
 import 'package:shop_app/Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
 import 'package:shop_app/core/errors_manager/failure.dart';
-import 'package:shop_app/core/networks/api_manager/api_manager.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
 import '../../../../core/managers/repo_manager/repo_manager.dart';
@@ -64,14 +63,10 @@ class UserDataRepoImpl implements UserDataRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> signOut({
-    required ApiManager apiService,
-  }) async {
+  Future<Either<Failure, bool>> signOut() async {
     return repoManager.call(
       action: () async {
-        final result = await getUserDataSource.signOut(
-          apiService: apiService,
-        );
+        final result = await getUserDataSource.signOut();
 
         if (result) {
           await cartLocalDataSource.clearCart();
