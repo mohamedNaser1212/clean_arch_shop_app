@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
+import 'package:shop_app/core/utils/widgets/custom_title.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
@@ -172,14 +174,20 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
                     children: [
-                      const Text('Already have an account? '),
+                      const CustomTitle(
+                        style: TitleStyle.style16,
+                        title: 'Already have an account? ',
+                      ),
                       TextButton(
                         onPressed: () {
-                          // Navigate to Login Screen
+                          NavigationManager.navigateAndFinish(
+                            context: context,
+                            screen: LoginScreen(),
+                          );
                         },
-                        child: const Text(
-                          'Login Now',
-                          style: StylesManager.textStyle24,
+                        child: const CustomTitle(
+                          style: TitleStyle.styleBold18,
+                          title: 'Login Now',
                         ),
                       ),
                     ],
