@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
 
-import '../../../../core/utils/widgets/constants.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 import '../../domain/carts_use_case/remove_cart_use_case.dart';
 
@@ -19,19 +18,20 @@ class ToggleCartCubit extends Cubit<ToggleCartState> {
 
   Future<void> changeCarts(num prodId) async {
     emit(ToggleCartLoadingState());
-    carts[prodId] = !(carts[prodId] ?? false);
+    //   carts[prodId] = !(carts[prodId] ?? false);
 
     final result = await toggleCartUseCase.call(products: prodId);
     result.fold(
       (failure) {
         print('Failed to add/remove cart items: $failure');
         emit(ToggleCartItemsErrorState(error: failure.message));
-        carts[prodId] = !(carts[prodId] ?? false);
+        //   carts[prodId] = !(carts[prodId] ?? false);
       },
       (isAdded) async {
         emit(ToggleCartSuccessState(
-          model: carts[prodId] ?? false,
+          model: isAdded,
         ));
+        // carts[prodId] ?? false
       },
     );
   }

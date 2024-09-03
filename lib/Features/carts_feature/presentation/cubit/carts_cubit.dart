@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/widgets/constants.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 import '../../domain/carts_use_case/fetch_cart_use_case.dart';
 
@@ -16,7 +15,7 @@ class CartsCubit extends Cubit<CartsState> {
   static CartsCubit get(context) => BlocProvider.of(context);
 
   List<CartEntity> cartEntity = [];
-
+  Map<num, bool> carts = {};
   Future<void> getCartItems() async {
     emit(GetCartItemsLoadingState());
 

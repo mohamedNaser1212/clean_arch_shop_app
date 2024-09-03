@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/widgets/constants.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 import '../../../domain/use_case/home_use_case/products_Use_Case.dart';
 import 'get_products_state.dart';
@@ -32,7 +31,6 @@ class ProductsCubit extends Cubit<GetProductsState> {
       },
       (products) {
         homeModel = products;
-        print(carts);
         emit(GetproductsSuccessState(products));
       },
     );

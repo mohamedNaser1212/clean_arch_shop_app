@@ -1,22 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
+import 'package:shop_app/core/models/base_products_model.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
-import '../../../../core/utils/widgets/constants.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
-import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class CartItemWidget extends StatelessWidget {
-  final CartEntity model;
+  final BaseProductModel model;
 
   const CartItemWidget({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
-    var cartItem = carts[model.id] ?? false;
+    var cartItem = CartsCubit.get(context).carts[model.id] ?? false;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: InkWell(
