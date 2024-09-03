@@ -2,14 +2,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
 
 import '../../../../core/utils/widgets/constants.dart';
+import '../../domain/cart_entity/add_to_cart_entity.dart';
+import '../../domain/carts_use_case/remove_cart_use_case.dart';
 
 part 'toggle_cart_state.dart';
 
 class ToggleCartCubit extends Cubit<ToggleCartState> {
   ToggleCartCubit({
     required this.toggleCartUseCase,
+    required this.removeCartUseCase,
   }) : super(ToggleCartState());
   final ToggleCartUseCase toggleCartUseCase;
+  final RemoveCartUseCase removeCartUseCase;
 
   static ToggleCartCubit get(context) => BlocProvider.of(context);
 
@@ -30,5 +34,25 @@ class ToggleCartCubit extends Cubit<ToggleCartState> {
         ));
       },
     );
+  }
+
+  List<CartEntity> cartEntity = [];
+  Future<bool> changeCartsList(List<num> prodIds) async {
+    emit(ChangeCartListLoadingState());
+
+    for (var prodId in prodIds) {
+      final result = await removeCartUseCase.call(products: prodId);
+      result.fold(
+        (failure) {
+          print('Failed to remove cart items: $failure');
+          emit(ChangeCartListErrorState(error: failure.message));
+        },
+        (cartItem) async {
+          // await getCartItems();
+          emit(ChangeCartListSuccessState(model: true));
+        },
+      );
+    }
+    return true;
   }
 }

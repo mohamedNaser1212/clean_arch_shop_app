@@ -6,6 +6,7 @@ import 'package:shop_app/Features/authentication_feature/domain/authentication_u
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/core/user_info/cubit/user_info_cubit.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
@@ -16,7 +17,6 @@ import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevate
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../layout/presentation/screens/layout_screen.dart';
-import '../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';
@@ -62,7 +62,7 @@ class LoginScreen extends StatelessWidget {
       if (context.mounted) {
         ProductsCubit.get(context).getProductsData(context: context);
 
-        UserDataCubit.get(context).getUserData();
+        UserInfoCubit.get(context).getUserData();
         FavouritesCubit.get(context).getFavorites();
         CartsCubit.get(context).getCartItems();
         NavigationManager.navigateAndFinish(

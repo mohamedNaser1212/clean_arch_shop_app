@@ -26,4 +26,6 @@ TextEditingController passwordController=TextEditingController();
 
 // String token='';
   Map<num, bool> carts = {};
+    Map<num, bool> favorites = {};
+
 Color defaultColor=Colors.white;

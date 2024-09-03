@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
 
-import '../../../../core/payment_gate_way_manager/cubit/payment_cubit.dart';
-import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
@@ -19,48 +16,53 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => PaymentCubit(
-            paymentUseCase: getIt.get<PaymentUseCase>(),
-          ),
-        ),
-      ],
-      child: BlocBuilder<ToggleCartCubit, ToggleCartState>(
-        builder: (context, state) {
-          if (state is ToggleCartSuccessState) {
-            CartsCubit.get(context).getCartItems();
-          } else if (state is ToggleCartItemsErrorState) {
-            showToast(
-              message: state.error,
-              isError: true,
-            );
-          } else if (state is! ToggleCartSuccessState &&
-              state is ToggleCartLoadingState) {
-            Center(
-              child: LoadingAnimationWidget.waveDots(
-                color: Colors.grey,
-                size: 90,
-              ),
-            );
-          }
-
-          return BlocConsumer<CartsCubit, CartsState>(
-            listener: (context, state) async {
-              if (state is ChangeCartListErrorState) {
-                showToast(
-                  message: state.error,
-                  isError: true,
-                );
-              }
-            },
-            builder: (context, state) {
-              return _CartScreenContent(state: state);
-            },
+    return BlocListener<ToggleCartCubit, ToggleCartState>(
+      listener: (context, state) {
+        if (state is ToggleCartItemsErrorState) {
+          showToast(
+            message: state.error,
+            isError: true,
           );
-        },
-      ),
+        } else if (state is ChangeCartListErrorState) {
+          showToast(
+            message: state.error,
+            isError: true,
+          );
+        }
+      },
+      child: CartScreenBuilder(),
+    );
+  }
+}
+
+class CartScreenBuilder extends StatelessWidget {
+  const CartScreenBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ToggleCartCubit, ToggleCartState>(
+      builder: (context, toggleState) {
+        if (toggleState is ToggleCartSuccessState ||
+            toggleState is ChangeCartListSuccessState) {
+          CartsCubit.get(context).getCartItems();
+        }
+
+        return BlocBuilder<CartsCubit, CartsState>(
+          builder: (context, cartsState) {
+            if (toggleState is ToggleCartLoadingState ||
+                cartsState is GetCartItemsLoadingState) {
+              return Center(
+                child: LoadingAnimationWidget.waveDots(
+                  color: Colors.grey,
+                  size: 90,
+                ),
+              );
+            }
+
+            return _CartScreenContent(state: cartsState);
+          },
+        );
+      },
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
@@ -22,17 +23,24 @@ class FavoritesScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return BlocConsumer<FavouritesCubit, FavouritesState>(
+        return BlocConsumer<ToggleFavouriteCubit, ToggleFavouriteState>(
           listener: (context, state) {
             if (state is ToggleFavoriteErrorState) {
               showToast(
                 message: state.error,
                 isError: true,
               );
+            } else if (state is ToggleFavouriteSuccessState) {
+              FavouritesCubit.get(context).getFavorites();
             }
           },
           builder: (context, state) {
-            return FavoritesScreenContent(state: state);
+            return BlocConsumer<FavouritesCubit, FavouritesState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                return FavoritesScreenContent(state: state);
+              },
+            );
           },
         );
       },
@@ -43,7 +51,7 @@ class FavoritesScreen extends StatelessWidget {
 class FavoritesScreenContent extends StatelessWidget {
   final FavouritesState state;
 
-  const FavoritesScreenContent({required this.state});
+  const FavoritesScreenContent({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {

@@ -3,19 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
 
 import '../../../../core/utils/widgets/constants.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 
 class FavouriteAndCartIcons extends StatelessWidget {
   const FavouriteAndCartIcons({super.key, required this.product});
+
   final dynamic product;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        BlocConsumer<FavouritesCubit, FavouritesState>(
+        BlocConsumer<ToggleFavouriteCubit, ToggleFavouriteState>(
           listener: (context, state) {
             if (state is ToggleFavoriteErrorState) {
               showToast(
@@ -25,21 +27,26 @@ class FavouriteAndCartIcons extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            final isFavorite =
-                FavouritesCubit.get(context).favorites[product.id] ?? false;
-            return IconButton(
-              onPressed: () {
-                FavouritesCubit.get(context).changeFavourite(product.id);
+            return BlocConsumer<FavouritesCubit, FavouritesState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                final isFavorite = favorites[product.id] ?? false;
+                return IconButton(
+                  onPressed: () {
+                    ToggleFavouriteCubit.get(context)
+                        .changeFavourite(product.id);
+                  },
+                  icon: CircleAvatar(
+                    backgroundColor: isFavorite ? Colors.red : Colors.grey,
+                    radius: 15,
+                    child: const Icon(
+                      Icons.favorite,
+                      size: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                );
               },
-              icon: CircleAvatar(
-                backgroundColor: isFavorite ? Colors.red : Colors.grey,
-                radius: 15,
-                child: const Icon(
-                  Icons.favorite,
-                  size: 15,
-                  color: Colors.white,
-                ),
-              ),
             );
           },
         ),

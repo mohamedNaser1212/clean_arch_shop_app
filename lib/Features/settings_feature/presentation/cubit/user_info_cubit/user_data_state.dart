@@ -16,18 +16,6 @@ class GetUserDataError extends GetUserDataState {
   });
 }
 
-class UpdateUserDataSuccess extends GetUserDataState {
-  final UserEntity loginModel;
-  UpdateUserDataSuccess(this.loginModel);
-}
-
-class UpdateUserDataError extends GetUserDataState {
-  final String error;
-  UpdateUserDataError(this.error);
-}
-
-class UpdateUserDataLoading extends GetUserDataState {}
-
 class GetUserDataSignedOutSuccess extends GetUserDataState {}
 
 class UserSignOutError extends GetUserDataState {

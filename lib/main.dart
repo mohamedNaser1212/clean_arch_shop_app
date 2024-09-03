@@ -3,12 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
+import 'package:shop_app/core/user_info/cubit/user_info_cubit.dart';
 
 import 'Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
 import 'Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
 import 'Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
-import 'Features/settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
+import 'Features/settings_feature/domain/settings_use_case/update_user_data_use_case.dart';
+import 'core/payment_gate_way_manager/cubit/payment_cubit.dart';
+import 'core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
 import 'core/service_locator/service_locator.dart';
 import 'core/utils/widgets/constants.dart';
 import 'core/utils/widgets/splash_screen/splash_screen.dart';
@@ -33,12 +38,25 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => getIt<LoginCubit>()),
         BlocProvider(create: (context) => getIt<RegisterCubit>()),
         BlocProvider(
-            create: (context) => getIt<UserDataCubit>()..getUserData()),
+            create: (context) => getIt<UserInfoCubit>()..getUserData()),
         BlocProvider(
             create: (context) => getIt<FavouritesCubit>()..getFavorites()),
         BlocProvider(create: (context) => getIt<CartsCubit>()..getCartItems()),
         BlocProvider(
           create: (context) => getIt<ToggleCartCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<ToggleFavouriteCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => PaymentCubit(
+            paymentUseCase: getIt.get<PaymentUseCase>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => UpdateUserDataCubit(
+            updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
+          ),
         ),
       ],
       child: MaterialApp(

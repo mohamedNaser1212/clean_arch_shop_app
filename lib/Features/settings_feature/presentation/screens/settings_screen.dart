@@ -1,65 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
+import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
-import '../../../authentication_feature/presentation/screens/login_screen.dart';
 import '../../domain/settings_use_case/update_user_data_use_case.dart';
-import '../../domain/settings_use_case/user_sign_out_use_case.dart';
-import '../cubit/user_info_cubit/user_data_cubit.dart';
 import '../settings_widgets/settings_form.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
 
   final nameController = TextEditingController();
-
   final emailController = TextEditingController();
-
   final phoneController = TextEditingController();
-
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => UserDataCubit(
-          getInfoUserDataUseCase: getIt.get<GetUserInfoUseCase>(),
-          updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
-          userSignOutUseCase: getIt.get<UserSignOutUseCase>())
-        ..getUserData(),
-      child: BlocConsumer<UserDataCubit, GetUserDataState>(
-        listener: _listener,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => UpdateUserDataCubit(
+            updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
+          ),
+        ),
+      ],
+      child: BlocConsumer<UpdateUserDataCubit, UpdateUserDataState>(
+        listener: (context, state) {
+          if (state is UpdateUserDataError) {
+            showToast(message: state.error, isError: true);
+          }
+        },
         builder: (context, state) {
-          return _buildSettingsForm(
-            context: context,
-            state: state,
-            nameController: nameController,
-            emailController: emailController,
-            phoneController: phoneController,
-            formKey: formKey,
+          return BlocBuilder<UpdateUserDataCubit, UpdateUserDataState>(
+            builder: (context, state) {
+              if (state is UpdateUserDataSuccess) {
+                UserInfoCubit.get(context).getUserData();
+                showToast(message: 'Data updated successfully', isError: false);
+              }
+              return BlocConsumer<UserInfoCubit, UserInfoState>(
+                listener: (context, userState) {
+                  if (userState is GetUserInfoSuccessState) {
+                    _showUserData(context);
+                  }
+                },
+                builder: (context, userState) {
+                  return _buildSettingsForm(
+                    context: context,
+                    state: userState,
+                    nameController: nameController,
+                    emailController: emailController,
+                    phoneController: phoneController,
+                    formKey: formKey,
+                  );
+                },
+              );
+            },
           );
         },
       ),
     );
   }
 
+  void _showUserData(BuildContext context) {
+    var userEntity = UserInfoCubit.get(context).userEntity;
+    if (userEntity != null) {
+      nameController.text = userEntity.name;
+      emailController.text = userEntity.email;
+      phoneController.text = userEntity.phone;
+    }
+  }
+
   Widget _buildSettingsForm({
     required BuildContext context,
-    required GetUserDataState state,
+    required UserInfoState state,
     required TextEditingController nameController,
     required TextEditingController emailController,
     required TextEditingController phoneController,
     required GlobalKey<FormState> formKey,
   }) {
-    final userModel = UserDataCubit.get(context).userModel;
-    if (userModel != null) {
-      nameController.text = userModel.name!;
-      emailController.text = userModel.email!;
-      phoneController.text = userModel.phone!;
-    }
-
     return SettingsForm(
       emailController: emailController,
       nameController: nameController,
@@ -67,31 +87,5 @@ class SettingsScreen extends StatelessWidget {
       formKey: formKey,
       state: state,
     );
-  }
-
-  static void _listener(BuildContext context, GetUserDataState state) {
-    if (state is UpdateUserDataError) {
-      showToast(
-        message: state.error,
-        isError: true,
-      );
-    } else if (state is UpdateUserDataSuccess) {
-      showToast(
-        message: 'Data updated successfully',
-        isError: false,
-      );
-    } else if (state is UserSignOutSuccess) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-      );
-    } else if (state is UserSignOutError) {
-      showToast(
-        message: state.error,
-        isError: true,
-      );
-    } else if (state is GetUserDataError) {
-      showToast(message: state.error, isError: true);
-    }
   }
 }

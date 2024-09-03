@@ -32,14 +32,6 @@ class ProductsCubit extends Cubit<GetProductsState> {
       },
       (products) {
         homeModel = products;
-
-        // FavouritesCubit.get(context).favorites = {
-        //   for (var p in products) p.id: p.inFavorites ?? false
-        // };
-        // CartsCubit.get(context).carts = {
-        //   for (var p in products) p.id: p.inCart
-        // };
-
         print(carts);
         emit(GetproductsSuccessState(products));
       },

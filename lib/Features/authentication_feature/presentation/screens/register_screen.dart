@@ -8,6 +8,7 @@ import 'package:shop_app/core/utils/widgets/custom_title.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
+import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
@@ -16,7 +17,6 @@ import '../../../carts_feature/presentation/cubit/carts_cubit.dart';
 import '../../../favourites_feature/presentation/cubit/favourites_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../layout/presentation/screens/layout_screen.dart';
-import '../../../settings_feature/presentation/cubit/user_info_cubit/user_data_cubit.dart';
 import '../../domain/authentication_repo/authentication_repo.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
@@ -60,7 +60,7 @@ Future<void> _listener(BuildContext context, RegisterState state) async {
       ProductsCubit.get(context).homeModel;
       // CartsCubit.get(context).getCartItems();
       // FavouritesCubit.get(context).getFavorites();
-      UserDataCubit.get(context).getUserData();
+      UserInfoCubit.get(context).getUserData();
       FavouritesCubit.get(context).getFavorites();
       CartsCubit.get(context).getCartItems();
       NavigationManager.navigateAndFinish(

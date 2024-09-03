@@ -25,7 +25,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
       },
       (user) {
         userEntity = user;
-        // Always emit success, even if the token is empty
+        print(userEntity?.name);
         emit(GetUserInfoSuccessState(userEntity: userEntity));
       },
     );

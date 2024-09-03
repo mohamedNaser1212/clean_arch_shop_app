@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
+import 'package:shop_app/core/user_info/cubit/user_info_cubit.dart';
 
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
@@ -13,7 +16,7 @@ class SettingsForm extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController phoneController;
   final GlobalKey<FormState> formKey;
-  final GetUserDataState state;
+  final UserInfoState state;
 
   const SettingsForm({
     Key? key,
@@ -32,7 +35,7 @@ class SettingsForm extends StatelessWidget {
         key: formKey,
         child: Column(
           children: [
-            if (state is GetUserDataLoading)
+            if (state is GetUserInfoLoadingState)
               const LinearProgressIndicator(
                 backgroundColor: ColorController.accentColor,
               ),
@@ -82,38 +85,43 @@ class SettingsForm extends StatelessWidget {
             ReusableElevatedButton(
               label: 'Sign Out',
               onPressed: () {
-                UserDataCubit.get(context).signOut(
-                  getIt.get<ApiManager>(),
-                );
+                UserDataCubit.get(context).signOut(getIt<ApiManager>());
               },
               backColor: ColorController.warningColor,
               textColor: ColorController.buttonTextColor,
             ),
             const SizedBox(height: 20.0),
-            ReusableElevatedButton(
-              label: 'Update',
-              backColor: ColorController.blueAccentColor,
-              textColor: ColorController.buttonTextColor,
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  final cubit = UserDataCubit.get(context);
-                  if (cubit.checkDataChanges(
-                    name: nameController.text,
-                    email: emailController.text,
-                    phone: phoneController.text,
-                  )) {
-                    cubit.updateUserData(
-                      name: nameController.text,
-                      email: emailController.text,
-                      phone: phoneController.text,
-                    );
-                  } else {
-                    showToast(
-                      message: 'No changes detected. Your data are up-to-date.',
-                      isError: false,
-                    );
-                  }
-                }
+            BlocBuilder<UpdateUserDataCubit, UpdateUserDataState>(
+              builder: (context, updateState) {
+                return ReusableElevatedButton(
+                  label: 'Update',
+                  backColor: ColorController.blueAccentColor,
+                  textColor: ColorController.buttonTextColor,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      final cubit = UpdateUserDataCubit.get(context);
+                      UpdateUserDataCubit.get(context).userModel =
+                          UserInfoCubit.get(context).userEntity;
+                      if (cubit.checkDataChanges(
+                        name: nameController.text,
+                        email: emailController.text,
+                        phone: phoneController.text,
+                      )) {
+                        cubit.updateUserData(
+                          name: nameController.text,
+                          email: emailController.text,
+                          phone: phoneController.text,
+                        );
+                      } else {
+                        showToast(
+                          message:
+                              'No changes detected. Your data is up-to-date.',
+                          isError: false,
+                        );
+                      }
+                    }
+                  },
+                );
               },
             ),
           ],

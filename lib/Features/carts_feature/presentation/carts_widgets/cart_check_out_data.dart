@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/utils/widgets/loading_indicator.dart';
 import 'package:shop_app/core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 
@@ -7,7 +8,6 @@ import '../../../../core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
-import '../cubit/carts_cubit.dart';
 
 class CartCheckoutData extends StatelessWidget {
   final num? subtotal;
@@ -29,7 +29,7 @@ class CartCheckoutData extends StatelessWidget {
           final itemIds =
               state.model.map((e) => e.id).whereType<num>().toList();
 
-          (await CartsCubit.get(context).changeCartsList(itemIds));
+          (await ToggleCartCubit.get(context).changeCartsList(itemIds));
         } else if (state is PaymentError) {
           showToast(message: state.message, isError: true);
         } else if (state is PaymentLoading) {

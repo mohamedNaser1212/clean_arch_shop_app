@@ -19,3 +19,21 @@ class ToggleCartSuccessState extends ToggleCartState {
     required this.model,
   });
 }
+
+class ChangeCartListSuccessState extends ToggleCartState {
+  final bool model;
+
+  ChangeCartListSuccessState({
+    required this.model,
+  });
+}
+
+class ChangeCartListLoadingState extends ToggleCartState {}
+
+class ChangeCartListErrorState extends ToggleCartState {
+  final String error;
+
+  ChangeCartListErrorState({
+    required this.error,
+  });
+}
