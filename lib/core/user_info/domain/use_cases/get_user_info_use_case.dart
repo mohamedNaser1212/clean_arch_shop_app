@@ -10,7 +10,7 @@ class GetUserInfoUseCase {
     required this.userInfoRepo,
   });
 
-  Future<Either<Failure, UserEntity>> call() async {
+  Future<Either<Failure, UserEntity?>> call() async {
     return await userInfoRepo.getUser();
   }
 }

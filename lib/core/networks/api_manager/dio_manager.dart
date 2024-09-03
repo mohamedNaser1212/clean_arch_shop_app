@@ -1,7 +1,7 @@
 // DioManager Implementation with Enhanced Error Handling
 import 'package:dio/dio.dart';
 
-import 'api_helper.dart';
+import 'api_manager.dart';
 import 'api_request_model.dart';
 
 class DioManager implements ApiManager {
@@ -77,59 +77,6 @@ class DioManager implements ApiManager {
     var options = _createOptions(headers);
     var response =
         await dio.delete('$baseUrl${request.endpoint}', options: options);
-    return await _handleResponse(response);
-  }
-
-  @override
-  Future<Response> responsePost({required ApiRequestModel request}) async {
-    final headers = await _getHeaders(request);
-    var options = _createOptions(headers);
-    var response = await dio.post(
-      '$baseUrl${request.endpoint}',
-      data: request.data,
-      options: options,
-    );
-    return await _handleResponse(response);
-  }
-
-  @override
-  Future<Response> responsePut({required ApiRequestModel request}) async {
-    final headers = await _getHeaders(request);
-    var options = _createOptions(headers);
-    var response = await dio.put(
-      '$baseUrl${request.endpoint}',
-      data: request.data,
-      options: options,
-    );
-    return await _handleResponse(response);
-  }
-
-  @override
-  Future<Response> responseDelete({required ApiRequestModel request}) async {
-    final headers = await _getHeaders(request);
-    var options = _createOptions(headers);
-    var response = await dio.delete(
-      '$baseUrl${request.endpoint}',
-      options: options,
-    );
-    return await _handleResponse(response);
-  }
-
-  @override
-  Future<Response> responseGet({
-    required ApiRequestModel request,
-    String lang = 'en',
-    String? token,
-    Map<String, dynamic>? query,
-  }) async {
-    final headers = await _getHeaders(request);
-    var options = _createOptions(headers);
-
-    var response = await dio.get(
-      '$baseUrl${request.endpoint}',
-      queryParameters: query,
-      options: options,
-    );
     return await _handleResponse(response);
   }
 }

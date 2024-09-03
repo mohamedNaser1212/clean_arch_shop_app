@@ -1,10 +1,10 @@
-// RepoManager Implementation with Error Handling
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../errors_manager/failure.dart';
 import '../../errors_manager/internet_failure.dart';
+import '../../errors_manager/server_failure.dart';
 import '../internet_manager/internet_manager.dart';
 import 'repo_manager.dart';
 

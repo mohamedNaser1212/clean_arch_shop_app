@@ -48,7 +48,7 @@ import '../managers/internet_manager/internet_manager_impl.dart';
 import '../managers/repo_manager/repo_manager.dart';
 import '../networks/Hive_manager/hive_helper.dart';
 import '../networks/Hive_manager/hive_manager.dart';
-import '../networks/api_manager/api_helper.dart';
+import '../networks/api_manager/api_manager.dart';
 import '../networks/api_manager/dio_manager.dart';
 import '../payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../payment_gate_way_manager/data/payment_data_source/payment_data_source.dart';

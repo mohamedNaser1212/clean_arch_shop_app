@@ -26,7 +26,7 @@ class _InitialScreenState extends State<InitialScreen> {
       child: BlocListener<UserInfoCubit, UserInfoState>(
         listener: (context, state) {
           if (state is GetUserInfoSuccessState) {
-            if (state.userEntity?.token == '') {
+            if (state.userEntity == null) {
               NavigationManager.navigateAndFinish(
                 context: context,
                 screen: LoginScreen(),
@@ -57,9 +57,7 @@ class _InitialScreenState extends State<InitialScreen> {
               );
             }
             return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
+              body: SizedBox(),
             );
           },
         ),

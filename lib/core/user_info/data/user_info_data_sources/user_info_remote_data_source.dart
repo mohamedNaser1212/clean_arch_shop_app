@@ -1,5 +1,5 @@
 import '../../../../Features/authentication_feature/data/user_model/user_model.dart';
-import '../../../networks/api_manager/api_helper.dart';
+import '../../../networks/api_manager/api_manager.dart';
 import '../../../networks/api_manager/api_request_model.dart';
 import '../../../networks/api_manager/end_points.dart';
 

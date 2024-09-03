@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors_manager/failure.dart';
-import '../../../../core/networks/api_manager/api_helper.dart';
+import '../../../../core/networks/api_manager/api_manager.dart';
 import '../user_entity/user_entity.dart';
 
 abstract class UserDataRepo {

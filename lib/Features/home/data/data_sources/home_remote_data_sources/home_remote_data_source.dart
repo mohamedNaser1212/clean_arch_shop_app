@@ -1,4 +1,4 @@
-import '../../../../../core/networks/api_manager/api_helper.dart';
+import '../../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../../core/networks/api_manager/end_points.dart';
 import '../../home_models/categories_models/categories_model.dart';

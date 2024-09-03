@@ -5,7 +5,7 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourit
 import 'package:shop_app/core/networks/Hive_manager/hive_boxes_names.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
 
-import '../../../../../core/networks/api_manager/api_helper.dart';
+import '../../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../../core/utils/widgets/constants.dart';
 import '../../../../authentication_feature/data/user_model/user_model.dart';
 import '../../../../settings_feature/domain/user_entity/user_entity.dart';
@@ -41,7 +41,7 @@ class UserDataCubit extends Cubit<GetUserDataState> {
         },
         (user) {
           userModel = user;
-          emit(GetUserDataSuccess(user));
+          emit(GetUserDataSuccess(user!));
         },
       );
     }

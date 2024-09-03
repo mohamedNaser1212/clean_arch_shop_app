@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-
 import 'api_request_model.dart';
 
 abstract class ApiManager {
@@ -16,22 +14,6 @@ abstract class ApiManager {
   });
 
   Future<Map<String, dynamic>> delete({
-    required ApiRequestModel request,
-  });
-
-  Future<Response> responsePost({
-    required ApiRequestModel request,
-  });
-
-  Future<Response> responsePut({
-    required ApiRequestModel request,
-  });
-
-  Future<Response> responseDelete({
-    required ApiRequestModel request,
-  });
-
-  Future<Response> responseGet({
     required ApiRequestModel request,
   });
 }

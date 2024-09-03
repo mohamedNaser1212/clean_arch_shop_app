@@ -5,8 +5,10 @@ class LoginState {}
 class AppLoginLoadingState extends LoginState {}
 
 class AppLoginSuccessState extends LoginState {
-  final UserEntity loginMode;
-  AppLoginSuccessState(this.loginMode);
+  final UserEntity userModel;
+  AppLoginSuccessState({
+    required this.userModel,
+  });
 }
 
 class AppLoginErrorState extends LoginState {

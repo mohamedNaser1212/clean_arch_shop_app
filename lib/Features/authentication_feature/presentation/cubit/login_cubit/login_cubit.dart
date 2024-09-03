@@ -34,7 +34,7 @@ class LoginCubit extends Cubit<LoginState> {
           },
           (userData) {
             // userModel = userData;
-            emit(AppLoginSuccessState(userData));
+            emit(AppLoginSuccessState(userModel: userData!));
           },
         );
       },
