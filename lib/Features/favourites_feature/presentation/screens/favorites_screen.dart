@@ -12,7 +12,9 @@ import '../../../../core/utils/widgets/custom_title.dart';
 import '../favourites_widgets/favourite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
-  const FavoritesScreen({super.key});
+  const FavoritesScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,9 @@ class FavoritesScreen extends StatelessWidget {
             return BlocConsumer<FavouritesCubit, FavouritesState>(
               listener: (context, state) {},
               builder: (context, state) {
-                return FavoritesScreenContent(state: state);
+                return FavoritesScreenContent(
+                  state: state,
+                );
               },
             );
           },
@@ -51,7 +55,10 @@ class FavoritesScreen extends StatelessWidget {
 class FavoritesScreenContent extends StatelessWidget {
   final FavouritesState state;
 
-  const FavoritesScreenContent({super.key, required this.state});
+  const FavoritesScreenContent({
+    super.key,
+    required this.state,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +76,9 @@ class FavoritesScreenContent extends StatelessWidget {
     return ConditionalBuilder(
       condition: true,
       builder: (context) => ListView.separated(
-        itemBuilder: (context, index) =>
-            FavoriteItem(model: favouritesModel[index]),
+        itemBuilder: (context, index) => FavoriteItem(
+          model: favouritesModel[index],
+        ),
         separatorBuilder: (context, index) => const Divider(),
         itemCount: favouritesModel.length,
       ),

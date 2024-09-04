@@ -12,7 +12,9 @@ import '../carts_widgets/cart_item_widget.dart';
 import '../cubit/toggle_cart_cubit.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+  const CartScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class CartScreen extends StatelessWidget {
           );
         }
       },
-      child: CartScreenBuilder(),
+      child: const CartScreenBuilder(),
     );
   }
 }
@@ -75,8 +77,6 @@ class _CartScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartModel = CartsCubit.get(context).cartEntity;
-    var subtotal = CartsCubit.get(context).cartTotal;
-    var total = CartsCubit.get(context).cartTotal;
 
     if (cartModel.isEmpty) {
       return const Center(

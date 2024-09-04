@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
@@ -6,7 +5,7 @@ import 'package:shop_app/core/models/base_products_model.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/utils/screens/products_details_screen.dart';
-import '../../../../core/utils/widgets/custom_title.dart';
+import '../../../../core/utils/widgets/product_info_widget.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 
 class CartItemWidget extends StatelessWidget {
@@ -30,35 +29,7 @@ class CartItemWidget extends StatelessWidget {
           height: 150,
           child: Row(
             children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: model.image ?? '',
-                    fit: BoxFit.cover,
-                    width: 120,
-                    height: 120,
-                    placeholder: (context, url) => Center(
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: Colors.red,
-                    ),
-                  ),
-                  if (model.discount != 0)
-                    Container(
-                      color: Theme.of(context).primaryColor,
-                      padding: const EdgeInsets.all(2),
-                      child: const CustomTitle(
-                        title: 'DISCOUNT',
-                        style: TitleStyle.style12,
-                      ),
-                    ),
-                ],
-              ),
+              ProductInfoWidget(model: model),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(

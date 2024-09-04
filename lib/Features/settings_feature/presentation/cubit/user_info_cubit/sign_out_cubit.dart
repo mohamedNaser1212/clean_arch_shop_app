@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/networks/api_manager/api_manager.dart';
-import '../../../../settings_feature/domain/user_entity/user_entity.dart';
 import '../../../domain/settings_use_case/user_sign_out_use_case.dart';
 
 part 'sign_out_state.dart';
@@ -25,7 +24,7 @@ class SignOutCubit extends Cubit<SignOutState> {
       (failure) {
         emit(UserSignOutError(error: failure.message));
       },
-      (success) async {
+      (success) {
         emit(UserSignOutSuccess());
       },
     );
