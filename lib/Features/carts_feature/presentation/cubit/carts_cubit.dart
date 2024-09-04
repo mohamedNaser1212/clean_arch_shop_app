@@ -8,7 +8,6 @@ part 'carts_state.dart';
 class CartsCubit extends Cubit<CartsState> {
   CartsCubit({
     required this.fetchCartUseCase,
-    //required this.removeCartUseCase,
   }) : super(CartsState());
   final FetchCartUseCase fetchCartUseCase;
 
@@ -34,9 +33,7 @@ class CartsCubit extends Cubit<CartsState> {
     );
   }
 
-  num get cartSubtotal {
+  num cartTotal() {
     return cartEntity.fold(0, (sum, item) => sum + (item.price ?? 0));
   }
-
-  num get cartTotal => cartSubtotal;
 }

@@ -75,7 +75,7 @@ class _CartScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartModel = CartsCubit.get(context).cartEntity;
-    var subtotal = CartsCubit.get(context).cartSubtotal;
+    var subtotal = CartsCubit.get(context).cartTotal;
     var total = CartsCubit.get(context).cartTotal;
 
     if (cartModel.isEmpty) {
@@ -102,8 +102,7 @@ class _CartScreenContent extends StatelessWidget {
             ),
           ),
           CartCheckoutData(
-            subtotal: subtotal,
-            total: total,
+            total: CartsCubit.get(context).cartTotal(),
             cartModel: cartModel,
           ),
         ],

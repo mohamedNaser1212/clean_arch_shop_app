@@ -10,15 +10,13 @@ import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevate
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class CartCheckoutData extends StatelessWidget {
-  final num? subtotal;
-  final num? total;
-  final List<CartEntity>? cartModel;
+  final num total;
+  final List<CartEntity> cartModel;
 
   const CartCheckoutData({
     super.key,
-    required this.subtotal,
     required this.total,
-    this.cartModel,
+    required this.cartModel,
   });
 
   @override
@@ -42,10 +40,6 @@ class CartCheckoutData extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomTitle(
-                  title:
-                      'Subtotal: \$${subtotal?.toStringAsFixed(2) ?? '0.00'}',
-                  style: TitleStyle.styleBold18),
               const SizedBox(height: 8),
               CustomTitle(
                 title: 'Total: \$${total?.toStringAsFixed(2) ?? '0.00'}',
