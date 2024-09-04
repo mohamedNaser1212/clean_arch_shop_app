@@ -9,6 +9,7 @@ import 'package:shop_app/core/utils/widgets/custom_title.dart';
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
+import '../../../../core/user_info/domain/use_cases/get_user_info_use_case.dart';
 import '../../../../core/utils/styles_manager/text_styles_manager.dart';
 import '../../../../core/utils/widgets/constants.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
@@ -26,9 +27,10 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(
-        RegisterUseCase(
+        loginUseCase: RegisterUseCase(
           authenticationRepo: getIt.get<AuthenticationRepo>(),
         ),
+        userDataUseCase: getIt.get<GetUserInfoUseCase>(),
       ),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: _listener,

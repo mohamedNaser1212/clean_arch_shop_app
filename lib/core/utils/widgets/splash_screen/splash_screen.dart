@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Bloc.observer = MyBlocObserver();
+    Bloc.observer = const MyBlocObserver();
     Stripe.publishableKey = ApiKeys.publishableKey;
 
     setUpServiceLocator();

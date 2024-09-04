@@ -258,7 +258,12 @@ void setUpServiceLocator() async {
       userDataUseCase: getIt.get<GetUserInfoUseCase>(),
     ),
   );
-  getIt.registerFactory(() => RegisterCubit(getIt.get<RegisterUseCase>()));
+  getIt.registerFactory(() => RegisterCubit(
+        loginUseCase: RegisterUseCase(
+          authenticationRepo: getIt.get<AuthenticationRepo>(),
+        ),
+        userDataUseCase: getIt.get<GetUserInfoUseCase>(),
+      ));
   getIt.registerFactory(() => SignOutCubit(
         userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
       ));

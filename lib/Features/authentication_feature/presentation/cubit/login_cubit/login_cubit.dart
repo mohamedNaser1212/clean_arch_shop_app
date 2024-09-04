@@ -13,7 +13,6 @@ class LoginCubit extends Cubit<LoginState> {
   }) : super(LoginState());
 
   static LoginCubit get(context) => BlocProvider.of(context);
-  // UserEntity? userModel;
 
   Future<void> login({
     required String email,
@@ -33,7 +32,6 @@ class LoginCubit extends Cubit<LoginState> {
             emit(AppLoginErrorState(error: failure.message));
           },
           (userData) {
-            // userModel = userData;
             emit(AppLoginSuccessState(userModel: userData!));
           },
         );

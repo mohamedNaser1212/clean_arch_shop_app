@@ -5,6 +5,7 @@ import '../../../../core/networks/api_manager/end_points.dart';
 import '../user_model/user_model.dart';
 
 abstract class AuthenticationRemoteDataSource {
+  const AuthenticationRemoteDataSource();
   Future<UserModel> login({
     required String email,
     required String password,
