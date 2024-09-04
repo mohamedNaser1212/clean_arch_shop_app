@@ -4,12 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
-import 'package:shop_app/core/user_info/cubit/user_info_cubit.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/service_locator/service_locator.dart';
+import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../../core/user_info/domain/use_cases/get_user_info_use_case.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/custom_title.dart';
@@ -61,10 +59,10 @@ class LoginScreen extends StatelessWidget {
       );
       if (context.mounted) {
         ProductsCubit.get(context).getProductsData(context: context);
-
-        UserInfoCubit.get(context).getUserData();
-        FavouritesCubit.get(context).getFavorites();
-        CartsCubit.get(context).getCartItems();
+        UserInfoCubit.get(context).userEntity = state.userModel;
+        //UserInfoCubit.get(context).getUserData();
+        // FavouritesCubit.get(context).getFavorites();
+        // CartsCubit.get(context).getCartItems();
         NavigationManager.navigateAndFinish(
             context: context, screen: const LayoutScreen());
       }

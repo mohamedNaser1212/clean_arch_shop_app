@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 
 import '../../../../core/functions/toast_function.dart';
@@ -16,57 +15,62 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoriesCubit = CategoriesCubit.get(context);
-    final productsCubit = ProductsCubit.get(context);
-
-    return BlocConsumer<CartsCubit, CartsState>(
-      listener: (context, state) {
-        // if (state is GetCartItemsErrorState) {
-        //   showToast(message: state.error, isError: true);
-        // }
-      },
-      builder: (context, state) {
-        return BlocConsumer<CategoriesCubit, CategoriesState>(
-          listener: (context, categoriesState) {
-            if (categoriesState is CategoriesError) {
-              showToast(message: categoriesState.error, isError: true);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CategoriesCubit, CategoriesState>(
+          listener: (context, state) {
+            if (state is CategoriesError) {
+              showToast(message: state.error, isError: true);
             }
           },
-          builder: (context, categoriesState) {
-            if (categoriesState is CategoriesSuccess ||
-                categoriesCubit.categoriesModel != null) {
-              return BlocConsumer<ProductsCubit, GetProductsState>(
-                listener: (context, productsState) {},
-                builder: (context, productsState) {
-                  if (productsState is GetProductsLoadingState) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (productsState is GetProductsErrorState) {
-                    return Center(
-                        child: CustomTitle(
-                      title:
-                          ' ${productsState.error ?? 'oops, please try again later'}',
-                      style: TitleStyle.style16,
-                    ));
-                  } else if (productsState is GetproductsSuccessState ||
-                      productsCubit.homeModel != null) {
-                    return _buildProductsScreen(context);
-                  } else {
-                    return const Center(child: Text('No products available'));
-                  }
-                },
-              );
-            } else if (categoriesState is CategoriesError) {
-              return Center(child: Text(categoriesState.error));
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        );
-      },
+        ),
+      ],
+      child: BlocBuilder<CategoriesCubit, CategoriesState>(
+        builder: (context, categoriesState) {
+          return _buildCategoriesSection(context, categoriesState);
+        },
+      ),
     );
   }
 
-  Widget _buildProductsScreen(BuildContext context) {
+  Widget _buildCategoriesSection(BuildContext context, CategoriesState state) {
+    final categoriesCubit = CategoriesCubit.get(context);
+
+    if (state is CategoriesError) {
+      return Center(child: Text(state.error));
+    } else if (state is CategoriesSuccess ||
+        categoriesCubit.categoriesModel != null) {
+      return BlocBuilder<ProductsCubit, GetProductsState>(
+        builder: (context, productsState) {
+          return _buildProductsSection(context, productsState);
+        },
+      );
+    } else {
+      return const Center(child: CircularProgressIndicator());
+    }
+  }
+
+  Widget _buildProductsSection(BuildContext context, GetProductsState state) {
+    final productsCubit = ProductsCubit.get(context);
+
+    if (state is GetProductsLoadingState) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (state is GetProductsErrorState) {
+      return Center(
+        child: CustomTitle(
+          title: ' ${state.error ?? 'Oops, please try again later'}',
+          style: TitleStyle.style16,
+        ),
+      );
+    } else if (state is GetproductsSuccessState ||
+        productsCubit.homeModel != null) {
+      return _buildProductsScreenContent(context);
+    } else {
+      return const Center(child: Text('No products available'));
+    }
+  }
+
+  Widget _buildProductsScreenContent(BuildContext context) {
     final homeModel = ProductsCubit.get(context).homeModel;
     final categoryModel = CategoriesCubit.get(context).categoriesModel;
 

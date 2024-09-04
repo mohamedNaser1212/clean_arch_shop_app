@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
@@ -19,8 +20,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    FavouritesCubit.get(context).getFavorites();
     ProductsCubit.get(context).getProductsData(context: context);
   }
 

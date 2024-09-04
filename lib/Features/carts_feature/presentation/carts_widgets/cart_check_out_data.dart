@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/utils/widgets/loading_indicator.dart';
@@ -21,50 +22,59 @@ class CartCheckoutData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PaymentCubit, PaymentState>(
-      listener: (context, state) async {
-        if (state is PaymentSuccess) {
-          final itemIds =
-              state.model.map((e) => e.id).whereType<num>().toList();
-
-          (await ToggleCartCubit.get(context).changeCartsList(itemIds));
-        } else if (state is PaymentError) {
-          showToast(message: state.message, isError: true);
-        } else if (state is PaymentLoading) {
+    return BlocConsumer<CartsCubit, CartsState>(
+      listener: (context, state) {
+        if (state is! GetCartItemsSuccessState) {
           const LoadingIndicatorWidget();
         }
       },
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              CustomTitle(
-                title: 'Total: \$${total?.toStringAsFixed(2) ?? '0.00'}',
-                style: TitleStyle.styleBold20,
-              ),
-              const SizedBox(height: 8),
-              ReusableElevatedButton(
-                  label: 'CheckOut',
-                  onPressed: () {
-                    PaymentCubit.get(context).makePayment(
-                      total!.toInt(),
-                      'EGP',
-                      context,
-                      cartModel!,
-                    );
+        return BlocConsumer<PaymentCubit, PaymentState>(
+          listener: (context, state) async {
+            if (state is PaymentSuccess) {
+              final itemIds =
+                  state.model.map((e) => e.id).whereType<num>().toList();
 
-                    // PaymentManager.makePayment(
-                    //   total!.toInt(),
-                    //   'EGP',
-                    //   context,
-                    //   cartModel!,
-                    // );
-                  })
-            ],
-          ),
+              (await ToggleCartCubit.get(context).changeCartsList(itemIds));
+            } else if (state is PaymentError) {
+              showToast(message: state.message, isError: true);
+            } else if (state is PaymentLoading) {
+              const LoadingIndicatorWidget();
+            }
+          },
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 8),
+                  CustomTitle(
+                    title: 'Total: \$${total?.toStringAsFixed(2) ?? '0.00'}',
+                    style: TitleStyle.styleBold20,
+                  ),
+                  const SizedBox(height: 8),
+                  ReusableElevatedButton(
+                      label: 'CheckOut',
+                      onPressed: () {
+                        PaymentCubit.get(context).makePayment(
+                          total!.toInt(),
+                          'EGP',
+                          context,
+                          cartModel!,
+                        );
+
+                        // PaymentManager.makePayment(
+                        //   total!.toInt(),
+                        //   'EGP',
+                        //   context,
+                        //   cartModel!,
+                        // );
+                      })
+                ],
+              ),
+            );
+          },
         );
       },
     );

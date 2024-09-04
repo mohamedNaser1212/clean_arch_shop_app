@@ -49,8 +49,6 @@ class FavouriteAndCartIcons extends StatelessWidget {
       BuildContext context, ToggleFavouriteState state) {
     if (state is ToggleFavoriteErrorState) {
       showToast(message: state.error, isError: true);
-    } else if (state is ToggleFavouriteSuccessState) {
-      FavouritesCubit.get(context).getFavorites();
     }
   }
 
@@ -85,8 +83,6 @@ class FavouriteAndCartIcons extends StatelessWidget {
   void toggleCartListener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartItemsErrorState) {
       showToast(message: state.error, isError: true);
-    } else if (state is ToggleCartSuccessState) {
-      CartsCubit.get(context).getCartItems();
     }
   }
 

@@ -32,6 +32,8 @@ class _InitialScreenState extends State<InitialScreen> {
                 screen: LoginScreen(),
               );
             } else {
+              print(state.userEntity!.name);
+              UserInfoCubit.get(context).userEntity = state.userEntity;
               NavigationManager.navigateAndFinish(
                 context: context,
                 screen: const LayoutScreen(),

@@ -24,12 +24,12 @@ class FavouritesCubit extends Cubit<FavouritesState> {
     result.fold(
       (failure) {
         print('Failed to fetch favorites: $failure');
-        emit(ShopGetFavoritesErrorState(failure.message));
+        emit(ShopGetFavoritesErrorState(error: failure.message));
       },
       (favourites) {
         getFavouritesModel = favourites;
         favorites = {for (var p in favourites) p.id: true};
-        emit(ShopGetFavoritesSuccessState(getFavouritesModel));
+        emit(ShopGetFavoritesSuccessState(favouritesModel: getFavouritesModel));
       },
     );
   }
