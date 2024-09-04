@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/models/base_products_model.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
 
 class ProductInformationWidget extends StatelessWidget {
   const ProductInformationWidget({super.key, required this.product});
-  final dynamic product;
+  final BaseProductModel product;
 
   @override
   Widget build(BuildContext context) {

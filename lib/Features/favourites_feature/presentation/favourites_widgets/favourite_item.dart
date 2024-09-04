@@ -18,7 +18,7 @@ class FavoriteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(16.0),
       child: InkWell(
         onTap: () {
           NavigationManager.navigateTo(
@@ -29,7 +29,7 @@ class FavoriteItem extends StatelessWidget {
           );
         },
         child: SizedBox(
-          height: 150,
+          height: MediaQuery.of(context).size.height * 0.17,
           child: Row(
             children: [
               ProductInfoWidget(model: model),

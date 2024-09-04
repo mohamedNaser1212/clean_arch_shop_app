@@ -42,16 +42,17 @@ class CartScreenBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ToggleCartCubit, ToggleCartState>(
-      builder: (context, toggleState) {
-        if (toggleState is ToggleCartSuccessState ||
-            toggleState is ChangeCartListSuccessState) {
+    return BlocConsumer<ToggleCartCubit, ToggleCartState>(
+      listener: (context, state) {
+        if (state is ToggleCartSuccessState ||
+            state is ChangeCartListSuccessState) {
           CartsCubit.get(context).getCartItems();
         }
-
+      },
+      builder: (context, state) {
         return BlocBuilder<CartsCubit, CartsState>(
           builder: (context, cartsState) {
-            if (toggleState is ToggleCartLoadingState ||
+            if (state is ToggleCartLoadingState ||
                 cartsState is GetCartItemsLoadingState) {
               return Center(
                 child: LoadingAnimationWidget.waveDots(
