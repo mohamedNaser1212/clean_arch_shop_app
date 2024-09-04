@@ -11,7 +11,7 @@ import 'repo_manager.dart';
 class RepoManagerImpl extends RepoManager {
   final InternetManager internetManager;
 
-  RepoManagerImpl({
+  const RepoManagerImpl({
     required this.internetManager,
   });
 

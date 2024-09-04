@@ -5,9 +5,9 @@ import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
 
+import '../../../../core/functions/toast_function.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../../domain/settings_use_case/update_user_data_use_case.dart';
 import '../settings_widgets/settings_form.dart';
 

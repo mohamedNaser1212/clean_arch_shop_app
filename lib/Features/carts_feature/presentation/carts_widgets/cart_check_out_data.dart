@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
+import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/utils/widgets/loading_indicator.dart';
-import 'package:shop_app/core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 
 import '../../../../core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../../../../core/utils/widgets/custom_title.dart';

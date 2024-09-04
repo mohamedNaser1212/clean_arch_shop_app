@@ -12,7 +12,7 @@ class PaymentRepoImpl implements PaymentRepo {
   final PaymentDataSource paymentManager;
   final RepoManager repoManager;
 
-  PaymentRepoImpl({
+  const PaymentRepoImpl({
     required this.paymentManager,
     required this.repoManager,
   });

@@ -6,7 +6,7 @@ import 'package:shop_app/core/user_info/domain/user_info_repo/user_info_repo.dar
 class GetUserInfoUseCase {
   final UserInfoRepo userInfoRepo;
 
-  GetUserInfoUseCase({
+  const GetUserInfoUseCase({
     required this.userInfoRepo,
   });
 

@@ -138,7 +138,7 @@ class LoginScreen extends StatelessWidget {
       },
       label: 'Email Address',
       prefix: const Icon(Icons.email_outlined),
-      onTap: () {},
+      // onTap: () {},
     );
   }
 
@@ -163,7 +163,7 @@ class LoginScreen extends StatelessWidget {
         return null;
       },
       prefix: const Icon(Icons.lock_outline),
-      onTap: () {},
+      // onTap: () {},
     );
   }
 

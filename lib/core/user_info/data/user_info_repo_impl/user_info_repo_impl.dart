@@ -14,7 +14,7 @@ class UserInfoRepoImpl implements UserInfoRepo {
   final UserInfoLocalDataSource userLocalDataSource;
   final RepoManager repoManager;
 
-  UserInfoRepoImpl({
+  const UserInfoRepoImpl({
     required this.remoteDataSource,
     required this.userLocalDataSource,
     required this.repoManager,

@@ -103,7 +103,6 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                 const SizedBox(height: 15),
                 ReusableTextFormField(
                   label: 'Email',
-                  onTap: () {},
                   validator: (String? value) {
                     if (value!.isEmpty) {
                       return 'Please enter an email';
@@ -118,7 +117,6 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                 const SizedBox(height: 10),
                 ReusableTextFormField(
                   label: 'Password',
-                  onTap: () {},
                   onSubmit: (String? value) {
                     return null;
                   },
@@ -143,7 +141,6 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                 const SizedBox(height: 10),
                 ReusableTextFormField(
                   label: 'Name',
-                  onTap: () {},
                   validator: (String? value) {
                     if (value!.isEmpty) {
                       return 'Name must not be empty';
@@ -158,7 +155,6 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                 const SizedBox(height: 10),
                 ReusableTextFormField(
                   label: 'Phone',
-                  onTap: () {},
                   validator: (String? value) {
                     if (value!.isEmpty) {
                       return 'Phone must not be empty';

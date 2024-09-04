@@ -1,4 +1,5 @@
 abstract class EndPoints {
+  const EndPoints._();
   static const String loginEndPoint = 'login';
   static const String registerEndPoint = 'register';
   static const String homeEndPoint = 'home';

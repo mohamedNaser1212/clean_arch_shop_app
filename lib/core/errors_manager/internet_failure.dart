@@ -15,10 +15,6 @@ class InternetFailure extends Failure {
         return const InternetFailure(message: 'Unknown internet status.');
     }
   }
-
-  factory InternetFailure.customError(String customMessage) {
-    return InternetFailure(message: customMessage);
-  }
 }
 
 // class InternetFailureManager {

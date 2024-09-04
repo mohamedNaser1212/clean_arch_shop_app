@@ -8,7 +8,7 @@ import '../../../errors_manager/failure.dart';
 class PaymentUseCase {
   final PaymentRepo paymentRepo;
 
-  PaymentUseCase({
+  const PaymentUseCase({
     required this.paymentRepo,
   });
 

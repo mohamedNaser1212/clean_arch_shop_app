@@ -29,7 +29,6 @@ class BuildSearchField extends StatelessWidget {
           return null;
         },
         prefix: const Icon(Icons.search),
-        onTap: () {},
       ),
     );
   }

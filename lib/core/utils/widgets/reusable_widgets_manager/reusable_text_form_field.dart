@@ -4,7 +4,7 @@ class ReusableTextFormField extends StatelessWidget {
   final String label;
   final double borderRadius;
   final Color activeColor;
-  final void Function() onTap;
+  // final void Function() onTap;
   final String? Function(String?)? validator;
   final String? Function(String?)? onSubmit;
   final TextEditingController controller;
@@ -18,7 +18,7 @@ class ReusableTextFormField extends StatelessWidget {
     required this.label,
     this.borderRadius = 25,
     this.activeColor = Colors.blue,
-    required this.onTap,
+    // required this.onTap,
     this.validator,
     this.onSubmit,
     required this.controller,
@@ -36,7 +36,7 @@ class ReusableTextFormField extends StatelessWidget {
         controller: controller,
         obscureText: obscure,
         keyboardType: keyboardType,
-        onTap: onTap,
+        // onTap: onTap,
         validator: validator,
         onFieldSubmitted: onSubmit,
         decoration: InputDecoration(

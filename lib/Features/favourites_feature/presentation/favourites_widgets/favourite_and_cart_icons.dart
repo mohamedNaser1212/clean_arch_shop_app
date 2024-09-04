@@ -5,8 +5,8 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_c
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
 
+import '../../../../core/functions/toast_function.dart';
 import '../../../../core/models/base_products_model.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 
 class FavouriteAndCartIcons extends StatelessWidget {
   const FavouriteAndCartIcons({super.key, required this.product});

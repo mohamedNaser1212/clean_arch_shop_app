@@ -4,11 +4,11 @@ import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/user_info/cubit/user_info_cubit.dart';
 
+import '../../../../core/functions/toast_function.dart';
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
 import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/toast_function.dart';
 import '../cubit/user_info_cubit/sign_out_cubit.dart';
 
 class SettingsForm extends StatelessWidget {
@@ -51,7 +51,6 @@ class SettingsForm extends StatelessWidget {
               },
               prefix:
                   const Icon(Icons.person, color: ColorController.iconColor),
-              onTap: () {},
             ),
             const SizedBox(height: 20.0),
             ReusableTextFormField(
@@ -65,7 +64,6 @@ class SettingsForm extends StatelessWidget {
                 return null;
               },
               prefix: const Icon(Icons.email, color: ColorController.iconColor),
-              onTap: () {},
             ),
             const SizedBox(height: 20.0),
             ReusableTextFormField(
@@ -79,7 +77,6 @@ class SettingsForm extends StatelessWidget {
                 return null;
               },
               prefix: const Icon(Icons.phone, color: ColorController.iconColor),
-              onTap: () {},
             ),
             const SizedBox(height: 20.0),
             ReusableElevatedButton(

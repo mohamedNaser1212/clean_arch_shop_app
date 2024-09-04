@@ -4,6 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import '../../../stripe_key/stripe_keys.dart';
 
 abstract class PaymentDataSource {
+  const PaymentDataSource();
   Future<String> getClientSecret(String amount, String currency);
   Future<void> initializePaymentSheet(String clientSecret);
 }
