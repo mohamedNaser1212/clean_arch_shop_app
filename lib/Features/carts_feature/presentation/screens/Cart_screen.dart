@@ -40,6 +40,10 @@ class CartScreen extends StatelessWidget {
 class CartScreenBuilder extends StatelessWidget {
   const CartScreenBuilder({super.key});
 
+  Future<void> _refreshCartItems(BuildContext context) async {
+    await CartsCubit.get(context).getCartItems();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ToggleCartCubit, ToggleCartState>(
@@ -52,16 +56,6 @@ class CartScreenBuilder extends StatelessWidget {
       builder: (context, state) {
         return BlocBuilder<CartsCubit, CartsState>(
           builder: (context, cartsState) {
-            if (state is ToggleCartLoadingState ||
-                cartsState is GetCartItemsLoadingState) {
-              return Center(
-                child: LoadingAnimationWidget.waveDots(
-                  color: Colors.grey,
-                  size: 90,
-                ),
-              );
-            }
-
             return _CartScreenContent(state: cartsState);
           },
         );
@@ -89,29 +83,31 @@ class _CartScreenContent extends StatelessWidget {
       );
     }
 
-    return ConditionalBuilder(
-      condition: state is! ToggleCartLoadingState &&
-          state is! GetCartItemsLoadingState,
-      builder: (context) => Column(
-        children: [
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, index) =>
-                  CartItemWidget(model: cartModel[index]),
-              separatorBuilder: (context, index) => const Divider(),
-              itemCount: cartModel.length,
+    return RefreshIndicator(
+      onRefresh: () => CartsCubit.get(context).getCartItems(),
+      child: ConditionalBuilder(
+        condition: true,
+        builder: (context) => Column(
+          children: [
+            Expanded(
+              child: ListView.separated(
+                itemBuilder: (context, index) =>
+                    CartItemWidget(model: cartModel[index]),
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: cartModel.length,
+              ),
             ),
+            CartCheckoutData(
+              total: CartsCubit.get(context).cartTotal(),
+              cartModel: cartModel,
+            ),
+          ],
+        ),
+        fallback: (context) => Center(
+          child: LoadingAnimationWidget.waveDots(
+            color: Colors.grey,
+            size: 90,
           ),
-          CartCheckoutData(
-            total: CartsCubit.get(context).cartTotal(),
-            cartModel: cartModel,
-          ),
-        ],
-      ),
-      fallback: (context) => Center(
-        child: LoadingAnimationWidget.waveDots(
-          color: Colors.grey,
-          size: 90,
         ),
       ),
     );

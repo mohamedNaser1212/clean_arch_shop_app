@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:shop_app/core/networks/api_manager/end_points.dart';
 
+import '../../../networks/api_manager/dio_data_name.dart';
 import '../../../stripe_key/stripe_keys.dart';
 
 abstract class PaymentDataSource {
@@ -15,7 +17,7 @@ class PaymentPaymentDataSourceImpl implements PaymentDataSource {
     Dio dio = Dio();
 
     var response = await dio.post(
-      'https://api.stripe.com/v1/payment_intents',
+     EndPoints.stripeEndPoint,
       options: Options(
         headers: {
           'Authorization': 'Bearer ${ApiKeys.secretKey}',
@@ -23,8 +25,8 @@ class PaymentPaymentDataSourceImpl implements PaymentDataSource {
         },
       ),
       data: {
-        'amount': amount,
-        'currency': currency,
+        RequestDataNames.amount: amount,
+         RequestDataNames.currency: currency,
       },
     );
     return response.data["client_secret"];

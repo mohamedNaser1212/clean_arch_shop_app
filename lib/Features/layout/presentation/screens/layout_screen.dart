@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 
@@ -23,6 +24,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
     super.initState();
 
     FavouritesCubit.get(context).getFavorites();
+    CartsCubit.get(context).getCartItems();
     ProductsCubit.get(context).getProductsData(context: context);
   }
 

@@ -9,7 +9,6 @@ abstract class HomeLocalDataSource {
   Future<void> saveCategories(List<CategoriesEntity> categories);
   Future<List<ProductEntity>> getProducts();
   Future<void> saveProducts(List<ProductEntity> products);
-  //make a clear products and categories
   Future<void> clearCategories();
 
   Future<void> clearProducts();

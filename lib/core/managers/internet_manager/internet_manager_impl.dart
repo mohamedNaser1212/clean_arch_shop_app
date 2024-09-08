@@ -1,6 +1,7 @@
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'internet_manager.dart';
+import 'internet_status.dart';
 
 class InternetManagerImpl implements InternetManager {
   final InternetConnectionChecker _connectionChecker =
@@ -16,9 +17,9 @@ class InternetManagerImpl implements InternetManager {
     final status = await _connectionChecker.connectionStatus;
     switch (status) {
       case InternetConnectionStatus.connected:
-        return "Connected";
+        return InternetStatus.connected;
       case InternetConnectionStatus.disconnected:
-        return "Disconnected";
+        return InternetStatus.disconnected;
       default:
         return null;
     }

@@ -24,11 +24,12 @@ class CartsRepoImpl extends CartRepo {
       action: () async {
         final cachedCartItems = await cartLocalDataSource.getCart();
         if (cachedCartItems.isNotEmpty) {
-          return cachedCartItems;
+          return _removeDuplicates(cachedCartItems);
         } else {
           final cart = await cartsRemoteDataSource.getCarts();
-          await cartLocalDataSource.saveCart(cart);
-          return cart;
+          final uniqueCart = _removeDuplicates(cart);
+          await cartLocalDataSource.saveCart(uniqueCart);
+          return uniqueCart;
         }
       },
     );
@@ -41,7 +42,8 @@ class CartsRepoImpl extends CartRepo {
         final result = await cartsRemoteDataSource.toggleCarts(productIds);
         if (result) {
           final updatedCart = await cartsRemoteDataSource.getCarts();
-          await cartLocalDataSource.saveCart(updatedCart);
+          final uniqueCart = _removeDuplicates(updatedCart);
+          await cartLocalDataSource.saveCart(uniqueCart);
         }
         return result;
       },
@@ -55,8 +57,17 @@ class CartsRepoImpl extends CartRepo {
         await cartsRemoteDataSource.removeCarts(products);
         await cartLocalDataSource.removeCartItem(products);
         final updatedCart = await cartLocalDataSource.getCart();
-        return updatedCart;
+        final uniqueCart = _removeDuplicates(updatedCart);
+        return uniqueCart;
       },
     );
+  }
+
+  List<CartEntity> _removeDuplicates(List<CartEntity> cartItems) {
+    final uniqueItems = <num, CartEntity>{};
+    for (var item in cartItems) {
+      uniqueItems[item.id] = item;
+    }
+    return uniqueItems.values.toList();
   }
 }

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 void showToast({
   required String message,
@@ -11,8 +11,9 @@ void showToast({
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 1,
     fontAsset: 'assets/fonts/Inter_24pt-Medium.ttf',
-    backgroundColor: isError ? Colors.red : Colors.green,
-    textColor: Colors.white,
+    backgroundColor:
+        isError ? ColorController.redColor : ColorController.greenAccent,
+    textColor: ColorController.whiteColor,
     fontSize: 16.0,
   );
 }

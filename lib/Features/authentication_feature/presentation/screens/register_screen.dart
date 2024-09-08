@@ -119,9 +119,6 @@ Widget _buildRegisterScreen(BuildContext context, RegisterState state) {
                 const SizedBox(height: 10),
                 ReusableTextFormField(
                   label: 'Password',
-                  onSubmit: (String? value) {
-                    return null;
-                  },
                   validator: (String? value) {
                     if (value!.isEmpty) {
                       return 'Please enter password';

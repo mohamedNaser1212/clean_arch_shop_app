@@ -11,13 +11,11 @@ class ToggleFavouriteCubit extends Cubit<ToggleFavouriteState> {
   final ToggleFavouritesUseCase toggleFavouritesUseCase;
   Future<void> changeFavourite(num productId) async {
     emit(ToggleFavoritesLoadingState());
-    // favorites[productId] = !(favorites[productId] ?? false);
 
     final result = await toggleFavouritesUseCase.call(productIds: productId);
 
     result.fold(
       (failure) {
-        // favorites[productId] = !(favorites[productId] ?? false);
         emit(ToggleFavoriteErrorState(error: failure.message));
       },
       (isFavourite) {

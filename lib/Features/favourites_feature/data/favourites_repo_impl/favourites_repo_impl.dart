@@ -25,11 +25,12 @@ class FavouritesRepoImpl extends FavouritesRepo {
         final cachedFavourites =
             await favouritesLocalDataSource.getFavourites();
         if (cachedFavourites.isNotEmpty) {
-          return cachedFavourites;
+          return _removeDuplicates(cachedFavourites);
         } else {
           final favourites = await favouritesDataSource.getFavourites();
-          await favouritesLocalDataSource.saveFavourites(favourites);
-          return favourites;
+          final uniqueFavourites = _removeDuplicates(favourites);
+          await favouritesLocalDataSource.saveFavourites(uniqueFavourites);
+          return uniqueFavourites;
         }
       },
     );
@@ -43,10 +44,19 @@ class FavouritesRepoImpl extends FavouritesRepo {
         final result = await favouritesDataSource.toggleFavourites(productId);
         if (result) {
           final updatedFavourites = await favouritesDataSource.getFavourites();
-          await favouritesLocalDataSource.saveFavourites(updatedFavourites);
+          final uniqueFavourites = _removeDuplicates(updatedFavourites);
+          await favouritesLocalDataSource.saveFavourites(uniqueFavourites);
         }
         return result;
       },
     );
+  }
+
+  List<FavouritesEntity> _removeDuplicates(List<FavouritesEntity> favourites) {
+    final uniqueItems = <num, FavouritesEntity>{};
+    for (var item in favourites) {
+      uniqueItems[item.id] = item;
+    }
+    return uniqueItems.values.toList();
   }
 }

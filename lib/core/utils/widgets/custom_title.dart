@@ -11,6 +11,7 @@ enum TitleStyle {
   style20,
   styleBold20,
   style24,
+  styleBold24,
   style30
 }
 
@@ -78,6 +79,12 @@ class CustomTitle extends StatelessWidget {
         break;
       case TitleStyle.style24:
         textStyle = StylesManager.textStyle24.copyWith(
+          color: color,
+          fontFamily: 'Inter',
+        );
+        break;
+      case TitleStyle.styleBold24:
+        textStyle = StylesManager.textStyleBold24.copyWith(
           color: color,
           fontFamily: 'Inter',
         );

@@ -31,6 +31,12 @@ class RepoManagerImpl extends RepoManager {
       final result = await action();
       return right(result);
     } on DioException catch (e) {
+      // Handle rate limiting if it's a 429 status
+      if (e.response?.statusCode == 429) {
+        return left(const ServerFailure(
+            message:
+                'You have made too many requests. PleaSe try again later.'));
+      }
       return left(ServerFailure.fromDioError(e));
     } catch (e) {
       return left(ServerFailure(message: e.toString()));

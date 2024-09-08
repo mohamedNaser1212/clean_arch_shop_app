@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
@@ -35,10 +36,6 @@ class SettingsForm extends StatelessWidget {
         key: formKey,
         child: Column(
           children: [
-            if (state is GetUserInfoLoadingState)
-              const LinearProgressIndicator(
-                backgroundColor: ColorController.accentColor,
-              ),
             ReusableTextFormField(
               label: 'Name',
               controller: nameController,
@@ -79,45 +76,65 @@ class SettingsForm extends StatelessWidget {
               prefix: const Icon(Icons.phone, color: ColorController.iconColor),
             ),
             const SizedBox(height: 20.0),
-            ReusableElevatedButton(
-              label: 'Sign Out',
-              onPressed: () {
-                SignOutCubit.get(context).signOut(getIt<ApiManager>());
+            BlocBuilder<SignOutCubit, SignOutState>(
+              builder: (context, state) {
+                return ConditionalBuilder(
+                  condition: state is! UserSignOutLoading,
+                  builder: (context) => ReusableElevatedButton(
+                    label: 'Sign Out',
+                    onPressed: () {
+                      SignOutCubit.get(context).signOut(getIt<ApiManager>());
+                    },
+                    backColor: ColorController.warningColor,
+                    textColor: ColorController.buttonTextColor,
+                  ),
+                  fallback: (context) => const Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: ColorController.accentColor,
+                    ),
+                  ),
+                );
               },
-              backColor: ColorController.warningColor,
-              textColor: ColorController.buttonTextColor,
             ),
             const SizedBox(height: 20.0),
             BlocBuilder<UpdateUserDataCubit, UpdateUserDataState>(
               builder: (context, updateState) {
-                return ReusableElevatedButton(
-                  label: 'Update',
-                  backColor: ColorController.blueAccentColor,
-                  textColor: ColorController.buttonTextColor,
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      final cubit = UpdateUserDataCubit.get(context);
-                      UpdateUserDataCubit.get(context).userModel =
-                          UserInfoCubit.get(context).userEntity;
-                      if (cubit.checkDataChanges(
-                        name: nameController.text,
-                        email: emailController.text,
-                        phone: phoneController.text,
-                      )) {
-                        cubit.updateUserData(
+                return ConditionalBuilder(
+                  condition: updateState is! UpdateUserDataLoading,
+                  builder: (context) => ReusableElevatedButton(
+                    label: 'Update',
+                    backColor: ColorController.blueAccentColor,
+                    textColor: ColorController.buttonTextColor,
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        final cubit = UpdateUserDataCubit.get(context);
+                        UpdateUserDataCubit.get(context).userModel =
+                            UserInfoCubit.get(context).userEntity;
+                        if (cubit.checkDataChanges(
                           name: nameController.text,
                           email: emailController.text,
                           phone: phoneController.text,
-                        );
-                      } else {
-                        showToast(
-                          message:
-                              'No changes detected. Your data is up-to-date.',
-                          isError: false,
-                        );
+                        )) {
+                          cubit.updateUserData(
+                            name: nameController.text,
+                            email: emailController.text,
+                            phone: phoneController.text,
+                          );
+                        } else {
+                          showToast(
+                            message:
+                                'No changes detected. Your data is up-to-date.',
+                            isError: false,
+                          );
+                        }
                       }
-                    }
-                  },
+                    },
+                  ),
+                  fallback: (context) => const Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: ColorController.accentColor,
+                    ),
+                  ),
                 );
               },
             ),

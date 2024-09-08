@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/utils/widgets/custom_title.dart';
 
-import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
 
 class CategoriesPageItems extends StatelessWidget {
@@ -33,7 +34,7 @@ class CategoriesPageItems extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image(
-                width: itemHeight! / 1.2,
+                width: itemHeight / 1.2,
                 height: itemHeight / 1.2,
                 fit: BoxFit.cover,
                 image: CachedNetworkImageProvider(item.image),
@@ -41,15 +42,12 @@ class CategoriesPageItems extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: Text(
-                item.name,
+              child: CustomTitle(
+                title: item.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: ColorController.whiteColor,
-                  fontSize: 24,
-                ),
+                style: TitleStyle.styleBold24,
+                color: ColorController.whiteColor,
               ),
             ),
             IconButton(

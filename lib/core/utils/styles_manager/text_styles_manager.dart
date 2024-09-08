@@ -46,6 +46,13 @@ abstract class StylesManager {
     color: Colors.black,
     letterSpacing: 1.2,
   );
+  static const textStyleBold24 = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Inter',
+    color: Colors.black,
+    letterSpacing: 1.2,
+  );
   static const textStyle30 = TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.w900,

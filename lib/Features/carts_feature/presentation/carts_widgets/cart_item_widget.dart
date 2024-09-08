@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
@@ -38,20 +38,7 @@ class CartItemWidget extends StatelessWidget {
                   children: [
                     ProductInformationWidget(product: model),
                     const SizedBox(height: 3),
-                    IconButton(
-                      onPressed: () {
-                        ToggleCartCubit.get(context).changeCarts(model.id!);
-                      },
-                      icon: CircleAvatar(
-                        backgroundColor: cartItem ? Colors.red : Colors.grey,
-                        radius: 15,
-                        child: const Icon(
-                          Icons.add_shopping_cart,
-                          size: 15,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                    FavouriteAndCartIcons(product: model),
                   ],
                 ),
               ),

@@ -5,6 +5,7 @@ import '../../../../Features/carts_feature/domain/cart_entity/add_to_cart_entity
 import '../../../errors_manager/failure.dart';
 
 abstract class PaymentRepo {
+  const PaymentRepo();
   Future<Either<Failure, bool>> makePayment(int amount, String currency,
       BuildContext context, List<CartEntity> model);
 }

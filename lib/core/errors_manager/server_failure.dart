@@ -29,23 +29,28 @@ class ServerFailure extends Failure {
         return const ServerFailure(message: 'No internet connection');
       case DioExceptionType.unknown:
         return const ServerFailure(
-            message: 'Oops! There was an error, please try again');
+            message: 'Oops! There was an error, pleaSe try again');
     }
   }
 
   factory ServerFailure.fromResponse(int statusCode, dynamic response) {
     if (statusCode == 404) {
       return const ServerFailure(
-          message: 'Your request was not found, please try later');
+          message: 'Your request was not found, pleaSe try later');
     } else if (statusCode == 500) {
       return const ServerFailure(
-          message: 'There is a problem with the server, please try later');
+          message: 'There is a problem with the server, pleaSe try later');
+    } else if (statusCode == 429) {
+      return const ServerFailure(
+          message: 'You have made too many requests. PleaSe try again later.');
     } else if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       return ServerFailure(
           message: response['error']['message'] ?? 'Unauthorized request');
     } else {
+      print('ServerFailure.fromResponse: $response');
+      print('ServerFailure.fromResponse: $statusCode');
       return const ServerFailure(
-          message: 'There was an error, pleaSe try again');
+          message: 'There was an error, pleaSe try again later');
     }
   }
 }

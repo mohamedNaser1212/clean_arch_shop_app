@@ -9,4 +9,6 @@ abstract class RequestDataNames {
   static const String id = 'id';
   static const String productId = 'product_id';
   static const String text = 'text';
+  static const String amount = 'amount';
+  static const String currency = 'currency';
 }

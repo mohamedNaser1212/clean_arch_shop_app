@@ -43,7 +43,7 @@ class ProductsDetailsScreen extends StatelessWidget {
           body: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              ImageWidget(images: images),
+              CarousalImageWidget(images: images),
               const SizedBox(height: 16),
               BuildProductDetailsInfo(model: model),
             ],

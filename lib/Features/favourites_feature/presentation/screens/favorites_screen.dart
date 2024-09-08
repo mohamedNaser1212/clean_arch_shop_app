@@ -60,6 +60,10 @@ class FavoritesScreenContent extends StatelessWidget {
     required this.state,
   });
 
+  Future<void> _refreshFavorites(BuildContext context) async {
+    await FavouritesCubit.get(context).getFavorites();
+  }
+
   @override
   Widget build(BuildContext context) {
     var favouritesModel = FavouritesCubit.get(context).getFavouritesModel;
@@ -73,17 +77,21 @@ class FavoritesScreenContent extends StatelessWidget {
       ));
     }
 
-    return ConditionalBuilder(
-      condition: true,
-      builder: (context) => ListView.separated(
-        itemBuilder: (context, index) => FavoriteItem(
-          model: favouritesModel[index],
+    return RefreshIndicator(
+      edgeOffset: 15,
+      onRefresh: () => _refreshFavorites(context),
+      child: ConditionalBuilder(
+        condition: true,
+        builder: (context) => ListView.separated(
+          itemBuilder: (context, index) => FavoriteItem(
+            model: favouritesModel[index],
+          ),
+          separatorBuilder: (context, index) => const Divider(),
+          itemCount: favouritesModel.length,
         ),
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: favouritesModel.length,
-      ),
-      fallback: (context) => Center(
-        child: LoadingAnimationWidget.waveDots(color: Colors.grey, size: 90),
+        fallback: (context) => Center(
+          child: LoadingAnimationWidget.waveDots(color: Colors.grey, size: 90),
+        ),
       ),
     );
   }
