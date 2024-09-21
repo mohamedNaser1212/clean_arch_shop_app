@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/product_info_widget.dart';
+import 'package:shop_app/core/widgets/products_details_screen.dart';
 
 import '../../../../core/managers/navigations_manager/navigations_manager.dart';
 import '../../../../core/models/base_products_model.dart';
-import '../../../../core/utils/screens/products_details_screen.dart';
-import '../../../../core/utils/widgets/product_info_widget.dart';
+
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import 'favourite_and_cart_icons.dart';
 

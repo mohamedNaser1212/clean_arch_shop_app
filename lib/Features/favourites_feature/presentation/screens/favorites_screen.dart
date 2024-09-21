@@ -5,10 +5,11 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/functions/toast_function.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/utils/widgets/custom_title.dart';
+
 import '../favourites_widgets/favourite_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -40,8 +41,12 @@ class FavoritesScreen extends StatelessWidget {
             return BlocConsumer<FavouritesCubit, FavouritesState>(
               listener: (context, state) {},
               builder: (context, state) {
-                return FavoritesScreenContent(
-                  state: state,
+                return BlocBuilder<FavouritesCubit, FavouritesState>(
+                  builder: (context, state) {
+                    return FavoritesScreenContent(
+                      state: state,
+                    );
+                  },
                 );
               },
             );

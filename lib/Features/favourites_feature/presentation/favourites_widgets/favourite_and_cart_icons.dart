@@ -4,7 +4,8 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.d
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
-
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import '../../../../core/functions/dialogue_function.dart';
 import '../../../../core/functions/toast_function.dart';
 import '../../../../core/models/base_products_model.dart';
 
@@ -20,7 +21,7 @@ class FavouriteAndCartIcons extends StatefulWidget {
 class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
   int favouriteClickCount = 0;
   int cartClickCount = 0;
-  final int maxClickCount = 5;
+  final int maxClickCount = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +42,14 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
         return IconButton(
           onPressed: () => onFavouritePressed(context, widget.product.id),
           icon: CircleAvatar(
-            backgroundColor: isFavorite ? Colors.red : Colors.grey,
+            backgroundColor: isFavorite
+                ? ColorController.redColor
+                : ColorController.greyColor,
             radius: 15,
             child: const Icon(
               Icons.favorite,
               size: 15,
-              color: Colors.white,
+              color: ColorController.whiteColor,
             ),
           ),
         );
@@ -67,7 +70,11 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
     final favouritesCubit = FavouritesCubit.get(context);
 
     if (favouriteClickCount >= maxClickCount) {
-      showLimitDialog(context, "Favorites");
+      showLimitDialog(
+        context: context,
+        text: "Favourite",
+        maxClickCount: maxClickCount,
+      );
       setState(() {
         favouriteClickCount = 0;
       });
@@ -93,12 +100,13 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
         return IconButton(
           onPressed: () => onCartPressed(context, widget.product.id),
           icon: CircleAvatar(
-            backgroundColor: isCart ? Colors.red : Colors.grey,
+            backgroundColor:
+                isCart ? ColorController.redColor : ColorController.greyColor,
             radius: 15,
             child: const Icon(
               Icons.shopping_cart,
               size: 15,
-              color: Colors.white,
+              color: ColorController.whiteColor,
             ),
           ),
         );
@@ -116,7 +124,8 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
 
   void onCartPressed(BuildContext context, num productId) {
     if (cartClickCount >= maxClickCount) {
-      showLimitDialog(context, "Cart");
+      showLimitDialog(
+          context: context, text: "Cart", maxClickCount: maxClickCount);
       setState(() {
         cartClickCount = 0;
       });
@@ -131,22 +140,5 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
     final isCart = cartsCubit.carts[productId] ?? false;
     cartsCubit.carts[productId] = !isCart;
     ToggleCartCubit.get(context).changeCarts(productId);
-  }
-
-  void showLimitDialog(BuildContext context, String actionType) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Limit Exceeded"),
-        content: Text(
-            "You can't use the $actionType action more than $maxClickCount times."),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text("OK"),
-          ),
-        ],
-      ),
-    );
   }
 }

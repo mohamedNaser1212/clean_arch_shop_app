@@ -12,8 +12,23 @@ class PaymentUseCase {
     required this.paymentRepo,
   });
 
-  Future<Either<Failure, bool>> makePayment(int amount, String currency,
-      BuildContext context, List<CartEntity> model) async {
-    return await paymentRepo.makePayment(amount, currency, context, model);
+   Future<Either<Failure, String>> getClientSecret(
+    {
+      required int amount,
+      required String currency,
+    }
+  ) async {
+    return await paymentRepo.getClientSecret(
+     amount: amount,
+      currency: currency,
+    );
+  }
+
+  Future<Either<Failure, void>> initializePaymentSheet({
+    required String clientSecret,
+  }) async {
+    return await paymentRepo.initializePaymentSheet(
+      clientSecret: clientSecret,
+    );
   }
 }

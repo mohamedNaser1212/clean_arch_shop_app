@@ -3,19 +3,15 @@ part of 'payment_cubit.dart';
 class PaymentState {}
 
 class PaymentLoading extends PaymentState {}
-
+class PaymentCompleted extends PaymentState {}
 class PaymentSuccess extends PaymentState {
-  final List<CartEntity> model;
+  final String clientSecret;
 
-  PaymentSuccess({
-    required this.model,
-  });
+  PaymentSuccess({required this.clientSecret});
 }
 
 class PaymentError extends PaymentState {
   final String message;
 
-  PaymentError({
-    required this.message,
-  });
+  PaymentError({required this.message});
 }

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
-import 'package:shop_app/core/utils/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../domain/entities/categories_entity/categories_entity.dart';
 

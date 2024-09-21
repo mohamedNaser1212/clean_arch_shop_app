@@ -16,7 +16,7 @@ abstract class ColorController {
 
   // Text Colors
   static const Color textColorPrimary = blackColor;
-  static const Color textColorSecondary = Colors.grey;
+  static const Color greyColor = Colors.grey;
 
   // Background Colors
   static const Color backgroundColor = whiteColor;

@@ -1,21 +1,24 @@
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
-UserInfoLocalDataSource userInfoLocalDataSource =
-    getIt.get<UserInfoLocalDataSource>();
-
 class HeaderModel {
   final String contentType;
-  final Future<String?> authorization;
+  late final Future<String?> authorization;
+
   final String lang;
 
   HeaderModel({
     this.contentType = 'application/json',
-    String? authorization = '',
+    String? authToken = '',
     this.lang = 'en',
-  }) : authorization = userInfoLocalDataSource
-            .loadUserData()
-            .then((value) => value?.token ?? authorization);
+  }) {
+    UserInfoLocalDataSource userInfoLocalDataSource =
+        getIt.get<UserInfoLocalDataSource>();
+
+    authorization = userInfoLocalDataSource
+        .loadUserData()
+        .then((value) => value?.token ?? authToken);
+  }
 
   Future<Map<String, dynamic>> toMap() async {
     final auth = await authorization;

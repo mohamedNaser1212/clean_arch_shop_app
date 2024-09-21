@@ -228,7 +228,7 @@ void setUpServiceLocator() async {
   );
 
   getIt.registerSingleton<PaymentDataSource>(
-    PaymentPaymentDataSourceImpl(),
+    PaymentDataSourceImpl(),
   );
 
   // Register PaymentRepo

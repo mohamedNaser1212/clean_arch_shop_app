@@ -28,14 +28,13 @@ class UserInfoRepoImpl implements UserInfoRepo {
             await userLocalDataSource.loadUserData();
 
         if (cachedUserData != null) {
-          return cachedUserData;
-        } else if (cachedUserData == null) {
-          return cachedUserData;
-        }
-        final userData = await remoteDataSource.getUser();
+          final userData = await remoteDataSource.getUser();
 
-        await userLocalDataSource.saveUserData(user: userData);
-        return userData;
+          await userLocalDataSource.saveUserData(user: userData);
+          return userData;
+        } else {
+          return null;
+        }
       },
     );
   }

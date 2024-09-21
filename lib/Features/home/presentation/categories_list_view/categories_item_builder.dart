@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/utils/widgets/custom_title.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import 'category_item.dart';
 

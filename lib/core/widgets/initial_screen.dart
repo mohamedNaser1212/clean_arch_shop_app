@@ -4,10 +4,10 @@ import 'package:shop_app/Features/authentication_feature/presentation/screens/lo
 import 'package:shop_app/Features/layout/presentation/screens/layout_screen.dart';
 import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
-import 'package:shop_app/core/utils/widgets/custom_title.dart';
 
-import '../../../user_info/cubit/user_info_cubit.dart';
-import '../../../user_info/domain/use_cases/get_user_info_use_case.dart';
+import '../user_info/cubit/user_info_cubit.dart';
+import '../user_info/domain/use_cases/get_user_info_use_case.dart';
+import 'custom_title.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
@@ -34,6 +34,7 @@ class _InitialScreenState extends State<InitialScreen> {
             } else {
               print(state.userEntity!.name);
               UserInfoCubit.get(context).userEntity = state.userEntity;
+
               NavigationManager.navigateAndFinish(
                 context: context,
                 screen: const LayoutScreen(),

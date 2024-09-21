@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
-import 'package:shop_app/core/utils/widgets/cached_network_image_widget.dart';
-import 'package:shop_app/core/utils/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/cached_network_image_widget.dart';
+
+import 'custom_title.dart';
 
 class ProductInfoWidget extends StatelessWidget {
   const ProductInfoWidget({super.key, required this.model});

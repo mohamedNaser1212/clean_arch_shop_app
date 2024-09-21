@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/user_info/cubit/user_info_cubit.dart';
+import 'package:shop_app/core/widgets/reusable_widgets/reusable_elevated_botton.dart';
+import 'package:shop_app/core/widgets/reusable_widgets/reusable_text_form_field.dart';
 
 import '../../../../core/functions/toast_function.dart';
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_elevated_botton.dart';
-import '../../../../core/utils/widgets/reusable_widgets_manager/reusable_text_form_field.dart';
 import '../cubit/user_info_cubit/sign_out_cubit.dart';
 
 class SettingsForm extends StatelessWidget {

@@ -1,9 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/core/managers/repo_manager/repo_manager.dart';
-
 import '../../../errors_manager/failure.dart';
 import '../../domain/payment_repo/payment_repo.dart';
 import '../payment_data_source/payment_data_source.dart';
@@ -16,17 +12,28 @@ class PaymentRepoImpl implements PaymentRepo {
     required this.paymentManager,
     required this.repoManager,
   });
+
   @override
-  Future<Either<Failure, bool>> makePayment(int amount, String currency,
-      BuildContext context, List<CartEntity> model) async {
+  Future<Either<Failure, String>> getClientSecret(
+      {required int amount, required String currency}) async {
     return repoManager.call(
       action: () async {
         String clientSecret = await paymentManager.getClientSecret(
-            (amount * 100).toString(), currency);
-        await paymentManager.initializePaymentSheet(clientSecret);
-        await Stripe.instance.presentPaymentSheet();
+          amount: (amount * 100).toString(),
+          currency: currency,
+        );
+        return clientSecret;
+      },
+    );
+  }
 
-        return true;
+  @override
+  Future<Either<Failure, void>> initializePaymentSheet({
+    required String clientSecret,
+  }) async {
+    return repoManager.call(
+      action: () async {
+        await paymentManager.initializePaymentSheet(clientSecret: clientSecret);
       },
     );
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/utils/widgets/custom_title.dart';
 import '../../domain/search_use_case/fetch_search_use_case.dart';
 import '../cubit/search_cubit/search_cubit.dart';
 import '../widgets/build_search_field.dart';

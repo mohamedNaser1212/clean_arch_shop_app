@@ -18,7 +18,7 @@ import 'core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import 'core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
 import 'core/service_locator/service_locator.dart';
 import 'core/utils/widgets/constants.dart';
-import 'core/utils/widgets/splash_screen/splash_screen.dart';
+import 'core/widgets/splash_screen.dart';
 
 void main() {
   // await TokenHelper.init();
