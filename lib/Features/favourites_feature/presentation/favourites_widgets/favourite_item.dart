@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/core/widgets/product_info_widget.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';
 
-import '../../../../core/managers/navigations_manager/navigations_manager.dart';
+import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/models/base_products_model.dart';
 
 import '../../../home/presentation/products_widgets/products_information_widget.dart';

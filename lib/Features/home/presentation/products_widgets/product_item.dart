@@ -5,7 +5,7 @@ import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';
 
-import '../../../../core/managers/navigations_manager/navigations_manager.dart';
+import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
 

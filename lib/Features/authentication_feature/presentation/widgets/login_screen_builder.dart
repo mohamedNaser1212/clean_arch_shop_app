@@ -5,7 +5,7 @@ import 'package:shop_app/Features/authentication_feature/presentation/screens/re
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/Auth_botton.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/email_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/password_text_field.dart';
-import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
+import 'package:shop_app/core/functions/navigations_functions.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/reusable_widgets/reusable_elevated_botton.dart';
 import '../../../../core/widgets/custom_title.dart';

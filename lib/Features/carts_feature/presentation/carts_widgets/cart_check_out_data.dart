@@ -24,7 +24,9 @@ class CartCheckoutData extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<CartsCubit, CartsState>(
       listener: (context, state) {
-        if (state is PaymentLoading) {}
+        if (state is PaymentLoading) {
+          LoadingIndicatorWidget();
+        }
       },
       builder: (context, state) {
         return BlocConsumer<PaymentCubit, PaymentState>(
@@ -33,9 +35,9 @@ class CartCheckoutData extends StatelessWidget {
               await PaymentCubit.get(context).initializePayment(
                 clientSecret: state.clientSecret,
               );
+              
             } else if (state is PaymentCompleted) {
-              await Stripe.instance.presentPaymentSheet();
-
+               await Stripe.instance.presentPaymentSheet();
               bool cartUpdated =
                   await ToggleCartCubit.get(context).changeCartsList(
                 cartModel.map((e) => e.id).toList(),

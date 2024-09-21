@@ -2,7 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';
-import '../../../../core/managers/navigations_manager/navigations_manager.dart';
+import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../data/search_model/search_response_model.dart';
 

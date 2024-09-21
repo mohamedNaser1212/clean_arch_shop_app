@@ -3,7 +3,7 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.d
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 
-import '../../../../core/managers/navigations_manager/navigations_manager.dart';
+import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/utils/widgets/constants.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../data/layouts_model.dart';

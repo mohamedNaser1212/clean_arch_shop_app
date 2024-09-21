@@ -6,7 +6,7 @@ import 'package:shop_app/Features/authentication_feature/presentation/widgets/em
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/name_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/password_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/phone_text_field.dart';
-import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
+import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/utils/styles_manager/text_styles_manager.dart';
 
 class RegisterScreenBuilder extends StatelessWidget {
