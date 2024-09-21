@@ -23,7 +23,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     result.fold(
       (failure) {
         print('Failed to fetch categories: $failure');
-        emit(CategoriesError(failure.message));
+        emit(CategoriesError(error: failure.toString()));
       },
       (categories) {
         categoriesModel = categories;

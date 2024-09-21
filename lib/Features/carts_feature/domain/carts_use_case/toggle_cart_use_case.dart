@@ -13,6 +13,6 @@ class ToggleCartUseCase {
   Future<Either<Failure, bool>> call({
     required num products,
   }) {
-    return cartRepo.toggleCart(products);
+    return cartRepo.toggleCart(productIds: products);
   }
 }

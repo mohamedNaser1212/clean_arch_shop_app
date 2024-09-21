@@ -1,8 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/home/presentation/categories_list_view/product_screen%20categories_list_view.dart';
 
 import '../../domain/entities/categories_entity/categories_entity.dart';
+import 'categories_list_view.dart';
 
 class CategoriesSection extends StatelessWidget {
   final List<CategoriesEntity> categories;
@@ -14,7 +14,11 @@ class CategoriesSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConditionalBuilder(
       condition: categories.isNotEmpty,
-      builder: (context) => CategoriesListView(categories: categories),
+      builder: (context) => CategoriesListView(
+        categoryModel: categories,
+        itemHeight: MediaQuery.of(context).size.height * 0.2,
+        itemWidth: MediaQuery.of(context).size.width * 0.3,
+      ),
       fallback: (context) => const Center(child: Text('Loading...')),
     );
   }

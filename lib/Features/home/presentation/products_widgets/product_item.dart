@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/product_item_image.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_information_widget.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';
 
 import '../../../../core/functions/navigations_functions.dart';
@@ -33,26 +32,7 @@ class ProductItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  Image(
-                    image: CachedNetworkImageProvider(product.image!),
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height / 4,
-                  ),
-                  if (product.discount != 0)
-                    Container(
-                      color: ColorController.primaryColor,
-                      padding: const EdgeInsets.all(2),
-                      child: const CustomTitle(
-                        title: 'DISCOUNT',
-                        style: TitleStyle.style12,
-                        color: ColorController.blackColor,
-                      ),
-                    ),
-                ],
-              ),
+              ProductItemImage(product: product),
               ProductInformationWidget(product: product),
               FavouriteAndCartIcons(product: product),
             ],

@@ -7,8 +7,12 @@ import '../carts_model/cart_response_model.dart';
 abstract class CartsRemoteDataSource {
   const CartsRemoteDataSource();
   Future<List<CartResponseModel>> getCarts();
-  Future<List<CartResponseModel>> removeCarts(num productId);
-  Future<bool> toggleCarts(num productId);
+  Future<List<CartResponseModel>> removeCarts({
+    required num productId,
+  });
+  Future<bool> toggleCarts({
+    required num productId,
+  });
 }
 
 class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
@@ -30,7 +34,9 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   }
 
   @override
-  Future<bool> toggleCarts(num productId) async {
+  Future<bool> toggleCarts({
+    required num productId,
+  }) async {
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.cartEndPoint,
       data: {
@@ -44,7 +50,9 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
   }
 
   @override
-  Future<List<CartResponseModel>> removeCarts(num productId) async {
+  Future<List<CartResponseModel>> removeCarts({
+    required num productId,
+  }) async {
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.cartEndPoint,
       data: {

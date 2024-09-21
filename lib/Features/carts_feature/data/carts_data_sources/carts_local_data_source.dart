@@ -5,8 +5,12 @@ import '../../domain/cart_entity/add_to_cart_entity.dart';
 abstract class CartLocalDataSource {
   const CartLocalDataSource();
   Future<List<CartEntity>> getCart();
-  Future<void> saveCart(List<CartEntity> cart);
-  Future<void> removeCartItem(num productId);
+  Future<void> saveCart({
+    required List<CartEntity> cart,
+  });
+  Future<void> removeCartItem({
+    required num productId,
+  });
   Future<void> clearCart();
 }
 
@@ -23,16 +27,20 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   }
 
   @override
-  Future<void> saveCart(List<CartEntity> cart) async {
+  Future<void> saveCart({
+    required List<CartEntity> cart,
+  }) async {
     await hiveHelper.saveData<CartEntity>(cart, HiveBoxesNames.kCartBox);
   }
 
   @override
-  Future<void> removeCartItem(num productId) async {
+  Future<void> removeCartItem({
+    required num productId,
+  }) async {
     final cartItems = await getCart();
     final updatedCartItems =
         cartItems.where((item) => item.id != productId).toList();
-    await saveCart(updatedCartItems);
+    await saveCart(cart: updatedCartItems);
   }
 
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/home/presentation/categories_list_view/product_screen_categories_item.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/product_screen_categories_item.dart';
 
 import '../../domain/entities/categories_entity/categories_entity.dart';
 

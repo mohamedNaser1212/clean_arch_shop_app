@@ -34,6 +34,7 @@ class _InitialScreenState extends State<InitialScreen> {
             } else {
               print(state.userEntity!.name);
               UserInfoCubit.get(context).userEntity = state.userEntity;
+              UserInfoCubit.get(context).getUserData();
 
               NavigationManager.navigateAndFinish(
                 context: context,

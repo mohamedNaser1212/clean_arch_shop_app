@@ -13,7 +13,6 @@ class ToggleFavouritesUseCase {
   Future<Either<Failure, bool>> call({
     required num productIds,
   }) async {
-    // TODO: implement toggleFavouriteCall
     return await favouritesRepository.toggleFavourite(productId: productIds);
   }
 }

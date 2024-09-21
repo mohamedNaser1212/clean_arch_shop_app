@@ -13,7 +13,9 @@ class CategoriesSuccess extends CategoriesState {
 class CategoriesError extends CategoriesState {
   final String error;
 
-  CategoriesError(this.error);
+  CategoriesError({
+    required this.error,
+  });
 }
 
 class ClearCategories extends CategoriesState {}

@@ -4,7 +4,7 @@ import 'package:shop_app/core/managers/repo_manager/repo_manager.dart';
 import '../../../../core/errors_manager/failure.dart';
 import '../../domain/search_repo/search_repo.dart';
 import '../search_data_source/search_remote_data_source.dart';
-import '../search_model/search_response_model.dart';
+import '../search_model/search_model.dart';
 
 class SearchRepoImpl implements SearchRepo {
   final SearchRemoteDataSource searchDataSource;
@@ -15,7 +15,7 @@ class SearchRepoImpl implements SearchRepo {
   });
 
   @override
-  Future<Either<Failure, List<SearchResponseModel>>> search({
+  Future<Either<Failure, List<SearchModel>>> search({
     required String text,
   }) async {
     return repoManager.call(

@@ -11,13 +11,29 @@ import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../domain/settings_use_case/update_user_data_use_case.dart';
 import '../settings_widgets/settings_form.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   SettingsScreen({super.key});
 
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
   final nameController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final phoneController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +76,12 @@ class SettingsScreen extends StatelessWidget {
                       }
                     },
                     builder: (context, userState) {
-                      return _buildSettingsForm(
-                        context: context,
-                        state: userState,
-                        nameController: nameController,
+                      return SettingsForm(
                         emailController: emailController,
+                        nameController: nameController,
                         phoneController: phoneController,
                         formKey: formKey,
+                        state: userState,
                       );
                     },
                   );
@@ -86,22 +101,5 @@ class SettingsScreen extends StatelessWidget {
       emailController.text = userEntity.email;
       phoneController.text = userEntity.phone;
     }
-  }
-
-  Widget _buildSettingsForm({
-    required BuildContext context,
-    required UserInfoState state,
-    required TextEditingController nameController,
-    required TextEditingController emailController,
-    required TextEditingController phoneController,
-    required GlobalKey<FormState> formKey,
-  }) {
-    return SettingsForm(
-      emailController: emailController,
-      nameController: nameController,
-      phoneController: phoneController,
-      formKey: formKey,
-      state: state,
-    );
   }
 }

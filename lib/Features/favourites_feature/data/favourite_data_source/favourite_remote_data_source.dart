@@ -7,7 +7,9 @@ import '../favourites_models/favourites_response_model.dart';
 abstract class FavouritesRemoteDataSource {
   const FavouritesRemoteDataSource();
   Future<List<FavouritesResponseModel>> getFavourites();
-  Future<bool> toggleFavourites(num productId);
+  Future<bool> toggleFavourites({
+    required num productId,
+  });
 }
 
 class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
@@ -32,7 +34,9 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
   }
 
   @override
-  Future<bool> toggleFavourites(num productId) async {
+  Future<bool> toggleFavourites({
+    required num productId,
+  }) async {
     final request = ApiRequestModel(
       endpoint: EndPoints.favoritesEndPoint,
       data: {

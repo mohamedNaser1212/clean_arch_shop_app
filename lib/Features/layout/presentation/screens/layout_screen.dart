@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/utils/widgets/constants.dart';
@@ -48,7 +49,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      title: Text('Shop App', style: TextStyle(color: defaultColor)),
+      title: CustomTitle(
+          title: 'Shop App', style: TitleStyle.style24, color: defaultColor),
       actions: [
         IconButton(
           onPressed: () {

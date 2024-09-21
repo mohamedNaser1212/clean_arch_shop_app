@@ -9,7 +9,9 @@ class ShopChangeBottomNavState extends GetProductsState {}
 class GetproductsSuccessState extends GetProductsState {
   final List<ProductEntity> products;
 
-  GetproductsSuccessState(this.products);
+  GetproductsSuccessState({
+    required this.products,
+  });
 }
 
 class GetProductsLoadingState extends GetProductsState {}
@@ -25,7 +27,9 @@ class ClearProductsState extends GetProductsState {}
 class ChangeproductsSuccessState extends GetProductsState {
   final List<ProductEntity> products;
 
-  ChangeproductsSuccessState(this.products);
+  ChangeproductsSuccessState({
+    required this.products,
+  });
 }
 
 class ChangeProductsLoadingState extends GetProductsState {}

@@ -12,6 +12,6 @@ class RemoveCartUseCase {
   });
 
   Future<Either<Failure, List<CartEntity>>> call({required num products}) {
-    return cartRepo.removeCarts(products);
+    return cartRepo.removeCarts(productIds: products);
   }
 }

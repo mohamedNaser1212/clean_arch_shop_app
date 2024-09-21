@@ -6,9 +6,13 @@ import '../../../domain/entities/products_entity/product_entity.dart';
 abstract class HomeLocalDataSource {
   const HomeLocalDataSource();
   Future<List<CategoriesEntity>> getCategories();
-  Future<void> saveCategories(List<CategoriesEntity> categories);
+  Future<void> saveCategories({
+    required List<CategoriesEntity> categories,
+  });
   Future<List<ProductEntity>> getProducts();
-  Future<void> saveProducts(List<ProductEntity> products);
+  Future<void> saveProducts({
+    required List<ProductEntity> products,
+  });
   Future<void> clearCategories();
 
   Future<void> clearProducts();
@@ -29,7 +33,9 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   }
 
   @override
-  Future<void> saveCategories(List<CategoriesEntity> categories) async {
+  Future<void> saveCategories({
+    required List<CategoriesEntity> categories,
+  }) async {
     await hiveHelper.saveData<CategoriesEntity>(
         categories, HiveBoxesNames.kCategoriesBox);
   }
@@ -42,7 +48,9 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   }
 
   @override
-  Future<void> saveProducts(List<ProductEntity> products) async {
+  Future<void> saveProducts({
+    required List<ProductEntity> products,
+  }) async {
     await hiveHelper.saveData<ProductEntity>(
         products, HiveBoxesNames.kProductsBox);
   }

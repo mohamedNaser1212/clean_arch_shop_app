@@ -5,8 +5,12 @@ import '../../domain/favourites_entity/favourites_entity.dart';
 abstract class FavouritesLocalDataSource {
   const FavouritesLocalDataSource();
   Future<List<FavouritesEntity>> getFavourites();
-  Future<void> saveFavourites(List<FavouritesEntity> favourites);
-  Future<void> removeFavourite(num productId);
+  Future<void> saveFavourites({
+    required List<FavouritesEntity> favourites,
+  });
+  Future<void> removeFavourite({
+    required num productId,
+  });
   Future<void> clearFavourites();
 }
 
@@ -25,19 +29,23 @@ class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
   }
 
   @override
-  Future<void> saveFavourites(List<FavouritesEntity> favourites) async {
+  Future<void> saveFavourites({
+    required List<FavouritesEntity> favourites,
+  }) async {
     await hiveHelper.saveData<FavouritesEntity>(
         favourites, HiveBoxesNames.kFavouritesBox);
   }
 
   @override
-  Future<void> removeFavourite(num productId) async {
+  Future<void> removeFavourite({
+    required num productId,
+  }) async {
     final favouritesResult = await getFavourites();
 
     final updatedFavourites =
         favouritesResult.where((item) => item.id != productId).toList();
 
-    await saveFavourites(updatedFavourites);
+    await saveFavourites(favourites: updatedFavourites);
   }
 
   @override

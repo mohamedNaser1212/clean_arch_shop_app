@@ -28,7 +28,7 @@ class CartsRepoImpl extends CartRepo {
         } else {
           final cart = await cartsRemoteDataSource.getCarts();
           final uniqueCart = _removeDuplicates(cart);
-          await cartLocalDataSource.saveCart(uniqueCart);
+          await cartLocalDataSource.saveCart(cart: uniqueCart);
           return uniqueCart;
         }
       },
@@ -36,14 +36,17 @@ class CartsRepoImpl extends CartRepo {
   }
 
   @override
-  Future<Either<Failure, bool>> toggleCart(num productIds) {
+  Future<Either<Failure, bool>> toggleCart({
+    required num productIds,
+  }) {
     return repoManager.call(
       action: () async {
-        final result = await cartsRemoteDataSource.toggleCarts(productIds);
+        final result =
+            await cartsRemoteDataSource.toggleCarts(productId: productIds);
         if (result) {
           final updatedCart = await cartsRemoteDataSource.getCarts();
           final uniqueCart = _removeDuplicates(updatedCart);
-          await cartLocalDataSource.saveCart(uniqueCart);
+          await cartLocalDataSource.saveCart(cart: uniqueCart);
         }
         return result;
       },
@@ -51,11 +54,13 @@ class CartsRepoImpl extends CartRepo {
   }
 
   @override
-  Future<Either<Failure, List<CartEntity>>> removeCarts(num products) {
+  Future<Either<Failure, List<CartEntity>>> removeCarts({
+    required num productIds,
+  }) {
     return repoManager.call(
       action: () async {
-        await cartsRemoteDataSource.removeCarts(products);
-        await cartLocalDataSource.removeCartItem(products);
+        await cartsRemoteDataSource.removeCarts(productId: productIds);
+        await cartLocalDataSource.removeCartItem(productId: productIds);
         final updatedCart = await cartLocalDataSource.getCart();
         final uniqueCart = _removeDuplicates(updatedCart);
         return uniqueCart;

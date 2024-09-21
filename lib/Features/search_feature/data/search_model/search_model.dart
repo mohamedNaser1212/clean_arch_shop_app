@@ -1,7 +1,7 @@
 import 'package:shop_app/core/models/base_products_model.dart';
 
-class SearchResponseModel extends BaseProductModel {
-  const SearchResponseModel({
+class SearchModel extends BaseProductModel {
+  const SearchModel({
     required super.id,
     required super.price,
     required super.oldPrice,
@@ -11,10 +11,10 @@ class SearchResponseModel extends BaseProductModel {
     required super.description,
   });
 
-  factory SearchResponseModel.fromJson(Map<String, dynamic> json) {
-    return SearchResponseModel(
+  factory SearchModel.fromJson(Map<String, dynamic> json) {
+    return SearchModel(
       id: json['id'],
-      price: json['price'],
+      price: json['price'] ?? 0,
       oldPrice: json['old_price'] ?? 0,
       discount: json['discount'] ?? 0,
       image: json['image'],

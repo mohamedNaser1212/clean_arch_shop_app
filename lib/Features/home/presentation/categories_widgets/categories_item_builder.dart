@@ -3,7 +3,7 @@ import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
-import 'category_item.dart';
+import 'categories_list_view.dart';
 
 class CategoriesItemBuilder extends StatelessWidget {
   const CategoriesItemBuilder(
@@ -32,20 +32,10 @@ class CategoriesItemBuilder extends StatelessWidget {
               color: ColorController.blackColor,
             ),
             const SizedBox(height: 10),
-            SizedBox(
-              height: itemHeight * 7,
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) => CategoriesPageItems(
-                  context: context,
-                  itemHeight: itemHeight,
-                  itemWidth: itemWidth,
-                  item: categoryModel[index],
-                ),
-                separatorBuilder: (context, index) => const SizedBox(width: 10),
-                itemCount: categoryModel.length,
-              ),
+            CategoriesListView(
+              categoryModel: categoryModel,
+              itemHeight: itemHeight,
+              itemWidth: itemWidth,
             ),
           ],
         ),

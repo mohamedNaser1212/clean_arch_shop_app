@@ -25,11 +25,12 @@ class FavouritesRepoImpl extends FavouritesRepo {
         final cachedFavourites =
             await favouritesLocalDataSource.getFavourites();
         if (cachedFavourites.isNotEmpty) {
-          return _removeDuplicates(cachedFavourites);
+          return _removeDuplicates(favourites: cachedFavourites);
         } else {
           final favourites = await favouritesDataSource.getFavourites();
-          final uniqueFavourites = _removeDuplicates(favourites);
-          await favouritesLocalDataSource.saveFavourites(uniqueFavourites);
+          final uniqueFavourites = _removeDuplicates(favourites: favourites);
+          await favouritesLocalDataSource.saveFavourites(
+              favourites: uniqueFavourites);
           return uniqueFavourites;
         }
       },
@@ -41,18 +42,22 @@ class FavouritesRepoImpl extends FavouritesRepo {
       {required num productId}) async {
     return repoManager.call(
       action: () async {
-        final result = await favouritesDataSource.toggleFavourites(productId);
+        final result =
+            await favouritesDataSource.toggleFavourites(productId: productId);
         if (result) {
           final updatedFavourites = await favouritesDataSource.getFavourites();
-          final uniqueFavourites = _removeDuplicates(updatedFavourites);
-          await favouritesLocalDataSource.saveFavourites(uniqueFavourites);
+          final uniqueFavourites =
+              _removeDuplicates(favourites: updatedFavourites);
+          await favouritesLocalDataSource.saveFavourites(
+              favourites: uniqueFavourites);
         }
         return result;
       },
     );
   }
 
-  List<FavouritesEntity> _removeDuplicates(List<FavouritesEntity> favourites) {
+  List<FavouritesEntity> _removeDuplicates(
+      {required List<FavouritesEntity> favourites}) {
     final uniqueItems = <num, FavouritesEntity>{};
     for (var item in favourites) {
       uniqueItems[item.id] = item;

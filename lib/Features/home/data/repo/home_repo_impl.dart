@@ -28,7 +28,7 @@ class HomeRepoImpl extends HomeRepo {
           return cachedCategories;
         } else {
           final categoriesList = await homeRemoteDataSource.fetchCategories();
-          await homeLocalDataSource.saveCategories(categoriesList);
+          await homeLocalDataSource.saveCategories(categories: categoriesList);
           return categoriesList;
         }
       },
@@ -44,7 +44,7 @@ class HomeRepoImpl extends HomeRepo {
           return cachedProducts;
         } else {
           final productsList = await homeRemoteDataSource.fetchProducts();
-          await homeLocalDataSource.saveProducts(productsList);
+          await homeLocalDataSource.saveProducts(products: productsList);
           return productsList;
         }
       },

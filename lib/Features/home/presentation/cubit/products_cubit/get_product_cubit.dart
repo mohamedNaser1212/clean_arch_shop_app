@@ -31,7 +31,7 @@ class ProductsCubit extends Cubit<GetProductsState> {
       },
       (products) {
         homeModel = products;
-        emit(GetproductsSuccessState(products));
+        emit(GetproductsSuccessState(products: products));
       },
     );
   }

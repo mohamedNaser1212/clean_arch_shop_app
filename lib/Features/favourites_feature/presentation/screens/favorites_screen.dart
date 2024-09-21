@@ -1,16 +1,11 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/functions/toast_function.dart';
-import '../../../../core/utils/styles_manager/color_manager.dart';
-
-import '../favourites_widgets/favourite_item.dart';
+import '../favourites_widgets/favourites_screen_body.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({
@@ -20,33 +15,15 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ToggleCartCubit, ToggleCartState>(
-      listener: (context, state) {
-        if (state is ToggleCartSuccessState) {
-          FavouritesCubit.get(context).getFavorites();
-        }
-      },
-      builder: (context, state) {
+      listener: _toggleCartListener,
+      builder: (context, cartState) {
         return BlocConsumer<ToggleFavouriteCubit, ToggleFavouriteState>(
-          listener: (context, state) {
-            if (state is ToggleFavoriteErrorState) {
-              showToast(
-                message: state.error,
-                isError: true,
-              );
-            } else if (state is ToggleFavouriteSuccessState) {
-              FavouritesCubit.get(context).getFavorites();
-            }
-          },
-          builder: (context, state) {
-            return BlocConsumer<FavouritesCubit, FavouritesState>(
-              listener: (context, state) {},
+          listener: _toggleFavouriteListener,
+          builder: (context, favState) {
+            return BlocBuilder<FavouritesCubit, FavouritesState>(
               builder: (context, state) {
-                return BlocBuilder<FavouritesCubit, FavouritesState>(
-                  builder: (context, state) {
-                    return FavoritesScreenContent(
-                      state: state,
-                    );
-                  },
+                return FavoritesScreenBody(
+                  state: state,
                 );
               },
             );
@@ -55,49 +32,22 @@ class FavoritesScreen extends StatelessWidget {
       },
     );
   }
-}
 
-class FavoritesScreenContent extends StatelessWidget {
-  final FavouritesState state;
-
-  const FavoritesScreenContent({
-    super.key,
-    required this.state,
-  });
-
-  Future<void> _refreshFavorites(BuildContext context) async {
-    await FavouritesCubit.get(context).getFavorites();
+  void _toggleCartListener(BuildContext context, ToggleCartState state) {
+    if (state is ToggleCartSuccessState) {
+      FavouritesCubit.get(context).getFavorites();
+    }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    var favouritesModel = FavouritesCubit.get(context).getFavouritesModel;
-
-    if (favouritesModel.isEmpty) {
-      return const Center(
-          child: CustomTitle(
-        title: 'Sorry, there are no favourites to show',
-        style: TitleStyle.style16,
-        color: ColorController.blackColor,
-      ));
+  void _toggleFavouriteListener(
+      BuildContext context, ToggleFavouriteState state) {
+    if (state is ToggleFavoriteErrorState) {
+      showToast(
+        message: state.error,
+        isError: true,
+      );
+    } else if (state is ToggleFavouriteSuccessState) {
+      FavouritesCubit.get(context).getFavorites();
     }
-
-    return RefreshIndicator(
-      edgeOffset: 15,
-      onRefresh: () => _refreshFavorites(context),
-      child: ConditionalBuilder(
-        condition: true,
-        builder: (context) => ListView.separated(
-          itemBuilder: (context, index) => FavoriteItem(
-            model: favouritesModel[index],
-          ),
-          separatorBuilder: (context, index) => const Divider(),
-          itemCount: favouritesModel.length,
-        ),
-        fallback: (context) => Center(
-          child: LoadingAnimationWidget.waveDots(color: Colors.grey, size: 90),
-        ),
-      ),
-    );
   }
 }

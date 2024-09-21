@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/networks/api_manager/api_manager.dart';
 import '../../../domain/settings_use_case/user_sign_out_use_case.dart';
 
 part 'sign_out_state.dart';
@@ -15,7 +14,7 @@ class SignOutCubit extends Cubit<SignOutState> {
 
   static SignOutCubit get(BuildContext context) => BlocProvider.of(context);
 
-  Future<void> signOut(ApiManager apiService) async {
+  Future<void> signOut() async {
     emit(UserSignOutLoading());
 
     final result = await userSignOutUseCase.call();
