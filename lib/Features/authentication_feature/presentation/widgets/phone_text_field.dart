@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/classes/field_validator.dart';
 import 'package:shop_app/core/utils/constants.dart';
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_text_form_field.dart';
 
@@ -10,12 +11,7 @@ class PhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReusableTextFormField(
       label: 'Phone',
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'Phone must not be empty';
-        }
-        return null;
-      },
+      validator: FieldValidator.isNotEmpty,
       controller: controller,
       keyboardType: TextInputType.phone,
       activeColor: defaultLightColor,

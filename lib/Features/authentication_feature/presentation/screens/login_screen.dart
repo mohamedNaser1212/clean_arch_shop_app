@@ -45,15 +45,13 @@ class LoginScreenState extends State<LoginScreen> {
 
   Widget _builder(BuildContext context, LoginState state) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: Stack(
         children: [
-
           LoginBuilder(state: this),
-
-
-          if (state is LoginLoadingState)
-            const CustomProgressIndicator(),
+          if (state is LoginLoadingState) const CustomProgressIndicator(),
         ],
       ),
     );

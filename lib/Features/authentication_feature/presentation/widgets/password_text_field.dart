@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/classes/field_validator.dart';
 import 'package:shop_app/core/utils/constants.dart';
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_text_form_field.dart';
 
@@ -18,12 +19,7 @@ class PasswordField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReusableTextFormField(
       label: 'Password',
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'Please enter password';
-        }
-        return null;
-      },
+      validator: FieldValidator.isNotEmpty,
       controller: controller,
       obscure: obscure,
       keyboardType: TextInputType.visiblePassword,

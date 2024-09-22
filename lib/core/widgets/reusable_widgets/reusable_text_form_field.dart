@@ -17,7 +17,6 @@ class ReusableTextFormField extends StatelessWidget {
     required this.label,
     this.borderRadius = 25,
     this.activeColor = Colors.blue,
-    // required this.onTap,
     this.validator,
     this.onSubmit,
     required this.controller,
@@ -35,8 +34,7 @@ class ReusableTextFormField extends StatelessWidget {
         controller: controller,
         obscureText: obscure,
         keyboardType: keyboardType,
-        // onTap: onTap,
-        validator: validator,
+        validator: validator, // Validator is optional
         onFieldSubmitted: onSubmit,
         decoration: InputDecoration(
           suffixIcon: suffix,

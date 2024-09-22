@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/classes/field_validator.dart';
 import 'package:shop_app/core/utils/constants.dart';
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_text_form_field.dart';
 
@@ -10,12 +11,7 @@ class NameField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReusableTextFormField(
       label: 'Name',
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'Name must not be empty';
-        }
-        return null;
-      },
+      validator: FieldValidator.isNotEmpty,
       controller: controller,
       keyboardType: TextInputType.text,
       activeColor: defaultLightColor,

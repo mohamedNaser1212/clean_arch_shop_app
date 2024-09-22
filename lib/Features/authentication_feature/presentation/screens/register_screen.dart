@@ -22,36 +22,33 @@ class RegisterScreen extends StatelessWidget {
 
   Widget _builder(BuildContext context, RegisterState state) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Register'),
+      ),
       body: Stack(
         children: [
           const RegisterScreenBuilder(),
-          if (state is RegisterLoadingState)
-            const CustomProgressIndicator(),
+          if (state is RegisterLoadingState) const CustomProgressIndicator(),
         ],
       ),
     );
   }
 }
 
-
-
-Future<void> _listener(BuildContext context, RegisterState state) async {
+void _listener(BuildContext context, RegisterState state) {
   if (state is RegisterSuccessState) {
     showToast(
       isError: false,
       message: 'Register Success',
     );
 
-    if (context.mounted) {
-      ProductsCubit.get(context).homeModel;
-      UserInfoCubit.get(context).userEntity = state.userModel;
+    ProductsCubit.get(context).homeModel;
+    UserInfoCubit.get(context).userEntity = state.userModel;
 
-      NavigationManager.navigateAndFinish(
-        context: context,
-        screen: const InitialScreen(),
-      );
-    }
+    NavigationManager.navigateAndFinish(
+      context: context,
+      screen: const InitialScreen(),
+    );
   } else if (state is RegisterErrorState) {
     showToast(
       isError: true,
