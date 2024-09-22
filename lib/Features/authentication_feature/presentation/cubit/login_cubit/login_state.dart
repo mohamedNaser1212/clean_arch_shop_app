@@ -18,4 +18,4 @@ class AppLoginErrorState extends LoginState {
   });
 }
 
-class AppChangePasswordVisibilityState extends LoginState {}
+

@@ -5,13 +5,13 @@ import 'package:shop_app/Features/authentication_feature/presentation/widgets/re
 class AuthButtons extends StatelessWidget {
   final bool isLoginPage;
   final VoidCallback action;
-  final VoidCallback executeSecondaryAction;
+  final VoidCallback navigatioAction;
 
   const AuthButtons({
     Key? key,
     required this.isLoginPage,
     required this.action,
-    required this.executeSecondaryAction,
+    required this.navigatioAction,
   }) : super(key: key);
 
   @override
@@ -19,11 +19,11 @@ class AuthButtons extends StatelessWidget {
     return isLoginPage
         ? LoginButton(
             onLoginPressed: action,
-            onRegisterPressed: executeSecondaryAction,
+            onRegisterPressed: navigatioAction,
           )
         : RegisterButton(
             onRegisterPressed: action,
-            onLoginPressed: executeSecondaryAction,
+            onLoginPressed: navigatioAction,
           );
   }
 }

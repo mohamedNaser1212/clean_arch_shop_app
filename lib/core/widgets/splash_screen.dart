@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
+import 'package:shop_app/core/utils/constants.dart';
 
 import '../stripe_key/stripe_keys.dart';
 import '../utils/bloc_observer/bloc_observer.dart';
@@ -21,9 +22,23 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Bloc.observer = const MyBlocObserver();
     Stripe.publishableKey = ApiKeys.publishableKey;
-
     setUpServiceLocator();
+    _navigateAfterDelay();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Image.asset(
+        splashImage,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  void _navigateAfterDelay() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.microtask(() async {
         await Future.delayed(const Duration(seconds: 3));
@@ -37,82 +52,4 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Image.asset(
-        'assets/images/groot.jpg',
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
 }
-
-//import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
-// import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
-// import 'package:shop_app/Features/layout/presentation/screens/layout_screen.dart';
-// import 'package:shop_app/core/managers/navigations_manager/navigations_manager.dart';
-// import 'package:shop_app/core/service_locator/service_locator.dart';
-//
-// import '../payment_gate_way_manager/stripe_payment/stripe_keys.dart';
-// import '../user_info/cubit/user_info_cubit.dart';
-// import '../user_info/domain/use_cases/get_user_info_use_case.dart';
-// import '../utils/bloc_observer/bloc_observer.dart';
-//
-// class SplashScreen extends StatefulWidget {
-//   const SplashScreen({super.key});
-//
-//   @override
-//   State<SplashScreen> createState() => _SplashScreenState();
-// }
-//
-// class _SplashScreenState extends State<SplashScreen> {
-//   @override
-//   Future<void> initState() async {
-//     super.initState();
-//
-//     Bloc.observer = MyBlocObserver();
-//     Stripe.publishableKey = ApiKeys.publishableKey;
-//
-//     // userInfoCubit.getUserData();
-//     // ProductsCubit.get(context).getProductsData(context: context);
-//     setUpServiceLocator();
-//   }
-//
-//   UserInfoCubit userInfoCubit = getIt<UserInfoCubit>();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocProvider(
-//       create: (context) => UserInfoCubit(
-//         getUserUseCase: getIt.get<GetUserInfoUseCase>(),
-//       )..getUserData(),
-//       child: BlocConsumer<UserInfoCubit, UserInfoState>(
-//         listener: (context, state) {
-//           if (state is GetUserInfoSuccessState) {
-//             NavigationManager.navigateAndFinish(
-//                 context: context, screen: const LayoutScreen());
-//           } else if (state is GetUserInfoErrorState) {
-//             NavigationManager.navigateAndFinish(
-//                 context: context, screen: LoginScreen());
-//           }
-//         },
-//         builder: (context, state) {
-//           return Scaffold(
-//             body: Image.asset(
-//               'assets/images/groot.jpg',
-//               height: MediaQuery.of(context).size.height,
-//               width: MediaQuery.of(context).size.width,
-//               fit: BoxFit.cover,
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }

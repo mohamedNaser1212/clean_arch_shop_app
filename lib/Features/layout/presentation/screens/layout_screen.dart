@@ -5,7 +5,7 @@ import 'package:shop_app/Features/search_feature/presentation/screens/search_scr
 import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/functions/navigations_functions.dart';
-import '../../../../core/utils/widgets/constants.dart';
+import '../../../../core/utils/constants.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../data/layouts_model.dart';
 import '../widgets/bottom_nav_bar_widget.dart';

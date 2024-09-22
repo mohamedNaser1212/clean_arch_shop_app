@@ -17,7 +17,7 @@ import 'Features/settings_feature/domain/settings_use_case/user_sign_out_use_cas
 import 'core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import 'core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
 import 'core/service_locator/service_locator.dart';
-import 'core/utils/widgets/constants.dart';
+import 'core/utils/constants.dart';
 import 'core/widgets/splash_screen.dart';
 
 void main() {

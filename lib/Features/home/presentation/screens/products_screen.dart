@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 
 import '../../../../core/functions/toast_function.dart';
-import '../categories_widgets/categories_body.dart';
+import '../categories_widgets/products_screen_body.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);

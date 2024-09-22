@@ -1,6 +1,6 @@
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
-import '../../../../core/networks/api_manager/dio_data_name.dart';
+import '../../../../core/networks/api_manager/request_data_names.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
 import '../user_model/user_model.dart';
 
@@ -19,7 +19,7 @@ abstract class AuthenticationRemoteDataSource {
 }
 
 class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
-  final ApiManager apiHelper;
+  final ApiHelper apiHelper;
 
   const AuthenticationDataSourceImpl({
     required this.apiHelper,

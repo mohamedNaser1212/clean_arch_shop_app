@@ -10,7 +10,7 @@ abstract class UserInfoRemoteDataSource {
 }
 
 class UserInfoRemoteDataSourceImpl implements UserInfoRemoteDataSource {
-  final ApiManager apiHelper;
+  final ApiHelper apiHelper;
 
   const UserInfoRemoteDataSourceImpl({
     required this.apiHelper,

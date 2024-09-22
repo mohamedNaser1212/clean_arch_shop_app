@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/utils/widgets/constants.dart';
+import 'package:shop_app/core/utils/constants.dart';
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_text_form_field.dart';
 
 class NameField extends StatelessWidget {

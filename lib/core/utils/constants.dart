@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 var defaultLightColor = Colors.deepOrange;
 
-double buttonsBoarderRaduis=20;
+double buttonsBoarderRaduis = 20;
 
-ThemeData lightTheme=ThemeData(
+ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     color: defaultLightColor,
   ),
@@ -15,16 +15,17 @@ ThemeData lightTheme=ThemeData(
     elevation: 10,
     selectedItemColor: defaultLightColor,
     unselectedItemColor: Colors.black,
-
   ),
   primaryColor: defaultLightColor,
   primarySwatch: defaultLightColor,
 );
 
-TextEditingController emailController=TextEditingController();
-TextEditingController passwordController=TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
 
 // String token='';
 
+Color defaultColor = Colors.white;
 
-Color defaultColor=Colors.white;
+String fontFamily = 'Inter';
+String splashImage = 'assets/images/groot.jpg';

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title.dart';
-import '../categories_widgets/product_screen_categories_widget.dart';
 import '../cubit/categories_cubit/categories_cubit.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';
 
@@ -14,6 +14,7 @@ class ProductsScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeModel = ProductsCubit.get(context).homeModel;
     final categoryModel = CategoriesCubit.get(context).categoriesModel;
+
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: SingleChildScrollView(
@@ -28,7 +29,11 @@ class ProductsScreenBody extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             if (categoryModel != null)
-              CategoriesSection(categories: categoryModel)
+              const CustomCategoriesListView(
+                isHorizontal: true,
+                itemHeight: 100.0,
+                itemWidth: 100.0,
+              )
             else
               const Text('No categories available'),
             const SizedBox(height: 10),

@@ -32,9 +32,9 @@ class _InitialScreenState extends State<InitialScreen> {
                 screen: LoginScreen(),
               );
             } else {
-              print(state.userEntity!.name);
+
               UserInfoCubit.get(context).userEntity = state.userEntity;
-              UserInfoCubit.get(context).getUserData();
+             // UserInfoCubit.get(context).getUserData();
 
               NavigationManager.navigateAndFinish(
                 context: context,
@@ -52,7 +52,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 ),
               );
             } else if (state is GetUserInfoErrorState) {
-              print(state.message);
+
               return Scaffold(
                 body: Center(
                   child: CustomTitle(

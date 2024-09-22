@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/Auth_botton.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
@@ -25,19 +26,19 @@ class CartCheckoutData extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<CartsCubit, CartsState>(
       listener: (context, state) {
-        if (state is PaymentLoading) {
+        if (state is GetClientSecretLoadingState) {
           const LoadingIndicatorWidget();
         }
       },
       builder: (context, state) {
         return BlocConsumer<PaymentCubit, PaymentState>(
           listener: (context, state) async {
-            if (state is PaymentSuccess) {
+            if (state is GetClientSecretSuccessState) {
               await PaymentCubit.get(context).initializePayment(
                 clientSecret: state.clientSecret,
               );
               await Stripe.instance.presentPaymentSheet();
-            } else if (state is PaymentCompleted) {
+            } else if (state is InitializePaymentSuccessState) {
               bool cartUpdated =
                   await ToggleCartCubit.get(context).changeCartsList(
                 cartModel.map((e) => e.id).toList(),
@@ -46,7 +47,7 @@ class CartCheckoutData extends StatelessWidget {
                 message: cartUpdated ? 'Payment Success' : 'Payment Failed',
                 isError: !cartUpdated,
               );
-            } else if (state is PaymentError) {
+            } else if (state is GetClientSecretErrorState) {
               showToast(message: state.message, isError: true);
             }
           },

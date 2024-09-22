@@ -25,10 +25,10 @@ class AuthRepoImpl implements AuthenticationRepo {
   }) async {
     return repoManager.call(
       action: () async {
-        final loginEntity =
+        final userEntity =
             await loginDataSource.login(email: email, password: password);
-        await userInfoLocalDataSourceImpl.saveUserData(user: loginEntity);
-        return loginEntity;
+        await userInfoLocalDataSourceImpl.saveUserData(user: userEntity);
+        return userEntity;
       },
     );
   }
@@ -42,14 +42,14 @@ class AuthRepoImpl implements AuthenticationRepo {
   }) async {
     return repoManager.call(
       action: () async {
-        final registerEntity = await loginDataSource.register(
+        final userEntity = await loginDataSource.register(
           email: email,
           password: password,
           name: name,
           phone: phone,
         );
-        await userInfoLocalDataSourceImpl.saveUserData(user: registerEntity);
-        return registerEntity;
+        await userInfoLocalDataSourceImpl.saveUserData(user: userEntity);
+        return userEntity;
       },
     );
   }

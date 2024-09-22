@@ -20,10 +20,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   static RegisterCubit get(BuildContext context) => BlocProvider.of(context);
 
   bool obsecurePassword = true;
-  IconData suffixPasswordIcon = Icons.visibility_rounded;
+
   LocalStorageManager? hiveService;
 
-  //UserEntity? userModel;
+
   Future<void> userRegister({
     required String email,
     required String password,

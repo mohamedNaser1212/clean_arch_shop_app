@@ -12,6 +12,8 @@ abstract class EndPoints {
   static const String logOutEndPoint = 'logout';
   static const String stripeEndPoint =
       'https://api.stripe.com/v1/payment_intents';
+  static const String baseUrl =
+      'https://student.valuxapps.com/api/';
   // static const String kUserBox = 'user';
   // static const String kProductsBox = 'products';
   // static const String kCategoriesBox = 'categories';

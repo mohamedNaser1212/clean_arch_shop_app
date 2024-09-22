@@ -17,6 +17,7 @@ class CategoriesItemBuilder extends StatelessWidget {
   final BuildContext context;
   final double itemHeight;
   final double itemWidth;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

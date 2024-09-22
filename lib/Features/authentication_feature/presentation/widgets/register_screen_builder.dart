@@ -6,6 +6,7 @@ import 'package:shop_app/Features/authentication_feature/presentation/widgets/em
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/name_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/password_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/phone_text_field.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_form.dart';
 import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/utils/styles_manager/text_styles_manager.dart';
 
@@ -31,24 +32,18 @@ class RegisterScreenBuilder extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'REGISTER',
                     style: StylesManager.textStyle30,
                   ),
                   const SizedBox(height: 15),
-                  // Add your text fields here as usual
-                  EmailField(controller: emailController),
+                  RgisterForm(
+                    emailController: emailController,
+                    passwordController: passwordController,
+                    nameController: nameController,
+                    phoneController: phoneController,
+                  ),
                   const SizedBox(height: 10),
-                  PasswordField(
-                      controller: passwordController,
-                      obscure: true,
-                      onSuffixPressed: () {}),
-                  const SizedBox(height: 10),
-                  NameField(controller: nameController),
-                  const SizedBox(height: 10),
-                  PhoneField(controller: phoneController),
-                  const SizedBox(height: 10),
-
                   AuthButtons(
                       isLoginPage: false,
                       action: () {
@@ -61,7 +56,7 @@ class RegisterScreenBuilder extends StatelessWidget {
                           );
                         }
                       },
-                      executeSecondaryAction: () {
+                      navigatioAction: () {
                         NavigationManager.navigateTo(
                             context: context, screen: LoginScreen());
                       }),

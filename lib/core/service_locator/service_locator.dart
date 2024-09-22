@@ -30,6 +30,7 @@ import 'package:shop_app/Features/settings_feature/domain/settings_use_case/upda
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/core/managers/repo_manager/repo_manager_impl.dart';
+import 'package:shop_app/core/networks/api_manager/end_points.dart';
 
 import '../../Features/authentication_feature/data/authentication_data_sources/authentication_remote_data_source.dart';
 import '../../Features/authentication_feature/domain/authentication_repo/authentication_repo.dart';
@@ -68,8 +69,8 @@ final getIt = GetIt.instance;
 
 void setUpServiceLocator() async {
   //register UserInfoRepo
-  getIt.registerSingleton<ApiManager>(
-    DioManager(dio: Dio(), baseUrl: "https://student.valuxapps.com/api/"),
+  getIt.registerSingleton<ApiHelper>(
+    DioManager(dio: Dio(), baseUrl: EndPoints.baseUrl),
   );
   getIt.registerSingleton<InternetManager>(InternetManagerImpl());
 
@@ -91,7 +92,7 @@ void setUpServiceLocator() async {
       ));
 
   getIt.registerSingleton<UserInfoRemoteDataSource>(
-    UserInfoRemoteDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
+    UserInfoRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
 
   getIt.registerSingleton<UserInfoRepo>(
@@ -113,7 +114,7 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<AuthenticationRepo>(
     AuthRepoImpl(
       loginDataSource:
-          AuthenticationDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
+          AuthenticationDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
       userInfoLocalDataSourceImpl: getIt.get<UserInfoLocalDataSource>(),
       repoManager: getIt.get<RepoManager>(),
     ),
@@ -129,7 +130,7 @@ void setUpServiceLocator() async {
 
   // Home dependencies
   getIt.registerSingleton<HomeRemoteDataSource>(
-    HomeRemoteDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
+    HomeRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
   getIt.registerLazySingleton<HomeRepo>(
     () => HomeRepoImpl(
@@ -141,7 +142,7 @@ void setUpServiceLocator() async {
 
   // User Data dependencies
   getIt.registerSingleton<UserRemoteDataSource>(
-    UserDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
+    UserDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
   getIt.registerSingleton<CartLocalDataSource>(
     CartLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageManager>()),
@@ -150,7 +151,7 @@ void setUpServiceLocator() async {
     FavouritesLocalDataSourceImpl(hiveHelper: getIt.get<LocalStorageManager>()),
   );
   getIt.registerSingleton<CartsRemoteDataSource>(
-    CartsRemoteDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
+    CartsRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
   // Register CartRepo
   getIt.registerSingleton<CartRepo>(
@@ -195,7 +196,7 @@ void setUpServiceLocator() async {
 
   // Favourites dependencies
   getIt.registerSingleton<FavouritesRemoteDataSource>(
-    FavouritesRemoteDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
+    FavouritesRemoteDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
 
   getIt.registerSingleton<FavouritesRepo>(
@@ -208,7 +209,7 @@ void setUpServiceLocator() async {
 
   // Search dependencies
   getIt.registerSingleton<SearchRemoteDataSource>(
-    SearchDataSourceImpl(apiHelper: getIt.get<ApiManager>()),
+    SearchDataSourceImpl(apiHelper: getIt.get<ApiHelper>()),
   );
 
   getIt.registerSingleton<SearchRepo>(

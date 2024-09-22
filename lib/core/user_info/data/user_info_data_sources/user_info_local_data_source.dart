@@ -18,7 +18,7 @@ class UserLocalDataSourceImpl implements UserInfoLocalDataSource {
   Future<void> saveUserData({required UserEntity user}) async {
     await hiveHelper.saveSingleItem<UserEntity>(
         HiveBoxesNames.kUserBox, user, HiveBoxesNames.kUserBox);
-    print('User data saved to Hive');
+
   }
 
   @override
@@ -30,6 +30,6 @@ class UserLocalDataSourceImpl implements UserInfoLocalDataSource {
   @override
   Future<void> clearUserData() async {
     return await hiveHelper.clearData<UserEntity>(HiveBoxesNames.kUserBox);
-    print('User data cleared from Hive');
+
   }
 }

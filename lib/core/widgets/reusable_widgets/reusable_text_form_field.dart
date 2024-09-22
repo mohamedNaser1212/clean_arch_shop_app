@@ -4,7 +4,6 @@ class ReusableTextFormField extends StatelessWidget {
   final String label;
   final double borderRadius;
   final Color activeColor;
-  // final void Function() onTap;
   final String? Function(String?)? validator;
   final String? Function(String?)? onSubmit;
   final TextEditingController controller;

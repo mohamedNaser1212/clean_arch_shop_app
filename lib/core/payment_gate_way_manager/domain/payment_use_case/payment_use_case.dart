@@ -1,8 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:shop_app/core/payment_gate_way_manager/domain/payment_repo/payment_repo.dart';
-
-import '../../../../Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import '../../../errors_manager/failure.dart';
 
 class PaymentUseCase {
@@ -12,14 +9,12 @@ class PaymentUseCase {
     required this.paymentRepo,
   });
 
-   Future<Either<Failure, String>> getClientSecret(
-    {
-      required int amount,
-      required String currency,
-    }
-  ) async {
+  Future<Either<Failure, String>> getClientSecret({
+    required int amount,
+    required String currency,
+  }) async {
     return await paymentRepo.getClientSecret(
-     amount: amount,
+      amount: amount,
       currency: currency,
     );
   }

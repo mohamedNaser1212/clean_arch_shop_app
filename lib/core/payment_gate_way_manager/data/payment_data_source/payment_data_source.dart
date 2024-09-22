@@ -1,22 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/core/networks/api_manager/end_points.dart';
-import '../../../networks/api_manager/dio_data_name.dart';
+import '../../../networks/api_manager/request_data_names.dart';
 import '../../../stripe_key/stripe_keys.dart';
 
 abstract class PaymentDataSource {
   const PaymentDataSource();
-  
+
   Future<String> getClientSecret({
     required String amount,
     required String currency,
   });
-  
-  Future<void> initializePaymentSheet(
-    {
-      required String clientSecret,
-    }
-  );
+
+  Future<void> initializePaymentSheet({
+    required String clientSecret,
+  });
 }
 
 class PaymentDataSourceImpl implements PaymentDataSource {
@@ -31,18 +29,17 @@ class PaymentDataSourceImpl implements PaymentDataSource {
       EndPoints.stripeEndPoint,
       options: Options(
         headers: {
-          'Authorization': 'Bearer ${ApiKeys.secretKey}',
-          'Content-Type': 'application/x-www-form-urlencoded',
+          RequestDataNames.authorization: 'Bearer ${ApiKeys.secretKey}',
+          RequestDataNames.contentType: 'application/x-www-form-urlencoded',
         },
       ),
       data: {
-        RequestDataNames.amount: amount, 
+        RequestDataNames.amount: amount,
         RequestDataNames.currency: currency,
       },
     );
 
-
-    return response.data["client_secret"];
+    return response.data[RequestDataNames.clientSecret];
   }
 
   @override
@@ -52,7 +49,7 @@ class PaymentDataSourceImpl implements PaymentDataSource {
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: clientSecret,
-        merchantDisplayName: "Nasser",
+        merchantDisplayName: RequestDataNames.merchantDisplayName,
       ),
     );
   }

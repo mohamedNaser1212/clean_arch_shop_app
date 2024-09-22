@@ -2,16 +2,26 @@ part of 'payment_cubit.dart';
 
 class PaymentState {}
 
-class PaymentLoading extends PaymentState {}
-class PaymentCompleted extends PaymentState {}
-class PaymentSuccess extends PaymentState {
+class GetClientSecretLoadingState extends PaymentState {}
+
+class GetClientSecretSuccessState extends PaymentState {
   final String clientSecret;
 
-  PaymentSuccess({required this.clientSecret});
+  GetClientSecretSuccessState({required this.clientSecret});
 }
 
-class PaymentError extends PaymentState {
+class GetClientSecretErrorState extends PaymentState {
   final String message;
 
-  PaymentError({required this.message});
+  GetClientSecretErrorState({required this.message});
+}
+
+class InitializePaymentLoadingState extends PaymentState {}
+
+class InitializePaymentSuccessState extends PaymentState {}
+
+class InitializePaymentErrorState extends PaymentState {
+  final String message;
+
+  InitializePaymentErrorState({required this.message});
 }

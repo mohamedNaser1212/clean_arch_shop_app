@@ -12,7 +12,7 @@ abstract class HomeRemoteDataSource {
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
-  final ApiManager apiHelper;
+  final ApiHelper apiHelper;
 
   const HomeRemoteDataSourceImpl({
     required this.apiHelper,

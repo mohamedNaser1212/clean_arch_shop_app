@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
-
 import '../../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../Features/home/presentation/cubit/products_cubit/get_products_state.dart';
 import '../../../Features/home/presentation/products_widgets/product_details_info.dart';
 import '../utils/styles_manager/color_manager.dart';
-import '../utils/widgets/constants.dart';
+import '../utils/constants.dart';
 import 'custom_title.dart';
 import 'image_widget.dart';
 

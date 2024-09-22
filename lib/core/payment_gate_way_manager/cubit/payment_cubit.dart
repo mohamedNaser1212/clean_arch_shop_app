@@ -15,7 +15,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     required int amount,
     required String currency,
   }) async {
-    emit(PaymentLoading());
+    emit(GetClientSecretLoadingState());
 
     final result = await paymentUseCase.getClientSecret(
       amount: amount,
@@ -24,10 +24,10 @@ class PaymentCubit extends Cubit<PaymentState> {
 
     result.fold(
       (failure) {
-        emit(PaymentError(message: failure.message));
+        emit(GetClientSecretErrorState(message: failure.message));
       },
       (clientSecret) {
-        emit(PaymentSuccess(clientSecret: clientSecret));
+        emit(GetClientSecretSuccessState(clientSecret: clientSecret));
       },
     );
   }
@@ -35,17 +35,17 @@ class PaymentCubit extends Cubit<PaymentState> {
   Future<void> initializePayment({
     required String clientSecret,
   }) async {
-    emit(PaymentLoading());
+    emit(InitializePaymentLoadingState());
 
     final initResult =
         await paymentUseCase.initializePaymentSheet(clientSecret: clientSecret);
 
     initResult.fold(
       (failure) {
-        emit(PaymentError(message: failure.message));
+        emit(InitializePaymentErrorState(message: failure.message));
       },
       (success) async {
-        emit(PaymentCompleted());
+        emit(InitializePaymentSuccessState());
       },
     );
   }

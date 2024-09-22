@@ -21,7 +21,6 @@ class CartsCubit extends Cubit<CartsState> {
     final result = await fetchCartUseCase.call();
     result.fold(
       (failure) {
-        print('Failed to fetch cart items: $failure');
         emit(GetCartItemsErrorState(error: failure.message));
       },
       (cartItems) {
@@ -34,6 +33,6 @@ class CartsCubit extends Cubit<CartsState> {
   }
 
   num cartTotal() {
-    return cartEntity.fold(0, (sum, item) => sum + (item.price ?? 0));
+    return cartEntity.fold(0, (sum, item) => sum + (item.price));
   }
 }
