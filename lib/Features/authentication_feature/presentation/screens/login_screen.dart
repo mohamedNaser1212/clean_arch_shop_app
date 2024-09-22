@@ -1,17 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_screen_builder.dart';
+import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
+import 'package:shop_app/core/widgets/initial_screen.dart';
 import '../../../layout/presentation/screens/layout_screen.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => LoginScreenState();
+}
+
+class LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+
+  late final TextEditingController emailController;
+
+  late final TextEditingController passwordController;
+  @override
+  void initState() {
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +43,7 @@ class LoginScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(),
           body: LoginBuilder(
-            formKey: formKey,
-            emailController: emailController,
-            passwordController: passwordController,
-            state: state,
+            state: this,
           ),
         );
       },
@@ -34,11 +53,8 @@ class LoginScreen extends StatelessWidget {
   Future<void> _loginListener(BuildContext context, LoginState state) async {
     if (state is AppLoginSuccessState) {
       // Handle successful login
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const LayoutScreen()),
-        (route) => false,
-      );
+      NavigationManager.navigateAndFinish(
+          context: context, screen: const InitialScreen());
     } else if (state is AppLoginErrorState) {
       showToast(
         isError: true,

@@ -1,21 +1,16 @@
+import 'package:shop_app/Features/authentication_feature/data/model/login_request_model.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/register_request_model.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/user_model.dart';
+
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/request_data_names.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
-import '../user_model/user_model.dart';
 
 abstract class AuthenticationRemoteDataSource {
   const AuthenticationRemoteDataSource();
-  Future<UserModel> login({
-    required String email,
-    required String password,
-  });
-  Future<UserModel> register({
-    required String email,
-    required String password,
-    required String name,
-    required String phone,
-  });
+  Future<UserModel> login({required LoginRequestModel requestModel});
+  Future<UserModel> register({required RegisterRequestModel requestModel});
 }
 
 class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
@@ -26,16 +21,10 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
   });
 
   @override
-  Future<UserModel> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<UserModel> login({required LoginRequestModel requestModel}) async {
     final request = ApiRequestModel(
       endpoint: EndPoints.loginEndPoint,
-      data: {
-        RequestDataNames.email: email,
-        RequestDataNames.password: password,
-      },
+      data: requestModel.toMap(),
       headerModel: HeaderModel(),
     );
 
@@ -45,20 +34,11 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
   }
 
   @override
-  Future<UserModel> register({
-    required String email,
-    required String password,
-    required String name,
-    required String phone,
-  }) async {
+  Future<UserModel> register(
+      {required RegisterRequestModel requestModel}) async {
     final request = ApiRequestModel(
       endpoint: EndPoints.registerEndPoint,
-      data: {
-        RequestDataNames.email: email,
-        RequestDataNames.password: password,
-        RequestDataNames.name: name,
-        RequestDataNames.phone: phone,
-      },
+      data: requestModel.toMap(),
       headerModel: HeaderModel(),
     );
 

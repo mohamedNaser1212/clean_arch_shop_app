@@ -1,38 +1,34 @@
 import 'package:flutter/widgets.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/register_request_model.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/email_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/name_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/password_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/phone_text_field.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_screen_builder.dart';
 
 class RgisterForm extends StatelessWidget {
   const RgisterForm({
     super.key,
-    required this.emailController,
-    required this.passwordController,
-    required this.nameController,
-    required this.phoneController,
+    required this.requestModel,
   });
 
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
-  final TextEditingController nameController;
-  final TextEditingController phoneController;
+  final RegisterScreenBuilderState requestModel;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        EmailField(controller: emailController),
+        EmailField(controller: requestModel.emailController),
         const SizedBox(height: 15),
         PasswordField(
-          controller: passwordController,
+          controller: requestModel.passwordController,
           obscure: true,
           onSuffixPressed: () {},
         ),
         const SizedBox(height: 10),
-        NameField(controller: nameController),
+        NameField(controller: requestModel.nameController),
         const SizedBox(height: 10),
-        PhoneField(controller: phoneController),
+        PhoneField(controller: requestModel.phoneController),
       ],
     );
   }

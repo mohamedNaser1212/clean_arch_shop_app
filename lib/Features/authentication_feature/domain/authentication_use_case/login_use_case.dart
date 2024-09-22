@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/login_request_model.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_repo/authentication_repo.dart';
 
 import '../../../../core/errors_manager/failure.dart';
@@ -10,9 +11,10 @@ class LoginUseCase {
   const LoginUseCase({required this.authenticationRepo});
 
   Future<Either<Failure, UserEntity>> call({
-    required String email,
-    required String password,
+    required LoginRequestModel requestModel,
   }) async {
-    return await authenticationRepo.login(email: email, password: password);
+    return await authenticationRepo.login(
+      requestModel: requestModel,
+    );
   }
 }

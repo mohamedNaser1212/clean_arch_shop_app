@@ -46,8 +46,7 @@ class MyApp extends StatelessWidget {
             final productsCubit = ProductsCubit(
               fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
             );
-            productsCubit
-                .getProductsData(); // Fetch products data after creating the cubit
+            productsCubit.getProductsData();
             return productsCubit;
           },
         ),
@@ -56,8 +55,7 @@ class MyApp extends StatelessWidget {
             final categoriesCubit = CategoriesCubit(
               fetchCategoriesUseCase: getIt.get<FetchCategoriesUseCase>(),
             );
-            categoriesCubit
-                .getCategoriesData(); // Call the method after initializing
+            categoriesCubit.getCategoriesData();
             return categoriesCubit;
           },
         ),
@@ -78,7 +76,8 @@ class MyApp extends StatelessWidget {
             final userInfoCubit = UserInfoCubit(
               getUserUseCase: getIt.get<GetUserInfoUseCase>(),
             );
-            userInfoCubit.getUserData(); // Fetch user data after initializing
+            userInfoCubit.getUserData();
+
             return userInfoCubit;
           },
         ),

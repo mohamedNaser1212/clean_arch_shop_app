@@ -2,7 +2,7 @@ import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/request_data_names.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
-import '../../../authentication_feature/data/user_model/user_model.dart';
+import '../../../authentication_feature/data/model/user_model.dart';
 
 abstract class UserRemoteDataSource {
   const UserRemoteDataSource();

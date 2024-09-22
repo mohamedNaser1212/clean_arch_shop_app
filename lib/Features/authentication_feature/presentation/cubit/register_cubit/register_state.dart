@@ -16,4 +16,3 @@ class RegisterErrorState extends RegisterState {
   RegisterErrorState({required this.message});
 }
 
-

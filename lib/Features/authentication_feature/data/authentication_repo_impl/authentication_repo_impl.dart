@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/login_request_model.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/register_request_model.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
 import '../../../../core/errors_manager/failure.dart';
@@ -20,13 +22,12 @@ class AuthRepoImpl implements AuthenticationRepo {
 
   @override
   Future<Either<Failure, UserEntity>> login({
-    required String email,
-    required String password,
+    required LoginRequestModel requestModel,
   }) async {
     return repoManager.call(
       action: () async {
         final userEntity =
-            await loginDataSource.login(email: email, password: password);
+            await loginDataSource.login(requestModel: requestModel);
         await userInfoLocalDataSourceImpl.saveUserData(user: userEntity);
         return userEntity;
       },
@@ -35,18 +36,12 @@ class AuthRepoImpl implements AuthenticationRepo {
 
   @override
   Future<Either<Failure, UserEntity>> register({
-    required String email,
-    required String password,
-    required String name,
-    required String phone,
+    required RegisterRequestModel requestModel,
   }) async {
     return repoManager.call(
       action: () async {
         final userEntity = await loginDataSource.register(
-          email: email,
-          password: password,
-          name: name,
-          phone: phone,
+          requestModel: requestModel,
         );
         await userInfoLocalDataSourceImpl.saveUserData(user: userEntity);
         return userEntity;
