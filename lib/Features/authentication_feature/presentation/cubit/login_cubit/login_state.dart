@@ -2,20 +2,18 @@ import 'package:shop_app/Features/settings_feature/domain/user_entity/user_entit
 
 class LoginState {}
 
-class AppLoginLoadingState extends LoginState {}
+class LoginLoadingState extends LoginState {}
 
-class AppLoginSuccessState extends LoginState {
+class LoginSuccessState extends LoginState {
   final UserEntity userModel;
-  AppLoginSuccessState({
+  LoginSuccessState({
     required this.userModel,
   });
 }
 
-class AppLoginErrorState extends LoginState {
+class LoginErrorState extends LoginState {
   final String error;
-  AppLoginErrorState({
+  LoginErrorState({
     required this.error,
   });
 }
-
-

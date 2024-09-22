@@ -1,46 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/register_request_model.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/dont_have_account_widget.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_screen_builder.dart';
+
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_elevated_botton.dart';
 
 class RegisterButton extends StatelessWidget {
-  final VoidCallback onRegisterPressed;
-  final VoidCallback onLoginPressed;
-
   const RegisterButton({
     Key? key,
-    required this.onRegisterPressed,
-    required this.onLoginPressed,
+    required this.state,
   }) : super(key: key);
+
+  final RegisterScreenBuilderState state;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ReusableElevatedButton(
-          label: 'Register',
-          onPressed: onRegisterPressed,
-          backColor: ColorController.blueAccentColor,
-        ),
+            label: 'Register',
+            onPressed: () {
+              if (state.formKey.currentState!.validate()) {
+                RegisterCubit.get(context).userRegister(
+                  requestModel: RegisterRequestModel(
+                    email: state.emailController.text,
+                    password: state.passwordController.text,
+                    name: state.nameController.text,
+                    phone: state.phoneController.text,
+                  ),
+                );
+              }
+            }),
         const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CustomTitle(
-              title: 'Already have an account?',
-              color: ColorController.blackColor,
-              style: TitleStyle.style18,
-            ),
-            TextButton(
-              onPressed: onLoginPressed,
-              child: const CustomTitle(
-                title: 'Login',
-                color: ColorController.blueAccentColor,
-                style: TitleStyle.styleBold18,
-              ),
-            ),
-          ],
-        ),
+        CheckAuthStatusTextWidget(
+          onRegisterPressed: () {
+            Navigator.pop(context);
+          },
+          title: 'Already have an account?',
+          subtitle: 'Login',
+        )
       ],
     );
   }
