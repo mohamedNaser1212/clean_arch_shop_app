@@ -30,8 +30,22 @@ class CartScreen extends StatelessWidget {
           CartsCubit.get(context).getCartItems();
         }
       },
-      child: CartScreenContent(
-        state: CartsCubit.get(context).state,
+      child: BlocBuilder<CartsCubit, CartsState>(
+        builder: (context, state) {
+          if (state is GetCartItemsSuccessState) {
+            return CartScreenContent(
+              state: state,
+            );
+          } else if (state is GetCartItemsErrorState) {
+            return Center(
+              child: Text(state.error),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
