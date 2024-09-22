@@ -48,9 +48,12 @@ class CartScreen extends StatelessWidget {
         child: Text(state.error),
       );
     } else {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      while (state is GetCartItemsLoadingState) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      return const SizedBox.shrink();
     }
   }
 }

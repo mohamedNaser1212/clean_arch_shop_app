@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
 
 part 'payment_state.dart';
@@ -12,7 +11,7 @@ class PaymentCubit extends Cubit<PaymentState> {
 
   final PaymentUseCase paymentUseCase;
 
-  Future<void> makePayment({
+  Future<void> getClientSecret({
     required int amount,
     required String currency,
   }) async {
@@ -46,9 +45,7 @@ class PaymentCubit extends Cubit<PaymentState> {
         emit(PaymentError(message: failure.message));
       },
       (success) async {
-        
-          emit(PaymentCompleted()); 
-      
+        emit(PaymentCompleted());
       },
     );
   }

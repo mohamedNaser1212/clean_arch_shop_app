@@ -4,7 +4,6 @@ import 'package:shop_app/core/widgets/products_details_screen.dart';
 
 import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/models/base_products_model.dart';
-
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import 'favourite_and_cart_icons.dart';
 
@@ -33,7 +32,7 @@ class FavoriteItem extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.17,
           child: Row(
             children: [
-              ProductInfoWidget(model: model),
+              ProductImageWidget(model: model),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(

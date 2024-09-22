@@ -5,6 +5,7 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.d
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
+
 import '../../../../core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../../../../core/widgets/custom_title.dart';
 import '../../../../core/widgets/reusable_widgets/reusable_elevated_botton.dart';
@@ -25,7 +26,7 @@ class CartCheckoutData extends StatelessWidget {
     return BlocConsumer<CartsCubit, CartsState>(
       listener: (context, state) {
         if (state is PaymentLoading) {
-          LoadingIndicatorWidget();
+          const LoadingIndicatorWidget();
         }
       },
       builder: (context, state) {
@@ -35,9 +36,8 @@ class CartCheckoutData extends StatelessWidget {
               await PaymentCubit.get(context).initializePayment(
                 clientSecret: state.clientSecret,
               );
-              
+              await Stripe.instance.presentPaymentSheet();
             } else if (state is PaymentCompleted) {
-               await Stripe.instance.presentPaymentSheet();
               bool cartUpdated =
                   await ToggleCartCubit.get(context).changeCartsList(
                 cartModel.map((e) => e.id).toList(),
@@ -65,7 +65,7 @@ class CartCheckoutData extends StatelessWidget {
                   ReusableElevatedButton(
                     label: 'CheckOut',
                     onPressed: () {
-                      PaymentCubit.get(context).makePayment(
+                      PaymentCubit.get(context).getClientSecret(
                         amount: total.toInt(),
                         currency: 'EGP',
                       );

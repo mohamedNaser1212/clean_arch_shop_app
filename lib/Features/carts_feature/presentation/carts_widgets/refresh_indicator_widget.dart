@@ -15,7 +15,7 @@ class RefreshIndicatorWidget extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () => CartsCubit.get(context).getCartItems(),
       child: ConditionalBuilder(
-        condition: true,
+        condition: cartModel.isNotEmpty,
         builder: (context) => Column(
           children: [
             Expanded(

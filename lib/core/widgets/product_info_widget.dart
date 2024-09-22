@@ -4,8 +4,8 @@ import 'package:shop_app/core/widgets/cached_network_image_widget.dart';
 
 import 'custom_title.dart';
 
-class ProductInfoWidget extends StatelessWidget {
-  const ProductInfoWidget({super.key, required this.model});
+class ProductImageWidget extends StatelessWidget {
+  const ProductImageWidget({super.key, required this.model});
   final BaseProductModel model;
   @override
   Widget build(BuildContext context) {
