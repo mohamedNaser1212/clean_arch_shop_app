@@ -180,8 +180,8 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<RemoveCartUseCase>(
       RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()));
 
-  getIt.registerSingleton<CategoriesUseCase>(
-    CategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
+  getIt.registerSingleton<FetchCategoriesUseCase>(
+    FetchCategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
   getIt.registerSingleton<ProductsUseCase>(
     ProductsUseCase(homeRepo: getIt.get<HomeRepo>()),
@@ -282,7 +282,7 @@ void setUpServiceLocator() async {
         fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
       ));
   getIt.registerFactory(() => CategoriesCubit(
-        fetchCategoriesUseCase: getIt.get<CategoriesUseCase>(),
+        fetchCategoriesUseCase: getIt.get<FetchCategoriesUseCase>(),
       ));
   getIt.registerFactory(() => ToggleFavouriteCubit(
         toggleFavouritesUseCase: ToggleFavouritesUseCase(

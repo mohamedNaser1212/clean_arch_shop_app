@@ -32,7 +32,7 @@ class SearchBody extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        BuildSearchField(),
+        SearchField(),
         const SizedBox(height: 20),
         BlocConsumer<SearchCubit, SearchState>(
           listener: (context, state) {

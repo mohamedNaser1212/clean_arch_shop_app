@@ -3,8 +3,8 @@ import 'package:shop_app/core/widgets/reusable_widgets/reusable_text_form_field.
 
 import '../cubit/search_cubit/search_cubit.dart';
 
-class BuildSearchField extends StatelessWidget {
-  BuildSearchField({super.key});
+class SearchField extends StatelessWidget {
+  SearchField({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _controller = TextEditingController();

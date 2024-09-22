@@ -18,9 +18,7 @@ class ProductsCubit extends Cubit<GetProductsState> {
 
   final ProductsUseCase fetchHomeItemsUseCase;
 
-  Future<void> getProductsData({
-    required BuildContext context,
-  }) async {
+  Future<void> getProductsData() async {
     emit(GetProductsLoadingState());
 
     final result = await fetchHomeItemsUseCase.call();

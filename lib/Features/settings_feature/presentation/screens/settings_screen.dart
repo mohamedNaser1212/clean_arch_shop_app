@@ -49,25 +49,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ],
       child: BlocListener<SignOutCubit, SignOutState>(
         listener: _signOutListener,
-        child: BlocListener<UpdateUserDataCubit, UpdateUserDataState>(
-          listener: _updateUserDataListener,
-          child: BlocBuilder<UserInfoCubit, UserInfoState>(
-            builder: (context, userState) {
-              if (userState is GetUserInfoSuccessState) {
-                nameController.text = userState.userEntity!.name;
-                emailController.text =  userState.userEntity!.email;
-                phoneController.text =  userState.userEntity!.phone;
-              }
-              print('name: ${nameController.text}');
-              return UserInfoDisplay(
-                nameController: nameController,
-                emailController: emailController,
-                phoneController: phoneController,
-                formKey: formKey,
-                userState: userState,
-              );
-            },
-          ),
+        child: BlocBuilder<UserInfoCubit, UserInfoState>(
+          builder: (context, userState) {
+            if (userState is GetUserInfoSuccessState) {
+              nameController.text = userState.userEntity!.name;
+              emailController.text =  userState.userEntity!.email;
+              phoneController.text =  userState.userEntity!.phone;
+            }
+            print('name: ${nameController.text}');
+            return UserInfoDisplay(
+              nameController: nameController,
+              emailController: emailController,
+              phoneController: phoneController,
+              formKey: formKey,
+              userState: userState,
+            );
+          },
         ),
       ),
     );

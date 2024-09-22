@@ -15,6 +15,7 @@ class SearchScreen extends StatelessWidget {
       create: (context) =>
           SearchCubit(fetchSearchUseCase: getIt<SearchUseCase>()),
       child: const Scaffold(
+        
         body: SearchBody(),
       ),
     );

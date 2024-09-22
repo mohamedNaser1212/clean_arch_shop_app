@@ -26,7 +26,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
     FavouritesCubit.get(context).getFavorites();
     CartsCubit.get(context).getCartItems();
-    ProductsCubit.get(context).getProductsData(context: context);
+    ProductsCubit.get(context).getProductsData();
   }
 
   @override

@@ -10,7 +10,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     required this.fetchCategoriesUseCase,
   }) : super(CategoriesState());
 
-  final CategoriesUseCase fetchCategoriesUseCase;
+  final FetchCategoriesUseCase fetchCategoriesUseCase;
 
   static CategoriesCubit get(context) => BlocProvider.of(context);
 
