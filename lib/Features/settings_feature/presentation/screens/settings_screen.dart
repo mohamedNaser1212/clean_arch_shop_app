@@ -9,6 +9,7 @@ import 'package:shop_app/core/functions/navigations_functions.dart';
 import '../../../../core/functions/toast_function.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
+import '../../../../core/widgets/custom_progress_indicator.dart';
 import '../../domain/settings_use_case/update_user_data_use_case.dart';
 import '../../domain/settings_use_case/user_sign_out_use_case.dart';
 
@@ -70,8 +71,11 @@ class SettingsScreenState extends State<SettingsScreen> {
       phoneController.text = userState.userEntity!.phone;
     }
     print('name: ${nameController.text}');
-    return UserInfoDisplay(
-      userState: this,
+    return CustomProgressIndicator(
+      isLoading: userState is GetUserInfoLoadingState,
+      child: UserInfoDisplay(
+        userState: this,
+      ),
     );
   }
 
