@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_screen_body.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
 import 'package:shop_app/core/widgets/initial_screen.dart';
+
 import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
@@ -21,15 +23,13 @@ class RegisterScreen extends StatelessWidget {
   }
 
   Widget _builder(BuildContext context, RegisterState state) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      body: Stack(
-        children: [
-          const RegisterScreenBody(),
-          if (state is RegisterLoadingState) const CustomProgressIndicator(),
-        ],
+    return CustomProgressIndicator(
+      isLoading: state is RegisterLoadingState,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Login'),
+        ),
+        body: const RegisterScreenBody(),
       ),
     );
   }
@@ -38,7 +38,7 @@ class RegisterScreen extends StatelessWidget {
 void _listener(BuildContext context, RegisterState state) {
   if (state is RegisterSuccessState) {
     showToast(
-      isError: false,
+      color: ColorController.greenAccent,
       message: 'Register Success',
     );
 
@@ -51,7 +51,6 @@ void _listener(BuildContext context, RegisterState state) {
     );
   } else if (state is RegisterErrorState) {
     showToast(
-      isError: true,
       message: state.message,
     );
   }

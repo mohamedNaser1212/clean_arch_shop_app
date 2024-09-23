@@ -25,12 +25,10 @@ class CartScreen extends StatelessWidget {
     if (state is ToggleCartItemsErrorState) {
       showToast(
         message: state.error,
-        isError: true,
       );
     } else if (state is ChangeCartListErrorState) {
       showToast(
         message: state.error,
-        isError: true,
       );
     } else if (state is ToggleCartSuccessState ||
         state is ChangeCartListSuccessState) {

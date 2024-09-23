@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/errors_manager/failure.dart';
+import '../../../../core/managers/errors_manager/failure.dart';
 import '../../data/search_model/search_model.dart';
 import '../search_repo/search_repo.dart';
 

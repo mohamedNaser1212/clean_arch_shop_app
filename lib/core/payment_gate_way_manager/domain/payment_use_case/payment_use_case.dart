@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/payment_gate_way_manager/domain/payment_repo/payment_repo.dart';
-import '../../../errors_manager/failure.dart';
+
+import '../../../managers/errors_manager/failure.dart';
 
 class PaymentUseCase {
   final PaymentRepo paymentRepo;

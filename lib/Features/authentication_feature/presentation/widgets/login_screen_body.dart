@@ -5,6 +5,8 @@ import 'package:shop_app/Features/authentication_feature/presentation/widgets/lo
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_header.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/password_text_field.dart';
 
+import 'dont_have_account_widget.dart';
+
 class LoginBody extends StatelessWidget {
   final LoginScreenState state;
 
@@ -35,6 +37,7 @@ class LoginBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 LoginButton(state: state),
+                CheckAuthStatusTextWidget.login(context: context),
               ],
             ),
           ),

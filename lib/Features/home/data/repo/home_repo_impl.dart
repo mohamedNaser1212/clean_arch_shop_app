@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/managers/repo_manager/repo_manager.dart';
 
-import '../../../../core/errors_manager/failure.dart';
+import '../../../../core/managers/errors_manager/failure.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import '../../domain/entities/products_entity/product_entity.dart';
 import '../../domain/home_repo/home_repo.dart';
@@ -20,7 +20,7 @@ class HomeRepoImpl extends HomeRepo {
   });
 
   @override
-    Future<Either<Failure, List<CategoriesEntity>>> fetchCategories() async {
+  Future<Either<Failure, List<CategoriesEntity>>> fetchCategories() async {
     return repoManager.call(
       action: () async {
         final cachedCategories = await homeLocalDataSource.getCategories();

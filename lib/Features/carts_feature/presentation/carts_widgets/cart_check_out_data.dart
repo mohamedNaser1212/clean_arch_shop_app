@@ -8,7 +8,6 @@ import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
 
 import '../../../../core/payment_gate_way_manager/cubit/payment_cubit.dart';
-
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class CartCheckoutData extends StatelessWidget {
@@ -35,34 +34,33 @@ class CartCheckoutData extends StatelessWidget {
   }
 
   void _cartListener(context, state) {
-      if (state is GetClientSecretLoadingState) {
-        const LoadingIndicatorWidget();
-      }
+    if (state is GetClientSecretLoadingState) {
+      const LoadingIndicatorWidget();
     }
+  }
 
   Widget _builder(context, state) {
-      return TotalAndCheckOutWidget(total: total);
-    }
+    return TotalAndCheckOutWidget(total: total);
+  }
 
   void _paymentListener(context, state) async {
-      if (state is GetClientSecretSuccessState) {
-        await PaymentCubit.get(context).initializePayment(
-          clientSecret: state.clientSecret,
-        );
-        await Stripe.instance.presentPaymentSheet();
-      } else if (state is InitializePaymentSuccessState) {
-        bool cartUpdated =
-            await ToggleCartCubit.get(context).changeCartsList(
-          cartModel.map((e) => e.id).toList(),
-        );
-        showToast(
-          message: cartUpdated ? 'Payment Success' : 'Payment Failed',
-          isError: !cartUpdated,
-        );
-      } else if (state is GetClientSecretErrorState) {
-        showToast(message: state.message, isError: true);
-      }
+    if (state is GetClientSecretSuccessState) {
+      await PaymentCubit.get(context).initializePayment(
+        clientSecret: state.clientSecret,
+      );
+      await Stripe.instance.presentPaymentSheet();
+    } else if (state is InitializePaymentSuccessState) {
+      bool cartUpdated = await ToggleCartCubit.get(context).changeCartsList(
+        cartModel.map((e) => e.id).toList(),
+      );
+      showToast(
+        message: cartUpdated ? 'Payment Success' : 'Payment Failed',
+        color: Colors.green,
+      );
+    } else if (state is GetClientSecretErrorState) {
+      showToast(
+        message: state.message,
+      );
     }
+  }
 }
-
-

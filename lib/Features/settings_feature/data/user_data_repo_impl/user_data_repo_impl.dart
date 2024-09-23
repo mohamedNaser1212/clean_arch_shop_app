@@ -3,9 +3,9 @@ import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_lo
 import 'package:shop_app/Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
 import 'package:shop_app/Features/settings_feature/data/update_user_request_model.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
-import 'package:shop_app/core/errors_manager/failure.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
+import '../../../../core/managers/errors_manager/failure.dart';
 import '../../../../core/managers/repo_manager/repo_manager.dart';
 import '../../../../core/user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
 import '../../../favourites_feature/data/favourite_data_source/favourites_local_data_source.dart';
@@ -50,12 +50,11 @@ class UserDataRepoImpl implements UserDataRepo {
   @override
   Future<Either<Failure, UserEntity>> updateUserData({
     required UpdateUserRequestModel updateUserRequestModel,
-
   }) async {
     return repoManager.call(
       action: () async {
         final userData = await getUserDataSource.updateUserData(
-            updateUserRequestModel: updateUserRequestModel,
+          updateUserRequestModel: updateUserRequestModel,
         );
         await userInfoLocalDataSource.saveUserData(user: userData);
         return userData;

@@ -13,15 +13,14 @@ import '../../../../core/widgets/reusable_widgets/reusable_elevated_botton.dart'
 import '../cubit/user_info_cubit/update_user_data_cubit.dart';
 
 class UpdateElevatedBotton extends StatelessWidget {
-  const UpdateElevatedBotton(
-      {super.key,
-      required this.formKey,
-      required this.userState,
- });
+  const UpdateElevatedBotton({
+    super.key,
+    required this.formKey,
+    required this.userState,
+  });
 
   final GlobalKey<FormState> formKey;
   final SettingsScreenState userState;
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,21 +39,20 @@ class UpdateElevatedBotton extends StatelessWidget {
                     UserInfoCubit.get(context).userEntity;
                 if (cubit.checkDataChanges(
                   name: userState.nameController.text,
-                  email: userState. emailController.text,
-                  phone:  userState.phoneController.text,
+                  email: userState.emailController.text,
+                  phone: userState.phoneController.text,
                 )) {
                   cubit.updateUserData(
                     updateUserRequestModel: UpdateUserRequestModel(
                       name: userState.nameController.text,
                       email: userState.emailController.text,
                       phone: userState.phoneController.text,
-                    ),  
-                    
+                    ),
                   );
                 } else {
                   showToast(
                     message: 'No changes detected. Your data is up-to-date.',
-                    isError: false,
+                    color: ColorController.greenAccent,
                   );
                 }
               }

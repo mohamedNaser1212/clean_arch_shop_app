@@ -5,6 +5,7 @@ import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
 import 'package:shop_app/core/widgets/initial_screen.dart';
+
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';
 
@@ -44,15 +45,13 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _builder(BuildContext context, LoginState state) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Stack(
-        children: [
-          LoginBody(state: this),
-          if (state is LoginLoadingState) const CustomProgressIndicator(),
-        ],
+    return CustomProgressIndicator(
+      isLoading: state is LoginLoadingState,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Login'),
+        ),
+        body: LoginBody(state: this),
       ),
     );
   }

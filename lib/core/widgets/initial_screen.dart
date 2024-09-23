@@ -3,10 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
 import 'package:shop_app/Features/layout/presentation/screens/layout_screen.dart';
 import 'package:shop_app/core/functions/navigations_functions.dart';
-import 'package:shop_app/core/service_locator/service_locator.dart';
 
 import '../user_info/cubit/user_info_cubit.dart';
-import '../user_info/domain/use_cases/get_user_info_use_case.dart';
 import 'custom_title.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -18,15 +16,17 @@ class InitialScreen extends StatefulWidget {
 
 class _InitialScreenState extends State<InitialScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    UserInfoCubit.get(context).getUserData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<UserInfoCubit>(
-      create: (context) => UserInfoCubit(
-        getUserUseCase: getIt<GetUserInfoUseCase>(),
-      )..getUserData(),
-      child: BlocConsumer<UserInfoCubit, UserInfoState>(
-        listener: _listener,
-        builder: _userInfoBuilder,
-      ),
+    return BlocConsumer<UserInfoCubit, UserInfoState>(
+      listener: _listener,
+      builder: _userInfoBuilder,
     );
   }
 
@@ -38,11 +38,9 @@ class _InitialScreenState extends State<InitialScreen> {
         ),
       );
     } else if (state is GetUserInfoErrorState) {
-
       return Scaffold(
         body: Center(
-          child: CustomTitle(
-              title: state.message, style: TitleStyle.style16),
+          child: CustomTitle(title: state.message, style: TitleStyle.style16),
         ),
       );
     }
@@ -59,7 +57,6 @@ class _InitialScreenState extends State<InitialScreen> {
           screen: const LoginScreen(),
         );
       } else {
-
         UserInfoCubit.get(context).userEntity = state.userEntity;
 
         NavigationManager.navigateAndFinish(

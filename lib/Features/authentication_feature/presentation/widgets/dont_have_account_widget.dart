@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
+import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 
@@ -14,25 +16,29 @@ class CheckAuthStatusTextWidget extends StatelessWidget {
   final String subtitle;
 
   factory CheckAuthStatusTextWidget.login({
-    required VoidCallback onRegisterPressed,
+    required BuildContext context,
   }) {
     return CheckAuthStatusTextWidget._(
-      onRegisterPressed: onRegisterPressed,
+      onRegisterPressed: () {
+        NavigationManager.navigateTo(
+            context: context, screen: const RegisterScreen());
+      },
       title: 'Don\'t have an account?',
       subtitle: 'Register',
     );
   }
 
   factory CheckAuthStatusTextWidget.register({
-    required VoidCallback onRegisterPressed,
+    required BuildContext context,
   }) {
     return CheckAuthStatusTextWidget._(
-      onRegisterPressed: onRegisterPressed,
+      onRegisterPressed: () {
+        Navigator.of(context).pop();
+      },
       title: 'Already have an account?',
       subtitle: 'Login',
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

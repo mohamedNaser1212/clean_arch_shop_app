@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/errors_manager/failure.dart';
+import '../../../../core/managers/errors_manager/failure.dart';
 import '../../../../core/managers/repo_manager/repo_manager.dart';
 import '../../domain/favourites_entity/favourites_entity.dart';
 import '../../domain/favourites_repo/favourites_repo.dart';

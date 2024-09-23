@@ -6,9 +6,11 @@ import 'package:shop_app/Features/authentication_feature/presentation/widgets/ph
 import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/sign_out_elevated_botton.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/update_elevated_borron.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+
+import '../../../../core/functions/toast_function.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../authentication_feature/presentation/widgets/email_text_field.dart';
-import '../../../../core/functions/toast_function.dart';
 import '../cubit/user_info_cubit/update_user_data_cubit.dart';
 
 class SettingsFormBody extends StatelessWidget {
@@ -23,7 +25,9 @@ class SettingsFormBody extends StatelessWidget {
     return BlocListener<UpdateUserDataCubit, UpdateUserDataState>(
       listener: (context, state) {
         if (state is UpdateUserDataError) {
-          showToast(message: state.error, isError: true);
+          showToast(
+            message: state.error,
+          );
         } else if (state is UpdateUserDataSuccess) {
           _handleUpdateSuccess(context);
         }
@@ -49,6 +53,9 @@ class SettingsFormBody extends StatelessWidget {
 
   void _handleUpdateSuccess(BuildContext context) {
     UserInfoCubit.get(context).getUserData();
-    showToast(message: 'Data updated successfully', isError: false);
+    showToast(
+      message: 'Data updated successfully',
+      color: ColorController.greenAccent,
+    );
   }
 }

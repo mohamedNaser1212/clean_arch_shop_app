@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
@@ -29,28 +28,29 @@ class _CartIconWidgetState extends State<CartIconWidget> {
   }
 
   Widget _builder(context, state) {
-      final isCart =
-          CartsCubit.get(context).carts[widget.product.id] ?? false;
-      return IconButton(
-        onPressed: () => onCartPressed(context, widget.product.id),
-        icon: CircleAvatar(
-          backgroundColor:
-              isCart ? ColorController.redColor : ColorController.greyColor,
-          radius: 15,
-          child: const Icon(
-            Icons.shopping_cart,
-            size: 15,
-            color: ColorController.whiteColor,
-          ),
+    final isCart = CartsCubit.get(context).carts[widget.product.id] ?? false;
+    return IconButton(
+      onPressed: () => onCartPressed(context, widget.product.id),
+      icon: CircleAvatar(
+        backgroundColor:
+            isCart ? ColorController.redColor : ColorController.greyColor,
+        radius: 15,
+        child: const Icon(
+          Icons.shopping_cart,
+          size: 15,
+          color: ColorController.whiteColor,
         ),
-      );
-    }
+      ),
+    );
+  }
 
   void toggleCartListener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartItemsErrorState) {
       CartsCubit.get(context).carts[widget.product.id] =
           !(CartsCubit.get(context).carts[widget.product.id] ?? false);
-      showToast(message: state.error, isError: true);
+      showToast(
+        message: state.error,
+      );
     }
   }
 
@@ -74,4 +74,3 @@ class _CartIconWidgetState extends State<CartIconWidget> {
     ToggleCartCubit.get(context).changeCarts(productId);
   }
 }
-

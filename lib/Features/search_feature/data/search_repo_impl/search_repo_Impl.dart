@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/managers/repo_manager/repo_manager.dart';
 
-import '../../../../core/errors_manager/failure.dart';
+import '../../../../core/managers/errors_manager/failure.dart';
 import '../../domain/search_repo/search_repo.dart';
 import '../search_data_source/search_remote_data_source.dart';
 import '../search_model/search_model.dart';

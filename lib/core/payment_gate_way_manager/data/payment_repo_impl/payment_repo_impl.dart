@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/core/managers/repo_manager/repo_manager.dart';
-import '../../../errors_manager/failure.dart';
+
+import '../../../managers/errors_manager/failure.dart';
 import '../../domain/payment_repo/payment_repo.dart';
 import '../payment_data_source/payment_data_source.dart';
 

@@ -10,25 +10,21 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<CategoriesCubit, CategoriesState>(
-          listener: _listener,
-        ),
-      ],
-      child: BlocBuilder<CategoriesCubit, CategoriesState>(
-        builder: _builder,
-      ),
+    return BlocConsumer<CategoriesCubit, CategoriesState>(
+      builder: _builder,
+      listener: _listener,
     );
   }
 
   Widget _builder(context, categoriesState) {
-        return ProductsScreenBody(state: categoriesState);
-      }
+    return ProductsScreenBody(state: categoriesState);
+  }
 
   void _listener(context, state) {
-          if (state is CategoriesError) {
-            showToast(message: state.error, isError: true);
-          }
-        }
+    if (state is CategoriesError) {
+      showToast(
+        message: state.error,
+      );
+    }
+  }
 }

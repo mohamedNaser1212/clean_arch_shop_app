@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
-import '../../../errors_manager/failure.dart';
+
+import '../../../managers/errors_manager/failure.dart';
 
 abstract class PaymentRepo {
   const PaymentRepo();

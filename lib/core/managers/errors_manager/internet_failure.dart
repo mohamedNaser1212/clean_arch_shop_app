@@ -1,5 +1,6 @@
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:shop_app/core/errors_manager/failure.dart';
+
+import 'failure.dart';
 
 class InternetFailure extends Failure {
   const InternetFailure({required super.message});
@@ -16,5 +17,3 @@ class InternetFailure extends Failure {
     }
   }
 }
-
-

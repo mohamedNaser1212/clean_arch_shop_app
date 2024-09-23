@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/core/errors_manager/failure.dart';
 import 'package:shop_app/core/managers/repo_manager/repo_manager.dart';
 
 import '../../../../Features/settings_feature/domain/user_entity/user_entity.dart';
+import '../../../managers/errors_manager/failure.dart';
 import '../../domain/user_info_repo/user_info_repo.dart';
 import '../user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info_data_sources/user_info_remote_data_source.dart';
