@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/features/authentication_feature/data/model/register_request_model.dart';
-import 'package:shop_app/features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/register_request_model.dart';
+import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/register_use_case.dart';
 import 'package:shop_app/core/networks/hive_manager/hive_helper.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
 

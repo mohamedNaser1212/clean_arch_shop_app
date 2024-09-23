@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title.dart';
 import '../cubit/carts_cubit.dart';
-import 'cart_screen_builder.dart';
+import 'cart_screen_body.dart';
 
 class CartScreenContent extends StatelessWidget {
   const CartScreenContent({

@@ -1,4 +1,4 @@
-import 'package:shop_app/features/settings_feature/data/update_user_request_model.dart';
+import 'package:shop_app/Features/settings_feature/data/update_user_request_model.dart';
 
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/features/authentication_feature/data/model/login_request_model.dart';
-import 'package:shop_app/features/authentication_feature/data/model/register_request_model.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/login_request_model.dart';
+import 'package:shop_app/Features/authentication_feature/data/model/register_request_model.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 
 import '../../../../core/errors_manager/failure.dart';

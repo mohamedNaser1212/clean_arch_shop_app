@@ -33,7 +33,7 @@ class SearchBody extends StatelessWidget {
             return const Expanded(
                 child: Padding(
               padding: EdgeInsets.all(12.0),
-              child: BuildSearchResultList(),
+              child: SearchResultList(),
             ));
           } else if (state is SearchErrorState) {
             return Center(

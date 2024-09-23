@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/features/authentication_feature/presentation/widgets/register_screen_builder.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_screen_body.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
 import 'package:shop_app/core/widgets/initial_screen.dart';
@@ -27,7 +27,7 @@ class RegisterScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          const RegisterScreenBuilder(),
+          const RegisterScreenBody(),
           if (state is RegisterLoadingState) const CustomProgressIndicator(),
         ],
       ),

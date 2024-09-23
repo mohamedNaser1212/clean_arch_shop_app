@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
+import 'package:shop_app/Features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
 
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 import '../../domain/carts_use_case/remove_cart_use_case.dart';

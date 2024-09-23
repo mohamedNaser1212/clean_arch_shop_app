@@ -4,18 +4,18 @@ import 'package:shop_app/Features/search_feature/presentation/widgets/search_lis
 import '../../data/search_model/search_model.dart';
 
 class SearchListWidget extends StatelessWidget {
-  const SearchListWidget({super.key, required this.results});
-  final List<SearchModel> results;
+  const SearchListWidget({super.key, required this.resultsList});
+  final List<SearchModel> resultsList;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
-        itemCount: results.length,
+        itemCount: resultsList.length,
         itemBuilder: (context, index) {
-          final result = results[index];
+          final result = resultsList[index];
           return SearchListBody(
             searchModel: result,
-            resultsList: results,
+            resultsList: resultsList,
           );
         },
         separatorBuilder: (context, index) => const Divider(),

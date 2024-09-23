@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/features/authentication_feature/presentation/widgets/register_botton.dart';
-import 'package:shop_app/features/authentication_feature/presentation/widgets/register_form.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_botton.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_form.dart';
 import 'package:shop_app/core/utils/styles_manager/text_styles_manager.dart';
 
-class RegisterScreenBuilder extends StatefulWidget {
-  const RegisterScreenBuilder({super.key, });
+class RegisterScreenBody extends StatefulWidget {
+  const RegisterScreenBody({
+    super.key,
+  });
 
   @override
-  State<RegisterScreenBuilder> createState() => RegisterScreenBuilderState();
+  State<RegisterScreenBody> createState() => RegisterScreenBodyState();
 }
 
-class RegisterScreenBuilderState extends State<RegisterScreenBuilder> {
+class RegisterScreenBodyState extends State<RegisterScreenBody> {
   late final formKey = GlobalKey<FormState>();
   late final TextEditingController emailController;
   late final TextEditingController nameController;

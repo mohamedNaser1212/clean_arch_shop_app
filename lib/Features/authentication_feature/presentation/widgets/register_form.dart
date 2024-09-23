@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:shop_app/features/authentication_feature/presentation/widgets/email_text_field.dart';
-import 'package:shop_app/features/authentication_feature/presentation/widgets/name_text_field.dart';
-import 'package:shop_app/features/authentication_feature/presentation/widgets/password_text_field.dart';
-import 'package:shop_app/features/authentication_feature/presentation/widgets/phone_text_field.dart';
-import 'package:shop_app/features/authentication_feature/presentation/widgets/register_screen_builder.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/email_text_field.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/name_text_field.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/password_text_field.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/phone_text_field.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_screen_body.dart';
 
 class RgisterForm extends StatelessWidget {
   const RgisterForm({
@@ -11,7 +11,7 @@ class RgisterForm extends StatelessWidget {
     required this.requestModel,
   });
 
-  final RegisterScreenBuilderState requestModel;
+  final RegisterScreenBodyState requestModel;
 
   @override
   Widget build(BuildContext context) {

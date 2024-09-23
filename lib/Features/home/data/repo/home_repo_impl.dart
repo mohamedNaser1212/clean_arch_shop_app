@@ -20,7 +20,7 @@ class HomeRepoImpl extends HomeRepo {
   });
 
   @override
-  Future<Either<Failure, List<CategoriesEntity>>> fetchCategories() async {
+    Future<Either<Failure, List<CategoriesEntity>>> fetchCategories() async {
     return repoManager.call(
       action: () async {
         final cachedCategories = await homeLocalDataSource.getCategories();

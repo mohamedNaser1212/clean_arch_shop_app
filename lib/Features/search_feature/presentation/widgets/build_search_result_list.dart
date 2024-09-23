@@ -6,15 +6,15 @@ import 'package:shop_app/core/widgets/custom_title.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../cubit/search_cubit/search_cubit.dart';
 
-class BuildSearchResultList extends StatelessWidget {
-  const BuildSearchResultList({super.key});
+class SearchResultList extends StatelessWidget {
+  const SearchResultList({super.key});
 
   @override
   Widget build(BuildContext context) {
     final results = SearchCubit.get(context).searchResults!;
     return ConditionalBuilder(
       condition: results.isNotEmpty,
-      builder: (context) => SearchListWidget(results: results),
+      builder: (context) => SearchListWidget(resultsList: results),
       fallback: (context) => const Center(
         child: CustomTitle(
           title: 'Sorry, No results found',

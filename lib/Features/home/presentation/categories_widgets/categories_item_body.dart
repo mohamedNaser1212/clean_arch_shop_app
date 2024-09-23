@@ -4,8 +4,8 @@ import 'package:shop_app/Features/home/presentation/categories_widgets/categorie
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import 'categories_list_view.dart';
 
-class CategoriesItemBuilder extends StatelessWidget {
-  const CategoriesItemBuilder(
+class CategoriesItemBody extends StatelessWidget {
+  const CategoriesItemBody(
       {super.key,
       required this.categoryModel,
       required this.context,

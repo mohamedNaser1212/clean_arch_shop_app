@@ -2,8 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/features/settings_feature/data/update_user_request_model.dart';
-import 'package:shop_app/features/settings_feature/presentation/screens/settings_screen.dart';
+import 'package:shop_app/Features/settings_feature/data/update_user_request_model.dart';
+import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
 
 import '../../../../core/functions/toast_function.dart';
