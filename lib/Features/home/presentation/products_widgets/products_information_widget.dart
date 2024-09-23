@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
 
 class ProductInformationWidget extends StatelessWidget {
-  const ProductInformationWidget({super.key, required this.product});
-  final BaseProductModel product;
+  const ProductInformationWidget({super.key, required this.model});
+  final BaseProductModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class ProductInformationWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          product.name!,
+          model.name,
           maxLines: 2,
           style: const TextStyle(
             fontSize: 16,
@@ -28,7 +29,7 @@ class ProductInformationWidget extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                '${product.price!.round()}',
+                '${model.price.round()}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -38,9 +39,9 @@ class ProductInformationWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 5),
-              if (product.discount != 0)
+              if (model.discount != 0)
                 Text(
-                  '${product.oldPrice!.round()}',
+                  '${model.oldPrice.round()}',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(

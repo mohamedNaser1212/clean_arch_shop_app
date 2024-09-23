@@ -47,8 +47,6 @@ class ServerFailure extends Failure {
       return ServerFailure(
           message: response['error']['message'] ?? 'Unauthorized request');
     } else {
-      print('ServerFailure.fromResponse: $response');
-      print('ServerFailure.fromResponse: $statusCode');
       return const ServerFailure(
           message: 'There was an error, pleaSe try again later');
     }

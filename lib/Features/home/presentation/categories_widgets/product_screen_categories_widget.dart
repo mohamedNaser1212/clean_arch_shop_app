@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
 
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import 'categories_list_view.dart';
@@ -21,5 +22,7 @@ class CategoriesSection extends StatelessWidget {
       ),
       fallback: (context) => const Center(child: Text('Loading...')),
     );
+
+
   }
 }

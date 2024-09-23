@@ -2,6 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/settings_feature/data/update_user_request_model.dart';
+import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
 
 import '../../../../core/functions/toast_function.dart';
@@ -14,14 +16,12 @@ class UpdateElevatedBotton extends StatelessWidget {
   const UpdateElevatedBotton(
       {super.key,
       required this.formKey,
-      required this.nameController,
-      required this.emailController,
-      required this.phoneController});
+      required this.userState,
+ });
 
   final GlobalKey<FormState> formKey;
-  final TextEditingController nameController;
-  final TextEditingController emailController;
-  final TextEditingController phoneController;
+  final SettingsScreenState userState;
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +39,17 @@ class UpdateElevatedBotton extends StatelessWidget {
                 UpdateUserDataCubit.get(context).userModel =
                     UserInfoCubit.get(context).userEntity;
                 if (cubit.checkDataChanges(
-                  name: nameController.text,
-                  email: emailController.text,
-                  phone: phoneController.text,
+                  name: userState.nameController.text,
+                  email: userState. emailController.text,
+                  phone:  userState.phoneController.text,
                 )) {
                   cubit.updateUserData(
-                    name: nameController.text,
-                    email: emailController.text,
-                    phone: phoneController.text,
+                    updateUserRequestModel: UpdateUserRequestModel(
+                      name: userState.nameController.text,
+                      email: userState.emailController.text,
+                      phone: userState.phoneController.text,
+                    ),  
+                    
                   );
                 } else {
                   showToast(

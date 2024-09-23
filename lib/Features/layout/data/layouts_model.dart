@@ -14,7 +14,7 @@ class LayoutModel {
     const CategoriesScreen(),
     const FavoritesScreen(),
     const CartScreen(),
-    SettingsScreen(),
+    const SettingsScreen(),
   ];
 
   final List<BottomNavigationBarItem> _bottomNavigationBarItems = const [

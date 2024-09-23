@@ -23,7 +23,7 @@ class DioManager implements ApiHelper {
   Future<dynamic> _handleResponse(Response response) async {
     if ([200, 201, 202].contains(response.statusCode)) {
       if (response.data['status'] == false) {
-        print('response.data: ${response.data['message']}');
+
         throw Exception(
           '${response.data['message']}',
         );

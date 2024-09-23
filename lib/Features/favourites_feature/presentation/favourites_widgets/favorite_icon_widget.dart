@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
+
 import 'package:shop_app/core/functions/dialogue_function.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
-  FavoriteIconWidget({super.key, required this.product});
+  const FavoriteIconWidget({super.key, required this.product});
   final BaseProductModel product;
 
   @override
@@ -24,26 +24,27 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
   Widget build(BuildContext context) {
     return BlocConsumer<ToggleFavouriteCubit, ToggleFavouriteState>(
       listener: _toggleFavouriteListener,
-      builder: (context, state) {
-        final isFavorite =
-            FavouritesCubit.get(context).favorites[widget.product.id] ?? false;
-        return IconButton(
-          onPressed: () => _onFavouritePressed(context, widget.product.id),
-          icon: CircleAvatar(
-            backgroundColor: isFavorite
-                ? ColorController.redColor
-                : ColorController.greyColor,
-            radius: 15,
-            child: const Icon(
-              Icons.favorite,
-              size: 15,
-              color: ColorController.whiteColor,
-            ),
-          ),
-        );
-      },
+      builder: _builder,
     );
   }
+
+  Widget _builder(context, state) {
+    final isFavorite =
+        FavouritesCubit.get(context).favorites[widget.product.id] ?? false;
+    return IconButton(
+      onPressed: () => _onFavouritePressed(context, widget.product.id),
+      icon: CircleAvatar(
+        backgroundColor:
+            isFavorite ? ColorController.redColor : ColorController.greyColor,
+        radius: 15,
+        child: const Icon(
+          Icons.favorite,
+          size: 15,
+          color: ColorController.whiteColor,
+        ),
+      ),
+    );
+      }
 
   void _toggleFavouriteListener(
       BuildContext context, ToggleFavouriteState state) {

@@ -14,10 +14,10 @@ class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<SettingsScreen> createState() => SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class SettingsScreenState extends State<SettingsScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -50,30 +50,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: BlocListener<SignOutCubit, SignOutState>(
         listener: _signOutListener,
         child: BlocBuilder<UserInfoCubit, UserInfoState>(
-          builder: (context, userState) {
-            if (userState is GetUserInfoSuccessState) {
-              nameController.text = userState.userEntity!.name;
-              emailController.text =  userState.userEntity!.email;
-              phoneController.text =  userState.userEntity!.phone;
-            }
-            print('name: ${nameController.text}');
-            return UserInfoDisplay(
-              nameController: nameController,
-              emailController: emailController,
-              phoneController: phoneController,
-              formKey: formKey,
-              userState: userState,
-            );
-          },
+          builder: _builder,
         ),
       ),
     );
   }
 
+  Widget _builder(context, userState) {
+          if (userState is GetUserInfoSuccessState) {
+            nameController.text = userState.userEntity!.name;
+            emailController.text =  userState.userEntity!.email;
+            phoneController.text =  userState.userEntity!.phone;
+          }
+          print('name: ${nameController.text}');
+          return UserInfoDisplay(
+            userState: this,
+          );
+        }
+
   void _signOutListener(BuildContext context, SignOutState state) {
     if (state is UserSignOutSuccess) {
       NavigationManager.navigateAndFinish(
-          context: context, screen: LoginScreen());
+          context: context, screen: const LoginScreen());
     } else if (state is UserSignOutError) {
       showToast(message: state.error, isError: true);
     }

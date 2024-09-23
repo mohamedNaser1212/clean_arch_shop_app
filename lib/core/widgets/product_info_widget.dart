@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/cached_network_image_widget.dart';
 

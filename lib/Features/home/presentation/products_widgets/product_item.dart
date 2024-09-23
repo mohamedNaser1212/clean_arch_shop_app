@@ -8,7 +8,7 @@ import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   const ProductItem({
     Key? key,
     required this.product,
@@ -17,12 +17,17 @@ class ProductItem extends StatelessWidget {
   final BaseProductModel product;
 
   @override
+  State<ProductItem> createState() => ProductItemState();
+}
+
+class ProductItemState extends State<ProductItem> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         NavigationManager.navigateTo(
           context: context,
-          screen: ProductsDetailsScreen(model: product),
+          screen: ProductsDetailsScreen(model: widget.product),
         );
       },
       child: Container(
@@ -32,9 +37,9 @@ class ProductItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProductItemImage(product: product),
-              ProductInformationWidget(product: product),
-              FavouriteAndCartIcons(product: product),
+              ProductItemImage(product: this),
+              ProductInformationWidget(model: widget.product),  
+              FavouriteAndCartIcons(model: widget.product), 
             ],
           ),
         ),

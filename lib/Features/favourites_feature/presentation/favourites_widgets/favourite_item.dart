@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/product_info_widget.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';
 
 import '../../../../core/functions/navigations_functions.dart';
-import '../../../../core/models/base_products_model.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import 'favourite_and_cart_icons.dart';
 
@@ -37,8 +38,8 @@ class FavoriteItem extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    ProductInformationWidget(product: model),
-                    FavouriteAndCartIcons(product: model),
+                    ProductInformationWidget(model: model),
+                    FavouriteAndCartIcons(model: model),
                   ],
                 ),
               ),

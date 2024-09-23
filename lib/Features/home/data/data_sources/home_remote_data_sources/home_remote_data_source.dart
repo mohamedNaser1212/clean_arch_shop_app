@@ -1,3 +1,5 @@
+import 'package:shop_app/core/networks/api_manager/request_data_names.dart';
+
 import '../../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../../core/networks/api_manager/end_points.dart';
@@ -25,7 +27,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       headerModel: HeaderModel(),
     );
     var data = await apiHelper.get(request: request);
-    List<ProductResponseModel> products = getProductsList(data['data']);
+    List<ProductResponseModel> products = getProductsList(data[RequestDataNames.data]);
     return products;
   }
 
@@ -36,14 +38,14 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       headerModel: HeaderModel(),
     );
     var data = await apiHelper.get(request: request);
-    List<CategoryModel> categories = getCategoriesList(data['data']);
+    List<CategoryModel> categories = getCategoriesList(data[RequestDataNames.data]);
 
     return categories;
   }
 
   List<ProductResponseModel> getProductsList(Map<String, dynamic> data) {
     List<ProductResponseModel> products = [];
-    for (var productMap in data['products']) {
+    for (var productMap in data[RequestDataNames.product]) {
       products.add(ProductResponseModel.fromJson(productMap));
     }
     return products;
@@ -51,7 +53,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
   List<CategoryModel> getCategoriesList(Map<String, dynamic> data) {
     List<CategoryModel> categories = [];
-    for (var categoryMap in data['data']) {
+    for (var categoryMap in data[RequestDataNames.data]) {
       categories.add(CategoryModel.fromJson(categoryMap));
     }
     return categories;

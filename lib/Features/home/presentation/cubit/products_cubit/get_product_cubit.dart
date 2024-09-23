@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/products_entity/product_entity.dart';
@@ -24,7 +24,7 @@ class ProductsCubit extends Cubit<GetProductsState> {
     final result = await fetchHomeItemsUseCase.call();
     result.fold(
       (failure) {
-        print('Failed to fetch products: ${failure.message}');
+
         emit(GetProductsErrorState());
       },
       (products) {

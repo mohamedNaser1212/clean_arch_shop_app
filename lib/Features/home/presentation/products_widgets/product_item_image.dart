@@ -1,24 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
 
-import '../../../../core/models/base_products_model.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title.dart';
 
 class ProductItemImage extends StatelessWidget {
   const ProductItemImage({super.key, required this.product});
-  final BaseProductModel product;
+  final ProductItemState product;
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: AlignmentDirectional.bottomStart,
       children: [
         Image(
-          image: CachedNetworkImageProvider(product.image!),
+          image: CachedNetworkImageProvider(
+            product.widget.product.image,
+          ),
           width: double.infinity,
           height: MediaQuery.of(context).size.height / 4,
         ),
-        if (product.discount != 0)
+        if (product.widget.product.discount != 0)
           Container(
             color: ColorController.primaryColor,
             padding: const EdgeInsets.all(2),

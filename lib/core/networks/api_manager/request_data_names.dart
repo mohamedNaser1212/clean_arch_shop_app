@@ -13,6 +13,11 @@ abstract class RequestDataNames {
   static const String currency = 'currency';
   static const String clientSecret = "client_secret";
   static const String authorization = "Authorization";
-  static const String contentType = "Content-Type";
+  static const String contentTypeKey = "Content-Type";
   static const String merchantDisplayName = "Nasser";
+  static const String contentTypeValue = 'application/x-www-form-urlencoded';
+  static const String data = 'data';
+  static const String cartItems = 'cart_items';
+  static const String product = 'product';
+  static const String status = 'status';
 }

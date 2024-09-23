@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 class ReusableTextFormField extends StatelessWidget {
   final String label;
@@ -16,7 +17,7 @@ class ReusableTextFormField extends StatelessWidget {
     Key? key,
     required this.label,
     this.borderRadius = 25,
-    this.activeColor = Colors.blue,
+    this.activeColor = ColorController.blueAccent,
     this.validator,
     this.onSubmit,
     required this.controller,
@@ -34,13 +35,13 @@ class ReusableTextFormField extends StatelessWidget {
         controller: controller,
         obscureText: obscure,
         keyboardType: keyboardType,
-        validator: validator, // Validator is optional
+        validator: validator,
         onFieldSubmitted: onSubmit,
         decoration: InputDecoration(
           suffixIcon: suffix,
           prefixIcon: prefix,
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 2.0, color: Colors.grey),
+            borderSide: const BorderSide(width: 2.0, color: ColorController.greyColor),
             borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           ),
           labelText: label,

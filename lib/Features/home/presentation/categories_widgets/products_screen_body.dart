@@ -15,12 +15,14 @@ class ProductsScreenBody extends StatelessWidget {
 
     if (state is CategoriesSuccess || categoriesCubit.categoriesModel != null) {
       return BlocBuilder<ProductsCubit, GetProductsState>(
-        builder: (context, productsState) {
-          return ProductSection(state: productsState);
-        },
+        builder: _builder,
       );
     } else {
       return const Center(child: CircularProgressIndicator());
     }
   }
+
+  Widget _builder(context, productsState) {
+      return ProductSection(state: productsState);
+    }
 }

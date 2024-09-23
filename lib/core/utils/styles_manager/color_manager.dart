@@ -23,7 +23,7 @@ abstract class ColorController {
   static const Color scaffoldBackgroundColor = whiteColor;
 
   // Button Colors
-  static const Color buttonColor = primaryColor;
+  static const Color orangeColor = primaryColor;
   static const Color buttonTextColor = whiteColor;
 
   // Icon Colors

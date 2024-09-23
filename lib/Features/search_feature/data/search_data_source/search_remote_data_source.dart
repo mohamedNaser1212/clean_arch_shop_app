@@ -40,8 +40,8 @@ class SearchDataSourceImpl implements SearchRemoteDataSource {
 }
 
 void searchList(Map<String, dynamic> response, List<SearchModel> products) {
-  if (response['data'] != null) {
-    for (var item in response['data']['data']) {
+  if (response[RequestDataNames.data] != null) {
+    for (var item in response[ RequestDataNames.data][ RequestDataNames.data]) {
       products.add(SearchModel.fromJson(item));
     }
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/classes/field_validator.dart';
+import 'package:shop_app/core/classes/fields_validator.dart';
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_text_form_field.dart';
 
 import '../cubit/search_cubit/search_cubit.dart';
@@ -18,7 +18,7 @@ class SearchField extends StatelessWidget {
         label: 'Search',
         controller: _controller,
         keyboardType: TextInputType.text,
-        validator: FieldValidator.isNotEmpty,
+        validator: FieldsValidator.isNotEmpty,
         suffix: IconButton(
           onPressed: () {
             _controller.clear();

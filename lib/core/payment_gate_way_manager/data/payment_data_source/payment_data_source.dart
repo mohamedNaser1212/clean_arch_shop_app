@@ -30,7 +30,7 @@ class PaymentDataSourceImpl implements PaymentDataSource {
       options: Options(
         headers: {
           RequestDataNames.authorization: 'Bearer ${ApiKeys.secretKey}',
-          RequestDataNames.contentType: 'application/x-www-form-urlencoded',
+          RequestDataNames.contentTypeKey: RequestDataNames.contentTypeValue,
         },
       ),
       data: {

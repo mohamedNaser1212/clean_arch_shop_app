@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/classes/field_validator.dart';
+import 'package:shop_app/core/classes/fields_validator.dart';
 import 'package:shop_app/core/utils/constants.dart';
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_text_form_field.dart';
 
@@ -11,7 +11,7 @@ class EmailField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReusableTextFormField(
       label: 'Email',
-      validator: FieldValidator.isNotEmpty,
+      validator: FieldsValidator.isNotEmpty,
       controller: controller,
       keyboardType: TextInputType.emailAddress,
       activeColor: defaultLightColor,

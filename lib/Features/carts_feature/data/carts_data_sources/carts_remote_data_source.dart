@@ -46,7 +46,7 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
     );
     final response = await apiHelper.post(request: request);
     await getCarts();
-    return response['status'] == true ? true : false;
+    return response[RequestDataNames.status] == true ? true : false;
   }
 
   @override
@@ -70,10 +70,10 @@ class CartsRemoteDataSourceImpl implements CartsRemoteDataSource {
 
   void _cartItems(
       Map<String, dynamic> response, List<CartResponseModel> cartProducts) {
-    final cartItems = response['data']?['cart_items'];
+    final cartItems = response[RequestDataNames.data]?[RequestDataNames.cartItems];
     if (cartItems != null) {
       for (var item in cartItems) {
-        cartProducts.add(CartResponseModel.fromJson(item['product']));
+        cartProducts.add(CartResponseModel.fromJson(item[RequestDataNames.product]));
       }
     }
   }

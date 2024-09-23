@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/settings_feature/data/update_user_request_model.dart';
 import 'package:shop_app/Features/settings_feature/domain/user_entity/user_entity.dart';
 
 import '../../../domain/settings_use_case/update_user_data_use_case.dart';
@@ -27,15 +28,11 @@ class UpdateUserDataCubit extends Cubit<UpdateUserDataState> {
   }
 
   Future<void> updateUserData({
-    required String name,
-    required String email,
-    required String phone,
+    required UpdateUserRequestModel updateUserRequestModel,
   }) async {
     emit(UpdateUserDataLoading());
     final result = await updateUserDataUseCase.call(
-      name: name,
-      email: email,
-      phone: phone,
+      updateUserRequestModel: updateUserRequestModel,
     );
     result.fold(
       (failure) {

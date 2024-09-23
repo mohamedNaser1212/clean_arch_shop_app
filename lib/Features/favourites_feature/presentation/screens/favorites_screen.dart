@@ -19,19 +19,23 @@ class FavoritesScreen extends StatelessWidget {
       builder: (context, cartState) {
         return BlocConsumer<ToggleFavouriteCubit, ToggleFavouriteState>(
           listener: _toggleFavouriteListener,
-          builder: (context, favState) {
-            return BlocBuilder<FavouritesCubit, FavouritesState>(
-              builder: (context, state) {
-                return FavoritesScreenBody(
-                  state: state,
-                );
-              },
-            );
-          },
+          builder: _toggleFaavouritesBuilder,
         );
       },
     );
   }
+
+  Widget _toggleFaavouritesBuilder(context, favState) {
+      return BlocBuilder<FavouritesCubit, FavouritesState>(
+        builder: _favoritesScreenBuilder,
+      );
+    }
+
+  Widget _favoritesScreenBuilder(context, state) {
+      return FavoritesScreenBody(
+        state: state,
+      );
+    }
 
   void _toggleCartListener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartSuccessState) {

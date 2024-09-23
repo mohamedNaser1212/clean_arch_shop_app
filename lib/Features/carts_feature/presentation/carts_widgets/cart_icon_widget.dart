@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
 import 'package:shop_app/core/functions/dialogue_function.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
@@ -24,25 +26,27 @@ class _CartIconWidgetState extends State<CartIconWidget> {
   Widget build(BuildContext context) {
     return BlocConsumer<ToggleCartCubit, ToggleCartState>(
       listener: toggleCartListener,
-      builder: (context, state) {
-        final isCart =
-            CartsCubit.get(context).carts[widget.product.id] ?? false;
-        return IconButton(
-          onPressed: () => onCartPressed(context, widget.product.id),
-          icon: CircleAvatar(
-            backgroundColor:
-                isCart ? ColorController.redColor : ColorController.greyColor,
-            radius: 15,
-            child: const Icon(
-              Icons.shopping_cart,
-              size: 15,
-              color: ColorController.whiteColor,
-            ),
-          ),
-        );
-      },
+      builder: _builder,
     );
   }
+
+  Widget _builder(context, state) {
+      final isCart =
+          CartsCubit.get(context).carts[widget.product.id] ?? false;
+      return IconButton(
+        onPressed: () => onCartPressed(context, widget.product.id),
+        icon: CircleAvatar(
+          backgroundColor:
+              isCart ? ColorController.redColor : ColorController.greyColor,
+          radius: 15,
+          child: const Icon(
+            Icons.shopping_cart,
+            size: 15,
+            color: ColorController.whiteColor,
+          ),
+        ),
+      );
+    }
 
   void toggleCartListener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartItemsErrorState) {
@@ -72,3 +76,4 @@ class _CartIconWidgetState extends State<CartIconWidget> {
     ToggleCartCubit.get(context).changeCarts(productId);
   }
 }
+

@@ -6,9 +6,9 @@ import 'package:shop_app/Features/favourites_feature/presentation/favourites_wid
 import '../../../../core/models/base_products_model.dart';
 
 class FavouriteAndCartIcons extends StatefulWidget {
-  const FavouriteAndCartIcons({super.key, required this.product});
+  const FavouriteAndCartIcons({super.key, required this.model});
 
-  final BaseProductModel product;
+   final BaseProductModel model;
 
   @override
   State<FavouriteAndCartIcons> createState() => _FavouriteAndCartIconsState();
@@ -24,10 +24,10 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
     return Row(
       children: [
         FavoriteIconWidget(
-          product: widget.product,
+          product: widget.model, 
         ),
         CartIconWidget(
-          product: widget.product,
+          product:  widget.model ,
         ),
       ],
     );

@@ -4,13 +4,17 @@ import 'package:shop_app/Features/authentication_feature/data/model/user_model.d
 
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
-import '../../../../core/networks/api_manager/request_data_names.dart';
+
 import '../../../../core/networks/api_manager/end_points.dart';
 
 abstract class AuthenticationRemoteDataSource {
   const AuthenticationRemoteDataSource();
-  Future<UserModel> login({required LoginRequestModel requestModel});
-  Future<UserModel> register({required RegisterRequestModel requestModel});
+  Future<UserModel> login({
+    required LoginRequestModel requestModel,
+  });
+  Future<UserModel> register({
+    required RegisterRequestModel requestModel,
+  });
 }
 
 class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
@@ -21,7 +25,9 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
   });
 
   @override
-  Future<UserModel> login({required LoginRequestModel requestModel}) async {
+  Future<UserModel> login({
+    required LoginRequestModel requestModel,
+  }) async {
     final request = ApiRequestModel(
       endpoint: EndPoints.loginEndPoint,
       data: requestModel.toMap(),
@@ -34,8 +40,9 @@ class AuthenticationDataSourceImpl implements AuthenticationRemoteDataSource {
   }
 
   @override
-  Future<UserModel> register(
-      {required RegisterRequestModel requestModel}) async {
+  Future<UserModel> register({
+    required RegisterRequestModel requestModel,
+  }) async {
     final request = ApiRequestModel(
       endpoint: EndPoints.registerEndPoint,
       data: requestModel.toMap(),

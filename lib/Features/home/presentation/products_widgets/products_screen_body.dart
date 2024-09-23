@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/categories_title_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
 
@@ -22,11 +23,7 @@ class ProductsScreenBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomTitle(
-              title: 'Categories',
-              style: TitleStyle.style24,
-              color: ColorController.blackColor,
-            ),
+          const CategoriesTitleWidget(),
             const SizedBox(height: 10),
             if (categoryModel != null)
               const CustomCategoriesListView(

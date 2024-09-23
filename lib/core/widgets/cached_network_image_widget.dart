@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 class CachedNetworkImageWidget extends StatelessWidget {
   const CachedNetworkImageWidget({super.key, required this.model});
@@ -19,7 +20,7 @@ class CachedNetworkImageWidget extends StatelessWidget {
       ),
       errorWidget: (context, url, error) => const Icon(
         Icons.error,
-        color: Colors.red,
+        color: ColorController.redColor,
       ),
     );
   }

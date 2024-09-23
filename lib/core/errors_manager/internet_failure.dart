@@ -17,26 +17,4 @@ class InternetFailure extends Failure {
   }
 }
 
-// class InternetFailureManager {
-//   final InternetConnectionChecker _connectionChecker =
-//       InternetConnectionChecker();
-//
-//   Future<InternetManager?> checkInternetConnection() async {
-//     final isConnected = await _connectionChecker.hasConnection;
-//     if (!isConnected) {
-//       return const InternetFailure(message: 'No Internet Connection.');
-//     }
-//     return null;
-//   }
-//
-//   Future<InternetManager?> getInternetStatus() async {
-//     final status = await _connectionChecker.connectionStatus;
-//     if (status == InternetConnectionStatus.disconnected) {
-//       return const InternetFailure(message: 'No Internet Connection.');
-//     } else if (status == InternetConnectionStatus.connected) {
-//       return null; // No failure if connected.
-//     } else {
-//       return const InternetFailure(message: 'Unknown internet status.');
-//     }
-//   }
-// }
+

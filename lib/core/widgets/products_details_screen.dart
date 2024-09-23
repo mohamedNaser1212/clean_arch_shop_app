@@ -22,7 +22,7 @@ class ProductsDetailsScreen extends StatelessWidget {
     final images = isProduct ? model.images : [image];
 
     return BlocConsumer<ProductsCubit, GetProductsState>(
-      listener: (context, state) {},
+      listener: _listener,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -51,4 +51,6 @@ class ProductsDetailsScreen extends StatelessWidget {
       },
     );
   }
+
+  void _listener(context, state) {}
 }

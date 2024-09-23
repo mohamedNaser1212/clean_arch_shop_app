@@ -1,3 +1,5 @@
+import 'package:shop_app/Features/settings_feature/data/update_user_request_model.dart';
+
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/request_data_names.dart';
@@ -8,9 +10,8 @@ abstract class UserRemoteDataSource {
   const UserRemoteDataSource();
 
   Future<UserModel> updateUserData({
-    required String name,
-    required String email,
-    required String phone,
+    required UpdateUserRequestModel updateUserRequestModel,
+
   });
   Future<bool> signOut();
 }
@@ -24,17 +25,12 @@ class UserDataSourceImpl implements UserRemoteDataSource {
 
   @override
   Future<UserModel> updateUserData({
-    required String name,
-    required String email,
-    required String phone,
+     required UpdateUserRequestModel updateUserRequestModel,
+
   }) async {
     ApiRequestModel request = ApiRequestModel(
       endpoint: EndPoints.updateProfileEndPoint,
-      data: {
-        RequestDataNames.name: name,
-        RequestDataNames.email: email,
-        RequestDataNames.phone: phone,
-      },
+      data: updateUserRequestModel.toMap(),
       headerModel: HeaderModel(),
     );
 

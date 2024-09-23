@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/search_feature/presentation/widgets/search_list_body.dart';
+import 'package:shop_app/Features/search_feature/presentation/widgets/search_list.dart';
 
 import '../../data/search_model/search_model.dart';
 
@@ -13,10 +13,9 @@ class SearchListWidget extends StatelessWidget {
         itemCount: results.length,
         itemBuilder: (context, index) {
           final result = results[index];
-          print(result);
           return SearchListBody(
-            result: result,
-            results: results,
+            searchModel: result,
+            resultsList: results,
           );
         },
         separatorBuilder: (context, index) => const Divider(),

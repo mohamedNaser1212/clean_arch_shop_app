@@ -18,9 +18,9 @@ class CartsInfoBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ProductInformationWidget(product: model),
+          ProductInformationWidget(model: model),
           const SizedBox(height: 3),
-          FavouriteAndCartIcons(product: model),
+          FavouriteAndCartIcons(model: model),
         ],
       ),
     );

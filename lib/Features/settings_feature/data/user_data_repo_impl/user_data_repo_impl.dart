@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shop_app/Features/carts_feature/data/carts_data_sources/carts_local_data_source.dart';
 import 'package:shop_app/Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
+import 'package:shop_app/Features/settings_feature/data/update_user_request_model.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
 import 'package:shop_app/core/errors_manager/failure.dart';
 import 'package:shop_app/core/user_info/data/user_info_data_sources/user_info_local_data_source.dart';
@@ -48,14 +49,14 @@ class UserDataRepoImpl implements UserDataRepo {
 
   @override
   Future<Either<Failure, UserEntity>> updateUserData({
-    required String name,
-    required String email,
-    required String phone,
+    required UpdateUserRequestModel updateUserRequestModel,
+
   }) async {
     return repoManager.call(
       action: () async {
         final userData = await getUserDataSource.updateUserData(
-            name: name, email: email, phone: phone);
+            updateUserRequestModel: updateUserRequestModel,
+        );
         await userInfoLocalDataSource.saveUserData(user: userData);
         return userData;
       },
