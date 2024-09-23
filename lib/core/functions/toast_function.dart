@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 void showToast({
   required String message,
-  required bool isError,
+  Color color=ColorController.redColor,
 }) {
   Fluttertoast.showToast(
     msg: message,

@@ -7,8 +7,8 @@ import 'package:shop_app/Features/authentication_feature/presentation/widgets/do
 import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_elevated_botton.dart';
 
-class LoginButton extends StatelessWidget {
-  const LoginButton({
+class x extends StatelessWidget {
+  const x({
     Key? key,
     required this.state,
   }) : super(key: key);
@@ -18,28 +18,54 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ReusableElevatedButton(
-            label: 'Login',
-            onPressed: () {
-              if (state.formKey.currentState!.validate()) {
-                LoginCubit.get(context).login(
-                  requestModel: LoginRequestModel(
-                    email: state.emailController.text,
-                    password: state.passwordController.text,
-                  ),
-                );
-              }
-            }),
+        _LodinButton(state: state),
         const SizedBox(height: 10),
-        CheckAuthStatusTextWidget(
-          onRegisterPressed: () => NavigationManager.navigateTo(
-            context: context,
-            screen: const RegisterScreen(),
-          ),
-          title: 'Don\'t have an account?',
-          subtitle: 'Register',
-        ),
+        const _ActionButtons(),
       ],
     );
+  }
+}
+
+class _ActionButtons extends StatelessWidget {
+  const _ActionButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return CheckAuthStatusTextWidget(
+      onRegisterPressed:()=>_onRegisterPressed(context),
+      title: 'Don\'t have an account?',
+      subtitle: 'Register',
+    );
+  }
+  
+  void _onRegisterPressed(BuildContext context) {
+    NavigationManager.navigateTo(
+      context: context,
+      screen: const RegisterScreen(),
+    );
+  }
+}
+
+class _LodinButton extends StatelessWidget {
+  const _LodinButton({
+    required this.state,
+  });
+
+  final LoginScreenState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return ReusableElevatedButton(
+        label: 'Login',
+        onPressed: () {
+          if (state.formKey.currentState!.validate()) {
+            LoginCubit.get(context).login(
+              requestModel: LoginRequestModel(
+                email: state.emailController.text,
+                password: state.passwordController.text,
+              ),
+            );
+          }
+        });
   }
 }

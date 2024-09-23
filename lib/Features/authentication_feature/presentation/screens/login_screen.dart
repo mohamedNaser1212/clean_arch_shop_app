@@ -63,7 +63,6 @@ class LoginScreenState extends State<LoginScreen> {
           context: context, screen: const InitialScreen());
     } else if (state is LoginErrorState) {
       showToast(
-        isError: true,
         message: state.error,
       );
     }

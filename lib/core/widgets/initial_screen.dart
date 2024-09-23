@@ -23,52 +23,50 @@ class _InitialScreenState extends State<InitialScreen> {
       create: (context) => UserInfoCubit(
         getUserUseCase: getIt<GetUserInfoUseCase>(),
       )..getUserData(),
-      child: BlocListener<UserInfoCubit, UserInfoState>(
+      child: BlocConsumer<UserInfoCubit, UserInfoState>(
         listener: _listener,
-        child: BlocBuilder<UserInfoCubit, UserInfoState>(
-          builder: _userInfoBuilder,
-        ),
+        builder: _userInfoBuilder,
       ),
     );
   }
 
   Widget _userInfoBuilder(context, state) {
-          if (state is GetUserInfoLoadingState) {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          } else if (state is GetUserInfoErrorState) {
-  
-            return Scaffold(
-              body: Center(
-                child: CustomTitle(
-                    title: state.message, style: TitleStyle.style16),
-              ),
-            );
-          }
-          return const Scaffold(
-            body: SizedBox(),
-          );
-        }
+    if (state is GetUserInfoLoadingState) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else if (state is GetUserInfoErrorState) {
+
+      return Scaffold(
+        body: Center(
+          child: CustomTitle(
+              title: state.message, style: TitleStyle.style16),
+        ),
+      );
+    }
+    return const Scaffold(
+      body: SizedBox(),
+    );
+  }
 
   void _listener(context, state) {
-        if (state is GetUserInfoSuccessState) {
-          if (state.userEntity == null) {
-            NavigationManager.navigateAndFinish(
-              context: context,
-              screen: const LoginScreen(),
-            );
-          } else {
-  
-            UserInfoCubit.get(context).userEntity = state.userEntity;
-  
-            NavigationManager.navigateAndFinish(
-              context: context,
-              screen: const LayoutScreen(),
-            );
-          }
-        }
+    if (state is GetUserInfoSuccessState) {
+      if (state.userEntity == null) {
+        NavigationManager.navigateAndFinish(
+          context: context,
+          screen: const LoginScreen(),
+        );
+      } else {
+
+        UserInfoCubit.get(context).userEntity = state.userEntity;
+
+        NavigationManager.navigateAndFinish(
+          context: context,
+          screen: const LayoutScreen(),
+        );
       }
+    }
+  }
 }

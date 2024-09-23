@@ -33,13 +33,7 @@ class RegisterButton extends StatelessWidget {
               }
             }),
         const SizedBox(height: 10),
-        CheckAuthStatusTextWidget(
-          onRegisterPressed: () {
-            Navigator.pop(context);
-          },
-          title: 'Already have an account?',
-          subtitle: 'Login',
-        )
+        CheckAuthStatusTextWidget.register(onRegisterPressed: onRegisterPressed)
       ],
     );
   }

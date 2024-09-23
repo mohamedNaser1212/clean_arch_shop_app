@@ -39,30 +39,26 @@ class RegisterScreenBodyState extends State<RegisterScreenBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'REGISTER',
-                    style: StylesManager.textStyle30,
-                  ),
-                  const SizedBox(height: 15),
-                  RgisterForm(
-                    requestModel: this,
-                  ),
-                  const SizedBox(height: 10),
-                  RegisterButton(
-                    state: this,
-                  )
-                ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'REGISTER',
+                style: StylesManager.textStyle30,
               ),
-            ),
+              const SizedBox(height: 15),
+              RgisterForm(
+                requestModel: this,
+              ),
+              const SizedBox(height: 10),
+              RegisterButton(
+                state: this,
+              )
+            ],
           ),
         ),
       ),
