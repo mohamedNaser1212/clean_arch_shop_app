@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/product_info_widget.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';

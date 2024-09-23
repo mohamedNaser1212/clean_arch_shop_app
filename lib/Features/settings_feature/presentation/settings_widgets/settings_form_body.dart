@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/name_text_field.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/phone_text_field.dart';
-import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
-import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/sign_out_elevated_botton.dart';
-import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/update_elevated_borron.dart';
+import 'package:shop_app/features/authentication_feature/presentation/widgets/name_text_field.dart';
+import 'package:shop_app/features/authentication_feature/presentation/widgets/phone_text_field.dart';
+import 'package:shop_app/features/settings_feature/presentation/screens/settings_screen.dart';
+import 'package:shop_app/features/settings_feature/presentation/settings_widgets/sign_out_elevated_botton.dart';
+import 'package:shop_app/features/settings_feature/presentation/settings_widgets/update_elevated_borron.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../authentication_feature/presentation/widgets/email_text_field.dart';
 import '../../../../core/functions/toast_function.dart';

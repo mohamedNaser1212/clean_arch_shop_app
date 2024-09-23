@@ -1,4 +1,4 @@
-import 'package:shop_app/Features/settings_feature/domain/user_entity/user_entity.dart';
+import 'package:shop_app/features/settings_feature/domain/user_entity/user_entity.dart';
 
 class LoginState {}
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
+
 import 'package:shop_app/core/models/base_products_model.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';

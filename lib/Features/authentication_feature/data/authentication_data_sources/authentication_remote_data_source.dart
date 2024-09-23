@@ -1,6 +1,6 @@
-import 'package:shop_app/Features/authentication_feature/data/model/login_request_model.dart';
-import 'package:shop_app/Features/authentication_feature/data/model/register_request_model.dart';
-import 'package:shop_app/Features/authentication_feature/data/model/user_model.dart';
+import 'package:shop_app/features/authentication_feature/data/model/login_request_model.dart';
+import 'package:shop_app/features/authentication_feature/data/model/register_request_model.dart';
+import 'package:shop_app/features/authentication_feature/data/model/user_model.dart';
 
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';

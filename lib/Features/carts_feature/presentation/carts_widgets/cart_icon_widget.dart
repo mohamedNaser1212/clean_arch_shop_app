@@ -1,10 +1,8 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
-import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
+import 'package:shop_app/features/carts_feature/presentation/cubit/carts_cubit.dart';
+import 'package:shop_app/features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/dialogue_function.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/authentication_feature/data/model/login_request_model.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/dont_have_account_widget.dart';
+import 'package:shop_app/features/authentication_feature/data/model/login_request_model.dart';
+import 'package:shop_app/features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
+import 'package:shop_app/features/authentication_feature/presentation/screens/login_screen.dart';
+import 'package:shop_app/features/authentication_feature/presentation/screens/register_screen.dart';
+import 'package:shop_app/features/authentication_feature/presentation/widgets/dont_have_account_widget.dart';
 import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_elevated_botton.dart';
 

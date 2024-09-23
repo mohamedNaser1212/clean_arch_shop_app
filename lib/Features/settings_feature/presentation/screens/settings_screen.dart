@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
-import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit.dart';
-import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
-import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/user_info_display.dart';
+import 'package:shop_app/features/authentication_feature/presentation/screens/login_screen.dart';
+import 'package:shop_app/features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit.dart';
+import 'package:shop_app/features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
+import 'package:shop_app/features/settings_feature/presentation/settings_widgets/user_info_display.dart';
 import 'package:shop_app/core/functions/navigations_functions.dart';
 import '../../../../core/functions/toast_function.dart';
 import '../../../../core/service_locator/service_locator.dart';

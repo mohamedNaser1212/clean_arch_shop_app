@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_botton.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_form.dart';
+import 'package:shop_app/features/authentication_feature/presentation/widgets/register_botton.dart';
+import 'package:shop_app/features/authentication_feature/presentation/widgets/register_form.dart';
 import 'package:shop_app/core/utils/styles_manager/text_styles_manager.dart';
 
 class RegisterScreenBuilder extends StatefulWidget {

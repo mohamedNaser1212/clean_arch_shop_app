@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/Features/carts_feature/domain/carts_repo/cart_repo.dart';
+import 'package:shop_app/features/carts_feature/domain/carts_repo/cart_repo.dart';
 
 import '../../../../core/errors_manager/failure.dart';
 

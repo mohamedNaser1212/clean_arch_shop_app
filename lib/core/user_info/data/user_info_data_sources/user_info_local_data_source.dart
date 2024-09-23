@@ -1,6 +1,6 @@
 import '../../../../Features/settings_feature/domain/user_entity/user_entity.dart';
-import '../../../networks/Hive_manager/hive_boxes_names.dart';
-import '../../../networks/Hive_manager/hive_helper.dart';
+import '../../../networks/hive_manager/hive_boxes_names.dart';
+import '../../../networks/hive_manager/hive_helper.dart';
 
 abstract class UserInfoLocalDataSource {
   const UserInfoLocalDataSource();

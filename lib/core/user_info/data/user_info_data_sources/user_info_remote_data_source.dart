@@ -1,4 +1,4 @@
-import '../../../../Features/authentication_feature/data/model/user_model.dart';
+import '../../../../features/authentication_feature/data/model/user_model.dart';
 import '../../../networks/api_manager/api_manager.dart';
 import '../../../networks/api_manager/api_request_model.dart';
 import '../../../networks/api_manager/end_points.dart';

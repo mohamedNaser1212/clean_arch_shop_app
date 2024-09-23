@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/total_and_checkout_widget.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
+import 'package:shop_app/features/carts_feature/presentation/carts_widgets/total_and_checkout_widget.dart';
+import 'package:shop_app/features/carts_feature/presentation/cubit/carts_cubit.dart';
+import 'package:shop_app/features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
 

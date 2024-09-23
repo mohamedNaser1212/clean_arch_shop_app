@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/authentication_feature/data/model/register_request_model.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/dont_have_account_widget.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_screen_builder.dart';
+import 'package:shop_app/features/authentication_feature/data/model/register_request_model.dart';
+import 'package:shop_app/features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
+import 'package:shop_app/features/authentication_feature/presentation/widgets/dont_have_account_widget.dart';
+import 'package:shop_app/features/authentication_feature/presentation/widgets/register_screen_builder.dart';
 
 import 'package:shop_app/core/widgets/reusable_widgets/reusable_elevated_botton.dart';
 

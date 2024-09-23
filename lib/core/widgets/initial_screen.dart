@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
-import 'package:shop_app/Features/layout/presentation/screens/layout_screen.dart';
+import 'package:shop_app/features/authentication_feature/presentation/screens/login_screen.dart';
+import 'package:shop_app/features/layout/presentation/screens/layout_screen.dart';
 import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 

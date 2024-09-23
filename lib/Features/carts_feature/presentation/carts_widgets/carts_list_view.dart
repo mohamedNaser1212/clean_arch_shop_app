@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
-import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_item_widget.dart';
+import 'package:shop_app/features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
+import 'package:shop_app/features/carts_feature/presentation/carts_widgets/cart_item_widget.dart';
 
 class CartsListView extends StatelessWidget {
   const CartsListView({
