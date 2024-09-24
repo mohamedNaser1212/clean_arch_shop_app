@@ -5,7 +5,9 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_f
 import 'package:shop_app/core/functions/dialogue_function.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+
+import 'package:shop_app/core/widgets/custom_icon_botton.dart';
+
 
 class FavoriteIconWidget extends StatefulWidget {
   const FavoriteIconWidget({super.key, required this.product});
@@ -17,8 +19,8 @@ class FavoriteIconWidget extends StatefulWidget {
 
 class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
   int favouriteClickCount = 0;
-  int cartClickCount = 0;
   final int maxClickCount = 2;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ToggleFavouriteCubit, ToggleFavouriteState>(
@@ -27,21 +29,13 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     );
   }
 
-  Widget _builder(context, state) {
+  Widget _builder(BuildContext context, ToggleFavouriteState state) {
     final isFavorite =
         FavouritesCubit.get(context).favorites[widget.product.id] ?? false;
-    return IconButton(
+
+    return CustomIconButton.favoriteButton(
+      isFavorite: isFavorite,
       onPressed: () => _onFavouritePressed(context, widget.product.id),
-      icon: CircleAvatar(
-        backgroundColor:
-            isFavorite ? ColorController.redColor : ColorController.greyColor,
-        radius: 15,
-        child: const Icon(
-          Icons.favorite,
-          size: 15,
-          color: ColorController.whiteColor,
-        ),
-      ),
     );
   }
 
@@ -50,9 +44,7 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     if (state is ToggleFavoriteErrorState) {
       FavouritesCubit.get(context).favorites[widget.product.id] =
           !(FavouritesCubit.get(context).favorites[widget.product.id] ?? false);
-      showToast(
-        message: state.error,
-      );
+      showToast(message: state.error);
     }
   }
 

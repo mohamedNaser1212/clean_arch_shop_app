@@ -16,41 +16,42 @@ class ProductsDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isProduct = model is ProductEntity;
-    final image = model.image;
-
-    final images = isProduct ? model.images : [image];
-
     return BlocConsumer<ProductsCubit, GetProductsState>(
       listener: _listener,
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const CustomTitle(
-              title: 'Product Details',
-              style: TitleStyle.style20,
-              color: ColorController.whiteColor,
-            ),
-            centerTitle: true,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: defaultColor),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-          body: ListView(
-            padding: const EdgeInsets.all(16.0),
-            children: [
-              CarousalImageWidget(images: images),
-              const SizedBox(height: 16),
-              BuildProductDetailsInfo(model: model),
-            ],
-          ),
-        );
-      },
+      builder: _buildScreen, 
     );
   }
 
   void _listener(context, state) {}
+
+  Widget _buildScreen(BuildContext context, GetProductsState state) {
+    final isProduct = model is ProductEntity;
+    final image = model.image;
+    final images = isProduct ? model.images : [image];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const CustomTitle(
+          title: 'Product Details',
+          style: TitleStyle.style20,
+          color: ColorController.whiteColor,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: defaultColor),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          CarousalImageWidget(images: images),
+          const SizedBox(height: 16),
+          BuildProductDetailsInfo(model: model),
+        ],
+      ),
+    );
+  }
 }

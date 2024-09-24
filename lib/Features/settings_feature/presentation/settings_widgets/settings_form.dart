@@ -15,15 +15,19 @@ class SettingsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  Padding _body() {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Form(
-        key: userState.formKey,
-        child: SettingsFormBody(
-          userState: userState,
-        
-        ),
+    padding: const EdgeInsets.all(20.0),
+    child: Form(
+      key: userState.formKey,
+      child: SettingsFormBody(
+        userState: userState,
+      
       ),
-    );
+    ),
+  );
   }
 }

@@ -1,4 +1,4 @@
-// Failure classes
+
 abstract class Failure {
   final String message;
 
@@ -6,3 +6,6 @@ abstract class Failure {
     required this.message,
   });
 }
+
+
+

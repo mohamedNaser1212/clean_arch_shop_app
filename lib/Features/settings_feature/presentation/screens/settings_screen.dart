@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
+import 'package:nested/nested.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/user_info_display.dart';
-import 'package:shop_app/core/functions/navigations_functions.dart';
 
-import '../../../../core/functions/toast_function.dart';
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../../core/widgets/custom_progress_indicator.dart';
@@ -43,25 +41,26 @@ class SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => UpdateUserDataCubit(
-            updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => SignOutCubit(
-            userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
-          ),
-        ),
-      ],
-      child: BlocListener<SignOutCubit, SignOutState>(
-        listener: _signOutListener,
-        child: BlocBuilder<UserInfoCubit, UserInfoState>(
-          builder: _builder,
-        ),
+      providers: _providers,
+      child: BlocBuilder<UserInfoCubit, UserInfoState>(
+        builder: _builder,
       ),
     );
+  }
+
+  List<SingleChildWidget> get _providers {
+    return [
+      BlocProvider(
+        create: (context) => UpdateUserDataCubit(
+          updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
+        ),
+      ),
+      BlocProvider(
+        create: (context) => SignOutCubit(
+          userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
+        ),
+      ),
+    ];
   }
 
   Widget _builder(context, userState) {
@@ -77,25 +76,5 @@ class SettingsScreenState extends State<SettingsScreen> {
         userState: this,
       ),
     );
-  }
-
-  void _signOutListener(BuildContext context, SignOutState state) {
-    if (state is UserSignOutSuccess) {
-      NavigationManager.navigateAndFinish(
-          context: context, screen: const LoginScreen());
-    } else if (state is UserSignOutError) {
-      showToast(
-        message: state.error,
-      );
-    }
-  }
-
-  void _updateUserDataListener(
-      BuildContext context, UpdateUserDataState state) {
-    if (state is UpdateUserDataError) {
-      showToast(
-        message: state.error,
-      );
-    }
   }
 }

@@ -9,25 +9,12 @@ class BuildProductDetailsInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isProduct = model is ProductEntity;
-    final name = model.name;
-    final discount = model.discount;
-    final price = model.price;
-    final oldPrice = model.oldPrice;
-
     final images = isProduct
         ? (model.images?.cast<String>() ?? [])
         : [model.image.toString()];
-
-    final description = model.description ?? 'No description available';
-
     return ProductDetailsBody(
       model: model,
-      name: name,
-      discount: discount,
-      price: price,
-      oldPrice: oldPrice,
       images: images,
-      description: description,
       isProduct: isProduct,
     );
   }

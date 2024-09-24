@@ -18,29 +18,33 @@ class CategoriesContentsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  Padding _body() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: itemWidth,
-        height: itemHeight,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: ColorController.accentColor,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            
-            CategoriesImageWidget(itemHeight: itemHeight, item: item),
-            const SizedBox(width: 10),
-            CategoriesNameWidget(item: item),
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.arrow_forward_ios_rounded)),
-          ],
-        ),
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      width: itemWidth,
+      height: itemHeight,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: ColorController.accentColor,
       ),
-    );
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          
+          CategoriesImageWidget(itemHeight: itemHeight, item: item),
+          const SizedBox(width: 10),
+          CategoriesNameWidget(item: item),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_forward_ios_rounded)),
+        ],
+      ),
+    ),
+  );
   }
 }
 

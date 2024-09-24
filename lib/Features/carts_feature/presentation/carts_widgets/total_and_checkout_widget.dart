@@ -13,17 +13,21 @@ class TotalAndCheckOutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  Padding _body() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 8),
-          TotalTextWidget(total: total),
-          const SizedBox(height: 8),
-          CheckOutBotton(total: total),
-        ],
-      ),
-    );
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        TotalTextWidget(total: total),
+        const SizedBox(height: 8),
+        CheckOutBotton(total: total),
+      ],
+    ),
+  );
   }
 }

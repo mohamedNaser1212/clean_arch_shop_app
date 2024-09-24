@@ -34,15 +34,19 @@ class _LayoutScreenState extends State<LayoutScreen> {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _layoutModel.currentScreen,
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: _layoutModel.currentIndex,
-        items: _layoutModel.bottomNavigationBarItems,
-        onTap: (index) {
-          setState(() {
-            _layoutModel.changeScreen(index);
-          });
-        },
-      ),
+      bottomNavigationBar: _bottomNavigationBody(),
+    );
+  }
+
+  BottomNavBar _bottomNavigationBody() {
+    return BottomNavBar(
+      currentIndex: _layoutModel.currentIndex,
+      items: _layoutModel.bottomNavigationBarItems,
+      onTap: (index) {
+        setState(() {
+          _layoutModel.changeScreen(index);
+        });
+      },
     );
   }
 

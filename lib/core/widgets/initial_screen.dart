@@ -17,7 +17,6 @@ class InitialScreen extends StatefulWidget {
 class _InitialScreenState extends State<InitialScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     UserInfoCubit.get(context).getUserData();
   }

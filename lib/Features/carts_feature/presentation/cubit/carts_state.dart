@@ -13,3 +13,5 @@ class GetCartItemsErrorState extends CartsState {
 }
 
 class GetCartItemsLoadingState extends CartsState {}
+
+class ClearCartSuccessState extends CartsState {}

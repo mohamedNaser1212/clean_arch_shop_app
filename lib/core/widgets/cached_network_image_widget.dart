@@ -8,20 +8,24 @@ class CachedNetworkImageWidget extends StatelessWidget {
   final BaseProductModel model;
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  CachedNetworkImage _body() {
     return CachedNetworkImage(
-      imageUrl: model.image,
-      fit: BoxFit.cover,
-      width: 120,
-      height: 120,
-      placeholder: (context, url) => Center(
-        child: CircularProgressIndicator(
-          color: Theme.of(context).primaryColor,
-        ),
+    imageUrl: model.image,
+    fit: BoxFit.cover,
+    width: 120,
+    height: 120,
+    placeholder: (context, url) => Center(
+      child: CircularProgressIndicator(
+        color: Theme.of(context).primaryColor,
       ),
-      errorWidget: (context, url, error) => const Icon(
-        Icons.error,
-        color: ColorController.redColor,
-      ),
-    );
+    ),
+    errorWidget: (context, url, error) => const Icon(
+      Icons.error,
+      color: ColorController.redColor,
+    ),
+  );
   }
 }

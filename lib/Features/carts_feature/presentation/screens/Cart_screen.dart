@@ -30,15 +30,14 @@ class CartScreen extends StatelessWidget {
       showToast(
         message: state.error,
       );
-    } else if (state is ToggleCartSuccessState ||
-        state is ChangeCartListSuccessState) {
+    } else if (state is ToggleCartSuccessState) {
       CartsCubit.get(context).getCartItems();
     }
   }
 
   Widget _cartScreenBuilder(BuildContext context, CartsState state) {
     if (state is GetCartItemsSuccessState) {
-      return CartScreenContent(
+      return CartScreenBody(
         state: state,
       );
     } else if (state is GetCartItemsErrorState) {

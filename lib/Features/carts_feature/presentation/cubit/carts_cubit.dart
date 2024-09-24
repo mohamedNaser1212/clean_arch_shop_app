@@ -35,4 +35,10 @@ class CartsCubit extends Cubit<CartsState> {
   num cartTotal() {
     return cartEntity.fold(0, (sum, item) => sum + (item.price));
   }
+
+  void clearCartItems() {
+    cartEntity = [];
+    carts = {};
+    emit(ClearCartSuccessState());
+  }
 }

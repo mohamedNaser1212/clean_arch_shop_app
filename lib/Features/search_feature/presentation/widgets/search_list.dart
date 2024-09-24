@@ -18,13 +18,7 @@ class SearchListBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConditionalBuilder(
       condition: resultsList.isNotEmpty,
-      builder: (context) => InkWell(
-        onTap: () => NavigationManager.navigateTo(
-          context: context,
-          screen: ProductsDetailsScreen(model: searchModel),
-        ),
-        child: SearchListContents(searchModel: searchModel),
-      ),
+      builder: (context) => _builder(context),
       fallback: (context) => const Center(
         child: CustomTitle(
           title: 'No results found',
@@ -32,6 +26,16 @@ class SearchListBody extends StatelessWidget {
           color: ColorController.blackColor,
         ),
       ),
+    );
+  }
+
+  InkWell _builder(BuildContext context) {
+    return InkWell(
+      onTap: () => NavigationManager.navigateTo(
+        context: context,
+        screen: ProductsDetailsScreen(model: searchModel),
+      ),
+      child: SearchListContents(searchModel: searchModel),
     );
   }
 }

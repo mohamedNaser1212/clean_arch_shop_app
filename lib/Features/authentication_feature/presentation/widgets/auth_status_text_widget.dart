@@ -4,8 +4,8 @@ import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 
-class CheckAuthStatusTextWidget extends StatelessWidget {
-  const CheckAuthStatusTextWidget._({
+class AuthStatusTextWidget extends StatelessWidget {
+  const AuthStatusTextWidget._({
     required this.onRegisterPressed,
     required this.title,
     required this.subtitle,
@@ -15,10 +15,10 @@ class CheckAuthStatusTextWidget extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  factory CheckAuthStatusTextWidget.login({
+  factory AuthStatusTextWidget.login({
     required BuildContext context,
   }) {
-    return CheckAuthStatusTextWidget._(
+    return AuthStatusTextWidget._(
       onRegisterPressed: () {
         NavigationManager.navigateTo(
             context: context, screen: const RegisterScreen());
@@ -28,10 +28,10 @@ class CheckAuthStatusTextWidget extends StatelessWidget {
     );
   }
 
-  factory CheckAuthStatusTextWidget.register({
+  factory AuthStatusTextWidget.register({
     required BuildContext context,
   }) {
-    return CheckAuthStatusTextWidget._(
+    return AuthStatusTextWidget._(
       onRegisterPressed: () {
         Navigator.of(context).pop();
       },

@@ -6,7 +6,7 @@ import 'package:shop_app/core/widgets/products_details_screen.dart';
 
 import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
+import '../../../../core/widgets/favourite_and_cart_icons.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({

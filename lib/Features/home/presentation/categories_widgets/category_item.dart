@@ -17,21 +17,25 @@ class CategoriesPageItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _builder();
+  }
+
+  Padding _builder() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: itemWidth,
-        height: itemHeight,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.deepOrange[100],
-        ),
-        child: CategoriesContents(
-          item: item,
-          itemHeight: itemHeight,
-          itemWidth: itemWidth,
-        ),
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      width: itemWidth,
+      height: itemHeight,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.deepOrange[100],
       ),
-    );
+      child: CategoriesContents(
+        item: item,
+        itemHeight: itemHeight,
+        itemWidth: itemWidth,
+      ),
+    ),
+  );
   }
 }

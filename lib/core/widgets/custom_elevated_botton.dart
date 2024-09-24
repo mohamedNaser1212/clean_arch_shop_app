@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/widgets/reusable_widgets/reusable_elevated_botton.dart';
-
+import 'package:shop_app/core/widgets/reusable_elevated_botton.dart';
 import '../../Features/authentication_feature/data/model/login_request_model.dart';
 import '../../Features/authentication_feature/data/model/register_request_model.dart';
 import '../../Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
@@ -12,14 +11,15 @@ import '../../Features/settings_feature/presentation/cubit/user_info_cubit/sign_
 import '../../Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
 import '../../Features/settings_feature/presentation/screens/settings_screen.dart';
 import '../functions/toast_function.dart';
+import '../payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../user_info/cubit/user_info_cubit.dart';
 import '../utils/styles_manager/color_manager.dart';
 
+// ignore: must_be_immutable
 class CustomElevatedBotton extends StatelessWidget {
   CustomElevatedBotton._({
     required this.onRegisterPressed,
     required this.label,
-    this.backColor,
   });
 
   final VoidCallback onRegisterPressed;
@@ -65,6 +65,21 @@ class CustomElevatedBotton extends StatelessWidget {
       label: 'Register',
     );
   }
+  factory CustomElevatedBotton.checkOutButton({
+    required BuildContext context,
+    required num total,
+  }) {
+    return CustomElevatedBotton._(
+      onRegisterPressed: () {
+        PaymentCubit.get(context).getClientSecret(
+          amount: total.toInt(),
+          currency: 'EGP',
+        );
+      },
+      label: 'CheckOut',
+    );
+  }
+
   factory CustomElevatedBotton.updateButton({
     required BuildContext context,
     required SettingsScreenState userState,

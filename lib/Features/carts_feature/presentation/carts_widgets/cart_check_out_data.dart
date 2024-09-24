@@ -53,10 +53,19 @@ class CartCheckoutData extends StatelessWidget {
       bool cartUpdated = await ToggleCartCubit.get(context).changeCartsList(
         cartModel.map((e) => e.id).toList(),
       );
-      showToast(
-        message: cartUpdated ? 'Payment Success' : 'Payment Failed',
-        color: Colors.green,
-      );
+
+      if (cartUpdated) {
+        CartsCubit.get(context).clearCartItems();
+        showToast(
+          message: 'Payment Success and Cart Cleared',
+          color: Colors.green,
+        );
+      } else {
+        showToast(
+          message: 'Payment Failed',
+          color: Colors.red,
+        );
+      }
     } else if (state is GetClientSecretErrorState) {
       showToast(
         message: state.message,

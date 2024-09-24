@@ -12,10 +12,6 @@ class FavoritesScreenBody extends StatelessWidget {
     required this.state,
   });
 
-  Future<void> _refreshFavorites(BuildContext context) async {
-    await FavouritesCubit.get(context).getFavorites();
-  }
-
   @override
   Widget build(BuildContext context) {
     var favouritesModel = FavouritesCubit.get(context).getFavouritesModel;
@@ -28,5 +24,9 @@ class FavoritesScreenBody extends StatelessWidget {
         child: Text('Sorry, there are no favourites to show'),
       ),
     );
+  }
+
+  Future<void> _refreshFavorites(BuildContext context) async {
+    await FavouritesCubit.get(context).getFavorites();
   }
 }

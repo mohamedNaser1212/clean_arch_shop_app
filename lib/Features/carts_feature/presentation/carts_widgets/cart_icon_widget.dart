@@ -5,7 +5,8 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_c
 import 'package:shop_app/core/functions/dialogue_function.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+
+import 'package:shop_app/core/widgets/custom_icon_botton.dart';
 
 class CartIconWidget extends StatefulWidget {
   const CartIconWidget({super.key, required this.product});
@@ -29,18 +30,9 @@ class _CartIconWidgetState extends State<CartIconWidget> {
 
   Widget _builder(context, state) {
     final isCart = CartsCubit.get(context).carts[widget.product.id] ?? false;
-    return IconButton(
+    return CustomIconButton.cartButton(
+      isCart: isCart,
       onPressed: () => onCartPressed(context, widget.product.id),
-      icon: CircleAvatar(
-        backgroundColor:
-            isCart ? ColorController.redColor : ColorController.greyColor,
-        radius: 15,
-        child: const Icon(
-          Icons.shopping_cart,
-          size: 15,
-          color: ColorController.whiteColor,
-        ),
-      ),
     );
   }
 

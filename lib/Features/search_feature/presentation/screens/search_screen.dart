@@ -17,29 +17,28 @@ class SearchScreen extends StatelessWidget {
           SearchCubit(fetchSearchUseCase: getIt<SearchUseCase>()),
       child: Scaffold(
         appBar: _appBar(context),
-        
-        body: const SearchBody(),
+        body: const SearchScreenBody(),
       ),
     );
   }
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+      centerTitle: true,
+      leading: IconButton(
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
         ),
-        title: const CustomTitle(
-          title: 'Search',
-          style: TitleStyle.style20,
-          color: ColorController.whiteColor,
-        ),
-      );
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      title: const CustomTitle(
+        title: 'Search',
+        style: TitleStyle.style20,
+        color: ColorController.whiteColor,
+      ),
+    );
   }
 }

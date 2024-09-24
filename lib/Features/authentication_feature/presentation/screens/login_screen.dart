@@ -51,7 +51,7 @@ class LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           title: const Text('Login'),
         ),
-        body: LoginBody(state: this),
+        body: LoginScreenBody(state: this),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourite_and_cart_icons.dart';
+import 'package:shop_app/core/widgets/favourite_and_cart_icons.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_information_widget.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 

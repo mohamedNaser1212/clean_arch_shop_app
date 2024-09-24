@@ -23,11 +23,15 @@ class CustomRefreshIndicator<T> extends StatelessWidget {
 
     return RefreshIndicator(
       onRefresh: () => onRefresh(context),
-      child: ListView.separated(
-        itemBuilder: (context, index) => itemBuilder(context, items[index]),
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: items.length,
-      ),
+      child: refreshIndicatorBody(),
+    );
+  }
+
+  ListView refreshIndicatorBody() {
+    return ListView.separated(
+      itemBuilder: (context, index) => itemBuilder(context, items[index]),
+      separatorBuilder: (context, index) => const Divider(),
+      itemCount: items.length,
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_
 
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favorite_icon_widget.dart';
 
-import '../../../../core/models/base_products_model.dart';
+import '../models/base_products_model.dart';
 
 class FavouriteAndCartIcons extends StatefulWidget {
   const FavouriteAndCartIcons({super.key, required this.model});

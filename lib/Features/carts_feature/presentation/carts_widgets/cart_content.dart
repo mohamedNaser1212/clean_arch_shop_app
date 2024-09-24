@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
-
+import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/refresh_indicator_widget.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title.dart';
 import '../cubit/carts_cubit.dart';
-import 'cart_screen_body.dart';
 
-class CartScreenContent extends StatelessWidget {
-  const CartScreenContent({
+
+class CartScreenBody extends StatelessWidget {
+  const CartScreenBody({
     Key? key,
     required this.state,
   }) : super(key: key);
@@ -27,8 +27,6 @@ class CartScreenContent extends StatelessWidget {
       );
     }
 
-    return CartScreenBody(
-      cartModel: cartModel,
-    );
+    return RefreshIndicatorWidget(cartModel: cartModel);
   }
 }
