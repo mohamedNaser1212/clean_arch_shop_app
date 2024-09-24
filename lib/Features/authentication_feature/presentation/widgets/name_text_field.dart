@@ -11,7 +11,7 @@ class NameField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReusableTextFormField(
       label: 'Name',
-      validator: FieldsValidator.isNotEmpty,
+      validator: FieldsValidator.isValidUsername,
       controller: controller,
       keyboardType: TextInputType.text,
       activeColor: defaultLightColor,

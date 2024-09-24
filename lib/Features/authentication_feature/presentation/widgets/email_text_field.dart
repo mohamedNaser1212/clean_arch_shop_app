@@ -11,7 +11,7 @@ class EmailField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReusableTextFormField(
       label: 'Email',
-      validator: FieldsValidator.isNotEmpty,
+      validator: FieldsValidator.isValidEmail,
       controller: controller,
       keyboardType: TextInputType.emailAddress,
       activeColor: defaultLightColor,

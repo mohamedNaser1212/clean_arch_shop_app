@@ -11,7 +11,7 @@ class PhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReusableTextFormField(
       label: 'Phone',
-      validator: FieldsValidator.isNotEmpty,
+      validator: FieldsValidator.isValidPhoneNumber,
       controller: controller,
       keyboardType: TextInputType.phone,
       activeColor: defaultLightColor,
