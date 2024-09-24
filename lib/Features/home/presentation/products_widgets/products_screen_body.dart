@@ -21,15 +21,16 @@ class ProductsScreenBody extends StatelessWidget {
     return _body(categoryModel, homeModel);
   }
 
-  Padding _body(List<CategoriesEntity>? categoryModel, List<ProductEntity>? homeModel) {
-    return Padding(
-    padding: const EdgeInsets.all(12.0),
-    child: SingleChildScrollView(
+  SingleChildScrollView _body(
+      List<CategoriesEntity>? categoryModel, List<ProductEntity>? homeModel) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       physics: const BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        const CategoriesTitleWidget(),
+          const SizedBox(height: 10),
+          const CategoriesTitleWidget(),
           const SizedBox(height: 10),
           if (categoryModel != null)
             const CustomCategoriesListView(
@@ -51,7 +52,6 @@ class ProductsScreenBody extends StatelessWidget {
             const Text('No products available'),
         ],
       ),
-    ),
-  );
+    );
   }
 }

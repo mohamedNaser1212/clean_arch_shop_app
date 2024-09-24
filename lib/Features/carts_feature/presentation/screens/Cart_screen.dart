@@ -4,8 +4,6 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.d
 import 'package:shop_app/core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import 'package:shop_app/core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
-import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
-
 import '../../../../core/functions/toast_function.dart';
 import '../carts_widgets/cart_content.dart';
 import '../cubit/toggle_cart_cubit.dart';
