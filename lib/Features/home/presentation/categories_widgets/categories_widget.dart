@@ -1,8 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
-import 'package:shop_app/Features/home/presentation/categories_widgets/categories_content.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/horizontal_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';

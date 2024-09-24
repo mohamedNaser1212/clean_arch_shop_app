@@ -32,7 +32,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     );
   }
 
-  Future<void> initializePayment({
+  Future<void> makePayment({
     required String clientSecret,
   }) async {
     emit(InitializePaymentLoadingState());

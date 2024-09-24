@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_details_image_list_view.dart';
-
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title.dart';
 
