@@ -12,13 +12,17 @@ class CartsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  Expanded _body() {
     return Expanded(
-      child: ListView.separated(
-        itemBuilder: (context, index) =>
-            CartItemWidget(model: cartModel[index]),
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: cartModel.length,
-      ),
-    );
+    child: ListView.separated(
+      itemBuilder: (context, index) =>
+          CartItemWidget(model: cartModel[index]),
+      separatorBuilder: (context, index) => const Divider(),
+      itemCount: cartModel.length,
+    ),
+  );
   }
 }

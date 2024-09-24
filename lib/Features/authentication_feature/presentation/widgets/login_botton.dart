@@ -12,12 +12,7 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _LoginButton(state: state),
-        const SizedBox(height: 10),
-      ],
-    );
+    return _LoginButton(state: state);
   }
 }
 
@@ -30,9 +25,14 @@ class _LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomElevatedBotton.loginButton(
-      state: state,
-      context: context,
+    return Column(
+      children: [
+        CustomElevatedBotton.loginButton(
+          state: state,
+          context: context,
+        ),
+        const SizedBox(height: 10),
+      ],
     );
   }
 }

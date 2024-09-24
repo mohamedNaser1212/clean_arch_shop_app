@@ -23,33 +23,37 @@ class CustomCategoriesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CategoriesCubit, CategoriesState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return ConditionalBuilder(
-          condition: CategoriesCubit.get(context).categoriesModel != null,
-          builder: (context) {
-            var categoryModel = CategoriesCubit.get(context).categoriesModel;
-
-            return isHorizontal
-                ? HorizontalCategoriesListView(
-                    itemHeight: itemHeight,
-                    categoryModel: categoryModel!,
-                    itemWidth: itemWidth)
-                : VerticalCategoriesListView(
-                    categoryModel: categoryModel!,
-                    itemHeight: itemHeight,
-                    itemWidth: itemWidth);
-          },
-          fallback: (context) => const Center(
-            child: CustomTitle(
-              title: 'Loading...',
-              style: TitleStyle.styleBold18,
-            ),
-          ),
-        );
-      },
+      listener: _listener,
+      builder: _builder,
     );
   }
+
+  void _listener(context, state) {}
+
+  Widget _builder(context, state) {
+      return ConditionalBuilder(
+        condition: CategoriesCubit.get(context).categoriesModel != null,
+        builder: (context) {
+          var categoryModel = CategoriesCubit.get(context).categoriesModel;
+  
+          return isHorizontal
+              ? HorizontalCategoriesListView(
+                  itemHeight: itemHeight,
+                  categoryModel: categoryModel!,
+                  itemWidth: itemWidth)
+              : VerticalCategoriesListView(
+                  categoryModel: categoryModel!,
+                  itemHeight: itemHeight,
+                  itemWidth: itemWidth);
+        },
+        fallback: (context) => const Center(
+          child: CustomTitle(
+            title: 'Loading...',
+            style: TitleStyle.styleBold18,
+          ),
+        ),
+      );
+    }
 }
 
 

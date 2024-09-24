@@ -15,20 +15,24 @@ class RgisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  Column _body() {
     return Column(
-      children: [
-        EmailField(controller: requestModel.emailController),
-        const SizedBox(height: 15),
-        PasswordField(
-          controller: requestModel.passwordController,
-          obscure: true,
-          onSuffixPressed: () {},
-        ),
-        const SizedBox(height: 10),
-        NameField(controller: requestModel.nameController),
-        const SizedBox(height: 10),
-        PhoneField(controller: requestModel.phoneController),
-      ],
-    );
+    children: [
+      EmailField(controller: requestModel.emailController),
+      const SizedBox(height: 15),
+      PasswordField(
+        controller: requestModel.passwordController,
+        obscure: true,
+        onSuffixPressed: () {},
+      ),
+      const SizedBox(height: 10),
+      NameField(controller: requestModel.nameController),
+      const SizedBox(height: 10),
+      PhoneField(controller: requestModel.phoneController),
+    ],
+  );
   }
 }

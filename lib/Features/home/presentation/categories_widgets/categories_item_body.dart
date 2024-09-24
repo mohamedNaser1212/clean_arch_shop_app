@@ -19,24 +19,28 @@ class CategoriesItemBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  Padding _body() {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CategoriesTitleWidget(),
-            const SizedBox(height: 10),
-            CategoriesListView(
-              categoryModel: categoryModel,
-              itemHeight: itemHeight,
-              itemWidth: itemWidth,
-            ),
-          ],
-        ),
+    padding: const EdgeInsets.all(12.0),
+    child: SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const CategoriesTitleWidget(),
+          const SizedBox(height: 10),
+          CategoriesListView(
+            categoryModel: categoryModel,
+            itemHeight: itemHeight,
+            itemWidth: itemWidth,
+          ),
+        ],
       ),
-    );
+    ),
+  );
   }
 }
 

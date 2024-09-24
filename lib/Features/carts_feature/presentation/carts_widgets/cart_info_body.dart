@@ -13,16 +13,20 @@ class CartsInfoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  Expanded _body() {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ProductInformationWidget(model: model),
-          const SizedBox(height: 3),
-          FavouriteAndCartIcons(model: model),
-        ],
-      ),
-    );
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ProductInformationWidget(model: model),
+        const SizedBox(height: 3),
+        FavouriteAndCartIcons(model: model),
+      ],
+    ),
+  );
   }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
+import 'package:shop_app/core/payment_gate_way_manager/cubit/payment_cubit.dart';
+import 'package:shop_app/core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
+import 'package:shop_app/core/service_locator/service_locator.dart';
 
 import '../../../../core/functions/toast_function.dart';
 import '../carts_widgets/cart_content.dart';
@@ -13,10 +16,15 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ToggleCartCubit, ToggleCartState>(
-      listener: (context, state) => _listener(context, state),
-      child: BlocBuilder<CartsCubit, CartsState>(
-        builder: (context, state) => _cartScreenBuilder(context, state),
+    return BlocProvider(
+      create: (context) =>  PaymentCubit(
+          paymentUseCase: getIt.get<PaymentUseCase>(),
+        ),
+      child: BlocListener<ToggleCartCubit, ToggleCartState>(
+        listener: (context, state) => _listener(context, state),
+        child: BlocBuilder<CartsCubit, CartsState>(
+          builder: (context, state) => _cartScreenBuilder(context, state),
+        ),
       ),
     );
   }

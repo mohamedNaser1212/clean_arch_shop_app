@@ -9,17 +9,21 @@ class SearchListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.separated(
-        itemCount: resultsList.length,
-        itemBuilder: (context, index) {
-          final result = resultsList[index];
-          return SearchListBody(
-            searchModel: result,
-            resultsList: resultsList,
-          );
-        },
-        separatorBuilder: (context, index) => const Divider(),
-      ),
+      child: _listView(),
+    );
+  }
+
+  ListView _listView() {
+    return ListView.separated(
+      itemCount: resultsList.length,
+      itemBuilder: (context, index) {
+        final result = resultsList[index];
+        return SearchListBody(
+          searchModel: result,
+          resultsList: resultsList,
+        );
+      },
+      separatorBuilder: (context, index) => const Divider(),
     );
   }
 }

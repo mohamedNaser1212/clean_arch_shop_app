@@ -12,20 +12,20 @@ class RefreshIndicatorWidget extends StatelessWidget {
   final List<CartEntity> cartModel;
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () => CartsCubit.get(context).getCartItems(),
-      child: _body(),
-    );
+    return _body(context);
   }
 
-  ConditionalBuilder _body() {
-    return ConditionalBuilder(
+  RefreshIndicator _body(BuildContext context) {
+    return RefreshIndicator(
+    onRefresh: () => CartsCubit.get(context).getCartItems(),
+    child: ConditionalBuilder(
       condition: cartModel.isNotEmpty,
       builder: _builder,
       fallback: (context) => const Center(
         child: LoadingIndicatorWidget(),
       ),
-    );
+    ),
+  );
   }
 
   Widget _builder(context) => Column(

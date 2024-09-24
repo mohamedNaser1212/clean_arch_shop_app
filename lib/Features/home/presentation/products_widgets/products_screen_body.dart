@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
+import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_title_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
@@ -16,36 +18,40 @@ class ProductsScreenBody extends StatelessWidget {
     final homeModel = ProductsCubit.get(context).homeModel;
     final categoryModel = CategoriesCubit.get(context).categoriesModel;
 
+    return _body(categoryModel, homeModel);
+  }
+
+  Padding _body(List<CategoriesEntity>? categoryModel, List<ProductEntity>? homeModel) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          const CategoriesTitleWidget(),
-            const SizedBox(height: 10),
-            if (categoryModel != null)
-              const CustomCategoriesListView(
-                isHorizontal: true,
-                itemHeight: 100.0,
-                itemWidth: 100.0,
-              )
-            else
-              const Text('No categories available'),
-            const SizedBox(height: 10),
-            const CustomTitle(
-              title: 'New Products',
-              style: TitleStyle.style24,
-              color: ColorController.blackColor,
-            ),
-            if (homeModel != null)
-              ProductsGridView(products: homeModel)
-            else
-              const Text('No products available'),
-          ],
-        ),
+    padding: const EdgeInsets.all(12.0),
+    child: SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+        const CategoriesTitleWidget(),
+          const SizedBox(height: 10),
+          if (categoryModel != null)
+            const CustomCategoriesListView(
+              isHorizontal: true,
+              itemHeight: 100.0,
+              itemWidth: 100.0,
+            )
+          else
+            const Text('No categories available'),
+          const SizedBox(height: 10),
+          const CustomTitle(
+            title: 'New Products',
+            style: TitleStyle.style24,
+            color: ColorController.blackColor,
+          ),
+          if (homeModel != null)
+            ProductsGridView(products: homeModel)
+          else
+            const Text('No products available'),
+        ],
       ),
-    );
+    ),
+  );
   }
 }

@@ -15,8 +15,12 @@ class CartScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cartModel = CartsCubit.get(context).cartEntity;
+    return _body(context);
+  }
 
+  Widget _body(BuildContext context) {
+    var cartModel = CartsCubit.get(context).cartEntity;
+    
     if (cartModel.isEmpty) {
       return const Center(
         child: CustomTitle(
@@ -26,7 +30,7 @@ class CartScreenBody extends StatelessWidget {
         ),
       );
     }
-
+    
     return RefreshIndicatorWidget(cartModel: cartModel);
   }
 }

@@ -14,10 +14,14 @@ class CategoriesContents extends StatelessWidget {
   final double itemWidth;
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  CategoriesContentsBody _body() {
     return CategoriesContentsBody(
-      itemWidth: itemWidth,
-      itemHeight: itemHeight,
-      item: item,
-    );
+    itemWidth: itemWidth,
+    itemHeight: itemHeight,
+    item: item,
+  );
   }
 }
