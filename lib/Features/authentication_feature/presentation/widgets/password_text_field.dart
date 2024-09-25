@@ -5,14 +5,12 @@ import 'package:shop_app/core/widgets/reusable_text_form_field.dart';
 
 class PasswordField extends StatelessWidget {
   final TextEditingController controller;
-  final bool obscure;
-  final VoidCallback onSuffixPressed;
+  final bool obscure=true;
+
 
   const PasswordField({
     super.key,
     required this.controller,
-    required this.obscure,
-    required this.onSuffixPressed,
   });
 
   @override
@@ -26,7 +24,7 @@ class PasswordField extends StatelessWidget {
       activeColor: defaultLightColor,
       prefix: const Icon(Icons.key_rounded),
       suffix: IconButton(
-        onPressed: onSuffixPressed,
+        onPressed: (){},
         icon: Icon(obscure ? Icons.visibility : Icons.visibility_off),
       ),
     );

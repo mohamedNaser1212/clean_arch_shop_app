@@ -20,12 +20,7 @@ class CartItemWidget extends StatelessWidget {
 
   InkWell _body(BuildContext context) {
     return InkWell(
-      onTap: () {
-        NavigationManager.navigateTo(
-          context: context,
-          screen: ProductsDetailsScreen(model: model),
-        );
-      },
+      onTap: () => _onPressed(context, model),
       child: SizedBox(
         height: 150,
         child: Row(
@@ -36,6 +31,13 @@ class CartItemWidget extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _onPressed(BuildContext context, BaseProductModel model) {
+    NavigationManager.navigateTo(
+      context: context,
+      screen: ProductsDetailsScreen(model: model),
     );
   }
 }

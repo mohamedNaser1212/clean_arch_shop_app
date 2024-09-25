@@ -7,6 +7,7 @@ import 'package:shop_app/Features/settings_feature/presentation/screens/settings
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/sign_out_elevated_botton.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/update_elevated_borron.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/widgets/custom_elevated_botton.dart';
 
 import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/functions/toast_function.dart';
@@ -46,6 +47,7 @@ class SettingsFormBody extends StatelessWidget {
       const SizedBox(height: 20.0),
       const SignOutElevatedBotton(),
       const SizedBox(height: 20.0),
+   
       UpdateElevatedBotton(
         formKey: userState.formKey,
         userState: userState,

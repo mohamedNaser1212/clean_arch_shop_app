@@ -18,7 +18,7 @@ class ProductsDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ProductsCubit, GetProductsState>(
       listener: _listener,
-      builder: _builder, 
+      builder: _builder,
     );
   }
 
@@ -39,9 +39,7 @@ class ProductsDetailsScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: defaultColor),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: () => _onPressed(context),
         ),
       ),
       body: _listView(images),
@@ -57,5 +55,9 @@ class ProductsDetailsScreen extends StatelessWidget {
         BuildProductDetailsInfo(model: model),
       ],
     );
+  }
+
+  void _onPressed(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }

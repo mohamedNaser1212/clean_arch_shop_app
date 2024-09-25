@@ -25,8 +25,7 @@ class RgisterForm extends StatelessWidget {
       const SizedBox(height: 15),
       PasswordField(
         controller: requestModel.passwordController,
-        obscure: true,
-        onSuffixPressed: () {},
+   
       ),
       const SizedBox(height: 10),
       NameField(controller: requestModel.nameController),

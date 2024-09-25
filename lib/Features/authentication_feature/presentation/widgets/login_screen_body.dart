@@ -22,31 +22,29 @@ class LoginScreenBody extends StatelessWidget {
 
   Center _body(BuildContext context) {
     return Center(
-    child: SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: state.formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const LoginHeader(),
-              const SizedBox(height: 30),
-              EmailField(controller: state.emailController),
-              const SizedBox(height: 15),
-              PasswordField(
-                controller: state.passwordController,
-                obscure: true,
-                onSuffixPressed: () {},
-              ),
-              const SizedBox(height: 30),
-              LoginButton(state: state),
-              AuthStatusTextWidget.login(context: context),
-            ],
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: state.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const LoginHeader(),
+                const SizedBox(height: 30),
+                EmailField(controller: state.emailController),
+                const SizedBox(height: 15),
+                PasswordField(
+                  controller: state.passwordController,
+                ),
+                const SizedBox(height: 30),
+                LoginButton(state: state),
+                AuthStatusTextWidget.login(context: context),
+              ],
+            ),
           ),
         ),
       ),
-    ),
-  );
+    );
   }
 }
