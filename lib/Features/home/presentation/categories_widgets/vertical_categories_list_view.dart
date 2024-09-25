@@ -15,21 +15,25 @@ final List<CategoriesEntity> categoryModel ;
 
   @override
   Widget build(BuildContext context) {
+    return _listView();
+  }
+
+  ListView _listView() {
     return ListView.builder(
-      shrinkWrap: true,
-      physics: const AlwaysScrollableScrollPhysics(),
-      itemCount: categoryModel.length,
-      itemBuilder: (context, index) {
-        var category = categoryModel[index];
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: CategoriesContents(
-            item: category,
-            state: state,
-          
-          ),
-        );
-      },
-    );
+    shrinkWrap: true,
+    physics: const AlwaysScrollableScrollPhysics(),
+    itemCount: categoryModel.length,
+    itemBuilder: (context, index) {
+      var category = categoryModel[index];
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: CategoriesContents(
+          item: category,
+          state: state,
+        
+        ),
+      );
+    },
+  );
   }
 }

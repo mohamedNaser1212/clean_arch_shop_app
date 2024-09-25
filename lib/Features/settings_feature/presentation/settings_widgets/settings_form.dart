@@ -6,8 +6,6 @@ import 'package:shop_app/Features/settings_feature/presentation/settings_widgets
 class SettingsForm extends StatelessWidget {
   final  SettingsScreenState userState;
 
-
-
   const SettingsForm({
     Key? key,
     required this.userState,

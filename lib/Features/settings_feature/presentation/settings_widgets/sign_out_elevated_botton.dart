@@ -15,14 +15,18 @@ class SignOutElevatedBotton extends StatelessWidget {
       builder: (context, state) {
         return ConditionalBuilder(
           condition: state is! UserSignOutLoading,
-          builder: (context) => CustomElevatedBotton.signOutButton(
-            context: context,
-          ),
+          builder: (context) => _builder(context),
           fallback: (context) {
             return const LoadingIndicatorWidget();
           },
         );
       },
     );
+  }
+
+  CustomElevatedButton _builder(BuildContext context) {
+    return CustomElevatedButton.signOutButton(
+          context: context,
+        );
   }
 }

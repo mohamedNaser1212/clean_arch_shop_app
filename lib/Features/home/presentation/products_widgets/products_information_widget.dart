@@ -10,50 +10,54 @@ class ProductInformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _productInformations();
+  }
+
+  Column _productInformations() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          model.name,
-          maxLines: 2,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: ColorController.textColorPrimary,
-          ),
-          overflow: TextOverflow.ellipsis,
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        model.name,
+        maxLines: 2,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: ColorController.textColorPrimary,
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
+        overflow: TextOverflow.ellipsis,
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Text(
+              '${model.price.round()}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: ColorController.blackColor,
+              ),
+            ),
+            const SizedBox(width: 5),
+            if (model.discount != 0)
               Text(
-                '${model.price.round()}',
-                maxLines: 1,
+                '${model.oldPrice.round()}',
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: ColorController.blackColor,
+                  fontSize: 14,
+                  decoration: TextDecoration.lineThrough,
+                  color: ColorController.warningColor,
                 ),
               ),
-              const SizedBox(width: 5),
-              if (model.discount != 0)
-                Text(
-                  '${model.oldPrice.round()}',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    decoration: TextDecoration.lineThrough,
-                    color: ColorController.warningColor,
-                  ),
-                ),
-            ],
-          ),
+          ],
         ),
-      ],
-    );
+      ),
+    ],
+  );
   }
 }

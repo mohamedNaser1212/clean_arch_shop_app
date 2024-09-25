@@ -24,12 +24,7 @@ class ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        NavigationManager.navigateTo(
-          context: context,
-          screen: ProductsDetailsScreen(model: widget.product),
-        );
-      },
+      onTap: _onTap,
       child: Container(
         color: ColorController.backgroundColor,
         child: Padding(
@@ -38,12 +33,19 @@ class ProductItemState extends State<ProductItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ProductItemImage(product: this),
-              ProductInformationWidget(model: widget.product),  
-              FavouriteAndCartIcons(model: widget.product), 
+              ProductInformationWidget(model: widget.product),
+              FavouriteAndCartIcons(model: widget.product),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _onTap() {
+    NavigationManager.navigateTo(
+      context: context,
+      screen: ProductsDetailsScreen(model: widget.product),
     );
   }
 }

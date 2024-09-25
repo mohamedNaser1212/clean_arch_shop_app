@@ -6,7 +6,7 @@ import 'package:shop_app/core/widgets/custom_title.dart';
 
 import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/utils/constants.dart';
-import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
+
 import '../../data/layouts_model.dart';
 import '../widgets/bottom_nav_bar_widget.dart';
 
@@ -23,10 +23,9 @@ class LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     super.initState();
-
     FavouritesCubit.get(context).getFavorites();
     CartsCubit.get(context).getCartItems();
-   // ProductsCubit.get(context).getProducts();
+    // ProductsCubit.get(context).getProducts();
   }
 
   @override
@@ -55,19 +54,26 @@ class LayoutScreenState extends State<LayoutScreen> {
     return AppBar(
       centerTitle: true,
       title: CustomTitle(
-          title: 'Shop App', style: TitleStyle.style24, color: defaultColor),
+        title: 'Shop App',
+        style: TitleStyle.style24,
+        color: defaultColor,
+      ),
       actions: [
         IconButton(
-          onPressed: () {
-            NavigationManager.navigateTo(
-                context: context, screen: const SearchScreen());
-          },
+          onPressed: _onSearchPressed,
           icon: Icon(
             Icons.search,
             color: defaultColor,
           ),
         ),
       ],
+    );
+  }
+
+  void _onSearchPressed() {
+    NavigationManager.navigateTo(
+      context: context,
+      screen: const SearchScreen(),
     );
   }
 }

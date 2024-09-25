@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/managers/field_validaltor/fields_validator.dart';
 import 'package:shop_app/core/widgets/reusable_text_form_field.dart';
-
 import '../cubit/search_cubit/search_cubit.dart';
 
 class SearchField extends StatelessWidget {
@@ -25,18 +24,23 @@ class SearchField extends StatelessWidget {
       keyboardType: TextInputType.text,
       validator: FieldsValidator.isNotEmpty,
       suffix: IconButton(
-        onPressed: () {
-          _controller.clear();
-        },
+        onPressed: () => _clearTextField(),
         icon: const Icon(Icons.close),
       ),
-      onSubmit: (value) {
-        if (_formKey.currentState!.validate()) {
-          SearchCubit.get(context).search(text: _controller.text);
-        }
-        return null;
-      },
+      onSubmit: (value) => _onSearchSubmit(context), 
       prefix: const Icon(Icons.search),
     );
+  }
+
+  // Method to clear the text field
+  void _clearTextField() {
+    _controller.clear();
+  }
+
+  String? _onSearchSubmit(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      SearchCubit.get(context).search(text: _controller.text);
+    }
+    return null; 
   }
 }

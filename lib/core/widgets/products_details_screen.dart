@@ -44,14 +44,18 @@ class ProductsDetailsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          CarousalImageWidget(images: images),
-          const SizedBox(height: 16),
-          BuildProductDetailsInfo(model: model),
-        ],
-      ),
+      body: _listView(images),
+    );
+  }
+
+  ListView _listView(images) {
+    return ListView(
+      padding: const EdgeInsets.all(16.0),
+      children: [
+        CarousalImageWidget(images: images),
+        const SizedBox(height: 16),
+        BuildProductDetailsInfo(model: model),
+      ],
     );
   }
 }

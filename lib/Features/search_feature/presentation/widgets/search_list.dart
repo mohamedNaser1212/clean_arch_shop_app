@@ -9,16 +9,20 @@ import '../../../../core/widgets/products_details_screen.dart';
 import '../../data/search_model/search_model.dart';
 
 class SearchListBody extends StatelessWidget {
-  const SearchListBody(
-      {super.key, required this.searchModel, required this.resultsList});
-  final List<SearchModel> resultsList;
+  const SearchListBody({
+    super.key,
+    required this.searchModel,
+    required this.resultsList,
+  });
 
+  final List<SearchModel> resultsList;
   final SearchModel searchModel;
+
   @override
   Widget build(BuildContext context) {
     return ConditionalBuilder(
       condition: resultsList.isNotEmpty,
-      builder: (context) => _builder(context),
+      builder: (context) => _buildListContent(context),
       fallback: (context) => const Center(
         child: CustomTitle(
           title: 'No results found',
@@ -29,14 +33,18 @@ class SearchListBody extends StatelessWidget {
     );
   }
 
-  InkWell _builder(BuildContext context) {
+  InkWell _buildListContent(BuildContext context) {
     return InkWell(
-      onTap: () => NavigationManager.navigateTo(
-        context: context,
-        screen: ProductsDetailsScreen(model: searchModel),
-      ),
+      onTap: () => _onSearchItemTap(context), 
       child: SearchListContents(searchModel: searchModel),
     );
   }
-}
 
+
+  void _onSearchItemTap(BuildContext context) {
+    NavigationManager.navigateTo(
+      context: context,
+      screen: ProductsDetailsScreen(model: searchModel),
+    );
+  }
+}

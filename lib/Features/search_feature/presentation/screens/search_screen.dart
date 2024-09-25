@@ -30,9 +30,7 @@ class SearchScreen extends StatelessWidget {
           Icons.arrow_back,
           color: Colors.white,
         ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: () => _onBackPressed(context), 
       ),
       title: const CustomTitle(
         title: 'Search',
@@ -40,5 +38,10 @@ class SearchScreen extends StatelessWidget {
         color: ColorController.whiteColor,
       ),
     );
+  }
+
+
+  void _onBackPressed(BuildContext context) {
+    Navigator.pop(context);
   }
 }

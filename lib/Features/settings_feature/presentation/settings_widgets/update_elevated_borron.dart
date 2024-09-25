@@ -24,16 +24,18 @@ Widget build(BuildContext context) {
     builder: (context, updateState) {
       return ConditionalBuilder(
         condition: updateState is! UpdateUserDataLoading,
-        builder: (context) {
-          return CustomElevatedBotton.updateButton(
-            context: context,
-            userState: userState,
-            formKey: formKey,
-          );
-      },
+        builder: _builder,
         fallback: (context) => const LoadingIndicatorWidget(),
       );
     },
   );
+}
+
+Widget _builder(context) {
+    return CustomElevatedButton.updateButton(
+      context: context,
+      userState: userState,
+      formKey: formKey,
+    );
 }
 }

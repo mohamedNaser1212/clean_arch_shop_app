@@ -27,7 +27,7 @@ class _LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomElevatedBotton.loginButton(
+        CustomElevatedButton.loginButton(
           state: state,
           context: context,
         ),

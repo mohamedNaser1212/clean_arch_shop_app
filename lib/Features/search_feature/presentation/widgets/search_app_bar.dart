@@ -16,9 +16,7 @@ class SearchAppBar extends StatelessWidget {
           Icons.arrow_back,
           color: Colors.white,
         ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: () => _onPressed(context), 
       ),
       title: const CustomTitle(
         title: 'Search',
@@ -26,5 +24,9 @@ class SearchAppBar extends StatelessWidget {
         color: ColorController.whiteColor,
       ),
     );
+  }
+
+  void _onPressed(BuildContext context) {
+    Navigator.pop(context);
   }
 }

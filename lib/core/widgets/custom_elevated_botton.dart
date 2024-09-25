@@ -16,113 +16,130 @@ import '../user_info/cubit/user_info_cubit.dart';
 import '../utils/styles_manager/color_manager.dart';
 
 // ignore: must_be_immutable
-class CustomElevatedBotton extends StatelessWidget {
-  CustomElevatedBotton._({
-    required this.onRegisterPressed,
+class CustomElevatedButton extends StatelessWidget {
+  CustomElevatedButton._({
+    required this.onPressed,
     required this.label,
   });
 
-  final VoidCallback onRegisterPressed;
+  final VoidCallback onPressed;
   final String label;
   Color? backColor;
 
-  factory CustomElevatedBotton.loginButton({
+  factory CustomElevatedButton.loginButton({
     required LoginScreenState state,
     required BuildContext context,
   }) {
-    return CustomElevatedBotton._(
-      onRegisterPressed: () {
-        if (state.formKey.currentState!.validate()) {
-          LoginCubit.get(context).login(
-            requestModel: LoginRequestModel(
-              email: state.emailController.text,
-              password: state.passwordController.text,
-            ),
-          );
-        }
-      },
+    return CustomElevatedButton._(
+      onPressed: () => _loginAction(state, context),
       label: 'Login',
     );
   }
 
-  factory CustomElevatedBotton.registerButton({
+  factory CustomElevatedButton.registerButton({
     required BuildContext context,
     required RegisterScreenBodyState state,
   }) {
-    return CustomElevatedBotton._(
-      onRegisterPressed: () {
-        if (state.formKey.currentState!.validate()) {
-          RegisterCubit.get(context).userRegister(
-            requestModel: RegisterRequestModel(
-              email: state.emailController.text,
-              password: state.passwordController.text,
-              name: state.nameController.text,
-              phone: state.phoneController.text,
-            ),
-          );
-        }
-      },
+    return CustomElevatedButton._(
+      onPressed: () => _registerAction(context, state),
       label: 'Register',
     );
   }
-  factory CustomElevatedBotton.checkOutButton({
+
+  factory CustomElevatedButton.checkOutButton({
     required BuildContext context,
     required num total,
   }) {
-    return CustomElevatedBotton._(
-      onRegisterPressed: () {
-        PaymentCubit.get(context).getClientSecret(
-          amount: total.toInt(),
-          currency: 'EGP',
-        );
-      },
+    return CustomElevatedButton._(
+      onPressed: () => _checkoutAction(context, total),
       label: 'CheckOut',
     );
   }
 
-  factory CustomElevatedBotton.updateButton({
+  factory CustomElevatedButton.updateButton({
     required BuildContext context,
     required SettingsScreenState userState,
     required GlobalKey<FormState> formKey,
   }) {
-    return CustomElevatedBotton._(
-      onRegisterPressed: () {
-        if (formKey.currentState!.validate()) {
-          final cubit = UpdateUserDataCubit.get(context);
-          UpdateUserDataCubit.get(context).userModel =
-              UserInfoCubit.get(context).userEntity;
-          if (cubit.checkDataChanges(
-            name: userState.nameController.text,
-            email: userState.emailController.text,
-            phone: userState.phoneController.text,
-          )) {
-            cubit.updateUserData(
-              updateUserRequestModel: UpdateUserRequestModel(
-                name: userState.nameController.text,
-                email: userState.emailController.text,
-                phone: userState.phoneController.text,
-              ),
-            );
-          } else {
-            showToast(
-              message: 'No changes detected. Your data is up-to-date.',
-              color: ColorController.greenAccent,
-            );
-          }
-        }
-      },
+    return CustomElevatedButton._(
+      onPressed: () => _updateAction(context, userState, formKey),
       label: 'Update',
     );
   }
-  factory CustomElevatedBotton.signOutButton({
+
+  factory CustomElevatedButton.signOutButton({
     required BuildContext context,
   }) {
-    return CustomElevatedBotton._(
-      onRegisterPressed: () {
-        SignOutCubit.get(context).signOut();
-      },
+    return CustomElevatedButton._(
+      onPressed: () => _signOutAction(context),
       label: 'Sign Out',
     );
+  }
+
+  static void _loginAction(LoginScreenState state, BuildContext context) {
+    if (state.formKey.currentState!.validate()) {
+      LoginCubit.get(context).login(
+        requestModel: LoginRequestModel(
+          email: state.emailController.text,
+          password: state.passwordController.text,
+        ),
+      );
+    }
+  }
+
+  static void _registerAction(
+      BuildContext context, RegisterScreenBodyState state) {
+    if (state.formKey.currentState!.validate()) {
+      RegisterCubit.get(context).userRegister(
+        requestModel: RegisterRequestModel(
+          email: state.emailController.text,
+          password: state.passwordController.text,
+          name: state.nameController.text,
+          phone: state.phoneController.text,
+        ),
+      );
+    }
+  }
+
+  static void _checkoutAction(BuildContext context, num total) {
+    PaymentCubit.get(context).getClientSecret(
+      amount: total.toInt(),
+      currency: 'EGP',
+    );
+  }
+
+  static void _updateAction(
+    BuildContext context,
+    SettingsScreenState userState,
+    GlobalKey<FormState> formKey,
+  ) {
+    if (formKey.currentState!.validate()) {
+      final cubit = UpdateUserDataCubit.get(context);
+      UpdateUserDataCubit.get(context).userModel =
+          UserInfoCubit.get(context).userEntity;
+      if (cubit.checkDataChanges(
+        name: userState.nameController.text,
+        email: userState.emailController.text,
+        phone: userState.phoneController.text,
+      )) {
+        cubit.updateUserData(
+          updateUserRequestModel: UpdateUserRequestModel(
+            name: userState.nameController.text,
+            email: userState.emailController.text,
+            phone: userState.phoneController.text,
+          ),
+        );
+      } else {
+        showToast(
+          message: 'No changes detected. Your data is up-to-date.',
+          color: ColorController.greenAccent,
+        );
+      }
+    }
+  }
+
+  static void _signOutAction(BuildContext context) {
+    SignOutCubit.get(context).signOut();
   }
 
   @override
@@ -130,7 +147,7 @@ class CustomElevatedBotton extends StatelessWidget {
     return ReusableElevatedButton(
       label: label,
       backColor: backColor ?? ColorController.blueAccent,
-      onPressed: onRegisterPressed,
+      onPressed: onPressed,
     );
   }
 }

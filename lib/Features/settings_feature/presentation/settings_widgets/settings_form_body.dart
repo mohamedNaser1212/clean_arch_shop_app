@@ -30,29 +30,30 @@ class SettingsFormBody extends StatelessWidget {
       listener: _signOutListener,
       child: BlocConsumer<UpdateUserDataCubit, UpdateUserDataState>(
         listener: _updateListener,
-        builder: (context, state) => _buildFormBody(context, state),
+        builder: _form,
       ),
     );
   }
 
-  Widget _buildFormBody(BuildContext context, UpdateUserDataState state) {
-    return Column(
-      children: [
-        NameField(controller: userState.nameController),
-        const SizedBox(height: 20.0),
-        EmailField(controller: userState.emailController),
-        const SizedBox(height: 20.0),
-        PhoneField(controller: userState.phoneController),
-        const SizedBox(height: 20.0),
-        const SignOutElevatedBotton(),
-        const SizedBox(height: 20.0),
-        UpdateElevatedBotton(
-          formKey: userState.formKey,
-          userState: userState,
-        ),
-      ],
-    );
-  }
+  Widget _form(context, state) {
+        return Column(
+    children: [
+      NameField(controller: userState.nameController),
+      const SizedBox(height: 20.0),
+      EmailField(controller: userState.emailController),
+      const SizedBox(height: 20.0),
+      PhoneField(controller: userState.phoneController),
+      const SizedBox(height: 20.0),
+      const SignOutElevatedBotton(),
+      const SizedBox(height: 20.0),
+      UpdateElevatedBotton(
+        formKey: userState.formKey,
+        userState: userState,
+      ),
+    ],
+  );
+      }
+
 
   void _updateListener(BuildContext context, UpdateUserDataState state) {
     if (state is UpdateUserDataError) {

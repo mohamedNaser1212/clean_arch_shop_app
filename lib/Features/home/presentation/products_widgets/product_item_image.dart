@@ -10,27 +10,31 @@ class ProductItemImage extends StatelessWidget {
   final ProductItemState product;
   @override
   Widget build(BuildContext context) {
+    return _body(context);
+  }
+
+  Stack _body(BuildContext context) {
     return Stack(
-      alignment: AlignmentDirectional.bottomStart,
-      children: [
-        Image(
-          image: CachedNetworkImageProvider(
-            product.widget.product.image,
-          ),
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height / 4,
+    alignment: AlignmentDirectional.bottomStart,
+    children: [
+      Image(
+        image: CachedNetworkImageProvider(
+          product.widget.product.image,
         ),
-        if (product.widget.product.discount != 0)
-          Container(
-            color: ColorController.primaryColor,
-            padding: const EdgeInsets.all(2),
-            child: const CustomTitle(
-              title: 'DISCOUNT',
-              style: TitleStyle.style12,
-              color: ColorController.blackColor,
-            ),
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height / 4,
+      ),
+      if (product.widget.product.discount != 0)
+        Container(
+          color: ColorController.primaryColor,
+          padding: const EdgeInsets.all(2),
+          child: const CustomTitle(
+            title: 'DISCOUNT',
+            style: TitleStyle.style12,
+            color: ColorController.blackColor,
           ),
-      ],
-    );
+        ),
+    ],
+  );
   }
 }

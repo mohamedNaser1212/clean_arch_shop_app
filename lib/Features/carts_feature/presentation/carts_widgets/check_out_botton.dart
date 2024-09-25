@@ -12,7 +12,7 @@ class CheckOutBotton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomElevatedBotton.checkOutButton(
+    return CustomElevatedButton.checkOutButton(
       context: context,
       total: total,
     );

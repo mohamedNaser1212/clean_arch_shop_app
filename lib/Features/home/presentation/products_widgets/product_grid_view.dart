@@ -10,18 +10,22 @@ class ProductsGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[400],
-      child: GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        mainAxisSpacing: 1,
-        crossAxisSpacing: 1,
-        childAspectRatio: 1 / 1.99,
-        children: List.generate(
-          products.length,
-          (index) => ProductItem(
-            product: products[index],
-          ),
+      child: _gridView(),
+    );
+  }
+
+  GridView _gridView() {
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      mainAxisSpacing: 1,
+      crossAxisSpacing: 1,
+      childAspectRatio: 1 / 1.99,
+      children: List.generate(
+        products.length,
+        (index) => ProductItem(
+          product: products[index],
         ),
       ),
     );

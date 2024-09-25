@@ -21,15 +21,19 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
 
   @override
   Widget build(BuildContext context) {
+    return _body();
+  }
+
+  Row _body() {
     return Row(
-      children: [
-        FavoriteIconWidget(
-          product: widget.model, 
-        ),
-        CartIconWidget(
-          product:  widget.model ,
-        ),
-      ],
-    );
+    children: [
+      FavoriteIconWidget(
+        product: widget.model, 
+      ),
+      CartIconWidget(
+        product:  widget.model ,
+      ),
+    ],
+  );
   }
 }
