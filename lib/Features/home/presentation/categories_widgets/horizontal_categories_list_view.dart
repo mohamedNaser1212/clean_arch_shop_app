@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 
 class HorizontalCategoriesListView extends StatelessWidget {
   const HorizontalCategoriesListView({
     super.key,
-    required this.itemHeight,
-    required this.categoryModel,
-    required this.itemWidth,
+    required this.state, required this.categoryModel,
+
   });
 
-  final double itemHeight;
-  final List<CategoriesEntity> categoryModel;
-  final double itemWidth;
-
+final CustomCategoriesListViewState state;
+final List<CategoriesEntity> categoryModel ;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: itemHeight + 50,
+      height: state.widget.itemHeight + 50,
       child: _listView(),
     );
   }
@@ -25,7 +23,7 @@ class HorizontalCategoriesListView extends StatelessWidget {
   ListView _listView() {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: categoryModel.length,
+      itemCount:  categoryModel.length,
       itemBuilder: (context, index) {
         var category = categoryModel[index];
         return Padding(
@@ -33,7 +31,7 @@ class HorizontalCategoriesListView extends StatelessWidget {
           child: Column(
             children: [
               CircleAvatar(
-                radius: itemWidth / 2,
+                radius:  state.widget.itemWidth / 2,
                 backgroundImage: NetworkImage(category.image),
               ),
               const SizedBox(height: 20),

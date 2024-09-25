@@ -6,7 +6,7 @@ import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 
-class CustomCategoriesListView extends StatelessWidget {
+class CustomCategoriesListView extends StatefulWidget {
   const CustomCategoriesListView({
     super.key,
     this.itemHeight = 150.0,
@@ -19,6 +19,12 @@ class CustomCategoriesListView extends StatelessWidget {
   final bool isHorizontal;
 
   @override
+  State<CustomCategoriesListView> createState() =>
+      CustomCategoriesListViewState();
+}
+
+class CustomCategoriesListViewState extends State<CustomCategoriesListView> {
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: _listener,
@@ -29,29 +35,27 @@ class CustomCategoriesListView extends StatelessWidget {
   void _listener(context, state) {}
 
   Widget _builder(context, state) {
-      return ConditionalBuilder(
-        condition: CategoriesCubit.get(context).categoriesModel != null,
-        builder: (context) {
-          var categoryModel = CategoriesCubit.get(context).categoriesModel;
-  
-          return isHorizontal
-              ? HorizontalCategoriesListView(
-                  itemHeight: itemHeight,
-                  categoryModel: categoryModel!,
-                  itemWidth: itemWidth)
-              : VerticalCategoriesListView(
-                  categoryModel: categoryModel!,
-                  itemHeight: itemHeight,
-                  itemWidth: itemWidth);
-        },
-        fallback: (context) => const Center(
-          child: CustomTitle(
-            title: 'Loading...',
-            style: TitleStyle.styleBold18,
-          ),
+    return ConditionalBuilder(
+      condition: CategoriesCubit.get(context).categoriesModel != null,
+      builder: (context) {
+        var categoryModel = CategoriesCubit.get(context).categoriesModel;
+
+        return widget.isHorizontal
+            ? HorizontalCategoriesListView(
+                state: this,
+                categoryModel: categoryModel!,
+              )
+            : VerticalCategoriesListView(
+                categoryModel: categoryModel!,
+                state: this,
+              );
+      },
+      fallback: (context) => const Center(
+        child: CustomTitle(
+          title: 'Loading...',
+          style: TitleStyle.styleBold18,
         ),
-      );
-    }
+      ),
+    );
+  }
 }
-
-

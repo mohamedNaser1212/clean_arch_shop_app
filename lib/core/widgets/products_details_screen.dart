@@ -18,13 +18,13 @@ class ProductsDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ProductsCubit, GetProductsState>(
       listener: _listener,
-      builder: _buildScreen, 
+      builder: _builder, 
     );
   }
 
   void _listener(context, state) {}
 
-  Widget _buildScreen(BuildContext context, GetProductsState state) {
+  Widget _builder(BuildContext context, GetProductsState state) {
     final isProduct = model is ProductEntity;
     final image = model.image;
     final images = isProduct ? model.images : [image];

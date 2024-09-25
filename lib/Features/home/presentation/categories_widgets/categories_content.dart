@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_content_body.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
 
 class CategoriesContents extends StatelessWidget {
   const CategoriesContents(
       {super.key,
       required this.item,
-      required this.itemHeight,
-      required this.itemWidth});
+      required this.state,
+   });
   final CategoriesEntity item;
+  final CustomCategoriesListViewState state;
 
-  final double itemHeight;
-  final double itemWidth;
   @override
   Widget build(BuildContext context) {
     return _body();
@@ -19,8 +19,7 @@ class CategoriesContents extends StatelessWidget {
 
   CategoriesContentsBody _body() {
     return CategoriesContentsBody(
-    itemWidth: itemWidth,
-    itemHeight: itemHeight,
+    state: state  ,
     item: item,
   );
   }

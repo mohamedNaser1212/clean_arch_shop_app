@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import 'category_item.dart';
@@ -7,15 +8,14 @@ class CategoriesListView extends StatelessWidget {
   const CategoriesListView(
       {super.key,
       required this.categoryModel,
-      required this.itemHeight,
-      required this.itemWidth});
+      required this.state,
+});
   final List<CategoriesEntity> categoryModel;
-  final double itemHeight;
-  final double itemWidth;
+  final CustomCategoriesListViewState state;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: itemHeight * 7,
+      height: state.widget.itemHeight * 7,
       child: _listView(),
     );
   }
@@ -26,8 +26,8 @@ class CategoriesListView extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) => CategoriesPageItems(
         context: context,
-        itemHeight: itemHeight,
-        itemWidth: itemWidth,
+        state: state,
+
         item: categoryModel[index],
       ),
       separatorBuilder: (context, index) => const SizedBox(width: 10),

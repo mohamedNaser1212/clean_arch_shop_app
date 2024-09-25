@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_content.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 
 class VerticalCategoriesListView extends StatelessWidget {
   const VerticalCategoriesListView({
     super.key,
     required this.categoryModel,
-    required this.itemHeight,
-    required this.itemWidth,
+    required this.state,
   });
 
-  final List<CategoriesEntity> categoryModel;
-  final double itemHeight;
-  final double itemWidth;
+final CustomCategoriesListViewState state;
+final List<CategoriesEntity> categoryModel ;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +25,8 @@ class VerticalCategoriesListView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: CategoriesContents(
             item: category,
-            itemHeight: itemHeight,
-            itemWidth: itemWidth,
+            state: state,
+           
           ),
         );
       },

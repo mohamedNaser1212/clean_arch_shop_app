@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class CarousalImageWidget extends StatelessWidget {
   const CarousalImageWidget({super.key, required this.images});
   final dynamic images;
+
+  
   @override
   Widget build(BuildContext context) {
     return _body(context);

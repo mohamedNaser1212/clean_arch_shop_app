@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/auth_status_text_widget.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_screen_body.dart';
 
 import '../../../../core/widgets/custom_elevated_botton.dart';
@@ -20,8 +19,6 @@ class RegisterButton extends StatelessWidget {
           context: context,
           state: state,
         ),
-        const SizedBox(height: 10),
-        AuthStatusTextWidget.register(context: context),
       ],
     );
   }

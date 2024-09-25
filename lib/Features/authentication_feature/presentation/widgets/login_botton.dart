@@ -31,7 +31,6 @@ class _LoginButton extends StatelessWidget {
           state: state,
           context: context,
         ),
-        const SizedBox(height: 10),
       ],
     );
   }

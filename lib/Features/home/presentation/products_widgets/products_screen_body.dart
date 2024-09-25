@@ -4,7 +4,6 @@ import 'package:shop_app/Features/home/domain/entities/products_entity/product_e
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_title_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
-
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title.dart';
 import '../cubit/categories_cubit/categories_cubit.dart';

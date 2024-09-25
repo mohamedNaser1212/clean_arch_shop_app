@@ -22,11 +22,30 @@ class CartScreen extends StatelessWidget {
       child: BlocListener<ToggleCartCubit, ToggleCartState>(
         listener: (context, state) => _listener(context, state),
         child: BlocBuilder<CartsCubit, CartsState>(
-          builder: (context, state) => _cartScreenBuilder(context, state),
+          builder: _cartScreenBuilder,
         ),
       ),
     );
   }
+
+  Widget _cartScreenBuilder(context, state) {
+          if (state is GetCartItemsSuccessState) {
+            return CartScreenBody(
+              state: state,
+            );
+          } else if (state is GetCartItemsErrorState) {
+            return Center(
+              child: Text(state.error),
+            );
+          } else {
+            while (state is GetCartItemsLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return const SizedBox.shrink();
+          }
+        }
 
   void _listener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartItemsErrorState) {
@@ -42,22 +61,5 @@ class CartScreen extends StatelessWidget {
     }
   }
 
-  Widget _cartScreenBuilder(BuildContext context, CartsState state) {
-    if (state is GetCartItemsSuccessState) {
-      return CartScreenBody(
-        state: state,
-      );
-    } else if (state is GetCartItemsErrorState) {
-      return Center(
-        child: Text(state.error),
-      );
-    } else {
-      while (state is GetCartItemsLoadingState) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      return const SizedBox.shrink();
-    }
-  }
+
 }

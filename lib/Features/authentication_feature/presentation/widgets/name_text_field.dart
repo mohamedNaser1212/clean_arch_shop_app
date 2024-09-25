@@ -10,7 +10,7 @@ class NameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReusableTextFormField(
-      label: 'Name',
+      label: 'User Name',
       validator: FieldsValidator.isValidUsername,
       controller: controller,
       keyboardType: TextInputType.text,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/auth_status_text_widget.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_botton.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_form.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/register_header.dart';
-
 
 class RegisterScreenBody extends StatefulWidget {
   const RegisterScreenBody({
@@ -42,31 +42,30 @@ class RegisterScreenBodyState extends State<RegisterScreenBody> {
     return _body();
   }
 
-
-
   Scaffold _body() {
     return Scaffold(
-    body: SingleChildScrollView(
-      padding: const EdgeInsets.all(20.0),
-      child: Form(
-        key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const RegisterHeader(),
-            const SizedBox(height: 15),
-            RgisterForm(
-              requestModel: this,
-            ),
-            const SizedBox(height: 10),
-            RegisterButton(
-              state: this,
-            )
-          ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const RegisterHeader(),
+              const SizedBox(height: 15),
+              RgisterForm(
+                requestModel: this,
+              ),
+              const SizedBox(height: 10),
+              RegisterButton(
+                state: this,
+              ),
+              const SizedBox(height: 10),
+              AuthStatusTextWidget.register(context: context),
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
   }
 }
-

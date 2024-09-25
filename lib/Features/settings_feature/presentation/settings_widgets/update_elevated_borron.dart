@@ -9,26 +9,20 @@ import '../../../../core/widgets/loading_indicator.dart';
 import '../cubit/user_info_cubit/update_user_data_cubit.dart';
 
 class UpdateElevatedBotton extends StatelessWidget {
-  const UpdateElevatedBotton({
-    super.key,
-    required this.formKey,
-    required this.userState,
-  });
+const UpdateElevatedBotton({
+  super.key,
+  required this.formKey,
+  required this.userState,
+});
 
-  final GlobalKey<FormState> formKey;
-  final SettingsScreenState userState;
+final GlobalKey<FormState> formKey;
+final SettingsScreenState userState;
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<UpdateUserDataCubit, UpdateUserDataState>(
-      builder: (context, updateState) {
-        return _builder(updateState);
-      },
-    );
-  }
-
-  ConditionalBuilder _builder(UpdateUserDataState updateState) {
-    return ConditionalBuilder(
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<UpdateUserDataCubit, UpdateUserDataState>(
+    builder: (context, updateState) {
+      return ConditionalBuilder(
         condition: updateState is! UpdateUserDataLoading,
         builder: (context) {
           return CustomElevatedBotton.updateButton(
@@ -36,8 +30,10 @@ class UpdateElevatedBotton extends StatelessWidget {
             userState: userState,
             formKey: formKey,
           );
-        },
+      },
         fallback: (context) => const LoadingIndicatorWidget(),
       );
-  }
+    },
+  );
+}
 }
