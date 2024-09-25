@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/products_entity/product_entity.dart';
@@ -18,13 +17,12 @@ class ProductsCubit extends Cubit<GetProductsState> {
 
   final ProductsUseCase fetchHomeItemsUseCase;
 
-  Future<void> getProductsData() async {
+  Future<void> getProducts() async {
     emit(GetProductsLoadingState());
 
     final result = await fetchHomeItemsUseCase.call();
     result.fold(
       (failure) {
-
         emit(GetProductsErrorState());
       },
       (products) {

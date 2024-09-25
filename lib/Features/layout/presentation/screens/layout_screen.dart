@@ -14,11 +14,11 @@ class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
 
   @override
-  State<LayoutScreen> createState() => _LayoutScreenState();
+  State<LayoutScreen> createState() => LayoutScreenState();
 }
 
-class _LayoutScreenState extends State<LayoutScreen> {
-  final LayoutModel _layoutModel = LayoutModel();
+class LayoutScreenState extends State<LayoutScreen> {
+  final LayoutModel layoutModel = LayoutModel();
 
   @override
   void initState() {
@@ -26,27 +26,28 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
     FavouritesCubit.get(context).getFavorites();
     CartsCubit.get(context).getCartItems();
-    ProductsCubit.get(context).getProductsData();
+   // ProductsCubit.get(context).getProducts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: _layoutModel.currentScreen,
+      body: layoutModel.currentScreen,
       bottomNavigationBar: _bottomNavigationBody(),
     );
   }
 
   BottomNavBar _bottomNavigationBody() {
     return BottomNavBar(
-      currentIndex: _layoutModel.currentIndex,
-      items: _layoutModel.bottomNavigationBarItems,
-      onTap: (index) {
-        setState(() {
-          _layoutModel.changeScreen(index);
-        });
-      },
+      state: this,
+      // currentIndex: _layoutModel.currentIndex,
+      // items: _layoutModel.bottomNavigationBarItems,
+      // onTap: (index) {
+      //   setState(() {
+      //     _layoutModel.changeScreen(index);
+      //   });
+      // },
     );
   }
 

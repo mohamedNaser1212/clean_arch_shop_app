@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           final productsCubit = ProductsCubit(
             fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
           );
-          productsCubit.getProductsData();
+          productsCubit.getProducts();
           return productsCubit;
         },
       ),
@@ -60,8 +60,6 @@ class MyApp extends StatelessWidget {
           return categoriesCubit;
         },
       ),
-    
-    
       BlocProvider(
         create: (context) {
           final userInfoCubit = UserInfoCubit(

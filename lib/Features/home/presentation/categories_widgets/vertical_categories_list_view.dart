@@ -26,7 +26,7 @@ final List<CategoriesEntity> categoryModel ;
           child: CategoriesContents(
             item: category,
             state: state,
-           
+          
           ),
         );
       },

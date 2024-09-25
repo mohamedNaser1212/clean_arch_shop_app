@@ -25,7 +25,6 @@ class CategoriesListView extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) => CategoriesPageItems(
-        context: context,
         state: state,
 
         item: categoryModel[index],

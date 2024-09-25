@@ -32,56 +32,60 @@ class ProductDetailsBody extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: _detailsComponents(),
+    );
+  }
+
+  Column _detailsComponents() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomTitle(
+          title: model.name,
+          style: TitleStyle.style24,
+          color: ColorController.blackColor,
+        ),
+        const SizedBox(height: 8),
+        const CustomTitle(
+          title: 'Description:',
+          style: TitleStyle.style20,
+          color: ColorController.blackColor,
+        ),
+        const SizedBox(height: 4),
+        CustomTitle(
+          title: model.description,
+          style: TitleStyle.style16,
+          color: ColorController.accentColor,
+        ),
+        const SizedBox(height: 8),
+        if (model.discount != 0)
           CustomTitle(
-            title: model.name,
-            style: TitleStyle.style24,
-            color: ColorController.blackColor,
+            title: 'Discount: ${model.discount}%',
+            style: TitleStyle.style18,
+            color: ColorController.redAccent,
           ),
-          const SizedBox(height: 8),
-          const CustomTitle(
-            title: 'Description:',
-            style: TitleStyle.style20,
-            color: ColorController.blackColor,
-          ),
-          const SizedBox(height: 4),
+        if (model.discount != 0)
           CustomTitle(
-            title: model.description,
-            style: TitleStyle.style16,
+            title: 'Old Price: ${model.oldPrice}',
+            style: TitleStyle.style18,
             color: ColorController.accentColor,
           ),
-          const SizedBox(height: 8),
-          if (model.discount != 0)
-            CustomTitle(
-              title: 'Discount: ${model.discount}%',
-              style: TitleStyle.style18,
-              color: ColorController.redAccent,
-            ),
-          if (model.discount != 0)
-            CustomTitle(
-              title: 'Old Price: ${model.oldPrice}',
-              style: TitleStyle.style18,
-              color: ColorController.accentColor,
-            ),
-          const SizedBox(height: 8),
-          CustomTitle(
-            title: 'Price: ${model.price}',
+        const SizedBox(height: 8),
+        CustomTitle(
+          title: 'Price: ${model.price}',
+          style: TitleStyle.style20,
+          color: ColorController.blackColor,
+        ),
+        const SizedBox(height: 16),
+        if (isProduct)
+          const CustomTitle(
+            title: 'Additional Images',
             style: TitleStyle.style20,
             color: ColorController.blackColor,
           ),
-          const SizedBox(height: 16),
-          if (isProduct)
-            const CustomTitle(
-              title: 'Additional Images',
-              style: TitleStyle.style20,
-              color: ColorController.blackColor,
-            ),
-          if (isProduct) const SizedBox(height: 8),
-          if (isProduct) ProductDetailsImagesListView(images: images),
-        ],
-      ),
+        if (isProduct) const SizedBox(height: 8),
+        if (isProduct) ProductDetailsImagesListView(images: images),
+      ],
     );
   }
 }

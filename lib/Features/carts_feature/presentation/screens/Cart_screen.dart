@@ -57,7 +57,9 @@ class CartScreen extends StatelessWidget {
         message: state.error,
       );
     } else if (state is ToggleCartSuccessState) {
+      
       CartsCubit.get(context).getCartItems();
+      
     }
   }
 

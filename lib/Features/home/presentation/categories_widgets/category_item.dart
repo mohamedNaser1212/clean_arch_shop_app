@@ -8,10 +8,8 @@ class CategoriesPageItems extends StatelessWidget {
   const CategoriesPageItems(
       {super.key,
       required this.item,
-      required this.context,
       required this.state,});
   final CategoriesEntity item;
-  final BuildContext context;
 final CustomCategoriesListViewState state;
 
 
