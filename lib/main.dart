@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/single_child_widget.dart';
-
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/fetch_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/remove_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';

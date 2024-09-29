@@ -17,7 +17,7 @@ class ProductsPricesWidgets extends StatelessWidget {
 
     return Column(
       children: [
-        if(model != null) 
+        if(model != null && model!.discount != 0) 
         CustomTitle(
           title: 'Discount: ${productModel.discount}%',
           style: TitleStyle.style18,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nested/nested.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit.dart';
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/user_info_display.dart';
@@ -41,26 +41,22 @@ class SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: _providers,
+      providers: [
+        BlocProvider(
+          create: (context) => UpdateUserDataCubit(
+            updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => SignOutCubit(
+            userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
+          ),
+        ),
+      ],
       child: BlocBuilder<UserInfoCubit, UserInfoState>(
         builder: _builder,
       ),
     );
-  }
-
-  List<SingleChildWidget> get _providers {
-    return [
-      BlocProvider(
-        create: (context) => UpdateUserDataCubit(
-          updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
-        ),
-      ),
-      BlocProvider(
-        create: (context) => SignOutCubit(
-          userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
-        ),
-      ),
-    ];
   }
 
   Widget _builder(context, userState) {

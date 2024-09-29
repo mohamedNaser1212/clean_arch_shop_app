@@ -12,21 +12,21 @@ class SettingsFormBodyComponents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-            children: [
-              NameField(controller: userState.nameController),
-              const SizedBox(height: 20.0),
-              EmailField(controller: userState.emailController),
-              const SizedBox(height: 20.0),
-              PhoneField(controller: userState.phoneController),
-              const SizedBox(height: 20.0),
-              const SignOutElevatedBotton(),
-              const SizedBox(height: 20.0),
-              UpdateElevatedBotton(
-                formKey: userState.formKey,
-                userState: userState,
-              ),
-            ],
-          );
+    return Column(
+      children: [
+        NameField(controller: userState.nameController),
+        const SizedBox(height: 20.0),
+        EmailField(controller: userState.emailController),
+        const SizedBox(height: 20.0),
+        PhoneField(controller: userState.phoneController),
+        const SizedBox(height: 20.0),
+        const SignOutElevatedBotton(),
+        const SizedBox(height: 20.0),
+        UpdateElevatedBotton(
+          formKey: userState.formKey,
+          userState: userState,
+        ),
+      ],
+    );
   }
 }

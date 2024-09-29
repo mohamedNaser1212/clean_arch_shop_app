@@ -8,10 +8,6 @@ class CachedNetworkImageWidget extends StatelessWidget {
   final BaseProductModel model;
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  CachedNetworkImage _body() {
     return CachedNetworkImage(
     imageUrl: model.image,
     fit: BoxFit.cover,
@@ -28,4 +24,6 @@ class CachedNetworkImageWidget extends StatelessWidget {
     ),
   );
   }
+
+
 }

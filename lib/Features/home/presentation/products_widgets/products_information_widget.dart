@@ -4,23 +4,19 @@ import 'package:shop_app/Features/home/presentation/products_widgets/products_pr
 
 import 'package:shop_app/core/models/base_products_model.dart';
 
-
-
 class ProductInformationWidget extends StatelessWidget {
   const ProductInformationWidget({super.key, required this.model});
   final BaseProductModel model;
 
   @override
   Widget build(BuildContext context) {
-       return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      ProductNameWidget(model: model),  
-      ProductsPricesWidgets(model: model),
-    ],
-  );
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ProductNameWidget(model: model),
+        ProductsPricesWidgets(model: model),
+      ],
+    );
   }
-
- 
 }

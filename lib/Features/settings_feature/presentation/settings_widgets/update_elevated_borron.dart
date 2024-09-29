@@ -24,22 +24,20 @@ class UpdateElevatedBotton extends StatelessWidget {
       builder: (context, updateState) {
         return ConditionalBuilder(
           condition: updateState is! UpdateUserDataLoading,
-          builder: (context) => CustomElevatedButton.updateButton(
-            context: context,
-            userState: userState,
-            formKey: formKey,
-          ),
+          builder: (context) => _builder(context),
           fallback: (context) => const LoadingIndicatorWidget(),
         );
       },
     );
   }
 
-  Widget _builder(context) {
+  CustomElevatedButton _builder(BuildContext context) {
     return CustomElevatedButton.updateButton(
-      context: context,
-      userState: userState,
-      formKey: formKey,
-    );
+          context: context,
+          userState: userState,
+          formKey: formKey,
+        );
   }
+
+
 }

@@ -1,11 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/search_feature/presentation/widgets/search_list_content.dart';
-
-import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title.dart';
-import '../../../../core/widgets/products_details_screen.dart';
 import '../../data/search_model/search_model.dart';
 
 class SearchListBody extends StatelessWidget {
@@ -33,18 +30,10 @@ class SearchListBody extends StatelessWidget {
     );
   }
 
-  InkWell _buildListContent(BuildContext context) {
-    return InkWell(
-      onTap: () => _onSearchItemTap(context), 
-      child: SearchListContents(searchModel: searchModel),
-    );
+  Widget _buildListContent(BuildContext context) {
+    return SearchListContents(searchModel: searchModel);
   }
 
 
-  void _onSearchItemTap(BuildContext context) {
-    NavigationManager.navigateTo(
-      context: context,
-      screen: ProductsDetailsScreen(model: searchModel),
-    );
-  }
+ 
 }

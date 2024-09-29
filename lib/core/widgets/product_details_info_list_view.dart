@@ -4,7 +4,7 @@ import 'package:shop_app/Features/home/presentation/products_widgets/product_det
 import 'package:shop_app/core/widgets/image_widget.dart';
 
 class ProductDetailsInfoListView extends StatelessWidget {
-  ProductDetailsInfoListView({super.key, this.model});
+  const ProductDetailsInfoListView({super.key, this.model});
   final dynamic model;
 
   @override

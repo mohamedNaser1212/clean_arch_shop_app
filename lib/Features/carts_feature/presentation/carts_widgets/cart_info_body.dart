@@ -13,10 +13,6 @@ class CartsInfoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Expanded _body() {
     return Expanded(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,4 +25,6 @@ class CartsInfoBody extends StatelessWidget {
     ),
   );
   }
+
+
 }

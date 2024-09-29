@@ -5,7 +5,6 @@ import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/total
 import 'package:shop_app/core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
 
-
 class PaymentConditionalBuilder extends StatelessWidget {
   final PaymentState paymentState;
 

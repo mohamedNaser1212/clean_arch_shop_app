@@ -8,30 +8,24 @@ import '../models/base_products_model.dart';
 class FavouriteAndCartIcons extends StatefulWidget {
   const FavouriteAndCartIcons({super.key, required this.model});
 
-   final BaseProductModel model;
+  final BaseProductModel model;
 
   @override
   State<FavouriteAndCartIcons> createState() => _FavouriteAndCartIconsState();
 }
 
 class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
-  int favouriteClickCount = 0;
-  int cartClickCount = 0;
-  final int maxClickCount = 2;
-
   @override
   Widget build(BuildContext context) {
     return Row(
-    children: [
-      FavoriteIconWidget(
-        product: widget.model, 
-      ),
-      CartIconWidget(
-        product:  widget.model ,
-      ),
-    ],
-  );
+      children: [
+        FavoriteIconWidget(
+          product: widget.model,
+        ),
+        CartIconWidget(
+          product: widget.model,
+        ),
+      ],
+    );
   }
-
-
 }

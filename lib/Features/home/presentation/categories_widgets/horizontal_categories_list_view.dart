@@ -41,6 +41,4 @@ final List<CategoriesEntity> categoryModel ;
     )
     );
   }
-
-
 }
