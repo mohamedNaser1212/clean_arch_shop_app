@@ -16,12 +16,7 @@ final List<CategoriesEntity> categoryModel ;
   Widget build(BuildContext context) {
     return SizedBox(
       height: state.widget.itemHeight + 50,
-      child: _listView(),
-    );
-  }
-
-  ListView _listView() {
-    return ListView.builder(
+      child:   ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount:  categoryModel.length,
       itemBuilder: (context, index) {
@@ -43,6 +38,9 @@ final List<CategoriesEntity> categoryModel ;
           ),
         );
       },
+    )
     );
   }
+
+
 }

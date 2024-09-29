@@ -15,7 +15,7 @@ class CartsCubit extends Cubit<CartsState> {
 
   List<CartEntity> cartEntity = [];
   Map<num, bool> carts = {};
-  Future<void> getCartItems() async {
+  Future<void> getCarts() async {
     emit(GetCartItemsLoadingState());
 
     final result = await fetchCartUseCase.call();

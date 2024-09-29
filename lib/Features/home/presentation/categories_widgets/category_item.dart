@@ -15,11 +15,7 @@ final CustomCategoriesListViewState state;
 
   @override
   Widget build(BuildContext context) {
-    return _builder();
-  }
-
-  Padding _builder() {
-    return Padding(
+      return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
       width:state.widget. itemWidth,
@@ -35,4 +31,6 @@ final CustomCategoriesListViewState state;
     ),
   );
   }
+
+ 
 }

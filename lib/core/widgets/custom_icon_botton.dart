@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_icon_widget.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favorite_icon_widget.dart';
+import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 class CustomIconButton extends StatelessWidget {
@@ -17,11 +23,17 @@ class CustomIconButton extends StatelessWidget {
   final double iconSize = 15;
 
   factory CustomIconButton.cartButton({
+    required CartIconWidgetState state,
     required bool isCart,
-    required VoidCallback onPressed,
+    required BuildContext context,
   }) {
     return CustomIconButton._(
-      onPressed: onPressed,
+      onPressed: () async {
+        final cartsCubit = CartsCubit.get(context);
+        final isCart = cartsCubit.carts[state.widget.product.id] ?? false;
+        cartsCubit.carts[state.widget.product.id] = !isCart;
+        ToggleCartCubit.get(context).changeCarts(state.widget.product.id);
+      },
       icon: Icons.shopping_cart,
       backgroundColor:
           isCart ? ColorController.redColor : ColorController.greyColor,
@@ -30,10 +42,19 @@ class CustomIconButton extends StatelessWidget {
 
   factory CustomIconButton.favoriteButton({
     required bool isFavorite,
-    required VoidCallback onPressed,
+    required BuildContext context,
+    required FavoriteIconWidgetState state,
   }) {
     return CustomIconButton._(
-      onPressed: onPressed,
+      onPressed: () {
+        final favouritesCubit = FavouritesCubit.get(context);
+
+        final isFavorite =
+            favouritesCubit.favorites[state.widget.product.id] ?? false;
+        favouritesCubit.favorites[state.widget.product.id] = !isFavorite;
+        ToggleFavouriteCubit.get(context)
+            .changeFavourite(state.widget.product.id);
+      },
       icon: Icons.favorite,
       backgroundColor:
           isFavorite ? ColorController.redColor : ColorController.greyColor,

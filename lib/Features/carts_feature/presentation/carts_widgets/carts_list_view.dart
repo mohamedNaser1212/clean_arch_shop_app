@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_item_widget.dart';
+import 'package:shop_app/core/widgets/custom_refresh_indicator.dart';
 
 class CartsListView extends StatelessWidget {
   const CartsListView({
@@ -12,17 +13,11 @@ class CartsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Expanded _body() {
     return Expanded(
-    child: ListView.separated(
-      itemBuilder: (context, index) =>
-          CartItemWidget(model: cartModel[index]),
-      separatorBuilder: (context, index) => const Divider(),
-      itemCount: cartModel.length,
-    ),
-  );
+      child: CustomRefreshIndicator.carts(
+        context: context,
+        model: cartModel,
+      ),
+    );
   }
 }

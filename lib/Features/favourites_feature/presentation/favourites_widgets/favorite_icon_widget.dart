@@ -14,10 +14,10 @@ class FavoriteIconWidget extends StatefulWidget {
   final BaseProductModel product;
 
   @override
-  State<FavoriteIconWidget> createState() => _FavoriteIconWidgetState();
+  State<FavoriteIconWidget> createState() => FavoriteIconWidgetState();
 }
 
-class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
+class FavoriteIconWidgetState extends State<FavoriteIconWidget> {
   int favouriteClickCount = 0;
   final int maxClickCount = 2;
 
@@ -35,7 +35,8 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
 
     return CustomIconButton.favoriteButton(
       isFavorite: isFavorite,
-      onPressed: () => _onFavouritePressed(context, widget.product.id),
+     context: context,
+      state: this,  
     );
   }
 
@@ -45,31 +46,11 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
       FavouritesCubit.get(context).favorites[widget.product.id] =
           !(FavouritesCubit.get(context).favorites[widget.product.id] ?? false);
       showToast(message: state.error);
+    }else if (state is ToggleFavouriteSuccessState) {
+      FavouritesCubit.get(context).getFavorites();
     }
   }
 
-  void _onFavouritePressed(BuildContext context, num productId) {
-    final favouritesCubit = FavouritesCubit.get(context);
 
-    if (favouriteClickCount >= maxClickCount) {
-      showLimitDialog(
-        context: context,
-        text: "Favourite",
-        maxClickCount: maxClickCount,
-      );
-      setState(() {
-        favouriteClickCount = 0;
-      });
 
-      favouritesCubit.favorites[widget.product.id] =
-          !(favouritesCubit.favorites[widget.product.id] ?? false);
-      return;
-    }
-
-    favouriteClickCount++;
-
-    final isFavorite = favouritesCubit.favorites[productId] ?? false;
-    favouritesCubit.favorites[productId] = !isFavorite;
-    ToggleFavouriteCubit.get(context).changeFavourite(productId);
-  }
 }

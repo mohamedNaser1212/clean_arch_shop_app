@@ -8,11 +8,7 @@ class ConnectionFailureWidget extends StatelessWidget {
   final Function()? onPressed;
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Scaffold _body() {
-    return Scaffold(
+     return Scaffold(
     body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -39,4 +35,5 @@ class ConnectionFailureWidget extends StatelessWidget {
     ),
   );
   }
+
 }

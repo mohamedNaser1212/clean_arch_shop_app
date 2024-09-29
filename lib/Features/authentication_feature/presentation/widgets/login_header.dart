@@ -8,11 +8,7 @@ class LoginHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body(context);
-  }
-
-  Column _body(BuildContext context) {
-    return Column(
+   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       const CustomTitle(
@@ -28,4 +24,6 @@ class LoginHeader extends StatelessWidget {
     ],
   );
   }
+
+ 
 }

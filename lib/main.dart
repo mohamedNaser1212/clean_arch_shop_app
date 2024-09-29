@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
           final cartsCubit = CartsCubit(
             fetchCartUseCase: getIt.get<FetchCartUseCase>(),
           );
-          cartsCubit.getCartItems();
+          cartsCubit.getCarts();
 
           return cartsCubit;
         },

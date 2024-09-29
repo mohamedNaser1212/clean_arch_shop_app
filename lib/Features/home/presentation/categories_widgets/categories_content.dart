@@ -14,13 +14,11 @@ class CategoriesContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  CategoriesContentsBody _body() {
-    return CategoriesContentsBody(
+       return CategoriesContentsBody(
     state: state  ,
     item: item,
   );
   }
+
+
 }

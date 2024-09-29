@@ -13,10 +13,6 @@ class TotalAndCheckOutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Padding _body() {
     return Padding(
     padding: const EdgeInsets.all(16.0),
     child: Column(
@@ -30,4 +26,5 @@ class TotalAndCheckOutWidget extends StatelessWidget {
     ),
   );
   }
+
 }

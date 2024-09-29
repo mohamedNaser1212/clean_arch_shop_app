@@ -8,12 +8,7 @@ class ProductDetailsImagesListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 100,
-      child: _listView(),
-    );
-  }
-
-  ListView _listView() {
-    return ListView.builder(
+      child:     ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: images.length,
       itemBuilder: (context, index) {
@@ -29,6 +24,9 @@ class ProductDetailsImagesListView extends StatelessWidget {
           ),
         );
       },
+    )
     );
   }
+
+ 
 }

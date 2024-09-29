@@ -24,7 +24,7 @@ class LayoutScreenState extends State<LayoutScreen> {
   void initState() {
     super.initState();
     FavouritesCubit.get(context).getFavorites();
-    CartsCubit.get(context).getCartItems();
+    CartsCubit.get(context).getCarts();
     // ProductsCubit.get(context).getProducts();
   }
 

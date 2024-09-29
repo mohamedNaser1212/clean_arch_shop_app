@@ -15,11 +15,7 @@ final List<CategoriesEntity> categoryModel ;
 
   @override
   Widget build(BuildContext context) {
-    return _listView();
-  }
-
-  ListView _listView() {
-    return ListView.builder(
+       return ListView.builder(
     shrinkWrap: true,
     physics: const AlwaysScrollableScrollPhysics(),
     itemCount: categoryModel.length,
@@ -36,4 +32,6 @@ final List<CategoriesEntity> categoryModel ;
     },
   );
   }
+
+
 }

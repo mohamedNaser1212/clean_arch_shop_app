@@ -14,11 +14,7 @@ class CategoriesImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  ClipRRect _body() {
-    return ClipRRect(
+       return ClipRRect(
     borderRadius: BorderRadius.circular(20),
     child: Image(
       width: itemHeight /1.3,
@@ -28,5 +24,7 @@ class CategoriesImageWidget extends StatelessWidget {
     ),
   );
   }
+
+
 }
 

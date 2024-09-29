@@ -21,10 +21,6 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Row _body() {
     return Row(
     children: [
       FavoriteIconWidget(
@@ -36,4 +32,6 @@ class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
     ],
   );
   }
+
+
 }

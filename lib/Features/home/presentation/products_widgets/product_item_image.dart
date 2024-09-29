@@ -10,10 +10,6 @@ class ProductItemImage extends StatelessWidget {
   final ProductItemState product;
   @override
   Widget build(BuildContext context) {
-    return _body(context);
-  }
-
-  Stack _body(BuildContext context) {
     return Stack(
     alignment: AlignmentDirectional.bottomStart,
     children: [
@@ -37,4 +33,6 @@ class ProductItemImage extends StatelessWidget {
     ],
   );
   }
+
+
 }

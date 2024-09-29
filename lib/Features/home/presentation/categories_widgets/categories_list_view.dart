@@ -16,21 +16,18 @@ class CategoriesListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: state.widget.itemHeight * 7,
-      child: _listView(),
-    );
-  }
-
-  ListView _listView() {
-    return ListView.separated(
+      child:   ListView.separated(
       physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) => CategoriesPageItems(
         state: state,
-
         item: categoryModel[index],
       ),
       separatorBuilder: (context, index) => const SizedBox(width: 10),
       itemCount: categoryModel.length,
+    )
     );
   }
+
+
 }

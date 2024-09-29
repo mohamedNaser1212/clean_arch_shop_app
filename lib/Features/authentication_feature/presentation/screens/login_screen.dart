@@ -7,6 +7,7 @@ import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
 import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
+import 'package:shop_app/core/widgets/custom_title.dart';
 import 'package:shop_app/core/widgets/initial_screen.dart';
 
 import '../cubit/login_cubit/login_cubit.dart';
@@ -43,9 +44,9 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(
-          loginUseCase: getIt.get<LoginUseCase>(),
-          userDataUseCase: getIt.get<GetUserInfoUseCase>(),
-        ),
+        loginUseCase: getIt.get<LoginUseCase>(),
+        userDataUseCase: getIt.get<GetUserInfoUseCase>(),
+      ),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: _loginListener,
         builder: _builder,
@@ -58,7 +59,10 @@ class LoginScreenState extends State<LoginScreen> {
       isLoading: state is LoginLoadingState,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Login'),
+          title: const CustomTitle(
+            title: 'Login',
+            style: TitleStyle.style18,
+          ),
         ),
         body: LoginScreenBody(state: this),
       ),

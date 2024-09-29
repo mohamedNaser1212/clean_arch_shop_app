@@ -19,11 +19,7 @@ class CategoriesContentsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Padding _body() {
-    return Padding(
+       return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
       width: state.widget.itemWidth,
@@ -47,5 +43,6 @@ class CategoriesContentsBody extends StatelessWidget {
     ),
   );
   }
+
 }
 

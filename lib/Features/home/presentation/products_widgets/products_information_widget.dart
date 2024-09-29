@@ -10,11 +10,7 @@ class ProductInformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _productInformations();
-  }
-
-  Column _productInformations() {
-    return Column(
+       return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -60,4 +56,6 @@ class ProductInformationWidget extends StatelessWidget {
     ],
   );
   }
+
+ 
 }

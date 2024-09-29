@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
+import 'package:shop_app/core/widgets/product_details_info_list_view.dart';
 import '../../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../../../Features/home/presentation/cubit/products_cubit/get_products_state.dart';
 import '../../../Features/home/presentation/products_widgets/product_details_info.dart';
@@ -42,18 +43,7 @@ class ProductsDetailsScreen extends StatelessWidget {
           onPressed: () => _onPressed(context),
         ),
       ),
-      body: _listView(images),
-    );
-  }
-
-  ListView _listView(images) {
-    return ListView(
-      padding: const EdgeInsets.all(16.0),
-      children: [
-        CarousalImageWidget(images: images),
-        const SizedBox(height: 16),
-        BuildProductDetailsInfo(model: model),
-      ],
+      body: ProductDetailsInfoListView(model: model),
     );
   }
 

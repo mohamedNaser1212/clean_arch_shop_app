@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
@@ -39,7 +40,7 @@ class FavoritesScreen extends StatelessWidget {
 
   void _toggleCartListener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartSuccessState) {
-      FavouritesCubit.get(context).getFavorites();
+      CartsCubit.get(context).getCarts(); 
     }
   }
 
@@ -49,8 +50,6 @@ class FavoritesScreen extends StatelessWidget {
       showToast(
         message: state.error,
       );
-    } else if (state is ToggleFavouriteSuccessState) {
-      FavouritesCubit.get(context).getFavorites();
     }
   }
 }

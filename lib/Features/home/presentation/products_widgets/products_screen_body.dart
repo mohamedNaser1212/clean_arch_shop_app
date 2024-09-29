@@ -17,12 +17,7 @@ class ProductsScreenBody extends StatelessWidget {
     final homeModel = ProductsCubit.get(context).homeModel;
     final categoryModel = CategoriesCubit.get(context).categoriesModel;
 
-    return _body(categoryModel, homeModel);
-  }
-
-  SingleChildScrollView _body(
-      List<CategoriesEntity>? categoryModel, List<ProductEntity>? homeModel) {
-    return SingleChildScrollView(
+     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -53,4 +48,10 @@ class ProductsScreenBody extends StatelessWidget {
       ),
     );
   }
+
+
+
+  
+
+ 
 }

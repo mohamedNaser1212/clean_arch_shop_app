@@ -14,12 +14,7 @@ class CartItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: _body(context),
-    );
-  }
-
-  InkWell _body(BuildContext context) {
-    return InkWell(
+      child:      InkWell(
       onTap: () => _onPressed(context, model),
       child: SizedBox(
         height: 150,
@@ -31,8 +26,11 @@ class CartItemWidget extends StatelessWidget {
           ],
         ),
       ),
+    )
     );
   }
+
+
 
   void _onPressed(BuildContext context, BaseProductModel model) {
     NavigationManager.navigateTo(

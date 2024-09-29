@@ -9,8 +9,7 @@ class RegisterHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    const CustomTitle(
+    return const CustomTitle(
       title: 'REGISTER Screen',
       style: TitleStyle.styleBold20,
     );

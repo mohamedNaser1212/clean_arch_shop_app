@@ -1,16 +1,15 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/total_and_checkout_widget.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
+import 'package:shop_app/core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
-import '../../../../core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
+import 'payment_conditional_builder.dart'; 
 
-class CartCheckoutData extends StatelessWidget {
+class CartCheckoutData extends StatefulWidget {
   final num total;
   final List<CartEntity> cartModel;
 
@@ -21,6 +20,11 @@ class CartCheckoutData extends StatelessWidget {
   });
 
   @override
+  State<CartCheckoutData> createState() => CartCheckoutDataState();
+}
+
+class CartCheckoutDataState extends State<CartCheckoutData> {
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<CartsCubit, CartsState>(
       listener: _cartListener,
@@ -30,7 +34,6 @@ class CartCheckoutData extends StatelessWidget {
           builder: (context, paymentState) => _builder(
             context,
             paymentState,
-            total,
           ),
         );
       },
@@ -40,9 +43,8 @@ class CartCheckoutData extends StatelessWidget {
   Widget _builder(
     BuildContext context,
     PaymentState paymentState,
-    num total,
   ) {
-    if (cartModel.isEmpty && paymentState is InitializePaymentSuccessState) {
+    if (widget.cartModel.isEmpty && paymentState is InitializePaymentSuccessState) {
       return const Center(
         child: Text(
           'No items in the cart.',
@@ -51,14 +53,9 @@ class CartCheckoutData extends StatelessWidget {
       );
     }
 
-    return ConditionalBuilder(
-      condition: paymentState is! InitializePaymentLoadingState,
-      builder: (context) {
-        return TotalAndCheckOutWidget(total: total);
-      },
-      fallback: (context) {
-        return const LoadingIndicatorWidget();
-      },
+    return PaymentConditionalBuilder(
+      cartCheckoutDataState: this,
+      paymentState: paymentState,
     );
   }
 
@@ -77,7 +74,7 @@ class CartCheckoutData extends StatelessWidget {
       await Stripe.instance.presentPaymentSheet();
 
       bool cartUpdated = await ToggleCartCubit.get(context).changeCartsList(
-        cartModel.map((e) => e.id).toList(),
+        widget.cartModel.map((e) => e.id).toList(),
       );
 
       if (cartUpdated) {

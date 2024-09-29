@@ -13,10 +13,10 @@ class CartIconWidget extends StatefulWidget {
   final BaseProductModel product;
 
   @override
-  State<CartIconWidget> createState() => _CartIconWidgetState();
+  State<CartIconWidget> createState() => CartIconWidgetState();
 }
 
-class _CartIconWidgetState extends State<CartIconWidget> {
+class CartIconWidgetState extends State<CartIconWidget> {
   int favouriteClickCount = 0;
   int cartClickCount = 0;
   final int maxClickCount = 2;
@@ -32,37 +32,22 @@ class _CartIconWidgetState extends State<CartIconWidget> {
     final isCart = CartsCubit.get(context).carts[widget.product.id] ?? false;
     return CustomIconButton.cartButton(
       isCart: isCart,
-      onPressed: () => onCartPressed(context, widget.product.id),
+      context: context,
+      state: this,
     );
   }
 
-  void toggleCartListener(BuildContext context, ToggleCartState state) {
+  Future<void> toggleCartListener(BuildContext context, ToggleCartState state) async {
     if (state is ToggleCartItemsErrorState) {
       CartsCubit.get(context).carts[widget.product.id] =
           !(CartsCubit.get(context).carts[widget.product.id] ?? false);
       showToast(
         message: state.error,
       );
+    }else if (state is ToggleCartSuccessState) {
+
+      await CartsCubit.get(context).getCarts();
     }
   }
 
-  void onCartPressed(BuildContext context, num productId) {
-    if (cartClickCount >= maxClickCount) {
-      showLimitDialog(
-          context: context, text: "Cart", maxClickCount: maxClickCount);
-      setState(() {
-        cartClickCount = 0;
-      });
-
-      CartsCubit.get(context).carts[widget.product.id] =
-          !(CartsCubit.get(context).carts[widget.product.id] ?? false);
-      return;
-    }
-
-    cartClickCount++;
-    final cartsCubit = CartsCubit.get(context);
-    final isCart = cartsCubit.carts[productId] ?? false;
-    cartsCubit.carts[productId] = !isCart;
-    ToggleCartCubit.get(context).changeCarts(productId);
-  }
 }

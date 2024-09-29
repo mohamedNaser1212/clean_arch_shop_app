@@ -17,11 +17,7 @@ class LoginScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body(context);
-  }
-
-  Center _body(BuildContext context) {
-    return Center(
+      return Center(
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -47,4 +43,5 @@ class LoginScreenBody extends StatelessWidget {
       ),
     );
   }
+
 }
