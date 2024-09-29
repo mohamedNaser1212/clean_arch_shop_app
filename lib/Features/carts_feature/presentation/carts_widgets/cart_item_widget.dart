@@ -13,24 +13,21 @@ class CartItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child:      InkWell(
-      onTap: () => _onPressed(context, model),
-      child: SizedBox(
-        height: 150,
-        child: Row(
-          children: [
-            ProductImageWidget(model: model),
-            const SizedBox(width: 10),
-            CartsInfoBody(model: model),
-          ],
-        ),
-      ),
-    )
-    );
+        padding: const EdgeInsets.all(20.0),
+        child: InkWell(
+          onTap: () => _onPressed(context, model),
+          child: SizedBox(
+            height: 150,
+            child: Row(
+              children: [
+                ProductImageWidget(model: model),
+                const SizedBox(width: 10),
+                CartsInfoBody(model: model),
+              ],
+            ),
+          ),
+        ));
   }
-
-
 
   void _onPressed(BuildContext context, BaseProductModel model) {
     NavigationManager.navigateTo(
