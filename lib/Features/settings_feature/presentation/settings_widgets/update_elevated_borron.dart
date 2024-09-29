@@ -2,40 +2,44 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
+import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
 
 import '../../../../core/widgets/custom_elevated_botton.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../cubit/user_info_cubit/update_user_data_cubit.dart';
 
 class UpdateElevatedBotton extends StatelessWidget {
-const UpdateElevatedBotton({
-  super.key,
-  required this.formKey,
-  required this.userState,
-});
+  const UpdateElevatedBotton({
+    super.key,
+    required this.formKey,
+    required this.userState,
+  });
 
-final GlobalKey<FormState> formKey;
-final SettingsScreenState userState;
+  final GlobalKey<FormState> formKey;
+  final SettingsScreenState userState;
 
-@override
-Widget build(BuildContext context) {
-  return BlocBuilder<UpdateUserDataCubit, UpdateUserDataState>(
-    builder: (context, updateState) {
-      return ConditionalBuilder(
-        condition: updateState is! UpdateUserDataLoading,
-        builder: _builder,
-        fallback: (context) => const LoadingIndicatorWidget(),
-      );
-    },
-  );
-}
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<UpdateUserDataCubit, UpdateUserDataState>(
+      builder: (context, updateState) {
+        return ConditionalBuilder(
+          condition: updateState is! UpdateUserDataLoading,
+          builder: (context) => CustomElevatedButton.updateButton(
+            context: context,
+            userState: userState,
+            formKey: formKey,
+          ),
+          fallback: (context) => const LoadingIndicatorWidget(),
+        );
+      },
+    );
+  }
 
-Widget _builder(context) {
+  Widget _builder(context) {
     return CustomElevatedButton.updateButton(
       context: context,
       userState: userState,
       formKey: formKey,
     );
-}
+  }
 }

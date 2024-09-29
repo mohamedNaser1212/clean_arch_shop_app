@@ -13,11 +13,7 @@ class SearchListContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _searchResultComponents();
-  }
-
-  Container _searchResultComponents() {
-    return Container(
+     return Container(
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     decoration: BoxDecoration(
@@ -67,4 +63,7 @@ class SearchListContents extends StatelessWidget {
     ),
   );
   }
+
+
+
 }

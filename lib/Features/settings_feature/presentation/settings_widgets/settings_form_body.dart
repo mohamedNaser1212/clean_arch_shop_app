@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/name_text_field.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/phone_text_field.dart';
-import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
+import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
+import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_form_body_components.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/sign_out_elevated_botton.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/update_elevated_borron.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
@@ -31,30 +32,17 @@ class SettingsFormBody extends StatelessWidget {
       listener: _signOutListener,
       child: BlocConsumer<UpdateUserDataCubit, UpdateUserDataState>(
         listener: _updateListener,
-        builder: _form,
+        builder: _builder,
       ),
     );
   }
 
-  Widget _form(context, state) {
-        return Column(
-    children: [
-      NameField(controller: userState.nameController),
-      const SizedBox(height: 20.0),
-      EmailField(controller: userState.emailController),
-      const SizedBox(height: 20.0),
-      PhoneField(controller: userState.phoneController),
-      const SizedBox(height: 20.0),
-      const SignOutElevatedBotton(),
-      const SizedBox(height: 20.0),
-   
-      UpdateElevatedBotton(
-        formKey: userState.formKey,
-        userState: userState,
-      ),
-    ],
-  );
+  Widget _builder(context, state) {
+        return SettingsFormBodyComponents(
+          userState: userState,
+        );
       }
+
 
 
   void _updateListener(BuildContext context, UpdateUserDataState state) {
@@ -78,7 +66,7 @@ class SettingsFormBody extends StatelessWidget {
   void _signOutListener(BuildContext context, SignOutState state) {
     if (state is UserSignOutSuccess) {
       NavigationManager.navigateAndFinish(
-        context: context, 
+        context: context,
         screen: const LoginScreen(),
       );
     } else if (state is UserSignOutError) {

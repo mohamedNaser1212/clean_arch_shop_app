@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 
-class SearchAppBar extends StatelessWidget {
-  const SearchAppBar({
-    super.key,
-  });
+class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const SearchAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,4 +27,8 @@ class SearchAppBar extends StatelessWidget {
   void _onPressed(BuildContext context) {
     Navigator.pop(context);
   }
+
+  // Implementing the PreferredSizeWidget interface
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

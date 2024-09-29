@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
+import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_form.dart';
 
 class UserInfoDisplay extends StatelessWidget {
@@ -12,16 +12,8 @@ class UserInfoDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Column _body() {
-    return Column(
-    children: [
-      SettingsForm(
-        userState: userState,
-      ),
-    ],
-  );
+    return SettingsForm(
+      userState: userState,
+    );
   }
 }

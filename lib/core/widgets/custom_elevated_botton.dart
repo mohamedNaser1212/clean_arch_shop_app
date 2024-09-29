@@ -9,7 +9,7 @@ import '../../Features/authentication_feature/presentation/widgets/register_scre
 import '../../Features/settings_feature/data/update_user_request_model.dart';
 import '../../Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit.dart';
 import '../../Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
-import '../../Features/settings_feature/presentation/screens/settings_screen.dart';
+import '../../Features/settings_feature/presentation/screen/settings_screen.dart';
 import '../functions/toast_function.dart';
 import '../payment_gate_way_manager/cubit/payment_cubit.dart';
 import '../user_info/cubit/user_info_cubit.dart';

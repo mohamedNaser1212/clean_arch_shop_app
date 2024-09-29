@@ -13,12 +13,7 @@ class SearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: _child(context),
-    );
-  }
-
-  ReusableTextFormField _child(BuildContext context) {
-    return ReusableTextFormField(
+      child:ReusableTextFormField(
       label: 'Search',
       controller: _controller,
       keyboardType: TextInputType.text,
@@ -29,10 +24,11 @@ class SearchField extends StatelessWidget {
       ),
       onSubmit: (value) => _onSearchSubmit(context), 
       prefix: const Icon(Icons.search),
+    )
     );
   }
 
-  // Method to clear the text field
+
   void _clearTextField() {
     _controller.clear();
   }

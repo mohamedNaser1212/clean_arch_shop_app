@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/settings_feature/presentation/screens/settings_screen.dart';
+import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
 
 import '../../carts_feature/presentation/screens/cart_screen.dart';
 import '../../favourites_feature/presentation/screens/favorites_screen.dart';

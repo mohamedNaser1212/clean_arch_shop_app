@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
-import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
+import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_title_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
