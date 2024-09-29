@@ -5,10 +5,8 @@ import 'package:shop_app/Features/favourites_feature/domain/favourites_entity/fa
 import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_item_widget.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourite_item.dart';
-import 'package:shop_app/core/functions/navigations_functions.dart';
-import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
-import 'package:shop_app/core/widgets/products_details_screen.dart';
+
 
 class CustomRefreshIndicator<T> extends StatelessWidget {
   final Future<void> Function(BuildContext context)? onRefresh;

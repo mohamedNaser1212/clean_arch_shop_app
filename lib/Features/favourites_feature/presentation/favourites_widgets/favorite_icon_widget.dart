@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
-import 'package:shop_app/core/functions/dialogue_function.dart';
+
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 
 import 'package:shop_app/core/widgets/custom_icon_botton.dart';
-
 
 class FavoriteIconWidget extends StatefulWidget {
   const FavoriteIconWidget({super.key, required this.product});
@@ -35,8 +34,8 @@ class FavoriteIconWidgetState extends State<FavoriteIconWidget> {
 
     return CustomIconButton.favoriteButton(
       isFavorite: isFavorite,
-     context: context,
-      state: this,  
+      context: context,
+      state: this,
     );
   }
 
@@ -46,11 +45,8 @@ class FavoriteIconWidgetState extends State<FavoriteIconWidget> {
       FavouritesCubit.get(context).favorites[widget.product.id] =
           !(FavouritesCubit.get(context).favorites[widget.product.id] ?? false);
       showToast(message: state.error);
-    }else if (state is ToggleFavouriteSuccessState) {
+    } else if (state is ToggleFavouriteSuccessState) {
       FavouritesCubit.get(context).getFavorites();
     }
   }
-
-
-
 }

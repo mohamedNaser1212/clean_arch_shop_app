@@ -16,16 +16,12 @@ class FavoriteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body(context);
-  }
-
-  Padding _body(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: InkWell(
         onTap: () => _onPressed(context),
         child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.17,
+          height: MediaQuery.of(context).size.height * 0.2,
           child: Row(
             children: [
               ProductImageWidget(model: model),
@@ -44,7 +40,6 @@ class FavoriteItem extends StatelessWidget {
       ),
     );
   }
-
   void _onPressed(BuildContext context) {
     NavigationManager.navigateTo(
       context: context,

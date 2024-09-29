@@ -17,7 +17,7 @@ class CartItemWidget extends StatelessWidget {
         child: InkWell(
           onTap: () => _onPressed(context, model),
           child: SizedBox(
-            height: 150,
+                height: MediaQuery.of(context).size.height * 0.2,
             child: Row(
               children: [
                 ProductImageWidget(model: model),

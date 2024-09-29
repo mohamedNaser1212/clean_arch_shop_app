@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/empty_cart_text_widget.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/refresh_indicator_widget.dart';
-import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/widgets/custom_title.dart';
+
 import '../cubit/carts_cubit.dart';
 
 
