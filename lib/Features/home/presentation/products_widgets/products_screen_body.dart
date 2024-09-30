@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_title_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/empty_categories_text_widget.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/empty_products_text_widget.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/new_products_text_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
-import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/widgets/custom_title.dart';
+
 import '../cubit/categories_cubit/categories_cubit.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';
 
@@ -15,7 +17,7 @@ class ProductsScreenBody extends StatelessWidget {
     final homeModel = ProductsCubit.get(context).homeModel;
     final categoryModel = CategoriesCubit.get(context).categoriesModel;
 
-     return SingleChildScrollView(
+    return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -25,31 +27,21 @@ class ProductsScreenBody extends StatelessWidget {
           const CategoriesTitleWidget(),
           const SizedBox(height: 10),
           if (categoryModel != null)
-            const CustomCategoriesListView(
+            const CategoriesScreenBody(
               isHorizontal: true,
               itemHeight: 100.0,
               itemWidth: 100.0,
             )
           else
-            const Text('No categories available'),
+            const EmptyCategoriesTextWidget(),
           const SizedBox(height: 10),
-          const CustomTitle(
-            title: 'New Products',
-            style: TitleStyle.style24,
-            color: ColorController.blackColor,
-          ),
+          const NewProductsTextWidget(),
           if (homeModel != null)
             ProductsGridView(products: homeModel)
           else
-            const Text('No products available'),
+            const EmptyProductsTextWidget(),
         ],
       ),
     );
   }
-
-
-
-  
-
- 
 }

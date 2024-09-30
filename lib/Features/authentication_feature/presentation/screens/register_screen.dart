@@ -6,12 +6,11 @@ import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/widgets/custom_app_bar.dart';
 import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
-import 'package:shop_app/core/widgets/initial_screen.dart';
 
+import 'package:shop_app/core/widgets/initial_screen.dart';
 import '../../../../core/functions/navigations_functions.dart';
-import '../../../../core/user_info/cubit/user_info_cubit.dart';
-import '../../../home/presentation/cubit/products_cubit/get_product_cubit.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -21,9 +20,9 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(
-          loginUseCase: getIt.get<RegisterUseCase>(),
-          userDataUseCase: getIt.get<GetUserInfoUseCase>(),
-        ),
+        loginUseCase: getIt.get<RegisterUseCase>(),
+        userDataUseCase: getIt.get<GetUserInfoUseCase>(),
+      ),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: _listener,
         builder: _builder,
@@ -34,10 +33,8 @@ class RegisterScreen extends StatelessWidget {
   Widget _builder(BuildContext context, RegisterState state) {
     return CustomProgressIndicator(
       isLoading: state is RegisterLoadingState,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Login'),
-        ),
+      child:  Scaffold(
+        appBar:CustomAppBar(title: 'Register'),
         body: const RegisterScreenBody(),
       ),
     );
@@ -50,9 +47,6 @@ void _listener(BuildContext context, RegisterState state) {
       color: ColorController.greenAccent,
       message: 'Register Success',
     );
-
-    ProductsCubit.get(context).homeModel;
-    UserInfoCubit.get(context).userEntity = state.userModel;
 
     NavigationManager.navigateAndFinish(
       context: context,

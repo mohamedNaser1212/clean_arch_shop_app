@@ -10,28 +10,25 @@ class VerticalCategoriesListView extends StatelessWidget {
     required this.state,
   });
 
-final CustomCategoriesListViewState state;
-final List<CategoriesEntity> categoryModel ;
+  final CategoriesScreenBodyState state;
+  final List<CategoriesEntity> categoryModel;
 
   @override
   Widget build(BuildContext context) {
-       return ListView.builder(
-    shrinkWrap: true,
-    physics: const AlwaysScrollableScrollPhysics(),
-    itemCount: categoryModel.length,
-    itemBuilder: (context, index) {
-      var category = categoryModel[index];
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: CategoriesContents(
-          item: category,
-          state: state,
-        
-        ),
-      );
-    },
-  );
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const AlwaysScrollableScrollPhysics(),
+      itemCount: categoryModel.length,
+      itemBuilder: (context, index) {
+        var category = categoryModel[index];
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: CategoriesContents(
+            item: category,
+            state: state,
+          ),
+        );
+      },
+    );
   }
-
-
 }

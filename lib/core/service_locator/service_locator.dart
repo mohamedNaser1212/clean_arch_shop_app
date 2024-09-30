@@ -27,8 +27,8 @@ import 'package:shop_app/Features/search_feature/domain/search_repo/search_repo.
 import 'package:shop_app/Features/search_feature/domain/search_use_case/fetch_search_use_case.dart';
 import 'package:shop_app/Features/settings_feature/data/user_data_data_source/user_remote_remote_data_source.dart';
 import 'package:shop_app/Features/settings_feature/domain/settings_use_case/update_user_data_use_case.dart';
-import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit.dart';
-import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit/sign_out_cubit.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/core/managers/repo_manager/repo_manager_impl.dart';
 import 'package:shop_app/core/networks/api_manager/end_points.dart';
 

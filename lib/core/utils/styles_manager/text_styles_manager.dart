@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/core/utils/constants.dart';
 
 abstract class StylesManager {
-  const StylesManager();
+  const StylesManager._();
   static final textStyle12 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,

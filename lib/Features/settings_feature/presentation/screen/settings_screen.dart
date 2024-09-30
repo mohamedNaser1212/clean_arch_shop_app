@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/single_child_widget.dart';
-import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit.dart';
-import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit/sign_out_cubit.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/user_info_display.dart';
-
 import '../../../../core/service_locator/service_locator.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../../core/widgets/custom_progress_indicator.dart';

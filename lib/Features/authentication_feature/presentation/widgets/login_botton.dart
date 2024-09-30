@@ -12,13 +12,9 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Column(
-      children: [
-        CustomElevatedButton.loginButton(
-          state: state,
-          context: context,
-        ),
-      ],
+    return   CustomElevatedButton.loginButton(
+      state: state,
+      context: context,
     );
   }
 }

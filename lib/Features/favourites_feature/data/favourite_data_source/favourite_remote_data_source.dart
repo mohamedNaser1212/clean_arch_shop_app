@@ -5,7 +5,7 @@ import '../../../../core/networks/api_manager/end_points.dart';
 import '../favourites_models/favourites_response_model.dart';
 
 abstract class FavouritesRemoteDataSource {
-  const FavouritesRemoteDataSource();
+  const FavouritesRemoteDataSource._();
   Future<List<FavouritesResponseModel>> getFavourites();
   Future<bool> toggleFavourites({
     required num productId,

@@ -8,8 +8,8 @@ import '../../../../core/functions/navigations_functions.dart';
 import '../../../../core/functions/toast_function.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../authentication_feature/presentation/screens/login_screen.dart';
-import '../cubit/user_info_cubit/sign_out_cubit.dart';
-import '../cubit/user_info_cubit/update_user_data_cubit.dart';
+import '../cubit/user_info_cubit/sign_out_cubit/sign_out_cubit.dart';
+import '../cubit/user_info_cubit/update_user_data_cubit/update_user_data_cubit.dart';
 
 class SettingsFormBody extends StatelessWidget {
   const SettingsFormBody({

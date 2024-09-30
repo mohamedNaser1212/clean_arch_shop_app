@@ -5,13 +5,13 @@ import 'package:shop_app/core/widgets/custom_title.dart';
 
 class ProductDescriptionWidget extends StatelessWidget {
   const ProductDescriptionWidget({super.key, required this.state});
-final ProductDetailsBodyState state;
+  final ProductDetailsBodyState state;
   @override
   Widget build(BuildContext context) {
-    return    CustomTitle(
-          title: state.widget.model.description,
-          style: TitleStyle.style16,
-          color: ColorController.accentColor,
-        );
+    return CustomTitle(
+      title: state.widget.model.description,
+      style: TitleStyle.style16,
+      color: ColorController.accentColor,
+    );
   }
 }

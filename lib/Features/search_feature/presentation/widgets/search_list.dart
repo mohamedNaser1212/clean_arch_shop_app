@@ -5,7 +5,7 @@ import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title.dart';
 import '../../data/search_model/search_model.dart';
 
-class SearchListBody extends StatelessWidget {
+class SearchListBody extends StatefulWidget {
   const SearchListBody({
     super.key,
     required this.searchModel,
@@ -14,11 +14,15 @@ class SearchListBody extends StatelessWidget {
 
   final List<SearchModel> resultsList;
   final SearchModel searchModel;
+  @override
+  State<SearchListBody> createState() => SearchListBodyState();
+}
 
+class SearchListBodyState extends State<SearchListBody> {
   @override
   Widget build(BuildContext context) {
     return ConditionalBuilder(
-      condition: resultsList.isNotEmpty,
+      condition: widget.resultsList.isNotEmpty,
       builder: (context) => _buildListContent(context),
       fallback: (context) => const Center(
         child: CustomTitle(
@@ -31,9 +35,6 @@ class SearchListBody extends StatelessWidget {
   }
 
   Widget _buildListContent(BuildContext context) {
-    return SearchListContents(searchModel: searchModel);
+    return SearchListContents(searchModel: widget.searchModel);
   }
-
-
- 
 }

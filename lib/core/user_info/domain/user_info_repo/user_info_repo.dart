@@ -4,7 +4,7 @@ import '../../../../Features/settings_feature/domain/user_entity/user_entity.dar
 import '../../../managers/errors_manager/failure.dart';
 
 abstract class UserInfoRepo {
-  const UserInfoRepo();
+  const UserInfoRepo._();
 
   Future<Either<Failure, UserEntity?>> getUser();
 }

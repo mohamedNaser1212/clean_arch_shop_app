@@ -40,13 +40,8 @@ class LayoutScreenState extends State<LayoutScreen> {
   BottomNavBar _bottomNavigationBody() {
     return BottomNavBar(
       state: this,
-      // currentIndex: _layoutModel.currentIndex,
-      // items: _layoutModel.bottomNavigationBarItems,
-      // onTap: (index) {
-      //   setState(() {
-      //     _layoutModel.changeScreen(index);
-      //   });
-      // },
+     
+     
     );
   }
 

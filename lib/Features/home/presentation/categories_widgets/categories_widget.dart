@@ -6,8 +6,8 @@ import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
 import 'package:shop_app/core/widgets/custom_title.dart';
 
-class CustomCategoriesListView extends StatefulWidget {
-  const CustomCategoriesListView({
+class CategoriesScreenBody extends StatefulWidget {
+  const CategoriesScreenBody({
     super.key,
     this.itemHeight = 150.0,
     this.itemWidth = 150.0,
@@ -19,11 +19,10 @@ class CustomCategoriesListView extends StatefulWidget {
   final bool isHorizontal;
 
   @override
-  State<CustomCategoriesListView> createState() =>
-      CustomCategoriesListViewState();
+  State<CategoriesScreenBody> createState() => CategoriesScreenBodyState();
 }
 
-class CustomCategoriesListViewState extends State<CustomCategoriesListView> {
+class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CategoriesCubit, CategoriesState>(

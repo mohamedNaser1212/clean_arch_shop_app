@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/search_feature/data/search_model/search_model.dart';
+import 'package:shop_app/Features/search_feature/presentation/widgets/search_screen_contents_body.dart';
 import 'package:shop_app/core/functions/navigations_functions.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';
 
 class SearchListContents extends StatelessWidget {
@@ -32,39 +32,7 @@ class SearchListContents extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.network(
-              searchModel.image,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 200,
-                  child: CustomTitle(
-                    title: searchModel.name,
-                    style: TitleStyle.style20,
-                    maxLines: 2,
-                    color: ColorController.blackColor,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                CustomTitle(
-                  title: 'Price: ${searchModel.price}',
-                  style: TitleStyle.style20,
-                  color: ColorController.redAccent,
-                ),
-              ],
-            ),
-          ],
-        ),
+        child: SearchListContentsBody(searchModel: searchModel),
       ),
     );
   }
@@ -76,3 +44,4 @@ class SearchListContents extends StatelessWidget {
     );
   }
 }
+

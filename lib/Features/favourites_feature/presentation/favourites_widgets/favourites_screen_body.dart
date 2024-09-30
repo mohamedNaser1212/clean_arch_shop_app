@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/widgets/custom_refresh_indicator.dart';
 import '../cubit/favourites_cubit.dart';
 
-
-
 class FavoritesScreenBody extends StatelessWidget {
   final FavouritesState state;
 

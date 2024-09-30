@@ -15,7 +15,7 @@ class SearchScreenBody extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 10),
-        SearchField(),
+        const SearchField(),
         const SizedBox(height: 20),
         BlocConsumer<SearchCubit, SearchState>(
           listener: _listener,
@@ -29,11 +29,7 @@ class SearchScreenBody extends StatelessWidget {
     if (state is SearchLoadingState) {
       return const Center(child: CircularProgressIndicator());
     } else if (state is SearchSuccessState) {
-      return const Expanded(
-          child: Padding(
-        padding: EdgeInsets.all(12.0),
-        child: SearchResultList(),
-      ));
+      return const SearchResultList();
     } else if (state is SearchErrorState) {
       return Center(
         child: CustomTitle(

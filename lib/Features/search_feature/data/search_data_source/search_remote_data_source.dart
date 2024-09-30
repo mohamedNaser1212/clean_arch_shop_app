@@ -5,7 +5,7 @@ import '../../../../core/networks/api_manager/end_points.dart';
 import '../search_model/search_model.dart';
 
 abstract class SearchRemoteDataSource {
-  const SearchRemoteDataSource();
+  const SearchRemoteDataSource._();
 
   Future<List<SearchModel>> search({
     required String text,

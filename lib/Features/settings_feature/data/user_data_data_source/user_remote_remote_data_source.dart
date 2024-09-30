@@ -7,7 +7,7 @@ import '../../../../core/networks/api_manager/end_points.dart';
 import '../../../authentication_feature/data/model/user_model.dart';
 
 abstract class UserRemoteDataSource {
-  const UserRemoteDataSource();
+  const UserRemoteDataSource._();
 
   Future<UserModel> updateUserData({
     required UpdateUserRequestModel updateUserRequestModel,

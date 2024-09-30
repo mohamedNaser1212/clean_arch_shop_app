@@ -6,7 +6,6 @@ import 'package:shop_app/Features/home/presentation/products_widgets/product_nam
 import 'package:shop_app/Features/home/presentation/products_widgets/products_additional_images.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_prices_widgets.dart';
 
-
 class ProductsDetailsComponents extends StatelessWidget {
   const ProductsDetailsComponents({super.key, required this.state});
   final ProductDetailsBodyState state;
@@ -18,17 +17,16 @@ class ProductsDetailsComponents extends StatelessWidget {
       children: [
         ProductNameWidget(state: state),
         const SizedBox(height: 8),
-       const DescriptionTextWidget(),
+        const DescriptionTextWidget(),
         const SizedBox(height: 4),
-       ProductDescriptionWidget(
+        ProductDescriptionWidget(
           state: state,
-       ),
+        ),
         const SizedBox(height: 8),
         if (state.widget.model.discount != 0)
-          ProductsPricesWidgets( state: state),
+          ProductsPricesWidgets(state: state),
         const SizedBox(height: 16),
-        if (state.widget.isProduct)
-          ProductsAdditionalImages(state: state), 
+        if (state.widget.isProduct) ProductsAdditionalImages(state: state),
       ],
     );
   }

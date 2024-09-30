@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_details_components.dart';
 
-
 class ProductDetailsBody extends StatefulWidget {
   const ProductDetailsBody(
       {super.key, required this.model, required this.images, this.isProduct});
@@ -17,7 +16,7 @@ class ProductDetailsBody extends StatefulWidget {
 class ProductDetailsBodyState extends State<ProductDetailsBody> {
   @override
   Widget build(BuildContext context) {
-   return Container(
+    return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -37,6 +36,4 @@ class ProductDetailsBodyState extends State<ProductDetailsBody> {
       ),
     );
   }
-
-  
 }

@@ -6,7 +6,7 @@ import '../../../../core/managers/errors_manager/failure.dart';
 import '../../../settings_feature/domain/user_entity/user_entity.dart';
 
 abstract class AuthenticationRepo {
-  const AuthenticationRepo();
+  const AuthenticationRepo._();
   Future<Either<Failure, UserEntity>> login({
     required LoginRequestModel requestModel,
   });

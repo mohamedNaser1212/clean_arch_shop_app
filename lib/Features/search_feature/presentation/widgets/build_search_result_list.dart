@@ -12,14 +12,19 @@ class SearchResultList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final results = SearchCubit.get(context).searchResults!;
-    return ConditionalBuilder(
-      condition: results.isNotEmpty,
-      builder: (context) => SearchListWidget(resultsList: results),
-      fallback: (context) => const Center(
-        child: CustomTitle(
-          title: 'Sorry, No results found',
-          style: TitleStyle.style20,
-          color: ColorController.blackColor,
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ConditionalBuilder(
+          condition: results.isNotEmpty,
+          builder: (context) => SearchListWidget(resultsList: results),
+          fallback: (context) => const Center(
+            child: CustomTitle(
+              title: 'Sorry, No results found',
+              style: TitleStyle.style20,
+              color: ColorController.blackColor,
+            ),
+          ),
         ),
       ),
     );

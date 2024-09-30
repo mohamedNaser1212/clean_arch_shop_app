@@ -6,16 +6,16 @@ import 'package:shop_app/Features/settings_feature/presentation/screen/settings_
 
 import '../../../../core/widgets/custom_elevated_botton.dart';
 import '../../../../core/widgets/loading_indicator.dart';
-import '../cubit/user_info_cubit/update_user_data_cubit.dart';
+import '../cubit/user_info_cubit/update_user_data_cubit/update_user_data_cubit.dart';
 
 class UpdateElevatedBotton extends StatelessWidget {
   const UpdateElevatedBotton({
     super.key,
-    required this.formKey,
+    
     required this.userState,
   });
 
-  final GlobalKey<FormState> formKey;
+
   final SettingsScreenState userState;
 
   @override
@@ -35,7 +35,7 @@ class UpdateElevatedBotton extends StatelessWidget {
     return CustomElevatedButton.updateButton(
           context: context,
           userState: userState,
-          formKey: formKey,
+       
         );
   }
 

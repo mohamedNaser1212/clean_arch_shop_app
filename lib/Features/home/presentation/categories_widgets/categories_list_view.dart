@@ -5,29 +5,26 @@ import '../../domain/entities/categories_entity/categories_entity.dart';
 import 'category_item.dart';
 
 class CategoriesListView extends StatelessWidget {
-  const CategoriesListView(
-      {super.key,
-      required this.categoryModel,
-      required this.state,
-});
+  const CategoriesListView({
+    super.key,
+    required this.categoryModel,
+    required this.state,
+  });
   final List<CategoriesEntity> categoryModel;
-  final CustomCategoriesListViewState state;
+  final CategoriesScreenBodyState state;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: state.widget.itemHeight * 7,
-      child:   ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      shrinkWrap: true,
-      itemBuilder: (context, index) => CategoriesPageItems(
-        state: state,
-        item: categoryModel[index],
-      ),
-      separatorBuilder: (context, index) => const SizedBox(width: 10),
-      itemCount: categoryModel.length,
-    )
-    );
+        height: state.widget.itemHeight * 7,
+        child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => CategoriesPageItems(
+            state: state,
+            item: categoryModel[index],
+          ),
+          separatorBuilder: (context, index) => const SizedBox(width: 10),
+          itemCount: categoryModel.length,
+        ));
   }
-
-
 }

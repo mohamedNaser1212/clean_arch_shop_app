@@ -1,7 +1,7 @@
 import 'api_request_model.dart';
 
 abstract class ApiHelper {
-  const ApiHelper();
+  const ApiHelper._();
   Future<Map<String, dynamic>> get({
     required ApiRequestModel request,
   });

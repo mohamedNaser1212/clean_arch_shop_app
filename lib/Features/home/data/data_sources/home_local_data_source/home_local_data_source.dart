@@ -4,7 +4,7 @@ import '../../../domain/entities/categories_entity/categories_entity.dart';
 import '../../../domain/entities/products_entity/product_entity.dart';
 
 abstract class HomeLocalDataSource {
-  const HomeLocalDataSource();
+  const HomeLocalDataSource._();
   Future<List<CategoriesEntity>> getCategories();
   Future<void> saveCategories({
     required List<CategoriesEntity> categories,

@@ -4,7 +4,7 @@ import '../../../networks/api_manager/api_request_model.dart';
 import '../../../networks/api_manager/end_points.dart';
 
 abstract class UserInfoRemoteDataSource {
-  const UserInfoRemoteDataSource();
+  const UserInfoRemoteDataSource._();
 
   Future<UserModel> getUser();
 }

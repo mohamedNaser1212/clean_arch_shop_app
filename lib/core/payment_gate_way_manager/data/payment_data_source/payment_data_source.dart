@@ -5,7 +5,7 @@ import '../../../networks/api_manager/request_data_names.dart';
 import '../../../stripe_key/stripe_keys.dart';
 
 abstract class PaymentDataSource {
-  const PaymentDataSource();
+  const PaymentDataSource._();
 
   Future<String> getClientSecret({
     required String amount,

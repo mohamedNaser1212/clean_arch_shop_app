@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/Features/layout/presentation/screens/layout_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
-  // final int currentIndex;
-  // final List<BottomNavigationBarItem> items;
-  // final ValueChanged<int> onTap;
+
 
   const BottomNavBar({
     super.key,
-    // required this.currentIndex,
-    // required this.items,
-    // required this.onTap,
+
     required this.state,
   });
   final LayoutScreenState state;

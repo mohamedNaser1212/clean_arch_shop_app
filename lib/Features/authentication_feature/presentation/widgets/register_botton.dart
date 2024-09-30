@@ -13,13 +13,9 @@ class RegisterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomElevatedButton.registerButton(
-          context: context,
-          state: state,
-        ),
-      ],
+    return CustomElevatedButton.registerButton(
+      context: context,
+      state: state,
     );
   }
 }

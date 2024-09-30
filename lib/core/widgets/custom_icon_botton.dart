@@ -27,12 +27,7 @@ class CustomIconButton extends StatelessWidget {
     required BuildContext context,
   }) {
     return CustomIconButton._(
-      onPressed: () async {
-        final cartsCubit = CartsCubit.get(context);
-        final isCart = cartsCubit.carts[state.widget.product.id] ?? false;
-        cartsCubit.carts[state.widget.product.id] = !isCart;
-        ToggleCartCubit.get(context).changeCarts(state.widget.product.id);
-      },
+      onPressed: () => _cartsOnPressed(state, context),
       icon: Icons.shopping_cart,
       backgroundColor:
           isCart ? ColorController.redColor : ColorController.greyColor,
@@ -45,15 +40,7 @@ class CustomIconButton extends StatelessWidget {
     required FavoriteIconWidgetState state,
   }) {
     return CustomIconButton._(
-      onPressed: () {
-        final favouritesCubit = FavouritesCubit.get(context);
-
-        final isFavorite =
-            favouritesCubit.favorites[state.widget.product.id] ?? false;
-        favouritesCubit.favorites[state.widget.product.id] = !isFavorite;
-        ToggleFavouriteCubit.get(context)
-            .changeFavourite(state.widget.product.id);
-      },
+      onPressed: () => _favoritesOnPressed(state, context),
       icon: Icons.favorite,
       backgroundColor:
           isFavorite ? ColorController.redColor : ColorController.greyColor,
@@ -73,6 +60,24 @@ class CustomIconButton extends StatelessWidget {
       icon: icon,
       backgroundColor: backgroundColor ?? ColorController.blueAccent,
     );
+  }
+
+  static void _cartsOnPressed(
+      CartIconWidgetState state, BuildContext context) async {
+    final cartsCubit = CartsCubit.get(context);
+    final isCart = cartsCubit.carts[state.widget.product.id] ?? false;
+    cartsCubit.carts[state.widget.product.id] = !isCart;
+    ToggleCartCubit.get(context).changeCarts(state.widget.product.id);
+  }
+
+  static void _favoritesOnPressed(
+      FavoriteIconWidgetState state, BuildContext context) {
+    final favouritesCubit = FavouritesCubit.get(context);
+    final isFavorite =
+        favouritesCubit.favorites[state.widget.product.id] ?? false;
+    favouritesCubit.favorites[state.widget.product.id] = !isFavorite;
+    ToggleFavouriteCubit.get(context)
+        .changeFavourite(state.widget.product.id);
   }
 
   @override

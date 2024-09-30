@@ -7,7 +7,6 @@ import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourite_item.dart';
 import 'package:shop_app/core/widgets/loading_indicator.dart';
 
-
 class CustomRefreshIndicator<T> extends StatelessWidget {
   final Future<void> Function(BuildContext context)? onRefresh;
   final List<T> items;
@@ -26,9 +25,7 @@ class CustomRefreshIndicator<T> extends StatelessWidget {
   }) {
     var favourites = FavouritesCubit.get(context).getFavouritesModel;
     return CustomRefreshIndicator<FavouritesEntity>._(
-      onRefresh: (context) async {
-        await FavouritesCubit.get(context).getFavorites();
-      },
+      onRefresh: (context) => _handleFavoritesRefresh(context),
       items: favourites,
       itemBuilder: (context, item) => FavoriteItem(model: item),
       fallback:
@@ -42,13 +39,19 @@ class CustomRefreshIndicator<T> extends StatelessWidget {
   }) {
     var carts = CartsCubit.get(context).cartEntity;
     return CustomRefreshIndicator<CartEntity>._(
-      onRefresh: (context) async {
-        await CartsCubit.get(context).getCarts();
-      },
+      onRefresh: (context) => _handleCartsRefresh(context),
       items: carts,
       itemBuilder: (context, item) => CartItemWidget(model: item),
       fallback: const Center(child: Text('Your cart is empty')),
     );
+  }
+
+  static Future<void> _handleFavoritesRefresh(BuildContext context) async {
+    await FavouritesCubit.get(context).getFavorites();
+  }
+
+  static Future<void> _handleCartsRefresh(BuildContext context) async {
+    await CartsCubit.get(context).getCarts();
   }
 
   @override

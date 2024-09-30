@@ -1,4 +1,5 @@
 import 'package:shop_app/Features/settings_feature/domain/user_entity/user_entity.dart';
+import 'package:shop_app/core/networks/api_manager/request_data_names.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
@@ -9,12 +10,12 @@ class UserModel extends UserEntity {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    final data = json['data'] as Map<String, dynamic>? ?? {};
+    final data = json[RequestDataNames.data] as Map<String, dynamic>? ?? {};
     return UserModel(
-      name: data['name'] ?? '',
-      email: data['email'] ?? '',
-      phone: data['phone'] ?? '',
-      token: data['token'] ?? '',
+      name: data[RequestDataNames.name] ?? '',
+      email: data[RequestDataNames.email] ?? '',
+      phone: data[RequestDataNames.phone] ?? '',
+      token: data[RequestDataNames.token] ?? '',
     );
   }
 }

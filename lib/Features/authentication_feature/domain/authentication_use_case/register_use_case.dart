@@ -8,7 +8,9 @@ import '../../../settings_feature/domain/user_entity/user_entity.dart';
 class RegisterUseCase {
   final AuthenticationRepo authenticationRepo;
 
-  const RegisterUseCase({required this.authenticationRepo});
+  const RegisterUseCase({
+    required this.authenticationRepo,
+  });
 
   Future<Either<Failure, UserEntity>> call({
     required RegisterRequestModel requestModel,

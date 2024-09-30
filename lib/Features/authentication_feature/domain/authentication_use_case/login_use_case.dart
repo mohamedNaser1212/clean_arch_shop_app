@@ -8,7 +8,9 @@ import '../../../settings_feature/domain/user_entity/user_entity.dart';
 class LoginUseCase {
   final AuthenticationRepo authenticationRepo;
 
-  const LoginUseCase({required this.authenticationRepo});
+  const LoginUseCase({
+    required this.authenticationRepo,
+  });
 
   Future<Either<Failure, UserEntity>> call({
     required LoginRequestModel requestModel,

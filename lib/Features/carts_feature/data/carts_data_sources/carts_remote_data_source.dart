@@ -5,7 +5,7 @@ import '../../../../core/networks/api_manager/end_points.dart';
 import '../carts_model/cart_response_model.dart';
 
 abstract class CartsRemoteDataSource {
-  const CartsRemoteDataSource();
+  const CartsRemoteDataSource._();
   Future<List<CartResponseModel>> getCarts();
   Future<List<CartResponseModel>> removeCarts({
     required num productId,

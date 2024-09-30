@@ -3,7 +3,7 @@ import '../../../networks/hive_manager/hive_boxes_names.dart';
 import '../../../networks/hive_manager/hive_helper.dart';
 
 abstract class UserInfoLocalDataSource {
-  const UserInfoLocalDataSource();
+  const UserInfoLocalDataSource._();
   Future<void> saveUserData({required UserEntity user});
   Future<UserEntity?> loadUserData();
   Future<void> clearUserData();

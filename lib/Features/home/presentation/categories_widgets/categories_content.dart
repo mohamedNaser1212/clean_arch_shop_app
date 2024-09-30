@@ -4,21 +4,19 @@ import 'package:shop_app/Features/home/presentation/categories_widgets/categorie
 import '../../domain/entities/categories_entity/categories_entity.dart';
 
 class CategoriesContents extends StatelessWidget {
-  const CategoriesContents(
-      {super.key,
-      required this.item,
-      required this.state,
-   });
+  const CategoriesContents({
+    super.key,
+    required this.item,
+    required this.state,
+  });
   final CategoriesEntity item;
-  final CustomCategoriesListViewState state;
+  final CategoriesScreenBodyState state;
 
   @override
   Widget build(BuildContext context) {
-       return CategoriesContentsBody(
-    state: state  ,
-    item: item,
-  );
+    return CategoriesContentsBody(
+      state: state,
+      item: item,
+    );
   }
-
-
 }

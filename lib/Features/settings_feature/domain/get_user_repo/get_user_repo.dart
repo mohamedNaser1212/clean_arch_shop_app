@@ -5,7 +5,7 @@ import '../../../../core/managers/errors_manager/failure.dart';
 import '../user_entity/user_entity.dart';
 
 abstract class UserDataRepo {
-  const UserDataRepo();
+  const UserDataRepo._();
   Future<Either<Failure, UserEntity>> getUserData();
   Future<Either<Failure, UserEntity>> updateUserData({
     required UpdateUserRequestModel updateUserRequestModel,

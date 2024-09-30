@@ -5,32 +5,27 @@ import '../../domain/entities/categories_entity/categories_entity.dart';
 import 'categories_content.dart';
 
 class CategoriesPageItems extends StatelessWidget {
-  const CategoriesPageItems(
-      {super.key,
-      required this.item,
-      required this.state,});
+  const CategoriesPageItems({
+    super.key,
+    required this.item,
+    required this.state,
+  });
   final CategoriesEntity item;
-final CustomCategoriesListViewState state;
-
+  final CategoriesScreenBodyState state;
 
   @override
   Widget build(BuildContext context) {
-      return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Container(
-      width:state.widget. itemWidth,
-      height:state.widget.  itemHeight,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.deepOrange[100],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: state.widget.itemWidth,
+        height: state.widget.itemHeight,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.deepOrange[100],
+        ),
+        child: CategoriesContents(item: item, state: state),
       ),
-      child: CategoriesContents(
-        item: item,
-        state: state
-      ),
-    ),
-  );
+    );
   }
-
- 
 }

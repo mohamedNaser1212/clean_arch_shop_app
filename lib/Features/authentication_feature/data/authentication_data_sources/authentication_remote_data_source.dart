@@ -8,7 +8,7 @@ import '../../../../core/networks/api_manager/api_request_model.dart';
 import '../../../../core/networks/api_manager/end_points.dart';
 
 abstract class AuthenticationRemoteDataSource {
-  const AuthenticationRemoteDataSource();
+  const AuthenticationRemoteDataSource._();
   Future<UserModel> login({
     required LoginRequestModel requestModel,
   });
