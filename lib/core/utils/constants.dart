@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 var defaultLightColor = Colors.deepOrange;
 
@@ -14,7 +15,7 @@ ThemeData lightTheme = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     elevation: 10,
     selectedItemColor: defaultLightColor,
-    unselectedItemColor: Colors.black,
+    unselectedItemColor: ColorController.blackColor,
   ),
   primaryColor: defaultLightColor,
   primarySwatch: defaultLightColor,
@@ -25,7 +26,7 @@ TextEditingController passwordController = TextEditingController();
 
 // String token='';
 
-Color defaultColor = Colors.white;
+Color defaultColor = ColorController.whiteColor;
 
 String fontFamily = 'Inter';
 String splashImage = 'assets/images/groot.jpg';
