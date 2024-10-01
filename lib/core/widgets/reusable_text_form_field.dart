@@ -46,7 +46,7 @@ class ReusableTextFormField extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 width: 2.0,
-                color: borderSideColor ?? ColorController.greyColor),
+                color: borderSideColor),
             borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           ),
           labelText: label,
