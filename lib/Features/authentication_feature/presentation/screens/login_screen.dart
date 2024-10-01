@@ -10,7 +10,7 @@ import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
 import 'package:shop_app/core/widgets/initial_screen.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';
-import 'package:shop_app/core/widgets/custom_app_bar.dart';  // Import the CustomAppBar
+import 'package:shop_app/core/widgets/custom_app_bar.dart'; // Import the CustomAppBar
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -57,7 +57,7 @@ class LoginScreenState extends State<LoginScreen> {
     return CustomProgressIndicator(
       isLoading: state is LoginLoadingState,
       child: Scaffold(
-        appBar:  CustomAppBar(title: 'Login'),  // Use the CustomAppBar here
+        appBar: const CustomAppBar(title: 'Login'),
         body: LoginScreenBody(state: this),
       ),
     );
