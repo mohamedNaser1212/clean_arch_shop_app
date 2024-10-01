@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/custom_elevated_botton.dart';
-import '../../../../core/widgets/loading_indicator.dart';
+import '../../../../core/widgets/loading_indicator_widget.dart';
 import '../cubit/user_info_cubit/sign_out_cubit/sign_out_cubit.dart';
 
 class SignOutElevatedBotton extends StatelessWidget {

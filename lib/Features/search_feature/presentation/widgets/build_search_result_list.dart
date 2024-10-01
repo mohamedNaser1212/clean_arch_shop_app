@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/search_feature/presentation/widgets/search_list_widget.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/custom_title_widget.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../cubit/search_cubit/search_cubit.dart';

@@ -5,7 +5,7 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.d
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/payment_gate_way_manager/cubit/payment_cubit.dart';
-import 'package:shop_app/core/widgets/loading_indicator.dart';
+import 'package:shop_app/core/widgets/loading_indicator_widget.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 import 'payment_conditional_builder.dart'; 
 

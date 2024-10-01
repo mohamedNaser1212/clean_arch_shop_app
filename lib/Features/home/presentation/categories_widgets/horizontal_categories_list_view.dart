@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/domain/entities/categories_entity/categories_entity.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/custom_title_widget.dart';
 
 class HorizontalCategoriesListView extends StatelessWidget {
   const HorizontalCategoriesListView({

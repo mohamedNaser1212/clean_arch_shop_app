@@ -6,7 +6,7 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_f
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 
-import 'package:shop_app/core/widgets/custom_icon_botton.dart';
+import 'package:shop_app/core/widgets/custom_icon_botton_widget.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
   const FavoriteIconWidget({super.key, required this.product});

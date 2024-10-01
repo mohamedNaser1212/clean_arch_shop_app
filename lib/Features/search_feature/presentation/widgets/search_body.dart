@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/widgets/custom_title.dart';
+import '../../../../core/widgets/custom_title_widget.dart';
 import '../cubit/search_cubit/search_cubit.dart';
 import '../widgets/build_search_result_list.dart';
 import 'build_search_field.dart';

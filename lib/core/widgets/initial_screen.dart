@@ -5,7 +5,7 @@ import 'package:shop_app/Features/layout/presentation/screens/layout_screen.dart
 import 'package:shop_app/core/functions/navigations_functions.dart';
 
 import '../user_info/cubit/user_info_cubit.dart';
-import 'custom_title.dart';
+import 'custom_title_widget.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);

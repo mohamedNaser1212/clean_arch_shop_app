@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_title.dart';
+import '../widgets/custom_title_widget.dart';
 
 void showLimitDialog({
   required BuildContext context,

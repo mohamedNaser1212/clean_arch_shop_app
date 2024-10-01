@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/refresh_indicator_widget_builder.dart';
-import 'package:shop_app/core/widgets/loading_indicator.dart';
+import 'package:shop_app/core/widgets/loading_indicator_widget.dart';
 
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 import '../cubit/carts_cubit.dart';

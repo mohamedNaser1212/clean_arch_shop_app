@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/horizontal_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/custom_title_widget.dart';
 
 class CategoriesScreenBody extends StatefulWidget {
   const CategoriesScreenBody({

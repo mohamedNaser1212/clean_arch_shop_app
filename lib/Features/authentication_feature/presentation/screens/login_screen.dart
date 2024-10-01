@@ -57,7 +57,7 @@ class LoginScreenState extends State<LoginScreen> {
     return CustomProgressIndicator(
       isLoading: state is LoginLoadingState,
       child: Scaffold(
-        appBar: const CustomAppBar(title: 'Login'),
+        appBar:  CustomAppBar(title: 'Login'),
         body: LoginScreenBody(state: this),
       ),
     );

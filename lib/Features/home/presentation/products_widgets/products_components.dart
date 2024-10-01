@@ -9,8 +9,8 @@ import 'package:shop_app/Features/home/presentation/products_widgets/product_gri
 import '../cubit/categories_cubit/categories_cubit.dart';
 import '../cubit/products_cubit/get_product_cubit.dart';
 
-class ProductsScreenBody extends StatelessWidget {
-  const ProductsScreenBody({super.key});
+class ProductsComponenets extends StatelessWidget {
+  const ProductsComponenets({super.key});
 
   @override
   Widget build(BuildContext context) {

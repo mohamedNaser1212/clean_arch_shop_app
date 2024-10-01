@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/products_cubit/get_products_state.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/product_screem_body.dart';
 
 import '../../../../core/functions/toast_function.dart';
-import '../categories_widgets/products_screen_body.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
@@ -17,14 +19,23 @@ class ProductsScreen extends StatelessWidget {
   }
 
   Widget _builder(context, categoriesState) {
-    return ProductsScreenBody(state: categoriesState);
-  }
+    final categoriesCubit = CategoriesCubit.get(context);
 
-  void _listener(context, state) {
-    if (state is CategoriesError) {
-      showToast(
-        message: state.error,
+    if (categoriesState is CategoriesSuccess ||
+        categoriesCubit.categoriesModel != null) {
+      return BlocBuilder<ProductsCubit, GetProductsState>(
+        builder: (context, state) => ProductsScreenBody(state: state),
       );
+    } else {
+      return const Center(child: CircularProgressIndicator());
     }
+  }
+}
+
+void _listener(context, state) {
+  if (state is CategoriesError) {
+    showToast(
+      message: state.error,
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_details_body.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
-import 'package:shop_app/core/widgets/custom_title.dart';
+import 'package:shop_app/core/widgets/custom_title_widget.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 
 class ProductNameWidget extends StatelessWidget {

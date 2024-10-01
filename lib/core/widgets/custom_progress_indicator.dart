@@ -18,7 +18,7 @@ class CustomProgressIndicator extends StatelessWidget {
         child,
         if (isLoading)
           Container(
-            color: Colors.black.withOpacity(0.5),
+            color: ColorController.blackColor.withOpacity(0.5),
             child: const Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(

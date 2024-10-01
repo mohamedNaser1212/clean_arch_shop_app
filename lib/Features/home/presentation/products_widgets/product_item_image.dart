@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
 
 import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/widgets/custom_title.dart';
+import '../../../../core/widgets/custom_title_widget.dart';
 
 class ProductItemImage extends StatelessWidget {
   const ProductItemImage({super.key, required this.product});

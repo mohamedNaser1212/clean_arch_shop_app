@@ -5,7 +5,7 @@ import 'package:shop_app/Features/favourites_feature/domain/favourites_entity/fa
 import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_item_widget.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourite_item.dart';
-import 'package:shop_app/core/widgets/loading_indicator.dart';
+import 'package:shop_app/core/widgets/loading_indicator_widget.dart';
 
 class CustomRefreshIndicator<T> extends StatelessWidget {
   final Future<void> Function(BuildContext context)? onRefresh;
@@ -61,16 +61,11 @@ class CustomRefreshIndicator<T> extends StatelessWidget {
     }
 
     return RefreshIndicator(
-      onRefresh: () => onRefresh!(context),
-      child: _buildListView(),
-    );
-  }
-
-  ListView _buildListView() {
-    return ListView.separated(
-      itemBuilder: (context, index) => itemBuilder(context, items[index]),
-      separatorBuilder: (context, index) => const Divider(),
-      itemCount: items.length,
-    );
+        onRefresh: () => onRefresh!(context),
+        child: ListView.separated(
+          itemBuilder: (context, index) => itemBuilder(context, items[index]),
+          separatorBuilder: (context, index) => const Divider(),
+          itemCount: items.length,
+        ));
   }
 }
