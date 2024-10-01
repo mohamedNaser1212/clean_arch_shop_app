@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 import '../../domain/entities/products_entity/product_entity.dart';
 
@@ -9,7 +10,7 @@ class ProductsGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[400],
+      color: ColorController.greyColor.withOpacity(0.1),
       child: GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),

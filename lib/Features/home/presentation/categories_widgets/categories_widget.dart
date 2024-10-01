@@ -1,10 +1,11 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/loading_text_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/horizontal_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
-import 'package:shop_app/core/widgets/custom_title_widget.dart';
+
 
 class CategoriesScreenBody extends StatefulWidget {
   const CategoriesScreenBody({
@@ -31,8 +32,6 @@ class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
     );
   }
 
-  void _listener(context, state) {}
-
   Widget _builder(context, state) {
     return ConditionalBuilder(
       condition: CategoriesCubit.get(context).categoriesModel != null,
@@ -49,12 +48,11 @@ class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
                 state: this,
               );
       },
-      fallback: (context) => const Center(
-        child: CustomTitle(
-          title: 'Loading...',
-          style: TitleStyle.styleBold18,
-        ),
-      ),
+      fallback: (context) => const LoadingTextWidget(),
     );
   }
+  
+  void _listener(context, state) {}
+
 }
+

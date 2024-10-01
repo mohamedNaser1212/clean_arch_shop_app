@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_details_components.dart';
+import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 class ProductDetailsBody extends StatefulWidget {
   const ProductDetailsBody(
@@ -20,11 +21,11 @@ class ProductDetailsBodyState extends State<ProductDetailsBody> {
       width: double.infinity,
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorController.whiteColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: ColorController.greyColor.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
             offset: const Offset(0, 3),
