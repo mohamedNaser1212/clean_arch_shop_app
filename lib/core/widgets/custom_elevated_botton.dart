@@ -59,10 +59,12 @@ class CustomElevatedButton extends StatelessWidget {
   factory CustomElevatedButton.updateButton({
     required BuildContext context,
     required SettingsScreenState userState,
-   
   }) {
     return CustomElevatedButton._(
-      onPressed: () => _updateAction(context, userState,),
+      onPressed: () => _updateAction(
+        context,
+        userState,
+      ),
       label: 'Update',
     );
   }
@@ -111,7 +113,6 @@ class CustomElevatedButton extends StatelessWidget {
   static void _updateAction(
     BuildContext context,
     SettingsScreenState userState,
-  
   ) {
     if (userState.formKey.currentState!.validate()) {
       final cubit = UpdateUserDataCubit.get(context);
@@ -148,6 +149,7 @@ class CustomElevatedButton extends StatelessWidget {
       label: label,
       backColor: backColor ?? ColorController.blueAccent,
       onPressed: onPressed,
+      textColor: ColorController.whiteColor,
     );
   }
 }
