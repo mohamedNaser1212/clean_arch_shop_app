@@ -1,4 +1,5 @@
 import 'package:shop_app/Features/settings_feature/data/update_user_request_model.dart';
+import 'package:shop_app/core/networks/api_manager/request_data_names.dart';
 
 import '../../../../core/networks/api_manager/api_manager.dart';
 import '../../../../core/networks/api_manager/api_request_model.dart';
@@ -44,6 +45,6 @@ class UserDataSourceImpl implements UserRemoteDataSource {
     ApiRequestModel request = ApiRequestModel(
         endpoint: EndPoints.logOutEndPoint, headerModel: HeaderModel());
     final response = await apiHelper.post(request: request);
-    return response['status'];
+    return response[RequestDataNames.status];
   }
 }

@@ -1,3 +1,5 @@
+import 'package:shop_app/core/networks/api_manager/request_data_names.dart';
+
 import '../../domain/cart_entity/add_to_cart_entity.dart';
 
 class CartResponseModel extends CartEntity {
@@ -13,13 +15,13 @@ class CartResponseModel extends CartEntity {
 
   factory CartResponseModel.fromJson(Map<String, dynamic> json) {
     return CartResponseModel(
-      id: json['id'],
-      price: json['price'],
-      oldPrice: json['old_price'] ?? 0,
-      discount: json['discount'] ?? 0,
-      image: json['image'],
-      name: json['name'],
-      description: json['description'],
+      id: json[RequestDataNames.id],
+      price: json[RequestDataNames.price],
+      oldPrice: json[RequestDataNames.oldPrice] ?? 0,
+      discount: json[RequestDataNames.discount] ?? 0,
+      image: json[RequestDataNames.image],
+      name: json[RequestDataNames.name],
+      description: json[RequestDataNames.description],
     );
   }
 }

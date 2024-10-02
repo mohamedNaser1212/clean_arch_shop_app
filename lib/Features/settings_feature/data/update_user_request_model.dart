@@ -1,3 +1,5 @@
+import 'package:shop_app/core/networks/api_manager/request_data_names.dart';
+
 class UpdateUserRequestModel {
   final String name;
   final String email;
@@ -11,9 +13,9 @@ class UpdateUserRequestModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'email': email,
-      'phone': phone,
+    RequestDataNames.name: name,
+      RequestDataNames.email: email,
+      RequestDataNames.phone : phone,
     };
   }
 }

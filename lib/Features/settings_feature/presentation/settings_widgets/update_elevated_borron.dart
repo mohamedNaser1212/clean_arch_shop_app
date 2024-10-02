@@ -11,10 +11,8 @@ import '../cubit/user_info_cubit/update_user_data_cubit/update_user_data_cubit.d
 class UpdateElevatedBotton extends StatelessWidget {
   const UpdateElevatedBotton({
     super.key,
-    
     required this.userState,
   });
-
 
   final SettingsScreenState userState;
 
@@ -33,11 +31,8 @@ class UpdateElevatedBotton extends StatelessWidget {
 
   CustomElevatedButton _builder(BuildContext context) {
     return CustomElevatedButton.updateButton(
-          context: context,
-          userState: userState,
-       
-        );
+      context: context,
+      userState: userState,
+    );
   }
-
-
 }
