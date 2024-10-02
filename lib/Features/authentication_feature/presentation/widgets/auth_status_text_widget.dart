@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/register_screen.dart';
-import 'package:shop_app/core/functions/navigations_functions.dart';
+import 'package:shop_app/core/functions/navigations_function.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 import 'package:shop_app/core/widgets/custom_title_widget.dart';
 
@@ -20,7 +20,7 @@ class AuthStatusTextWidget extends StatelessWidget {
   }) {
     return AuthStatusTextWidget._(
       onRegisterPressed: () {
-        NavigationManager.navigateTo(
+        NavigationFunctions.navigateTo(
             context: context, screen: const RegisterScreen());
       },
       title: 'Don\'t have an account?',

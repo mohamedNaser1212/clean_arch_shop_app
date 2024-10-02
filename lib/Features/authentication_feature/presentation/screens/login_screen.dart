@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/domain/authentication_use_case/login_use_case.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_screen_body.dart';
-import 'package:shop_app/core/functions/navigations_functions.dart';
+import 'package:shop_app/core/functions/navigations_function.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
@@ -10,7 +10,7 @@ import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
 import 'package:shop_app/core/widgets/initial_screen.dart';
 import '../cubit/login_cubit/login_cubit.dart';
 import '../cubit/login_cubit/login_state.dart';
-import 'package:shop_app/core/widgets/custom_app_bar.dart'; // Import the CustomAppBar
+import 'package:shop_app/core/widgets/custom_app_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => LoginScreenState();
 }
-
 class LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -31,14 +30,12 @@ class LoginScreenState extends State<LoginScreen> {
     passwordController = TextEditingController();
     super.initState();
   }
-
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -57,7 +54,7 @@ class LoginScreenState extends State<LoginScreen> {
     return CustomProgressIndicator(
       isLoading: state is LoginLoadingState,
       child: Scaffold(
-        appBar:  CustomAppBar(title: 'Login'),
+        appBar: CustomAppBar(title: 'Login'),
         body: LoginScreenBody(state: this),
       ),
     );
@@ -65,10 +62,10 @@ class LoginScreenState extends State<LoginScreen> {
 
   void _loginListener(BuildContext context, LoginState state) {
     if (state is LoginSuccessState) {
-      NavigationManager.navigateAndFinish(
+      NavigationFunctions.navigateAndFinish(
           context: context, screen: const InitialScreen());
     } else if (state is LoginErrorState) {
-      ToastFunction. showToast(
+      ToastFunction.showToast(
         message: state.error,
       );
     }

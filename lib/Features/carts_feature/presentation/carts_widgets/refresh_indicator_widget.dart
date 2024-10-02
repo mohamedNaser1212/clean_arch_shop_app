@@ -4,7 +4,7 @@ import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/refre
 import 'package:shop_app/core/widgets/loading_indicator_widget.dart';
 
 import '../../domain/cart_entity/add_to_cart_entity.dart';
-import '../cubit/carts_cubit.dart';
+import '../cubit/get_carts_cubit/carts_cubit.dart';
 
 class RefreshIndicatorWidget extends StatelessWidget {
   const RefreshIndicatorWidget({super.key, required this.cartModel});

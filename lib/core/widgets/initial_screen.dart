@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
 import 'package:shop_app/Features/layout/presentation/screens/layout_screen.dart';
-import 'package:shop_app/core/functions/navigations_functions.dart';
-
+import 'package:shop_app/core/functions/navigations_function.dart';
 import '../user_info/cubit/user_info_cubit.dart';
 import 'custom_title_widget.dart';
 
@@ -51,14 +50,14 @@ class _InitialScreenState extends State<InitialScreen> {
   void _listener(context, state) {
     if (state is GetUserInfoSuccessState) {
       if (state.userEntity == null) {
-        NavigationManager.navigateAndFinish(
+        NavigationFunctions.navigateAndFinish(
           context: context,
           screen: const LoginScreen(),
         );
       } else {
         UserInfoCubit.get(context).userEntity = state.userEntity;
 
-        NavigationManager.navigateAndFinish(
+        NavigationFunctions.navigateAndFinish(
           context: context,
           screen: const LayoutScreen(),
         );

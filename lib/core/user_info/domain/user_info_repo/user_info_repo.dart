@@ -5,6 +5,5 @@ import '../../../managers/errors_manager/failure.dart';
 
 abstract class UserInfoRepo {
   const UserInfoRepo._();
-
   Future<Either<Failure, UserEntity?>> getUser();
 }

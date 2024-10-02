@@ -10,14 +10,14 @@ import 'package:shop_app/Features/carts_feature/domain/carts_repo/cart_repo.dart
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/fetch_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/remove_cart_use_case.dart';
 import 'package:shop_app/Features/carts_feature/domain/carts_use_case/toggle_cart_use_case.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_carts_cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/favourite_remote_data_source.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourite_data_source/favourites_local_data_source.dart';
 import 'package:shop_app/Features/favourites_feature/data/favourites_repo_impl/favourites_repo_impl.dart';
 import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/get_favourites_use_case.dart';
 import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/toggle_favourites_use_case.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/data/data_sources/home_remote_data_sources/home_remote_data_source.dart';
 import 'package:shop_app/Features/home/domain/home_repo/home_repo.dart';
 import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
@@ -31,13 +31,12 @@ import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_
 import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/core/managers/repo_manager/repo_manager_impl.dart';
 import 'package:shop_app/core/networks/api_manager/end_points.dart';
-
 import '../../Features/authentication_feature/data/authentication_data_sources/authentication_remote_data_source.dart';
 import '../../Features/authentication_feature/domain/authentication_repo/authentication_repo.dart';
 import '../../Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
 import '../../Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
 import '../../Features/favourites_feature/domain/favourites_repo/favourites_repo.dart';
-import '../../Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
+import '../../Features/favourites_feature/presentation/cubit/toggle_favourites_cubit/toggle_favourite_cubit.dart';
 import '../../Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
 import '../../Features/home/data/repo/home_repo_impl.dart';
 import '../../Features/home/domain/use_case/home_use_case/categories_use_case.dart';
@@ -77,7 +76,7 @@ void setUpServiceLocator() async {
   // Register HiveService
   getIt.registerSingleton<LocalStorageManager>(HiveManager());
   await getIt.get<LocalStorageManager>().initialize();
-  print("Hive Initialized");
+
 
   getIt.registerSingleton<RepoManager>(
     RepoManagerImpl(

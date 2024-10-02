@@ -4,7 +4,7 @@ import 'package:shop_app/Features/home/presentation/products_widgets/products_in
 import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';
 
-import '../../../../core/functions/navigations_functions.dart';
+import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/favourite_and_cart_icons.dart';
 
@@ -43,7 +43,7 @@ class ProductItemState extends State<ProductItem> {
   }
 
   void _onTap() {
-    NavigationManager.navigateTo(
+    NavigationFunctions.navigateTo(
       context: context,
       screen: ProductsDetailsScreen(model: widget.product),
     );

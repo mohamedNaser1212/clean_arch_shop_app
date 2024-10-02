@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/cart_entity/add_to_cart_entity.dart';
-import '../../domain/carts_use_case/fetch_cart_use_case.dart';
+import '../../../domain/cart_entity/add_to_cart_entity.dart';
+import '../../../domain/carts_use_case/fetch_cart_use_case.dart';
 
 part 'carts_state.dart';
 

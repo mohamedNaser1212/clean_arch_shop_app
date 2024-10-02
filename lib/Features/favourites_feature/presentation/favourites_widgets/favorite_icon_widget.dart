@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
-
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourites_cubit/toggle_favourite_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 
@@ -17,9 +16,6 @@ class FavoriteIconWidget extends StatefulWidget {
 }
 
 class FavoriteIconWidgetState extends State<FavoriteIconWidget> {
-  int favouriteClickCount = 0;
-  final int maxClickCount = 2;
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ToggleFavouriteCubit, ToggleFavouriteState>(
@@ -44,7 +40,7 @@ class FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     if (state is ToggleFavoriteErrorState) {
       FavouritesCubit.get(context).favorites[widget.product.id] =
           !(FavouritesCubit.get(context).favorites[widget.product.id] ?? false);
-      ToastFunction. showToast(message: state.error);
+      ToastFunction.showToast(message: state.error);
     } else if (state is ToggleFavouriteSuccessState) {
       FavouritesCubit.get(context).getFavorites();
     }

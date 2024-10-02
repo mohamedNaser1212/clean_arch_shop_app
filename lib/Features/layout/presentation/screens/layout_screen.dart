@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 import 'package:shop_app/core/widgets/custom_title_widget.dart';
 
-import '../../../../core/functions/navigations_functions.dart';
+import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/utils/constants.dart';
 
 import '../../data/layouts_model.dart';
@@ -40,8 +40,6 @@ class LayoutScreenState extends State<LayoutScreen> {
   BottomNavBar _bottomNavigationBody() {
     return BottomNavBar(
       state: this,
-     
-     
     );
   }
 
@@ -66,7 +64,7 @@ class LayoutScreenState extends State<LayoutScreen> {
   }
 
   void _onSearchPressed() {
-    NavigationManager.navigateTo(
+    NavigationFunctions.navigateTo(
       context: context,
       screen: const SearchScreen(),
     );

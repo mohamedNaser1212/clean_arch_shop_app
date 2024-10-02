@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/domain/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_item_widget.dart';
@@ -27,7 +27,7 @@ class CustomRefreshIndicator<T> extends StatelessWidget {
     return CustomRefreshIndicator<FavouritesEntity>._(
       onRefresh: (context) => _handleFavoritesRefresh(context),
       items: favourites,
-      itemBuilder: (context, item) => FavoriteItem(model: item),
+      itemBuilder: (context, item) => FavoritesItems(model: item),
       fallback:
           const Center(child: Text('Sorry, there are no favourites to show')),
     );

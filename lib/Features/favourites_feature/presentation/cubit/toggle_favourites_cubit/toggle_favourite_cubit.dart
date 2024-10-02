@@ -19,9 +19,9 @@ class ToggleFavouriteCubit extends Cubit<ToggleFavouriteState> {
         emit(ToggleFavoriteErrorState(error: failure.message));
       },
       (isFavourite) {
-        // await getFavorites();
+
         emit(ToggleFavouriteSuccessState(isFavourite));
-        //   favorites[productId] ?? false
+
       },
     );
   }

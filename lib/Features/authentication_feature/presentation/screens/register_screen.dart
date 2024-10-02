@@ -8,14 +8,12 @@ import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 import 'package:shop_app/core/widgets/custom_app_bar.dart';
 import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
-
 import 'package:shop_app/core/widgets/initial_screen.dart';
-import '../../../../core/functions/navigations_functions.dart';
+import '../../../../core/functions/navigations_function.dart';
 import '../cubit/register_cubit/register_cubit.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -29,31 +27,30 @@ class RegisterScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _builder(BuildContext context, RegisterState state) {
     return CustomProgressIndicator(
       isLoading: state is RegisterLoadingState,
-      child:  Scaffold(
-        appBar:CustomAppBar(title: 'Register',),
+      child: Scaffold(
+        appBar: CustomAppBar(
+          title: 'Register',
+        ),
         body: const RegisterScreenBody(),
       ),
     );
   }
 }
-
 void _listener(BuildContext context, RegisterState state) {
   if (state is RegisterSuccessState) {
-    ToastFunction. showToast(
+    ToastFunction.showToast(
       color: ColorController.greenAccent,
       message: 'Register Success',
     );
-
-    NavigationManager.navigateAndFinish(
+    NavigationFunctions.navigateAndFinish(
       context: context,
       screen: const InitialScreen(),
     );
   } else if (state is RegisterErrorState) {
-  ToastFunction.   showToast(
+    ToastFunction.showToast(
       message: state.message,
     );
   }

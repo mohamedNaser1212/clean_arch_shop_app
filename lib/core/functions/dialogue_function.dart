@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_title_widget.dart';
 
-abstract class DialogHelper {
-  const DialogHelper._();
+abstract class DialogueFunction {
+  const DialogueFunction._();
   static void showLimitDialog({
     required BuildContext context,
     required String text,

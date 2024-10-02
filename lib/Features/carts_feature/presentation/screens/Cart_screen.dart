@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourites_cubit/toggle_favourite_cubit.dart';
 import 'package:shop_app/core/payment_gate_way_manager/cubit/payment_cubit.dart';
 import 'package:shop_app/core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import '../../../../core/functions/toast_function.dart';
 import '../carts_widgets/cart_content.dart';
-import '../cubit/toggle_cart_cubit.dart';
+import '../cubit/toggle_carts_cubit/toggle_cart_cubit.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({
@@ -22,11 +22,7 @@ class CartScreen extends StatelessWidget {
         paymentUseCase: getIt.get<PaymentUseCase>(),
       ),
       child: BlocListener<ToggleFavouriteCubit, ToggleFavouriteState>(
-        listener: (context, state) {
-          if (state is ToggleFavouriteSuccessState) {
-            FavouritesCubit.get(context).getFavorites();
-          }
-        },
+        listener: _toggleFavouritesListener,
         child: BlocListener<ToggleCartCubit, ToggleCartState>(
           listener: (context, state) => _listener(context, state),
           child: BlocBuilder<CartsCubit, CartsState>(
@@ -36,6 +32,12 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _toggleFavouritesListener(context, state) {
+        if (state is ToggleFavouriteSuccessState) {
+          FavouritesCubit.get(context).getFavorites();
+        }
+      }
 
   Widget _cartScreenBuilder(context, state) {
     if (state is GetCartItemsSuccessState) {
@@ -53,7 +55,6 @@ class CartScreen extends StatelessWidget {
     }
     return const SizedBox.shrink();
   }
-
   void _listener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartItemsErrorState) {
       ToastFunction.showToast(

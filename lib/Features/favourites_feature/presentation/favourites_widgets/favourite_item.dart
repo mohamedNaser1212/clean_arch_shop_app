@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/product_info_widget.dart';
 import 'package:shop_app/core/widgets/products_details_screen.dart';
-import '../../../../core/functions/navigations_functions.dart';
+import '../../../../core/functions/navigations_function.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import '../../../../core/widgets/favourite_and_cart_icons.dart';
 
-class FavoriteItem extends StatelessWidget {
+class FavoritesItems extends StatelessWidget {
   final BaseProductModel model;
 
-  const FavoriteItem({
+  const FavoritesItems({
     required this.model,
     Key? key,
   }) : super(key: key);
@@ -40,8 +40,9 @@ class FavoriteItem extends StatelessWidget {
       ),
     );
   }
+
   void _onPressed(BuildContext context) {
-    NavigationManager.navigateTo(
+    NavigationFunctions.navigateTo(
       context: context,
       screen: ProductsDetailsScreen(
         model: model,

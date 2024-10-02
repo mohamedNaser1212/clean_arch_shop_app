@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_form_body_components.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
-import '../../../../core/functions/navigations_functions.dart';
+import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/functions/toast_function.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';
 import '../../../authentication_feature/presentation/screens/login_screen.dart';
@@ -38,12 +38,12 @@ class SettingsFormBody extends StatelessWidget {
 
   void _updateListener(BuildContext context, UpdateUserDataState state) {
     if (state is UpdateUserDataError) {
-      ToastFunction. showToast(
+      ToastFunction.showToast(
         message: state.error,
       );
     } else if (state is UpdateUserDataSuccess) {
       UserInfoCubit.get(context).getUserData();
-      ToastFunction. showToast(
+      ToastFunction.showToast(
         message: 'Data updated successfully',
         color: ColorController.greenAccent,
       );
@@ -52,12 +52,12 @@ class SettingsFormBody extends StatelessWidget {
 
   void _signOutListener(BuildContext context, SignOutState state) {
     if (state is UserSignOutSuccess) {
-      NavigationManager.navigateAndFinish(
+      NavigationFunctions.navigateAndFinish(
         context: context,
         screen: const LoginScreen(),
       );
     } else if (state is UserSignOutError) {
-      ToastFunction. showToast(
+      ToastFunction.showToast(
         message: state.error,
       );
     }

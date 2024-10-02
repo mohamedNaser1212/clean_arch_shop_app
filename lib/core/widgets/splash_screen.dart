@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:shop_app/core/functions/navigations_functions.dart';
+import 'package:shop_app/core/functions/navigations_function.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/utils/constants.dart';
 import '../stripe_key/stripe_keys.dart';
@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
         await Future.delayed(const Duration(seconds: 3));
 
         if (mounted) {
-          NavigationManager.navigateAndFinish(
+          NavigationFunctions.navigateAndFinish(
             context: context,
             screen: const InitialScreen(),
           );

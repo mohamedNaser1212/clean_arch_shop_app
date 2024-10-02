@@ -25,7 +25,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
       },
       (user) {
         userEntity = user;
-        print(userEntity?.name);
+
         emit(GetUserInfoSuccessState(userEntity: userEntity));
       },
     );

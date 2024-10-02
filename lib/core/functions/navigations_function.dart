@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-abstract class NavigationManager {
-  const NavigationManager._();
+abstract class NavigationFunctions {
+  const NavigationFunctions._();
   static void navigateTo({
     required BuildContext context,
     required Widget screen,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_info_body.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
-import '../../../../core/functions/navigations_functions.dart';
+import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/widgets/product_info_widget.dart';
 import '../../../../core/widgets/products_details_screen.dart';
 
@@ -17,7 +17,7 @@ class CartItemWidget extends StatelessWidget {
         child: InkWell(
           onTap: () => _onPressed(context, model),
           child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.2,
+            height: MediaQuery.of(context).size.height * 0.2,
             child: Row(
               children: [
                 ProductImageWidget(model: model),
@@ -30,7 +30,7 @@ class CartItemWidget extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context, BaseProductModel model) {
-    NavigationManager.navigateTo(
+    NavigationFunctions.navigateTo(
       context: context,
       screen: ProductsDetailsScreen(model: model),
     );

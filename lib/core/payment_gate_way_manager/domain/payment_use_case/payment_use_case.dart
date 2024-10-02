@@ -5,7 +5,6 @@ import '../../../managers/errors_manager/failure.dart';
 
 class PaymentUseCase {
   final PaymentRepo paymentRepo;
-
   const PaymentUseCase({
     required this.paymentRepo,
   });

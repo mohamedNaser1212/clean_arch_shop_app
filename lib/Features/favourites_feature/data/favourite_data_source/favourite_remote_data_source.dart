@@ -46,14 +46,14 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
     );
     final response = await apiHelper.post(request: request);
 
-    return response['status'] == true ? true : false;
+    return response[RequestDataNames.status] == true ? true : false;
   }
 
   List<FavouritesResponseModel> getFavouritesItems(
       Map<String, dynamic> response) {
-    final data = response['data']['data'] ?? [];
+    final data = response[RequestDataNames.data][RequestDataNames.data] ?? [];
     final favouriteProducts = data.map<FavouritesResponseModel>((item) {
-      return FavouritesResponseModel.fromJson(item['product']);
+      return FavouritesResponseModel.fromJson(item[RequestDataNames.product]);
     }).toList();
     return favouriteProducts;
   }

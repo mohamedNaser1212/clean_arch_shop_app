@@ -92,7 +92,7 @@ class CustomElevatedButton extends StatelessWidget {
   static void _registerAction(
       BuildContext context, RegisterScreenBodyState state) {
     if (state.formKey.currentState!.validate()) {
-      RegisterCubit.get(context).userRegister(
+      RegisterCubit.get(context).register(
         requestModel: RegisterRequestModel(
           email: state.emailController.text,
           password: state.passwordController.text,
@@ -131,7 +131,7 @@ class CustomElevatedButton extends StatelessWidget {
           ),
         );
       } else {
-       ToastFunction. showToast(
+        ToastFunction.showToast(
           message: 'No changes detected. Your data is up-to-date.',
           color: ColorController.greenAccent,
         );

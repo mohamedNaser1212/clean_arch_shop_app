@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/carts_cubit.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_cart_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/favourites_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourite_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_carts_cubit/toggle_cart_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourites_cubit/toggle_favourite_cubit.dart';
 
 import '../../../../core/functions/toast_function.dart';
 import '../favourites_widgets/favourites_screen_body.dart';
@@ -40,14 +40,14 @@ class FavoritesScreen extends StatelessWidget {
 
   void _toggleCartListener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartSuccessState) {
-      CartsCubit.get(context).getCarts(); 
+      CartsCubit.get(context).getCarts();
     }
   }
 
   void _toggleFavouriteListener(
       BuildContext context, ToggleFavouriteState state) {
     if (state is ToggleFavoriteErrorState) {
-     ToastFunction.  showToast(
+      ToastFunction.showToast(
         message: state.error,
       );
     }

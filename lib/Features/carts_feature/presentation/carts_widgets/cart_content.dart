@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/empty_cart_text_widget.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/refresh_indicator_widget.dart';
 
-import '../cubit/carts_cubit.dart';
+import '../cubit/get_carts_cubit/carts_cubit.dart';
 
 class CartScreenBody extends StatelessWidget {
   const CartScreenBody({
