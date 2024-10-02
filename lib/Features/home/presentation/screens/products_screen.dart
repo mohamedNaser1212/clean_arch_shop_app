@@ -34,7 +34,7 @@ class ProductsScreen extends StatelessWidget {
 
 void _listener(context, state) {
   if (state is CategoriesError) {
-    showToast(
+    ToastFunction. showToast(
       message: state.error,
     );
   }

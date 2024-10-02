@@ -44,7 +44,7 @@ class FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     if (state is ToggleFavoriteErrorState) {
       FavouritesCubit.get(context).favorites[widget.product.id] =
           !(FavouritesCubit.get(context).favorites[widget.product.id] ?? false);
-      showToast(message: state.error);
+      ToastFunction. showToast(message: state.error);
     } else if (state is ToggleFavouriteSuccessState) {
       FavouritesCubit.get(context).getFavorites();
     }

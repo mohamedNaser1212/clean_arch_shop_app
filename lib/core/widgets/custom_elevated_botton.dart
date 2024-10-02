@@ -131,7 +131,7 @@ class CustomElevatedButton extends StatelessWidget {
           ),
         );
       } else {
-        showToast(
+       ToastFunction. showToast(
           message: 'No changes detected. Your data is up-to-date.',
           color: ColorController.greenAccent,
         );

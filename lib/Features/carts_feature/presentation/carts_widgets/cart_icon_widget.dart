@@ -38,7 +38,7 @@ class CartIconWidgetState extends State<CartIconWidget> {
     if (state is ToggleCartItemsErrorState) {
       CartsCubit.get(context).carts[widget.product.id] =
           !(CartsCubit.get(context).carts[widget.product.id] ?? false);
-      showToast(
+       ToastFunction.showToast(
         message: state.error,
       );
     }else if (state is ToggleCartSuccessState) {

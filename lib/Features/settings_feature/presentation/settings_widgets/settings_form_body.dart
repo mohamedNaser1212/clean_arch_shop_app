@@ -38,12 +38,12 @@ class SettingsFormBody extends StatelessWidget {
 
   void _updateListener(BuildContext context, UpdateUserDataState state) {
     if (state is UpdateUserDataError) {
-      showToast(
+      ToastFunction. showToast(
         message: state.error,
       );
     } else if (state is UpdateUserDataSuccess) {
       UserInfoCubit.get(context).getUserData();
-      showToast(
+      ToastFunction. showToast(
         message: 'Data updated successfully',
         color: ColorController.greenAccent,
       );
@@ -57,7 +57,7 @@ class SettingsFormBody extends StatelessWidget {
         screen: const LoginScreen(),
       );
     } else if (state is UserSignOutError) {
-      showToast(
+      ToastFunction. showToast(
         message: state.error,
       );
     }

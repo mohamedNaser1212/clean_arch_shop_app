@@ -47,7 +47,7 @@ class FavoritesScreen extends StatelessWidget {
   void _toggleFavouriteListener(
       BuildContext context, ToggleFavouriteState state) {
     if (state is ToggleFavoriteErrorState) {
-      showToast(
+     ToastFunction.  showToast(
         message: state.error,
       );
     }

@@ -68,7 +68,7 @@ class LoginScreenState extends State<LoginScreen> {
       NavigationManager.navigateAndFinish(
           context: context, screen: const InitialScreen());
     } else if (state is LoginErrorState) {
-      showToast(
+      ToastFunction. showToast(
         message: state.error,
       );
     }
