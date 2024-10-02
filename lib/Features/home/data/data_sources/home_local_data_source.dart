@@ -1,7 +1,7 @@
-import '../../../../../core/networks/hive_manager/hive_boxes_names.dart';
-import '../../../../../core/networks/hive_manager/hive_helper.dart';
-import '../../../domain/entities/categories_entity/categories_entity.dart';
-import '../../../domain/entities/products_entity/product_entity.dart';
+import '../../../../core/networks/hive_manager/hive_boxes_names.dart';
+import '../../../../core/networks/hive_manager/hive_helper.dart';
+import '../../domain/entities/categories_entity/categories_entity.dart';
+import '../../domain/entities/products_entity/product_entity.dart';
 
 abstract class HomeLocalDataSource {
   const HomeLocalDataSource._();

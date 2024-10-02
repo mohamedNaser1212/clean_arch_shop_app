@@ -5,12 +5,11 @@ import 'package:shop_app/Features/home/presentation/categories_widgets/empty_cat
 import 'package:shop_app/Features/home/presentation/products_widgets/empty_products_text_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/new_products_text_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
+import '../cubit/get_categories_cubit/categories_cubit.dart';
+import '../cubit/get_products_cubit/get_product_cubit.dart';
 
-import '../cubit/categories_cubit/categories_cubit.dart';
-import '../cubit/products_cubit/get_product_cubit.dart';
-
-class ProductsComponenets extends StatelessWidget {
-  const ProductsComponenets({super.key});
+class ProductsScreenBody extends StatelessWidget {
+  const ProductsScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {

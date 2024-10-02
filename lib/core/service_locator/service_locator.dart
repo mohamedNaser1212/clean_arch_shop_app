@@ -18,9 +18,9 @@ import 'package:shop_app/Features/favourites_feature/data/favourites_repo_impl/f
 import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/get_favourites_use_case.dart';
 import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/toggle_favourites_use_case.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
-import 'package:shop_app/Features/home/data/data_sources/home_remote_data_sources/home_remote_data_source.dart';
+import 'package:shop_app/Features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:shop_app/Features/home/domain/home_repo/home_repo.dart';
-import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/get_categories_cubit/categories_cubit.dart';
 import 'package:shop_app/Features/search_feature/data/search_data_source/search_remote_data_source.dart';
 import 'package:shop_app/Features/search_feature/data/search_repo_impl/search_repo_impl.dart';
 import 'package:shop_app/Features/search_feature/domain/search_repo/search_repo.dart';
@@ -37,11 +37,11 @@ import '../../Features/authentication_feature/presentation/cubit/login_cubit/log
 import '../../Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
 import '../../Features/favourites_feature/domain/favourites_repo/favourites_repo.dart';
 import '../../Features/favourites_feature/presentation/cubit/toggle_favourites_cubit/toggle_favourite_cubit.dart';
-import '../../Features/home/data/data_sources/home_local_data_source/home_local_data_source.dart';
+import '../../Features/home/data/data_sources/home_local_data_source.dart';
 import '../../Features/home/data/repo/home_repo_impl.dart';
 import '../../Features/home/domain/use_case/home_use_case/categories_use_case.dart';
 import '../../Features/home/domain/use_case/home_use_case/products_Use_Case.dart';
-import '../../Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
+import '../../Features/home/presentation/cubit/get_products_cubit/get_product_cubit.dart';
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../../Features/settings_feature/domain/settings_use_case/user_sign_out_use_case.dart';

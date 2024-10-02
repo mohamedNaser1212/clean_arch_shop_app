@@ -34,10 +34,10 @@ class CartScreen extends StatelessWidget {
   }
 
   void _toggleFavouritesListener(context, state) {
-        if (state is ToggleFavouriteSuccessState) {
-          FavouritesCubit.get(context).getFavorites();
-        }
-      }
+    if (state is ToggleFavouriteSuccessState) {
+      FavouritesCubit.get(context).getFavorites();
+    }
+  }
 
   Widget _cartScreenBuilder(context, state) {
     if (state is GetCartItemsSuccessState) {
@@ -55,6 +55,7 @@ class CartScreen extends StatelessWidget {
     }
     return const SizedBox.shrink();
   }
+
   void _listener(BuildContext context, ToggleCartState state) {
     if (state is ToggleCartItemsErrorState) {
       ToastFunction.showToast(

@@ -22,7 +22,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     final result = await fetchCategoriesUseCase.call();
     result.fold(
       (failure) {
-        print('Failed to fetch categories: $failure');
+
         emit(CategoriesError(error: failure.toString()));
       },
       (categories) {

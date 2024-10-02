@@ -5,8 +5,8 @@ import '../../../../core/managers/errors_manager/failure.dart';
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import '../../domain/entities/products_entity/product_entity.dart';
 import '../../domain/home_repo/home_repo.dart';
-import '../data_sources/home_local_data_source/home_local_data_source.dart';
-import '../data_sources/home_remote_data_sources/home_remote_data_source.dart';
+import '../data_sources/home_local_data_source.dart';
+import '../data_sources/home_remote_data_source.dart';
 
 class HomeRepoImpl extends HomeRepo {
   final HomeRemoteDataSource homeRemoteDataSource;

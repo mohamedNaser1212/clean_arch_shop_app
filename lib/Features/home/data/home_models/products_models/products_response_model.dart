@@ -1,3 +1,5 @@
+import 'package:shop_app/core/networks/api_manager/request_data_names.dart';
+
 import '../../../domain/entities/products_entity/product_entity.dart';
 
 class ProductResponseModel extends ProductEntity {
@@ -16,16 +18,16 @@ class ProductResponseModel extends ProductEntity {
 
   factory ProductResponseModel.fromJson(Map<String, dynamic> json) {
     return ProductResponseModel(
-      description: json['description'],
-      inFavorites: json['in_favorites'],
-      inCart: json['in_cart'],
-      id: json['id'],
-      name: json['name'],
-      oldPrice: json['old_price'],
-      discount: json['discount'],
-      price: json['price'],
-      image: json['image'],
-      images: List<String>.from(json['images']),
+      description: json[RequestDataNames.description],
+      inFavorites: json[RequestDataNames.inFavorites],
+      inCart: json[RequestDataNames.inCart],
+      id: json[RequestDataNames.id],
+      name: json[RequestDataNames.name],
+      oldPrice: json[RequestDataNames.oldPrice],
+      discount: json[RequestDataNames.discount],
+      price: json[RequestDataNames.price],
+      image: json[RequestDataNames.image],
+      images: List<String>.from(json[RequestDataNames.images]),
     );
   }
 }

@@ -13,11 +13,11 @@ class ProductsAdditionalImages extends StatelessWidget {
     return Column(
       children: [
         const CustomTitle(
-            title: 'Additional Images',
-            style: TitleStyle.style20,
-            color: ColorController.blackColor,
-          ),
-        if (state.widget.isProduct) const SizedBox(height: 8),
+          title: 'Additional Images',
+          style: TitleStyle.style20,
+          color: ColorController.blackColor,
+        ),
+        const SizedBox(height: 8),
         if (state.widget.isProduct)
           ProductDetailsImagesListView(images: state.widget.images),
       ],

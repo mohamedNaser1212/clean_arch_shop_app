@@ -15,7 +15,7 @@ class ProductNameWidget extends StatelessWidget {
     if (model != null) {
       return CustomTitle(
         title: model!.name,
-        style: TitleStyle.style16,
+        style: TitleStyle.styleBold18,
         color: ColorController.blackColor,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,

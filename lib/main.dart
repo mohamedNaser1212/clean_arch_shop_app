@@ -12,9 +12,9 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favo
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourites_cubit/toggle_favourite_cubit.dart';
 import 'package:shop_app/Features/home/domain/use_case/home_use_case/categories_use_case.dart';
 import 'package:shop_app/Features/home/domain/use_case/home_use_case/products_Use_Case.dart';
-import 'package:shop_app/Features/home/presentation/cubit/categories_cubit/categories_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/get_categories_cubit/categories_cubit.dart';
 import 'package:shop_app/core/user_info/domain/use_cases/get_user_info_use_case.dart';
-import 'Features/home/presentation/cubit/products_cubit/get_product_cubit.dart';
+import 'Features/home/presentation/cubit/get_products_cubit/get_product_cubit.dart';
 import 'core/service_locator/service_locator.dart';
 import 'core/user_info/cubit/user_info_cubit.dart';
 import 'core/utils/constants.dart';
