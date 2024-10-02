@@ -23,7 +23,7 @@ class SearchListBodyState extends State<SearchListBody> {
   Widget build(BuildContext context) {
     return ConditionalBuilder(
       condition: widget.resultsList.isNotEmpty,
-      builder: (context) => _buildListContent(context),
+      builder: (context) => SearchListContents(searchModel: widget.searchModel),
       fallback: (context) => const Center(
         child: CustomTitle(
           title: 'No results found',
@@ -32,9 +32,5 @@ class SearchListBodyState extends State<SearchListBody> {
         ),
       ),
     );
-  }
-
-  Widget _buildListContent(BuildContext context) {
-    return SearchListContents(searchModel: widget.searchModel);
   }
 }

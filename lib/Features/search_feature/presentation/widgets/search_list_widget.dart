@@ -8,8 +8,7 @@ class SearchListWidget extends StatelessWidget {
   final List<SearchModel> resultsList;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.separated(
+    return ListView.separated(
       itemCount: resultsList.length,
       itemBuilder: (context, index) {
         final result = resultsList[index];
@@ -19,7 +18,6 @@ class SearchListWidget extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) => const Divider(),
-    )
     );
   }
 }

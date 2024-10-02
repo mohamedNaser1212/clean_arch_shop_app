@@ -28,7 +28,6 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
     Navigator.pop(context);
   }
 
-  // Implementing the PreferredSizeWidget interface
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

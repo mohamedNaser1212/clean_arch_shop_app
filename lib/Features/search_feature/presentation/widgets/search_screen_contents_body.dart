@@ -19,19 +19,20 @@ class SearchListContentsBody extends StatelessWidget {
       children: [
         Image.network(
           searchModel.image,
-          width: 100,
-          height: 100,
+          width: 130,
+          height: 130,
           fit: BoxFit.cover,
         ),
         const SizedBox(width: 10),
         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               width: 200,
               child: CustomTitle(
                 title: searchModel.name,
-                style: TitleStyle.style20,
+                style: TitleStyle.styleBold18,
                 maxLines: 2,
                 color: ColorController.blackColor,
               ),

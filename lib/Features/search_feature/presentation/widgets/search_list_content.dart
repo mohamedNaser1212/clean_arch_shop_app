@@ -19,6 +19,7 @@ class SearchListContents extends StatelessWidget {
       onTap: () => _onSearchItemTap(context),
       child: Container(
         width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.2,
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         decoration: BoxDecoration(
           color: ColorController.whiteColor,

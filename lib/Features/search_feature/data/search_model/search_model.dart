@@ -1,4 +1,5 @@
 import 'package:shop_app/core/models/base_products_model.dart';
+import 'package:shop_app/core/networks/api_manager/request_data_names.dart';
 
 class SearchModel extends BaseProductModel {
   const SearchModel({
@@ -13,13 +14,13 @@ class SearchModel extends BaseProductModel {
 
   factory SearchModel.fromJson(Map<String, dynamic> json) {
     return SearchModel(
-      id: json['id'],
-      price: json['price'] ?? 0,
-      oldPrice: json['old_price'] ?? 0,
-      discount: json['discount'] ?? 0,
-      image: json['image'],
-      name: json['name'],
-      description: json['description'],
+      id: json[RequestDataNames.id],
+      price: json[RequestDataNames.price] ?? 0,
+      oldPrice: json[RequestDataNames.oldPrice] ?? 0,
+      discount: json[RequestDataNames.discount] ?? 0,
+      image: json[RequestDataNames.image],
+      name: json[RequestDataNames.name],
+      description: json[RequestDataNames.description],
     );
   }
 }
