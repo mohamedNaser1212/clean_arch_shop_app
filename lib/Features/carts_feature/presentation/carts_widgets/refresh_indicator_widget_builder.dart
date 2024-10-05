@@ -4,8 +4,8 @@ import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/carts_list_view.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
 
-class RefreshIndicatorWidgerBuilder extends StatelessWidget {
-  const RefreshIndicatorWidgerBuilder({
+class RefreshIndicatorWidgerBody extends StatelessWidget {
+  const RefreshIndicatorWidgerBody({
     super.key,
     required this.cartModel,
   });

@@ -7,8 +7,8 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_f
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favorite_icon_widget.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
-class CustomIconButton extends StatelessWidget {
-  const CustomIconButton._({
+class CustomIconButtons extends StatelessWidget {
+  const CustomIconButtons._({
     required this.onPressed,
     required this.icon,
     required this.backgroundColor,
@@ -21,12 +21,12 @@ class CustomIconButton extends StatelessWidget {
   final double radius = 15;
   final double iconSize = 15;
 
-  factory CustomIconButton.cartButton({
+  factory CustomIconButtons.cartButton({
     required CartIconWidgetState state,
     required bool isCart,
     required BuildContext context,
   }) {
-    return CustomIconButton._(
+    return CustomIconButtons._(
       onPressed: () => _cartsOnPressed(state, context),
       icon: Icons.shopping_cart,
       backgroundColor:
@@ -34,12 +34,12 @@ class CustomIconButton extends StatelessWidget {
     );
   }
 
-  factory CustomIconButton.favoriteButton({
+  factory CustomIconButtons.favoritesIcon({
     required bool isFavorite,
     required BuildContext context,
     required FavoriteIconWidgetState state,
   }) {
-    return CustomIconButton._(
+    return CustomIconButtons._(
       onPressed: () => _favoritesOnPressed(state, context),
       icon: Icons.favorite,
       backgroundColor:
@@ -47,7 +47,7 @@ class CustomIconButton extends StatelessWidget {
     );
   }
 
-  factory CustomIconButton.custom({
+  factory CustomIconButtons.custom({
     required IconData icon,
     required VoidCallback onPressed,
     Color? backgroundColor,
@@ -55,7 +55,7 @@ class CustomIconButton extends StatelessWidget {
     double? radius,
     double? iconSize,
   }) {
-    return CustomIconButton._(
+    return CustomIconButtons._(
       onPressed: onPressed,
       icon: icon,
       backgroundColor: backgroundColor ?? ColorController.blueAccent,
@@ -76,8 +76,7 @@ class CustomIconButton extends StatelessWidget {
     final isFavorite =
         favouritesCubit.favorites[state.widget.product.id] ?? false;
     favouritesCubit.favorites[state.widget.product.id] = !isFavorite;
-    ToggleFavouriteCubit.get(context)
-        .changeFavourite(state.widget.product.id);
+    ToggleFavouriteCubit.get(context).changeFavourite(state.widget.product.id);
   }
 
   @override

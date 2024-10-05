@@ -18,24 +18,8 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => LoginScreenState();
 }
+
 class LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  late final TextEditingController emailController;
-  late final TextEditingController passwordController;
-
-  @override
-  void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    super.initState();
-  }
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -54,8 +38,13 @@ class LoginScreenState extends State<LoginScreen> {
     return CustomProgressIndicator(
       isLoading: state is LoginLoadingState,
       child: Scaffold(
-        appBar: CustomAppBar(title: 'Login'),
-        body: LoginScreenBody(state: this),
+        appBar: CustomAppBar(
+          title: 'Login',
+          showLeadingIcon: false,
+          
+          
+        ),
+        body: const LoginScreenBody(),
       ),
     );
   }

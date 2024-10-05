@@ -8,12 +8,12 @@ import '../favourite_data_source/favourite_remote_data_source.dart';
 import '../favourite_data_source/favourites_local_data_source.dart';
 
 class FavouritesRepoImpl extends FavouritesRepo {
-  final FavouritesRemoteDataSource favouritesDataSource;
+  final FavouritesRemoteDataSource favouritesRemoteDataSource;
   final FavouritesLocalDataSource favouritesLocalDataSource;
   final RepoManager repoManager;
 
   const FavouritesRepoImpl({
-    required this.favouritesDataSource,
+    required this.favouritesRemoteDataSource,
     required this.favouritesLocalDataSource,
     required this.repoManager,
   });
@@ -27,7 +27,7 @@ class FavouritesRepoImpl extends FavouritesRepo {
         if (cachedFavourites.isNotEmpty) {
           return _removeDuplicates(favourites: cachedFavourites);
         } else {
-          final favourites = await favouritesDataSource.getFavourites();
+          final favourites = await favouritesRemoteDataSource.getFavourites();
           final uniqueFavourites = _removeDuplicates(favourites: favourites);
           await favouritesLocalDataSource.saveFavourites(
               favourites: uniqueFavourites);
@@ -42,10 +42,11 @@ class FavouritesRepoImpl extends FavouritesRepo {
       {required num productId}) async {
     return repoManager.call(
       action: () async {
-        final result =
-            await favouritesDataSource.toggleFavourites(productId: productId);
+        final result = await favouritesRemoteDataSource.toggleFavourites(
+            productId: productId);
         if (result) {
-          final updatedFavourites = await favouritesDataSource.getFavourites();
+          final updatedFavourites =
+              await favouritesRemoteDataSource.getFavourites();
           final uniqueFavourites =
               _removeDuplicates(favourites: updatedFavourites);
           await favouritesLocalDataSource.saveFavourites(

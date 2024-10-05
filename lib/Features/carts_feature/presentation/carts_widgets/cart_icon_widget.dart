@@ -4,8 +4,7 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cub
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_carts_cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
-
-import 'package:shop_app/core/widgets/custom_icon_botton_widget.dart';
+import 'package:shop_app/core/widgets/custom_icon_bottons_widgets.dart';
 
 class CartIconWidget extends StatefulWidget {
   const CartIconWidget({super.key, required this.product});
@@ -26,7 +25,7 @@ class CartIconWidgetState extends State<CartIconWidget> {
 
   Widget _builder(context, state) {
     final isCart = CartsCubit.get(context).carts[widget.product.id] ?? false;
-    return CustomIconButton.cartButton(
+    return CustomIconButtons.cartButton(
       isCart: isCart,
       context: context,
       state: this,

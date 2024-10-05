@@ -52,11 +52,11 @@ import '../networks/hive_manager/hive_helper.dart';
 import '../networks/hive_manager/hive_manager.dart';
 import '../networks/api_manager/api_manager.dart';
 import '../networks/api_manager/dio_manager.dart';
-import '../payment_gate_way_manager/cubit/payment_cubit.dart';
-import '../payment_gate_way_manager/data/payment_data_source/payment_data_source.dart';
-import '../payment_gate_way_manager/data/payment_repo_impl/payment_repo_impl.dart';
-import '../payment_gate_way_manager/domain/payment_repo/payment_repo.dart';
-import '../payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
+import '../payment_gate_way/cubit/payment_cubit.dart';
+import '../payment_gate_way/data/payment_data_source/payment_data_source.dart';
+import '../payment_gate_way/data/payment_repo_impl/payment_repo_impl.dart';
+import '../payment_gate_way/domain/payment_repo/payment_repo.dart';
+import '../payment_gate_way/domain/payment_use_case/payment_use_case.dart';
 import '../user_info/cubit/user_info_cubit.dart';
 import '../user_info/data/user_info_data_sources/user_info_local_data_source.dart';
 import '../user_info/data/user_info_data_sources/user_info_remote_data_source.dart';
@@ -76,7 +76,6 @@ void setUpServiceLocator() async {
   // Register HiveService
   getIt.registerSingleton<LocalStorageManager>(HiveManager());
   await getIt.get<LocalStorageManager>().initialize();
-
 
   getIt.registerSingleton<RepoManager>(
     RepoManagerImpl(
@@ -200,7 +199,7 @@ void setUpServiceLocator() async {
 
   getIt.registerSingleton<FavouritesRepo>(
     FavouritesRepoImpl(
-      favouritesDataSource: getIt.get<FavouritesRemoteDataSource>(),
+      favouritesRemoteDataSource: getIt.get<FavouritesRemoteDataSource>(),
       favouritesLocalDataSource: getIt.get<FavouritesLocalDataSource>(),
       repoManager: getIt.get<RepoManager>(),
     ),

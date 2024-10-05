@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_icon_widget.dart';
-
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favorite_icon_widget.dart';
+import 'package:shop_app/core/widgets/favourites_and_carts_icons/favourite_and_cart_icons.dart';
 
-import '../models/base_products_model.dart';
+class FavouriteAndCartIconsBody extends StatelessWidget {
+  const FavouriteAndCartIconsBody({
+    super.key,
+    required this.widget,
+  });
 
-class FavouriteAndCartIcons extends StatefulWidget {
-  const FavouriteAndCartIcons({super.key, required this.model});
+  final FavouriteAndCartIcons widget;
 
-  final BaseProductModel model;
-
-  @override
-  State<FavouriteAndCartIcons> createState() => _FavouriteAndCartIconsState();
-}
-
-class _FavouriteAndCartIconsState extends State<FavouriteAndCartIcons> {
   @override
   Widget build(BuildContext context) {
     return Row(

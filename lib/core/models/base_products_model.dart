@@ -1,3 +1,5 @@
+import 'package:shop_app/core/networks/api_manager/request_data_names.dart';
+
 abstract class BaseProductModel {
   final num id;
   final num price;
@@ -19,13 +21,13 @@ abstract class BaseProductModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'price': price,
-      'old_price': oldPrice,
-      'discount': discount,
-      'image': image,
-      'name': name,
-      'description': description,
+    RequestDataNames.id: id,
+      RequestDataNames.price: price,
+       RequestDataNames.oldPrice: oldPrice,
+       RequestDataNames.discount: discount,
+       RequestDataNames.image: image,
+       RequestDataNames.name: name,
+       RequestDataNames.description: description,
     };
   }
 }

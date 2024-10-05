@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_details_components.dart';
+import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
 
 class ProductDetailsBody extends StatefulWidget {
   const ProductDetailsBody(
       {super.key, required this.model, required this.images, this.isProduct});
-  final dynamic model;
+   final BaseProductModel model;
+
   final dynamic isProduct;
 
   final List<String> images;

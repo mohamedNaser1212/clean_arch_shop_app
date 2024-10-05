@@ -3,7 +3,7 @@ import 'package:shop_app/Features/search_feature/data/search_model/search_model.
 import 'package:shop_app/Features/search_feature/presentation/widgets/search_screen_contents_body.dart';
 import 'package:shop_app/core/functions/navigations_function.dart';
 import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
-import 'package:shop_app/core/widgets/products_details_screen.dart';
+import 'package:shop_app/core/widgets/products_details_widgets/products_details_screen.dart';
 
 class SearchListContents extends StatelessWidget {
   const SearchListContents({

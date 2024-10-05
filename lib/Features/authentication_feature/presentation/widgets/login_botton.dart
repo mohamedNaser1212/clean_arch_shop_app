@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/screens/login_screen.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_screen_body.dart';
 
 import '../../../../core/widgets/custom_elevated_botton.dart';
 
@@ -8,7 +8,7 @@ class LoginButton extends StatelessWidget {
     Key? key,
     required this.state,
   }) : super(key: key);
-  final LoginScreenState state;
+  final LoginScreenBodyState state;
 
   @override
   Widget build(BuildContext context) {

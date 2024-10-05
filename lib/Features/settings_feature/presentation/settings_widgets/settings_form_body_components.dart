@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/email_text_field.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/name_text_field.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/phone_text_field.dart';
+import 'package:shop_app/core/widgets/form_fields/email_text_field.dart';
+import 'package:shop_app/core/widgets/form_fields/name_text_field.dart';
+import 'package:shop_app/core/widgets/form_fields/phone_text_field.dart';
 import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/sign_out_elevated_botton.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/update_elevated_borron.dart';

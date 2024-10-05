@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:shop_app/core/widgets/custom_title_widget.dart';
 
 class LoginHeader extends StatelessWidget {
@@ -14,6 +15,7 @@ class LoginHeader extends StatelessWidget {
       CustomTitle(
         title: 'LOGIN Screen',
         style: TitleStyle.style14,
+     
       ),
        CustomTitle(
        title:  'login now to browse our hot offers',

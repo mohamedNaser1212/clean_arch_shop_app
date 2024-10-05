@@ -26,7 +26,7 @@ class ProductsScreenBody extends StatelessWidget {
           const CategoriesTitleWidget(),
           const SizedBox(height: 10),
           if (categoryModel != null)
-            const CategoriesScreenBody(
+            CategoriesScreenBody(
               isHorizontal: true,
               itemHeight: 100.0,
               itemWidth: 100.0,

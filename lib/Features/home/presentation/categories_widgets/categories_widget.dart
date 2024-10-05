@@ -1,23 +1,24 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/loading_text_widget.dart';
+import 'package:shop_app/core/widgets/loading_text_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/horizontal_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/cubit/get_categories_cubit/categories_cubit.dart';
 
 
+// ignore: must_be_immutable
 class CategoriesScreenBody extends StatefulWidget {
-  const CategoriesScreenBody({
+   CategoriesScreenBody({
     super.key,
     this.itemHeight = 150.0,
     this.itemWidth = 150.0,
-    required this.isHorizontal,
+     this.isHorizontal=false,
   });
 
   final double itemHeight;
   final double itemWidth;
-  final bool isHorizontal;
+   bool isHorizontal;
 
   @override
   State<CategoriesScreenBody> createState() => CategoriesScreenBodyState();

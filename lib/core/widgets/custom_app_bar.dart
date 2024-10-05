@@ -5,24 +5,29 @@ import 'package:shop_app/core/widgets/custom_title_widget.dart';
 // ignore: must_be_immutable
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final bool showLeadingIcon;
   Color? backColor = ColorController.primaryColor;
-  Color? textColor = ColorController.whiteColor;
+  final Color? textColor;
 
   CustomAppBar({
     Key? key,
     required this.title,
+    this.showLeadingIcon = true,
     this.backColor,
-    this.textColor,
+    this.textColor = ColorController.whiteColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: backColor,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () => _onPressed(context: context),
-      ),
+      leading: showLeadingIcon
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back,
+                  color: ColorController.whiteColor),
+              onPressed: () => _onPressed(context: context),
+            )
+          : null,
       title: CustomTitle(
         title: title,
         style: TitleStyle.styleBold20,

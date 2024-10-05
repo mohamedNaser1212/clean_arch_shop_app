@@ -32,7 +32,7 @@ class RegisterScreen extends StatelessWidget {
       isLoading: state is RegisterLoadingState,
       child: Scaffold(
         appBar: CustomAppBar(
-          title: 'Register',
+          title: 'Register Screen',
         ),
         body: const RegisterScreenBody(),
       ),
@@ -43,7 +43,7 @@ void _listener(BuildContext context, RegisterState state) {
   if (state is RegisterSuccessState) {
     ToastFunction.showToast(
       color: ColorController.greenAccent,
-      message: 'Register Success',
+      message: 'Registeration Success',
     );
     NavigationFunctions.navigateAndFinish(
       context: context,

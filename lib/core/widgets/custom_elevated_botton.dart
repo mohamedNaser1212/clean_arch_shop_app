@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_screen_body.dart';
 import 'package:shop_app/core/widgets/reusable_elevated_botton.dart';
 import '../../Features/authentication_feature/data/model/login_request_model.dart';
 import '../../Features/authentication_feature/data/model/register_request_model.dart';
 import '../../Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
 import '../../Features/authentication_feature/presentation/cubit/register_cubit/register_cubit.dart';
-import '../../Features/authentication_feature/presentation/screens/login_screen.dart';
 import '../../Features/authentication_feature/presentation/widgets/register_screen_body.dart';
 import '../../Features/settings_feature/data/update_user_request_model.dart';
 import '../../Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit/sign_out_cubit.dart';
 import '../../Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit/update_user_data_cubit.dart';
 import '../../Features/settings_feature/presentation/screen/settings_screen.dart';
 import '../functions/toast_function.dart';
-import '../payment_gate_way_manager/cubit/payment_cubit.dart';
+import '../payment_gate_way/cubit/payment_cubit.dart';
 import '../user_info/cubit/user_info_cubit.dart';
 import '../utils/styles_manager/color_manager.dart';
 
@@ -27,7 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
   Color? backColor;
 
   factory CustomElevatedButton.loginButton({
-    required LoginScreenState state,
+    required LoginScreenBodyState state,
     required BuildContext context,
   }) {
     return CustomElevatedButton._(
@@ -78,7 +78,7 @@ class CustomElevatedButton extends StatelessWidget {
     );
   }
 
-  static void _loginAction(LoginScreenState state, BuildContext context) {
+  static void _loginAction(LoginScreenBodyState state, BuildContext context) {
     if (state.formKey.currentState!.validate()) {
       LoginCubit.get(context).login(
         requestModel: LoginRequestModel(

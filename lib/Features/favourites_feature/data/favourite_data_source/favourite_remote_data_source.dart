@@ -26,10 +26,7 @@ class FavouritesRemoteDataSourceImpl implements FavouritesRemoteDataSource {
       headerModel: HeaderModel(),
     );
     final response = await apiHelper.get(request: request);
-
     var favouriteProducts = getFavouritesItems(response);
-
-
     return favouriteProducts;
   }
 

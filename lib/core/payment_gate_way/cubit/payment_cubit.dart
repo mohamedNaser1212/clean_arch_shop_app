@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
+import 'package:shop_app/core/payment_gate_way/domain/payment_use_case/payment_use_case.dart';
 
 part 'payment_state.dart';
 

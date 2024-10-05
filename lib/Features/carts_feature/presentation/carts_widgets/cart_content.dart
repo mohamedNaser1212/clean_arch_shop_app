@@ -7,10 +7,7 @@ import '../cubit/get_carts_cubit/carts_cubit.dart';
 class CartScreenBody extends StatelessWidget {
   const CartScreenBody({
     Key? key,
-    required this.state,
   }) : super(key: key);
-
-  final CartsState state;
 
   @override
   Widget build(BuildContext context) {

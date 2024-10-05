@@ -5,7 +5,7 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_f
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 
-import 'package:shop_app/core/widgets/custom_icon_botton_widget.dart';
+import 'package:shop_app/core/widgets/custom_icon_bottons_widgets.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
   const FavoriteIconWidget({super.key, required this.product});
@@ -28,7 +28,7 @@ class FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     final isFavorite =
         FavouritesCubit.get(context).favorites[widget.product.id] ?? false;
 
-    return CustomIconButton.favoriteButton(
+    return CustomIconButtons.favoritesIcon(
       isFavorite: isFavorite,
       context: context,
       state: this,

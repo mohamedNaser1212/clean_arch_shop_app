@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_item_image.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_information_widget.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
-import 'package:shop_app/core/widgets/products_details_screen.dart';
+import 'package:shop_app/core/widgets/products_details_widgets/products_details_screen.dart';
 
 import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/widgets/favourite_and_cart_icons.dart';
+import '../../../../core/widgets/favourites_and_carts_icons/favourite_and_cart_icons.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({

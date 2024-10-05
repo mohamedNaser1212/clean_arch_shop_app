@@ -8,7 +8,6 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CategoriesScreenBody(
-      isHorizontal: false,
       itemHeight: MediaQuery.of(context).size.height / 5,
       itemWidth: double.infinity,
     );

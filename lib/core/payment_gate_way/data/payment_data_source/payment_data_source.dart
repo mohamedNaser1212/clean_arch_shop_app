@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/core/networks/api_manager/end_points.dart';
 import '../../../networks/api_manager/request_data_names.dart';
-import '../../../stripe_key/stripe_keys.dart';
+import '../../../utils/stripe_key/stripe_keys.dart';
 
 abstract class PaymentDataSource {
   const PaymentDataSource._();

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_favourites_cubit/toggle_favourite_cubit.dart';
-import 'package:shop_app/core/payment_gate_way_manager/cubit/payment_cubit.dart';
-import 'package:shop_app/core/payment_gate_way_manager/domain/payment_use_case/payment_use_case.dart';
+import 'package:shop_app/core/payment_gate_way/cubit/payment_cubit.dart';
+import 'package:shop_app/core/payment_gate_way/domain/payment_use_case/payment_use_case.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import '../../../../core/functions/toast_function.dart';
 import '../carts_widgets/cart_content.dart';
@@ -41,9 +41,7 @@ class CartScreen extends StatelessWidget {
 
   Widget _cartScreenBuilder(context, state) {
     if (state is GetCartItemsSuccessState) {
-      return CartScreenBody(
-        state: state,
-      );
+      return const CartScreenBody();
     } else if (state is GetCartItemsErrorState) {
       return Center(
         child: Text(state.error),

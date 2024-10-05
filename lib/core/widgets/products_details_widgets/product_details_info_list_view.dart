@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_details_info.dart';
-import 'package:shop_app/core/widgets/image_widget.dart';
+import 'package:shop_app/core/widgets/products_details_widgets/image_widget.dart';
 
 class ProductDetailsInfoListView extends StatelessWidget {
   const ProductDetailsInfoListView({super.key, this.model});
@@ -17,7 +17,7 @@ class ProductDetailsInfoListView extends StatelessWidget {
       children: [
         CarousalImageWidget(images: images),
         const SizedBox(height: 16),
-        BuildProductDetailsInfo(model: model),
+        ProductDetailsInfo(model: model),
       ],
     );
   }

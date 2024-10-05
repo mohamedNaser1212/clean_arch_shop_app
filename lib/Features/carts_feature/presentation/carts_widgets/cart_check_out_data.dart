@@ -4,10 +4,11 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
 import 'package:shop_app/Features/carts_feature/presentation/cubit/toggle_carts_cubit/toggle_cart_cubit.dart';
 import 'package:shop_app/core/functions/toast_function.dart';
-import 'package:shop_app/core/payment_gate_way_manager/cubit/payment_cubit.dart';
+import 'package:shop_app/core/payment_gate_way/cubit/payment_cubit.dart';
 import 'package:shop_app/core/widgets/loading_indicator_widget.dart';
 import '../../domain/cart_entity/add_to_cart_entity.dart';
-import 'payment_conditional_builder.dart'; 
+import 'payment_conditional_builder.dart';
+
 class CartCheckoutData extends StatefulWidget {
   final num total;
   final List<CartEntity> cartModel;
@@ -21,6 +22,7 @@ class CartCheckoutData extends StatefulWidget {
   @override
   State<CartCheckoutData> createState() => CartCheckoutDataState();
 }
+
 class CartCheckoutDataState extends State<CartCheckoutData> {
   @override
   Widget build(BuildContext context) {
@@ -37,11 +39,13 @@ class CartCheckoutDataState extends State<CartCheckoutData> {
       },
     );
   }
+
   Widget _builder(
     BuildContext context,
     PaymentState paymentState,
   ) {
-    if (widget.cartModel.isEmpty && paymentState is InitializePaymentSuccessState) {
+    if (widget.cartModel.isEmpty &&
+        paymentState is InitializePaymentSuccessState) {
       return const Center(
         child: Text(
           'No items in the cart.',
@@ -49,16 +53,18 @@ class CartCheckoutDataState extends State<CartCheckoutData> {
         ),
       );
     }
- return PaymentConditionalBuilder(
+    return PaymentConditionalBuilder(
       cartCheckoutDataState: this,
       paymentState: paymentState,
     );
   }
+
   void _cartListener(BuildContext context, CartsState state) {
     if (state is GetClientSecretLoadingState) {
       const LoadingIndicatorWidget();
     }
   }
+
   void _paymentListener(BuildContext context, PaymentState state) async {
     if (state is GetClientSecretSuccessState) {
       await PaymentCubit.get(context).makePayment(
@@ -71,18 +77,18 @@ class CartCheckoutDataState extends State<CartCheckoutData> {
       );
       if (cartUpdated) {
         CartsCubit.get(context).clearCartItems();
-        ToastFunction. showToast(
+        ToastFunction.showToast(
           message: 'Payment Success and Cart Cleared',
           color: Colors.green,
         );
       } else {
-         ToastFunction.showToast(
+        ToastFunction.showToast(
           message: 'Payment Failed',
           color: Colors.red,
         );
       }
     } else if (state is GetClientSecretErrorState) {
-      ToastFunction. showToast(
+      ToastFunction.showToast(
         message: state.message,
       );
     }

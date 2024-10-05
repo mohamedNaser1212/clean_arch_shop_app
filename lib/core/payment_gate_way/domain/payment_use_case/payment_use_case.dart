@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:shop_app/core/payment_gate_way_manager/domain/payment_repo/payment_repo.dart';
+import 'package:shop_app/core/payment_gate_way/domain/payment_repo/payment_repo.dart';
 
 import '../../../managers/errors_manager/failure.dart';
 

@@ -18,11 +18,11 @@ class ProductsPricesWidgets extends StatelessWidget {
       children: [
         if (model != null && model!.discount != 0)
           CustomTitle(
-            title: 'Discount: ${productModel.discount}%',
+            title: 'Discount: ${productModel!.discount}%',
             style: TitleStyle.style18,
             color: ColorController.redAccent,
           ),
-        if (productModel.discount != 0 && model != null)
+        if (productModel!.discount != 0 && model != null)
           CustomTitle(
             title: 'Old Price: ${productModel.oldPrice}',
             style: TitleStyle.style18,
