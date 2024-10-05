@@ -6,33 +6,31 @@ import '../../../../core/utils/styles_manager/color_manager.dart';
 import '../../../../core/widgets/custom_title_widget.dart';
 
 class ProductItemImage extends StatelessWidget {
-  const ProductItemImage({super.key, required this.product});
-  final ProductItemState product;
+  const ProductItemImage({super.key, required this.state});
+  final ProductItemState state;
   @override
   Widget build(BuildContext context) {
     return Stack(
-    alignment: AlignmentDirectional.bottomStart,
-    children: [
-      Image(
-        image: CachedNetworkImageProvider(
-          product.widget.product.image,
-        ),
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height / 4,
-      ),
-      if (product.widget.product.discount != 0)
-        Container(
-          color: ColorController.primaryColor,
-          padding: const EdgeInsets.all(2),
-          child: const CustomTitle(
-            title: 'DISCOUNT',
-            style: TitleStyle.style12,
-            color: ColorController.blackColor,
+      alignment: AlignmentDirectional.bottomStart,
+      children: [
+        Image(
+          image: CachedNetworkImageProvider(
+            state.widget.product.image,
           ),
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height / 4,
         ),
-    ],
-  );
+        if (state.widget.product.discount != 0)
+          Container(
+            color: ColorController.primaryColor,
+            padding: const EdgeInsets.all(2),
+            child: const CustomTitle(
+              title: 'DISCOUNT',
+              style: TitleStyle.style12,
+              color: ColorController.blackColor,
+            ),
+          ),
+      ],
+    );
   }
-
-
 }

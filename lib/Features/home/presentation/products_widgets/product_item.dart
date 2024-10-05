@@ -32,7 +32,7 @@ class ProductItemState extends State<ProductItem> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProductItemImage(product: this),
+              ProductItemImage(state: this),
               ProductInformationWidget(model: widget.product),
               FavouriteAndCartIcons(model: widget.product),
             ],

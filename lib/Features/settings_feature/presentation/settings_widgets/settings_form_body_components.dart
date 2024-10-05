@@ -23,7 +23,6 @@ class SettingsFormBodyComponents extends StatelessWidget {
         const SignOutElevatedBotton(),
         const SizedBox(height: 20.0),
         UpdateElevatedBotton(
-        
           userState: userState,
         ),
       ],
