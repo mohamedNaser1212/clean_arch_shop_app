@@ -41,7 +41,7 @@ class SearchListContents extends StatelessWidget {
   void _onSearchItemTap(BuildContext context) {
     NavigationFunctions.navigateTo(
       context: context,
-      screen: ProductsDetailsScreen(model: searchModel, isProductEntity: false),
+      screen: ProductsDetailsScreen(model: searchModel,),
     );
   }
 }

@@ -9,12 +9,10 @@ import '../../utils/constants.dart';
 
 class ProductsDetailsScreen extends StatelessWidget {
   final BaseProductModel model;
-  final bool isProductEntity;
 
   const ProductsDetailsScreen({
     super.key, 
     required this.model, 
-    required this.isProductEntity,
   });
 
   @override
@@ -36,7 +34,6 @@ class ProductsDetailsScreen extends StatelessWidget {
       ),
       body: ProductDetailsBody(
         model: model,
-        isProductEntity: isProductEntity,
       ),
     );
   }

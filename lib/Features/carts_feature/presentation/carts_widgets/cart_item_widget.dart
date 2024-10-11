@@ -33,7 +33,8 @@ class CartItemWidget extends StatelessWidget {
   void _onPressed(BuildContext context, BaseProductModel model) {
     NavigationFunctions.navigateTo(
       context: context,
-      screen: ProductsDetailsScreen(model: model, isProductEntity: false),
+      screen: ProductsDetailsScreen(model: model, 
+      ),
     );
   }
 }

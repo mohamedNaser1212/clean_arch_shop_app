@@ -8,20 +8,18 @@ class ProductDetailsBody extends StatelessWidget {
   const ProductDetailsBody({
     super.key,
     required this.model,
-    required this.isProductEntity,
   });
 
   final BaseProductModel model;
-  final bool isProductEntity;
 
   @override
   Widget build(BuildContext context) {
-    final images = isProductEntity ? model.images : [model.image];
+    final images = model.images?? [model.image];
 
     return ListView(
       padding: const EdgeInsets.all(16.0),
       children: [
-        CarousalImageWidget(images: images ??[] ),
+        CarousalImageWidget(images: images  ),
         const SizedBox(height: 16),
         ProductDetailsInformation(model: model),
       ],
