@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 // ignore: must_be_immutable
 class ReusableTextFormField extends StatelessWidget {

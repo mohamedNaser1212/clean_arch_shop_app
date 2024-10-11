@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/utils/constants.dart';
 
-import '../utils/styles_manager/text_styles_manager.dart';
+import '../utils/styles/text_styles_manager.dart';
 
 enum TitleStyle {
   style12,

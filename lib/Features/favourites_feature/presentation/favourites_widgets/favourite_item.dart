@@ -4,7 +4,7 @@ import 'package:shop_app/core/widgets/products_details_widgets/product_image_wid
 import 'package:shop_app/core/widgets/products_details_widgets/products_details_screen.dart';
 import '../../../../core/functions/navigations_function.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
-import '../../../../core/widgets/favourites_and_carts_icons/favourite_and_cart_icons.dart';
+import '../../../../core/widgets/favourites_and_carts_icons/produxts_icons.dart';
 import '../../../../core/widgets/custom_sized_box.dart';
 
 class FavoritesItems extends StatelessWidget {
@@ -32,7 +32,7 @@ class FavoritesItems extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ProductInformationWidget(model: model),
-                    FavouriteAndCartIcons(model: model),
+                    ProductsIcons(model: model),
                   ],
                 ),
               ),

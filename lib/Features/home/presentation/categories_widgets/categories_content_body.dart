@@ -3,7 +3,7 @@ import 'package:shop_app/Features/home/domain/entities/categories_entity/categor
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_image_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_name_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 class CategoriesContentsBody extends StatelessWidget {
   const CategoriesContentsBody({

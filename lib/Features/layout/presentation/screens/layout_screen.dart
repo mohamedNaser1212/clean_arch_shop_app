@@ -3,11 +3,9 @@ import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cub
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/presentation/cubit/get_products_cubit/get_product_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
-import 'package:shop_app/core/widgets/custom_title_widget.dart';
-
+import 'package:shop_app/core/widgets/custom_app_bar.dart';
 import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/utils/constants.dart';
-
 import '../../data/layouts_model.dart';
 import '../widgets/bottom_nav_bar_widget.dart';
 
@@ -45,24 +43,24 @@ class LayoutScreenState extends State<LayoutScreen> {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
+  CustomAppBar _buildAppBar(BuildContext context) {
+    return CustomAppBar(
+      title: 'Shop App',
       centerTitle: true,
-      title: CustomTitle(
-        title: 'Shop App',
-        style: TitleStyle.style24,
-        color: defaultColor,
-      ),
-      actions: [
-        IconButton(
-          onPressed: _onSearchPressed,
-          icon: Icon(
-            Icons.search,
-            color: defaultColor,
-          ),
-        ),
-      ],
+      actions: _actions,
     );
+  }
+
+  List<Widget> get _actions {
+    return [
+      IconButton(
+        onPressed: _onSearchPressed,
+        icon: Icon(
+          Icons.search,
+          color: defaultColor,
+        ),
+      ),
+    ];
   }
 
   void _onSearchPressed() {

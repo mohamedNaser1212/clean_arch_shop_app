@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_icon_widget.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favorite_icon_widget.dart';
-import 'package:shop_app/core/widgets/favourites_and_carts_icons/favourite_and_cart_icons.dart';
+import 'package:shop_app/core/widgets/favourites_and_carts_icons/produxts_icons.dart';
 
 class FavouriteAndCartIconsBody extends StatelessWidget {
   const FavouriteAndCartIconsBody({
@@ -9,7 +9,7 @@ class FavouriteAndCartIconsBody extends StatelessWidget {
     required this.widget,
   });
 
-  final FavouriteAndCartIcons widget;
+  final ProductsIcons widget;
 
   @override
   Widget build(BuildContext context) {

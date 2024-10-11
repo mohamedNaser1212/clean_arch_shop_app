@@ -15,29 +15,30 @@ class HorizontalCategoriesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: state.widget.itemHeight + 50,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categoryModel.length,
-          itemBuilder: (context, index) {
-            var category = categoryModel[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: state.widget.itemWidth / 2,
-                    backgroundImage: NetworkImage(category.image),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomTitle(
-                    title: category.name,
-                    style: TitleStyle.styleBold18,
-                  ),
-                ],
-              ),
-            );
-          },
-        ));
+      height: state.widget.itemHeight + 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: categoryModel.length,
+        itemBuilder: (context, index) {
+          var category = categoryModel[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: state.widget.itemWidth / 2,
+                  backgroundImage: NetworkImage(category.image),
+                ),
+                const SizedBox(height: 20),
+                CustomTitle(
+                  title: category.name,
+                  style: TitleStyle.styleBold18,
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 }

@@ -5,6 +5,7 @@ import 'package:shop_app/Features/favourites_feature/domain/favourites_entity/fa
 import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_item_widget.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourite_item.dart';
+import 'package:shop_app/core/widgets/custom_title_widget.dart';
 import 'package:shop_app/core/widgets/loading_indicator_widget.dart';
 
 class CustomRefreshIndicator<T> extends StatelessWidget {
@@ -28,8 +29,12 @@ class CustomRefreshIndicator<T> extends StatelessWidget {
       onRefresh: (context) => _handleFavoritesRefresh(context),
       items: favourites,
       itemBuilder: (context, item) => FavoritesItems(model: item),
-      fallback:
-          const Center(child: Text('Sorry, there are no favourites to show')),
+      fallback: const Center(
+        child: CustomTitle(
+          title: 'Sorry, there are no favourites to show',
+          style: TitleStyle.style16,
+        ),
+      ),
     );
   }
 
@@ -42,7 +47,12 @@ class CustomRefreshIndicator<T> extends StatelessWidget {
       onRefresh: (context) => _handleCartsRefresh(context),
       items: carts,
       itemBuilder: (context, item) => CartItemWidget(model: item),
-      fallback: const Center(child: Text('Your cart is empty')),
+      fallback: const Center(
+        child: CustomTitle(
+          title: 'Your cart is empty',
+          style: TitleStyle.style16,
+        ),
+      ),
     );
   }
 

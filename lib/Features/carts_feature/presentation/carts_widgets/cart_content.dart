@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/empty_cart_text_widget.dart';
-import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/refresh_indicator_widget.dart';
+import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_refresh_indicator_widget.dart';
 
 import '../cubit/get_carts_cubit/carts_cubit.dart';
 
@@ -15,6 +15,6 @@ class CartScreenBody extends StatelessWidget {
     if (cartModel.isEmpty) {
       return const EmptyCartTextWidget();
     }
-    return RefreshIndicatorWidget(cartModel: cartModel);
+    return CartRefreshIndicatorWidget(cartModel: cartModel);
   }
 }

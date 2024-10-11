@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/core/widgets/products_details_widgets/product_details_info_list_view.dart';
+import 'package:shop_app/core/widgets/products_details_widgets/product_details_body.dart';
 import '../../../Features/home/presentation/cubit/get_products_cubit/get_product_cubit.dart';
 import '../../../Features/home/presentation/cubit/get_products_cubit/get_products_state.dart';
-import '../../utils/styles_manager/color_manager.dart';
+import '../../utils/styles/color_manager.dart';
 import '../../utils/constants.dart';
 import '../custom_title_widget.dart';
-
 
 class ProductsDetailsScreen extends StatelessWidget {
   final dynamic model;
@@ -37,7 +36,7 @@ class ProductsDetailsScreen extends StatelessWidget {
           onPressed: () => _onPressed(context),
         ),
       ),
-      body: ProductDetailsInfoListView(model: model),
+      body: ProductDetailsBody(model: model),
     );
   }
 

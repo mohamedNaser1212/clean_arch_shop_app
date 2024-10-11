@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/search_feature/presentation/cubit/search_cubit/search_cubit.dart';
-import 'package:shop_app/core/managers/field_validaltor/fields_validator.dart';
+import 'package:shop_app/core/functions/fields_validator.dart';
 import 'package:shop_app/core/widgets/reusable_text_form_field.dart';
 
 class SearchFormField extends StatelessWidget {

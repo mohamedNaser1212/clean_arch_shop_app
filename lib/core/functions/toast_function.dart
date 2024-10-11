@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 abstract class ToastFunction {
   const ToastFunction._();

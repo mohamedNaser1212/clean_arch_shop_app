@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/search_feature/presentation/widgets/search_list_content.dart';
-import '../../../../core/utils/styles_manager/color_manager.dart';
+import '../../../../core/utils/styles/color_manager.dart';
 import '../../../../core/widgets/custom_title_widget.dart';
 import '../../data/search_model/search_model.dart';
 

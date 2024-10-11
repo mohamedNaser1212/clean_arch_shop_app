@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/description_text_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_description_widget.dart';
-import 'package:shop_app/Features/home/presentation/products_widgets/product_details_body.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/product_details_information_body.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_name_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_additional_images.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_prices_widgets.dart';
 
 class ProductsDetailsComponents extends StatelessWidget {
   const ProductsDetailsComponents({super.key, required this.state});
-  final ProductDetailsBodyState state;
+  final ProductDetailsInformationBodyState state;
 
   @override
   Widget build(BuildContext context) {

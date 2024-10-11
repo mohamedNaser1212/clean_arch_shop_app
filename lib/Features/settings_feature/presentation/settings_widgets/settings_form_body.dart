@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_form_body_components.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/functions/toast_function.dart';
 import '../../../../core/user_info/cubit/user_info_cubit.dart';

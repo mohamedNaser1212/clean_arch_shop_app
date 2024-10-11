@@ -5,8 +5,8 @@ import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/products_details_widgets/products_details_screen.dart';
 
 import '../../../../core/functions/navigations_function.dart';
-import '../../../../core/utils/styles_manager/color_manager.dart';
-import '../../../../core/widgets/favourites_and_carts_icons/favourite_and_cart_icons.dart';
+import '../../../../core/utils/styles/color_manager.dart';
+import '../../../../core/widgets/favourites_and_carts_icons/produxts_icons.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({
@@ -34,7 +34,7 @@ class ProductItemState extends State<ProductItem> {
             children: [
               ProductItemImage(state: this),
               ProductInformationWidget(model: widget.product),
-              FavouriteAndCartIcons(model: widget.product),
+              ProductsIcons(model: widget.product),
             ],
           ),
         ),

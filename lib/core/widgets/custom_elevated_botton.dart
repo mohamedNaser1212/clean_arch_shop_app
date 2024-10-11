@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_screen_body.dart';
+import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_form.dart';
 import 'package:shop_app/core/widgets/reusable_elevated_botton.dart';
 import '../../Features/authentication_feature/data/model/login_request_model.dart';
 import '../../Features/authentication_feature/data/model/register_request_model.dart';
@@ -13,7 +13,7 @@ import '../../Features/settings_feature/presentation/screen/settings_screen.dart
 import '../functions/toast_function.dart';
 import '../payment_gate_way/cubit/payment_cubit.dart';
 import '../user_info/cubit/user_info_cubit.dart';
-import '../utils/styles_manager/color_manager.dart';
+import '../utils/styles/color_manager.dart';
 
 // ignore: must_be_immutable
 class CustomElevatedButton extends StatelessWidget {
@@ -27,7 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
   Color? backColor;
 
   factory CustomElevatedButton.loginButton({
-    required LoginScreenBodyState state,
+    required LoginFornState state,
     required BuildContext context,
   }) {
     return CustomElevatedButton._(
@@ -78,12 +78,12 @@ class CustomElevatedButton extends StatelessWidget {
     );
   }
 
-  static void _loginAction(LoginScreenBodyState state, BuildContext context) {
-    if (state.formKey.currentState!.validate()) {
+  static void _loginAction(LoginFornState state, BuildContext context) {
+    if (state.widget.formKey.currentState!.validate()) {
       LoginCubit.get(context).login(
         requestModel: LoginRequestModel(
-          email: state.emailController.text,
-          password: state.passwordController.text,
+          email: state.widget.emailController.text,
+          password: state.widget.passwordController.text,
         ),
       );
     }

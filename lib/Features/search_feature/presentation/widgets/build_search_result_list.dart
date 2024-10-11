@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/Features/search_feature/presentation/widgets/search_conditional_builder_widget.dart';
 import 'package:shop_app/core/widgets/custom_title_widget.dart';
-import '../../../../core/utils/styles_manager/color_manager.dart';
+import '../../../../core/utils/styles/color_manager.dart';
 import '../cubit/search_cubit/search_cubit.dart';
 
 class SearchResultList extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
-import '../utils/styles_manager/text_styles_manager.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
+import '../utils/styles/text_styles_manager.dart';
 
 // ignore: must_be_immutable
 class ReusableElevatedButton extends StatelessWidget {

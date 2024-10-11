@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_item.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 import '../../domain/entities/products_entity/product_entity.dart';
 

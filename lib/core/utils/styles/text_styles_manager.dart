@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/utils/constants.dart';
-import 'package:shop_app/core/utils/styles_manager/color_manager.dart';
+import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 abstract class StylesManager {
   const StylesManager._();
