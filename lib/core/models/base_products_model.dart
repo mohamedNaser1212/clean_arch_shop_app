@@ -6,6 +6,7 @@ abstract class BaseProductModel {
   final num oldPrice;
   final num discount;
   final String image;
+  final List<String>? images;
   final String name;
   final String description;
 
@@ -15,6 +16,7 @@ abstract class BaseProductModel {
     required this.oldPrice,
     required this.discount,
     required this.image,
+     this.images,
     required this.name,
     required this.description,
   });
@@ -26,6 +28,7 @@ abstract class BaseProductModel {
        RequestDataNames.oldPrice: oldPrice,
        RequestDataNames.discount: discount,
        RequestDataNames.image: image,
+       RequestDataNames.images: images,
        RequestDataNames.name: name,
        RequestDataNames.description: description,
     };

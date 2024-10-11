@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/domain/entities/products_entity/product_entity.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_details_information.dart';
-import 'package:shop_app/core/widgets/products_details_widgets/image_widget.dart';
+import 'package:shop_app/core/widgets/products_details_widgets/carousal_image_widget.dart';
 
 class ProductDetailsBody extends StatelessWidget {
   const ProductDetailsBody({super.key, this.model});

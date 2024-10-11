@@ -48,6 +48,7 @@ class FavoritesItems extends StatelessWidget {
       context: context,
       screen: ProductsDetailsScreen(
         model: model,
+        isProductEntity: false,
       ),
     );
   }

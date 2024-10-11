@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/core/models/base_products_model.dart';
+import 'package:shop_app/core/widgets/custom_app_bar.dart';
 import 'package:shop_app/core/widgets/products_details_widgets/product_details_body.dart';
 import '../../../Features/home/presentation/cubit/get_products_cubit/get_product_cubit.dart';
 import '../../../Features/home/presentation/cubit/get_products_cubit/get_products_state.dart';
-import '../../utils/styles/color_manager.dart';
 import '../../utils/constants.dart';
-import '../custom_title_widget.dart';
 
 class ProductsDetailsScreen extends StatelessWidget {
-  final dynamic model;
+  final BaseProductModel model;
+  final bool isProductEntity;
 
-  const ProductsDetailsScreen({super.key, required this.model});
+  const ProductsDetailsScreen({
+    super.key, 
+    required this.model, 
+    required this.isProductEntity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +29,22 @@ class ProductsDetailsScreen extends StatelessWidget {
 
   Widget _builder(BuildContext context, GetProductsState state) {
     return Scaffold(
-      appBar: AppBar(
-        title: const CustomTitle(
-          title: 'Product Details',
-          style: TitleStyle.style20,
-          color: ColorController.whiteColor,
-        ),
+      appBar: CustomAppBar(
+        title: 'Product Details',
         centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: defaultColor),
-          onPressed: () => _onPressed(context),
-        ),
+        leading: _leadingIcon(context),
       ),
-      body: ProductDetailsBody(model: model),
+      body: ProductDetailsBody(
+        model: model,
+        isProductEntity: isProductEntity,
+      ),
+    );
+  }
+
+  IconButton _leadingIcon(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back, color: defaultColor),
+      onPressed: () => _onPressed(context),
     );
   }
 
