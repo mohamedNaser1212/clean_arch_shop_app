@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/home/presentation/products_widgets/products_details_components.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/description_text_widget.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/product_description_widget.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/product_name_widget.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/products_prices_widgets.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/utils/styles/color_manager.dart';
 
 class ProductDetailsInformationBody extends StatefulWidget {
-  const ProductDetailsInformationBody(
-      {super.key, required this.model, required this.images, this.isProduct});
+  const ProductDetailsInformationBody({
+    super.key,
+    required this.model,
+    required this.images,
+  });
   final BaseProductModel model;
-
-  final dynamic isProduct;
 
   final List<String> images;
 
@@ -36,8 +40,20 @@ class ProductDetailsInformationBodyState
           ),
         ],
       ),
-      child: ProductsDetailsComponents(
-        state: this,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ProductNameWidget(state: this),
+          const SizedBox(height: 8),
+          const DescriptionTextWidget(),
+          const SizedBox(height: 4),
+          ProductDescriptionWidget(
+            state: this,
+          ),
+          const SizedBox(height: 8),
+          if (widget.model.discount != 0) ProductsPricesWidgets(state: this),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }

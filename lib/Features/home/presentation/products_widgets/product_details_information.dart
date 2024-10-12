@@ -4,19 +4,18 @@ import 'package:shop_app/Features/home/presentation/products_widgets/product_det
 import 'package:shop_app/core/models/base_products_model.dart';
 
 class ProductDetailsInformation extends StatelessWidget {
-  const ProductDetailsInformation({super.key,required this.model});
+  const ProductDetailsInformation({super.key, required this.model});
   final BaseProductModel model;
 
   @override
   Widget build(BuildContext context) {
     final isProduct = model is ProductEntity;
     final images = isProduct
-        ? (model.images?.cast<String>()?? [])
+        ? (model.images?.cast<String>() ?? [])
         : [model.image.toString()];
     return ProductDetailsInformationBody(
       model: model,
       images: images,
-      isProduct: isProduct,
     );
   }
 }
