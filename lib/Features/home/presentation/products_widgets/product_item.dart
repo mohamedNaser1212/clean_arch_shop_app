@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/product_item_image.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/products_information_widget.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
-import 'package:shop_app/core/widgets/products_details_widgets/products_details_screen.dart';
+import 'package:shop_app/Features/home/presentation/screens/products_details_screen.dart';
 
 import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/utils/styles/color_manager.dart';

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/custom_app_bar.dart';
 import 'package:shop_app/core/widgets/products_details_widgets/product_details_body.dart';
-import '../../../Features/home/presentation/cubit/get_products_cubit/get_product_cubit.dart';
-import '../../../Features/home/presentation/cubit/get_products_cubit/get_products_state.dart';
-import '../../utils/constants.dart';
+import '../cubit/get_products_cubit/get_product_cubit.dart';
+import '../cubit/get_products_cubit/get_products_state.dart';
+import '../../../../core/utils/constants.dart';
 
 class ProductsDetailsScreen extends StatelessWidget {
   final BaseProductModel model;

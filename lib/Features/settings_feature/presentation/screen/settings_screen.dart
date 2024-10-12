@@ -21,13 +21,11 @@ class SettingsScreenState extends State<SettingsScreen> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
   @override
   void initState() {
     super.initState();
     UserInfoCubit.get(context).getUserData();
   }
-
   @override
   void dispose() {
     nameController.dispose();

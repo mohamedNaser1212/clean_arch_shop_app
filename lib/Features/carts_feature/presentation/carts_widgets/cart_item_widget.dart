@@ -3,7 +3,7 @@ import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_
 import 'package:shop_app/core/models/base_products_model.dart';
 import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/widgets/products_details_widgets/product_image_widget.dart';
-import '../../../../core/widgets/products_details_widgets/products_details_screen.dart';
+import '../../../home/presentation/screens/products_details_screen.dart';
 import '../../../../core/widgets/custom_sized_box.dart';
 
 class CartItemWidget extends StatelessWidget {

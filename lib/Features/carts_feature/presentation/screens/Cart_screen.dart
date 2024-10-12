@@ -7,7 +7,7 @@ import 'package:shop_app/core/payment_gate_way/cubit/payment_cubit.dart';
 import 'package:shop_app/core/payment_gate_way/domain/payment_use_case/payment_use_case.dart';
 import 'package:shop_app/core/service_locator/service_locator.dart';
 import '../../../../core/functions/toast_function.dart';
-import '../carts_widgets/cart_content.dart';
+import '../carts_widgets/cart_screen_body.dart';
 import '../cubit/toggle_carts_cubit/toggle_cart_cubit.dart';
 
 class CartScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/check_out_botton.dart';
-import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/total_text_widget.dart';
+import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/total_price_text_widget.dart';
 
 class TotalAndCheckOutWidget extends StatelessWidget {
   const TotalAndCheckOutWidget({

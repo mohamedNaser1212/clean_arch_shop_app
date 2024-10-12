@@ -4,7 +4,7 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favo
 import 'package:shop_app/Features/favourites_feature/domain/favourites_entity/favourites_entity.dart';
 import 'package:shop_app/Features/carts_feature/domain/cart_entity/add_to_cart_entity.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_item_widget.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourite_item.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourite_item_widget.dart';
 import 'package:shop_app/core/widgets/custom_title_widget.dart';
 import 'package:shop_app/core/widgets/loading_indicator_widget.dart';
 

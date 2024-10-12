@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_check_out_data.dart';
-import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/total_and_checkout_widget.dart';
+import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_Payment_widgets.dart';
 import 'package:shop_app/core/payment_gate_way/cubit/payment_cubit.dart';
 import 'package:shop_app/core/widgets/loading_indicator_widget.dart';
 

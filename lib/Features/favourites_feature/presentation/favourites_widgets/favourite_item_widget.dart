@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/models/base_products_model.dart';
 import 'package:shop_app/core/widgets/products_details_widgets/product_image_widget.dart';
-import 'package:shop_app/core/widgets/products_details_widgets/products_details_screen.dart';
+import 'package:shop_app/Features/home/presentation/screens/products_details_screen.dart';
 import '../../../../core/functions/navigations_function.dart';
 import '../../../home/presentation/products_widgets/products_information_widget.dart';
 import '../../../../core/widgets/favourites_and_carts_icons/produxts_icons.dart';
