@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_form.dart';
 import 'package:shop_app/core/widgets/reusable_elevated_botton.dart';
+
 import '../../Features/authentication_feature/data/model/login_request_model.dart';
 import '../../Features/authentication_feature/data/model/register_request_model.dart';
 import '../../Features/authentication_feature/presentation/cubit/login_cubit/login_cubit.dart';
@@ -116,7 +117,7 @@ class CustomElevatedButton extends StatelessWidget {
   ) {
     if (userState.formKey.currentState!.validate()) {
       final cubit = UpdateUserDataCubit.get(context);
-      UpdateUserDataCubit.get(context).userModel =
+      UpdateUserDataCubit.get(context).userEntity =
           UserInfoCubit.get(context).userEntity;
       if (cubit.checkDataChanges(
         name: userState.nameController.text,

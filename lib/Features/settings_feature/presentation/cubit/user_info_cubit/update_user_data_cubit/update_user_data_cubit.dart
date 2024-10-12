@@ -13,7 +13,7 @@ class UpdateUserDataCubit extends Cubit<UpdateUserDataState> {
 
   static UpdateUserDataCubit get(context) => BlocProvider.of(context);
 
-  UserEntity? userModel;
+  UserEntity? userEntity;
   final UpdateUserDataUseCase updateUserDataUseCase;
 
   bool checkDataChanges({
@@ -21,10 +21,10 @@ class UpdateUserDataCubit extends Cubit<UpdateUserDataState> {
     required String email,
     required String phone,
   }) {
-    return userModel != null &&
-        (name != userModel!.name ||
-            email != userModel!.email ||
-            phone != userModel!.phone);
+    return userEntity != null &&
+        (name != userEntity!.name ||
+            email != userEntity!.email ||
+            phone != userEntity!.phone);
   }
 
   Future<void> updateUserData({
@@ -39,7 +39,7 @@ class UpdateUserDataCubit extends Cubit<UpdateUserDataState> {
         emit(UpdateUserDataError(error: failure.message));
       },
       (user) {
-        userModel = user;
+        userEntity = user;
         // getUserData();
         emit(UpdateUserDataSuccess(userEntity: user));
       },
