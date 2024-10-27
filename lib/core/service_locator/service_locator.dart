@@ -20,7 +20,6 @@ import 'package:shop_app/Features/favourites_feature/domain/favourites_use_case/
 import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:shop_app/Features/home/domain/home_repo/home_repo.dart';
-import 'package:shop_app/Features/home/presentation/cubit/get_categories_cubit/categories_cubit.dart';
 import 'package:shop_app/Features/search_feature/data/search_data_source/search_remote_data_source.dart';
 import 'package:shop_app/Features/search_feature/data/search_repo_impl/search_repo_impl.dart';
 import 'package:shop_app/Features/search_feature/domain/search_repo/search_repo.dart';
@@ -41,7 +40,7 @@ import '../../Features/home/data/data_sources/home_local_data_source.dart';
 import '../../Features/home/data/repo/home_repo_impl.dart';
 import '../../Features/home/domain/use_case/home_use_case/categories_use_case.dart';
 import '../../Features/home/domain/use_case/home_use_case/products_Use_Case.dart';
-import '../../Features/home/presentation/cubit/get_products_cubit/get_product_cubit.dart';
+import '../../Features/home/presentation/cubit/get_home_data_cubit/get_home_data_cubit.dart';
 import '../../Features/settings_feature/data/user_data_repo_impl/user_data_repo_impl.dart';
 import '../../Features/settings_feature/domain/get_user_repo/get_user_repo.dart';
 import '../../Features/settings_feature/domain/settings_use_case/user_sign_out_use_case.dart';
@@ -178,8 +177,8 @@ void setUpServiceLocator() async {
   getIt.registerSingleton<RemoveCartUseCase>(
       RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()));
 
-  getIt.registerSingleton<FetchCategoriesUseCase>(
-    FetchCategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
+  getIt.registerSingleton<CategoriesUseCase>(
+    CategoriesUseCase(homeRepo: getIt.get<HomeRepo>()),
   );
   getIt.registerSingleton<ProductsUseCase>(
     ProductsUseCase(homeRepo: getIt.get<HomeRepo>()),
@@ -276,12 +275,11 @@ void setUpServiceLocator() async {
         toggleCartUseCase: ToggleCartUseCase(cartRepo: getIt.get<CartRepo>()),
         removeCartUseCase: RemoveCartUseCase(cartRepo: getIt.get<CartRepo>()),
       ));
-  getIt.registerFactory(() => ProductsCubit(
+  getIt.registerFactory(() => GetHomeDataCubit(
         fetchHomeItemsUseCase: getIt.get<ProductsUseCase>(),
+        fetchCategoriesUseCase: getIt.get<CategoriesUseCase>(),
       ));
-  getIt.registerFactory(() => CategoriesCubit(
-        fetchCategoriesUseCase: getIt.get<FetchCategoriesUseCase>(),
-      ));
+
   getIt.registerFactory(() => ToggleFavouriteCubit(
         toggleFavouritesUseCase: ToggleFavouritesUseCase(
             favouritesRepository: getIt.get<FavouritesRepo>()),

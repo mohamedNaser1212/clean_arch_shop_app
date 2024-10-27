@@ -4,10 +4,10 @@ import 'package:shop_app/Features/home/domain/home_repo/home_repo.dart';
 import '../../../../../core/managers/errors_manager/failure.dart';
 import '../../entities/categories_entity/categories_entity.dart';
 
-class FetchCategoriesUseCase {
+class CategoriesUseCase {
   final HomeRepo homeRepo;
 
-  const FetchCategoriesUseCase({
+  const CategoriesUseCase({
     required this.homeRepo,
   });
 

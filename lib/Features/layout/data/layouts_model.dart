@@ -4,13 +4,13 @@ import 'package:shop_app/Features/settings_feature/presentation/screen/settings_
 import '../../carts_feature/presentation/screens/cart_screen.dart';
 import '../../favourites_feature/presentation/screens/favorites_screen.dart';
 import '../../home/presentation/screens/categries_screen.dart';
-import '../../home/presentation/screens/products_screen.dart';
+import '../../home/presentation/screens/home_screen.dart';
 
 class LayoutModel {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const ProductsScreen(),
+    const HomeScreen(),
     const CategoriesScreen(),
     const FavoritesScreen(),
     const CartScreen(),

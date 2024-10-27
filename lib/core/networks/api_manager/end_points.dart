@@ -2,7 +2,7 @@ abstract class EndPoints {
   const EndPoints._();
   static const String loginEndPoint = 'login';
   static const String registerEndPoint = 'register';
-  static const String homeEndPoint = 'home';
+  static const String productsEndPoint = 'home';
   static const String categoriesEndPoint = 'categories';
   static const String favoritesEndPoint = 'favorites';
   static const String profileEndPoint = 'profile';
@@ -12,8 +12,5 @@ abstract class EndPoints {
   static const String logOutEndPoint = 'logout';
   static const String stripeEndPoint =
       'https://api.stripe.com/v1/payment_intents';
-  static const String baseUrl =
-      'https://student.valuxapps.com/api/';
-
-
+  static const String baseUrl = 'https://student.valuxapps.com/api/';
 }

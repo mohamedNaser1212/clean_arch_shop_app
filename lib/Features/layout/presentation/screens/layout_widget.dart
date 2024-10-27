@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
-import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
-import 'package:shop_app/Features/home/presentation/cubit/get_products_cubit/get_product_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 import 'package:shop_app/core/widgets/custom_app_bar.dart';
 import '../../../../core/functions/navigations_function.dart';
@@ -22,10 +19,10 @@ class LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     super.initState();
-    FavouritesCubit.get(context).getFavorites();
-    CartsCubit.get(context).getCarts();
+    // FavouritesCubit.get(context).getFavorites();
+    // CartsCubit.get(context).getCarts();
 
-    ProductsCubit.get(context).getProducts();
+    // GetHomeDataCubit.get(context).getProducts();
   }
 
   @override
@@ -33,15 +30,13 @@ class LayoutScreenState extends State<LayoutScreen> {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: layoutModel.currentScreen,
-      bottomNavigationBar: _bottomNavigationBody(),
+      bottomNavigationBar: BottomNavBar(
+      state: this,
+    ),
     );
   }
 
-  BottomNavBar _bottomNavigationBody() {
-    return BottomNavBar(
-      state: this,
-    );
-  }
+ 
 
   CustomAppBar _buildAppBar(BuildContext context) {
     return CustomAppBar(

@@ -26,6 +26,7 @@ class SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     UserInfoCubit.get(context).getUserData();
   }
+
   @override
   void dispose() {
     nameController.dispose();
@@ -62,7 +63,7 @@ class SettingsScreenState extends State<SettingsScreen> {
       phoneController.text = userState.userEntity!.phone;
     }
     print('name: ${nameController.text}');
-    return CustomProgressIndicator(
+    return BlockInteractionLoadingWidget(
       isLoading: userState is GetUserInfoLoadingState,
       child: SettingsScreenBody(
         userState: this,

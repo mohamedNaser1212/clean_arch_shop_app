@@ -1,11 +1,11 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/home/presentation/cubit/get_home_data_cubit/get_home_data_cubit.dart';
+import 'package:shop_app/Features/home/presentation/cubit/get_home_data_cubit/get_home_data_state.dart';
 import 'package:shop_app/core/widgets/loading_text_widget.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/horizontal_categories_list_view.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_categories_list_view.dart';
-import 'package:shop_app/Features/home/presentation/cubit/get_categories_cubit/categories_cubit.dart';
-
 
 // ignore: must_be_immutable
 class CategoriesScreenBody extends StatefulWidget {
@@ -27,7 +27,7 @@ class CategoriesScreenBody extends StatefulWidget {
 class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CategoriesCubit, CategoriesState>(
+    return BlocConsumer<GetHomeDataCubit, GetHomeDataState>(
       listener: _listener,
       builder: _builder,
     );
@@ -35,17 +35,17 @@ class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
 
   Widget _builder(context, state) {
     return ConditionalBuilder(
-      condition: CategoriesCubit.get(context).categoriesModel != null,
+      condition: state is! CategoriesLoading,
       builder: (context) {
-        var categoryModel = CategoriesCubit.get(context).categoriesModel;
+        var categoryModel = GetHomeDataCubit.get(context).categoriesModel;
 
         return widget.isHorizontal
             ? HorizontalCategoriesListView(
                 state: this,
-                categoryModel: categoryModel!,
+                categoryModel: categoryModel,
               )
             : VerticalCategoriesListView(
-                categoryModel: categoryModel!,
+                categoryModel: categoryModel,
                 state: this,
               );
       },

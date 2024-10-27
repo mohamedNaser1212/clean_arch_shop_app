@@ -27,8 +27,9 @@ class RegisterScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget _builder(BuildContext context, RegisterState state) {
-    return CustomProgressIndicator(
+    return BlockInteractionLoadingWidget(
       isLoading: state is RegisterLoadingState,
       child: Scaffold(
         appBar: CustomAppBar(
@@ -39,6 +40,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 }
+
 void _listener(BuildContext context, RegisterState state) {
   if (state is RegisterSuccessState) {
     ToastFunction.showToast(

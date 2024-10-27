@@ -35,14 +35,12 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _builder(BuildContext context, LoginState state) {
-    return CustomProgressIndicator(
+    return BlockInteractionLoadingWidget(
       isLoading: state is LoginLoadingState,
       child: Scaffold(
         appBar: CustomAppBar(
           title: 'Login',
           showLeadingIcon: false,
-          
-          
         ),
         body: const LoginScreenBody(),
       ),

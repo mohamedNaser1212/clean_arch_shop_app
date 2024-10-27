@@ -23,11 +23,12 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   @override
   Future<List<ProductResponseModel>> fetchProducts() async {
     ApiRequestModel request = ApiRequestModel(
-      endpoint: EndPoints.homeEndPoint,
+      endpoint: EndPoints.productsEndPoint,
       headerModel: HeaderModel(),
     );
     var data = await apiHelper.get(request: request);
-    List<ProductResponseModel> products = getProductsList(data[RequestDataNames.data]);
+    List<ProductResponseModel> products =
+        _getProductsList(data[RequestDataNames.data]);
 
     return products;
   }
@@ -39,12 +40,13 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
       headerModel: HeaderModel(),
     );
     var data = await apiHelper.get(request: request);
-    List<CategoryModel> categories = getCategoriesList(data[RequestDataNames.data]);
+    List<CategoryModel> categories =
+        _getCategoriesList(data[RequestDataNames.data]);
 
     return categories;
   }
 
-  List<ProductResponseModel> getProductsList(Map<String, dynamic> data) {
+  List<ProductResponseModel> _getProductsList(Map<String, dynamic> data) {
     List<ProductResponseModel> products = [];
     for (var productMap in data[RequestDataNames.products]) {
       products.add(ProductResponseModel.fromJson(productMap));
@@ -52,7 +54,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
     return products;
   }
 
-  List<CategoryModel> getCategoriesList(Map<String, dynamic> data) {
+  List<CategoryModel> _getCategoriesList(Map<String, dynamic> data) {
     List<CategoryModel> categories = [];
     for (var categoryMap in data[RequestDataNames.data]) {
       categories.add(CategoryModel.fromJson(categoryMap));
