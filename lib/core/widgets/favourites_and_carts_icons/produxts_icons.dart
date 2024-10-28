@@ -14,6 +14,6 @@ class ProductsIcons extends StatefulWidget {
 class _ProductsIconsState extends State<ProductsIcons> {
   @override
   Widget build(BuildContext context) {
-    return FavouriteAndCartIconsBody(widget: widget);
+    return ProductIconsBody(widget: widget);
   }
 }

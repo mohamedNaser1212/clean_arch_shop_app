@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/carts_feature/presentation/cubit/get_carts_cubit/carts_cubit.dart';
+import 'package:shop_app/Features/favourites_feature/presentation/cubit/get_favourites_cubit/favourites_cubit.dart';
 import 'package:shop_app/Features/search_feature/presentation/screens/search_screen.dart';
 import 'package:shop_app/core/widgets/custom_app_bar.dart';
 import '../../../../core/functions/navigations_function.dart';
@@ -19,8 +21,8 @@ class LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     super.initState();
-    // FavouritesCubit.get(context).getFavorites();
-    // CartsCubit.get(context).getCarts();
+    FavouritesCubit.get(context).getFavorites();
+    CartsCubit.get(context).getCarts();
 
     // GetHomeDataCubit.get(context).getProducts();
   }
@@ -31,17 +33,16 @@ class LayoutScreenState extends State<LayoutScreen> {
       appBar: _buildAppBar(context),
       body: layoutModel.currentScreen,
       bottomNavigationBar: BottomNavBar(
-      state: this,
-    ),
+        state: this,
+      ),
     );
   }
-
- 
 
   CustomAppBar _buildAppBar(BuildContext context) {
     return CustomAppBar(
       title: 'Shop App',
       centerTitle: true,
+      showLeadingIcon: false,
       actions: _actions,
     );
   }

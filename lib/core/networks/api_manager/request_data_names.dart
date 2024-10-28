@@ -28,4 +28,6 @@ abstract class RequestDataNames {
   static const String oldPrice= 'old_price';
   static const String discount= 'discount';
   static const String price= 'price';
+  static const String isFavorite= 'in_favorites';
+  static const String isCart= 'in_cart';
 }

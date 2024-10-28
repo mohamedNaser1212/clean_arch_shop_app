@@ -7,6 +7,7 @@ import '../../../domain/entities/products_entity/product_entity.dart';
 
 
 class ShopChangeBottomNavState extends GetHomeDataState {}
+class HomeDataLoading extends GetHomeDataState {}
 
 class GetproductsSuccessState extends GetHomeDataState {
   final List<ProductEntity> products;

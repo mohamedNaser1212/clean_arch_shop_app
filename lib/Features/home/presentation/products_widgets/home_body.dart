@@ -5,9 +5,14 @@ import 'package:shop_app/Features/home/presentation/products_widgets/new_product
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
 import '../cubit/get_home_data_cubit/get_home_data_cubit.dart';
 
-class HomeScreenBody extends StatelessWidget {
+class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
 
+  @override
+  State<HomeScreenBody> createState() => _HomeScreenBodyState();
+}
+
+class _HomeScreenBodyState extends State<HomeScreenBody> {
   @override
   Widget build(BuildContext context) {
     final cubit = GetHomeDataCubit.get(context);
@@ -24,16 +29,21 @@ class HomeScreenBody extends StatelessWidget {
           FutureBuilder(
             future: cubit.getCategoriesData(),
             builder: (context, snapshot) {
+              // if (snapshot.connectionState == ConnectionState.waiting) {
+              //   return const Center(child: CircularProgressIndicator());
+              // } else if (snapshot.hasError) {
+              //   return Center(
+              //     child: Text('Failed to load categories: ${snapshot.error}'),
+              //   );
+              // } else {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
-              } else if(snapshot.connectionState == ConnectionState.done) {
+              } else {
                 return CategoriesScreenBody(
                   isHorizontal: true,
                   itemHeight: 100.0,
                   itemWidth: 100.0,
                 );
-              }else{
-                return const SizedBox.shrink();       
               }
             },
           ),
@@ -45,15 +55,17 @@ class HomeScreenBody extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('Failed to load products: ${snapshot.error}'),
-                );
               } else {
                 return ProductsGridView(
-                  products: cubit.homeModel,
+                  products: GetHomeDataCubit.get(context).productModel,
                 );
               }
+
+              //else if (snapshot.hasError) {
+              //   return Center(
+              //     child: Text('Failed to load products: ${snapshot.error}'),
+              //   );
+              // } else {
             },
           ),
         ],
