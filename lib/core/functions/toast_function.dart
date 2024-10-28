@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/core/utils/styles/color_manager.dart';
 
-abstract class ToastFunction {
-  const ToastFunction._();
- static void showToast({
+abstract class ToastHelper {
+  const ToastHelper._();
+  static void showToast({
     required String message,
     Color color = ColorController.redColor,
   }) {
@@ -21,4 +21,3 @@ abstract class ToastFunction {
     );
   }
 }
-

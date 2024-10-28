@@ -43,7 +43,7 @@ class RegisterScreen extends StatelessWidget {
 
 void _listener(BuildContext context, RegisterState state) {
   if (state is RegisterSuccessState) {
-    ToastFunction.showToast(
+    ToastHelper.showToast(
       color: ColorController.greenAccent,
       message: 'Registeration Success',
     );
@@ -52,7 +52,7 @@ void _listener(BuildContext context, RegisterState state) {
       screen: const InitialScreen(),
     );
   } else if (state is RegisterErrorState) {
-    ToastFunction.showToast(
+    ToastHelper.showToast(
       message: state.message,
     );
   }

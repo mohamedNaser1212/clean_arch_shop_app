@@ -77,18 +77,18 @@ class CartCheckoutDataState extends State<CartCheckoutData> {
       );
       if (cartUpdated) {
         CartsCubit.get(context).clearCartItems();
-        ToastFunction.showToast(
+        ToastHelper.showToast(
           message: 'Payment Success and Cart Cleared',
           color: Colors.green,
         );
       } else {
-        ToastFunction.showToast(
+        ToastHelper.showToast(
           message: 'Payment Failed',
           color: Colors.red,
         );
       }
     } else if (state is GetClientSecretErrorState) {
-      ToastFunction.showToast(
+      ToastHelper.showToast(
         message: state.message,
       );
     }

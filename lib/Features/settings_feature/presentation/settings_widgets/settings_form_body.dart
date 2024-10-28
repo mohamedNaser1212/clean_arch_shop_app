@@ -47,8 +47,8 @@ class SettingsFormBodyState extends State<SettingsFormBody> {
             listener: (context, state) {
               if (state is GetUserInfoSuccessState) {
                 nameController.text = state.userEntity!.name;
-                emailController.text =  state.userEntity!.email;
-                phoneController.text =  state.userEntity!.phone;
+                emailController.text = state.userEntity!.email;
+                phoneController.text = state.userEntity!.phone;
               }
             },
             builder: (context, state) {
@@ -77,12 +77,12 @@ class SettingsFormBodyState extends State<SettingsFormBody> {
 
   void _updateListener(BuildContext context, UpdateUserDataState state) {
     if (state is UpdateUserDataError) {
-      ToastFunction.showToast(
+      ToastHelper.showToast(
         message: state.error,
       );
     } else if (state is UpdateUserDataSuccess) {
       UserInfoCubit.get(context).getUserData();
-      ToastFunction.showToast(
+      ToastHelper.showToast(
         message: 'Data updated successfully',
         color: ColorController.greenAccent,
       );
@@ -96,7 +96,7 @@ class SettingsFormBodyState extends State<SettingsFormBody> {
         screen: const LoginScreen(),
       );
     } else if (state is UserSignOutError) {
-      ToastFunction.showToast(
+      ToastHelper.showToast(
         message: state.error,
       );
     }

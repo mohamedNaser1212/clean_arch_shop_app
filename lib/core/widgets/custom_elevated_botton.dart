@@ -66,7 +66,6 @@ class CustomElevatedButton extends StatelessWidget {
   }) {
     return CustomElevatedButton._(
       onPressed: () => _updateAction(
-        
         context: context,
         userState: userState,
         formBodyState: formBodyState,
@@ -138,7 +137,7 @@ class CustomElevatedButton extends StatelessWidget {
           ),
         );
       } else {
-        ToastFunction.showToast(
+        ToastHelper.showToast(
           message: 'No changes detected. Your data is up-to-date.',
           color: ColorController.greenAccent,
         );
