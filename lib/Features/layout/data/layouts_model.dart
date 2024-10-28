@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
+import 'package:shop_app/Features/home/presentation/products_widgets/home_body.dart';
 import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
 
 import '../../carts_feature/presentation/screens/cart_screen.dart';
 import '../../favourites_feature/presentation/screens/favorites_screen.dart';
-import '../../home/presentation/screens/categries_screen.dart';
-import '../../home/presentation/screens/home_screen.dart';
 
 class LayoutModel {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const HomeScreen(),
-    const CategoriesScreen(),
+    const HomeScreenBody(),
+     CategoriesScreenBody(),
     const FavoritesScreen(),
     const CartScreen(),
     const SettingsScreen(),
