@@ -23,7 +23,7 @@ class VerticalCategoriesListView extends StatelessWidget {
         var category = categoryModel[index];
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: CategoriesContents(
+          child: CategoriesItemWidgetBody(
             item: category,
             state: state,
           ),

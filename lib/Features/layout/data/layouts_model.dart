@@ -10,7 +10,9 @@ class LayoutModel {
 
   final List<Widget> _screens = [
     const HomeScreenBody(),
-    CategoriesScreenBody(),
+    CategoriesScreenBody(
+      isHorizontal: false,
+    ),
     const FavoritesScreenBody(),
     const CartScreenBody(),
     const SettingsScreenBody(),

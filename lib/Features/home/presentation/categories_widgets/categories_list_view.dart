@@ -15,11 +15,11 @@ class CategoriesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: state.widget.itemHeight * 7,
+        height: state.widget.itemHeight! * 7,
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
-          itemBuilder: (context, index) => CategoriesPageItems(
+          itemBuilder: (context, index) => CategoriesScreenItemsWidget(
             state: state,
             item: categoryModel[index],
           ),

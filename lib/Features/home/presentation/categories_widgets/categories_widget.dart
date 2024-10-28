@@ -11,14 +11,15 @@ import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_
 class CategoriesScreenBody extends StatefulWidget {
    CategoriesScreenBody({
     super.key,
-    this.itemHeight = 150.0,
-    this.itemWidth = 150.0,
-     this.isHorizontal=false,
+    this.itemHeight ,
+    this.itemWidth ,
+   required this.isHorizontal,
   });
-
-  final double itemHeight;
-  final double itemWidth;
-   bool isHorizontal;
+//       itemHeight: MediaQuery.of(context).size.height / 5,
+//       itemWidth: ,
+   double? itemHeight= 250;
+   double? itemWidth=double.infinity;
+  final bool isHorizontal;
 
   @override
   State<CategoriesScreenBody> createState() => CategoriesScreenBodyState();
@@ -39,7 +40,7 @@ class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
       builder: (context) {
         var categoryModel = GetHomeDataCubit.get(context).categoriesModel;
 
-        return widget.isHorizontal
+        return widget.isHorizontal==true
             ? HorizontalCategoriesListView(
                 state: this,
                 categoryModel: categoryModel,

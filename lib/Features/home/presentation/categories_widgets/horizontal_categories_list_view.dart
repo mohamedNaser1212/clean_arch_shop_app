@@ -15,7 +15,7 @@ class HorizontalCategoriesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: state.widget.itemHeight + 50,
+      height: state.widget.itemHeight! + 50,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoryModel.length,
@@ -26,7 +26,7 @@ class HorizontalCategoriesListView extends StatelessWidget {
             child: Column(
               children: [
                 CircleAvatar(
-                  radius: state.widget.itemWidth / 2,
+                  radius: state.widget.itemWidth! / 2,
                   backgroundImage: NetworkImage(category.image),
                 ),
                 const SizedBox(height: 20),

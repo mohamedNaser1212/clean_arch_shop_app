@@ -31,7 +31,7 @@ class CategoriesContentsBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CategoriesImageWidget(
-                itemHeight: state.widget.itemHeight, item: item),
+                itemHeight: MediaQuery.of(context).size.height / 5, item: item),
             const SizedBox(width: 10),
             CategoriesNameWidget(item: item),
             IconButton(

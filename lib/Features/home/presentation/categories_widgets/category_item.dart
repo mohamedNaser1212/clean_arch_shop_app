@@ -4,8 +4,8 @@ import 'package:shop_app/Features/home/presentation/categories_widgets/categorie
 import '../../domain/entities/categories_entity/categories_entity.dart';
 import 'categories_content.dart';
 
-class CategoriesPageItems extends StatelessWidget {
-  const CategoriesPageItems({
+class CategoriesScreenItemsWidget extends StatelessWidget {
+  const CategoriesScreenItemsWidget({
     super.key,
     required this.item,
     required this.state,
@@ -24,7 +24,7 @@ class CategoriesPageItems extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           color: Colors.deepOrange[100],
         ),
-        child: CategoriesContents(item: item, state: state),
+        child: CategoriesItemWidgetBody(item: item, state: state),
       ),
     );
   }
