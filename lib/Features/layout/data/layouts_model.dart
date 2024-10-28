@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/Features/carts_feature/presentation/carts_widgets/cart_screen_body.dart';
 import 'package:shop_app/Features/favourites_feature/presentation/favourites_widgets/favourites_screen_body.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/home_body.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_screen_body.dart';
-import '../../carts_feature/presentation/screens/cart_screen.dart';
 
 class LayoutModel {
   int _currentIndex = 0;
@@ -12,7 +12,7 @@ class LayoutModel {
     const HomeScreenBody(),
     CategoriesScreenBody(),
     const FavoritesScreenBody(),
-    const CartScreen(),
+    const CartScreenBody(),
     const SettingsScreenBody(),
   ];
 
