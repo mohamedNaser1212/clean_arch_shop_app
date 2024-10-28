@@ -9,8 +9,8 @@ import '../../../../core/functions/navigations_function.dart';
 import '../../../../core/utils/styles/color_manager.dart';
 import '../../../../core/widgets/favourites_and_carts_icons/produxts_icons.dart';
 
-class ProductItem extends StatefulWidget {
-  const ProductItem({
+class ProductItemWidget extends StatefulWidget {
+  const ProductItemWidget({
     Key? key,
     required this.product,
   }) : super(key: key);
@@ -18,10 +18,10 @@ class ProductItem extends StatefulWidget {
   final BaseProductModel product;
 
   @override
-  State<ProductItem> createState() => ProductItemState();
+  State<ProductItemWidget> createState() => ProductItemWidgetState();
 }
 
-class ProductItemState extends State<ProductItem> {
+class ProductItemWidgetState extends State<ProductItemWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -44,13 +44,10 @@ class ProductItemState extends State<ProductItem> {
   }
 
   void _onTap() {
-
     NavigationFunctions.navigateTo(
       context: context,
       screen: ProductsDetailsScreen(
         model: widget.product,
-      
-      
       ),
     );
   }

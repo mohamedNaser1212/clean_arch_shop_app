@@ -7,7 +7,7 @@ import '../../../../core/widgets/custom_title_widget.dart';
 
 class ProductItemImage extends StatelessWidget {
   const ProductItemImage({super.key, required this.state});
-  final ProductItemState state;
+  final ProductItemWidgetState state;
   @override
   Widget build(BuildContext context) {
     return Stack(

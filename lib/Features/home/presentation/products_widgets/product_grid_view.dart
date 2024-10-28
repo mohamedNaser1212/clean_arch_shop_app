@@ -25,7 +25,7 @@ class ProductsGridView extends StatelessWidget {
             childAspectRatio: 1 / 1.99,
             children: List.generate(
               products.length,
-              (index) => ProductItem(
+              (index) => ProductItemWidget(
                 product: GetHomeDataCubit.get(context).productModel[index],
               ),
             ),
