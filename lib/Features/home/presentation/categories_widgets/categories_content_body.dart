@@ -12,7 +12,7 @@ class CategoriesContentsBody extends StatelessWidget {
     required this.item,
   });
 
-  final CategoriesScreenBodyState state;
+  final CategoriesBodyState state;
 
   final CategoriesEntity item;
 

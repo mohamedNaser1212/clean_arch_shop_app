@@ -9,16 +9,16 @@ import 'package:shop_app/core/service_locator/service_locator.dart';
 import 'package:shop_app/core/user_info/cubit/user_info_cubit.dart';
 import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
 
-class SettingsScreenBody extends StatefulWidget {
-  const SettingsScreenBody({
+class SettingsBody extends StatefulWidget {
+  const SettingsBody({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SettingsScreenBody> createState() => _SettingsScreenBodyState();
+  State<SettingsBody> createState() => _SettingsBodyState();
 }
 
-class _SettingsScreenBodyState extends State<SettingsScreenBody> {
+class _SettingsBodyState extends State<SettingsBody> {
   @override
   void initState() {
     super.initState();

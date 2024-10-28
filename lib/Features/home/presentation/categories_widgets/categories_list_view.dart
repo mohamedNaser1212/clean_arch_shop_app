@@ -11,7 +11,7 @@ class CategoriesListView extends StatelessWidget {
     required this.state,
   });
   final List<CategoriesEntity> categoryModel;
-  final CategoriesScreenBodyState state;
+  final CategoriesBodyState state;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -15,7 +15,7 @@ class CategoriesItemBody extends StatelessWidget {
   final List<CategoriesEntity> categoryModel;
 
   final BuildContext context;
-  final CategoriesScreenBodyState state;
+  final CategoriesBodyState state;
 
   @override
   Widget build(BuildContext context) {

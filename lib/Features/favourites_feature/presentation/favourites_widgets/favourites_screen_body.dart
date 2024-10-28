@@ -7,8 +7,8 @@ import 'package:shop_app/Features/favourites_feature/presentation/cubit/toggle_f
 import 'package:shop_app/core/functions/toast_function.dart';
 import 'package:shop_app/core/widgets/custom_refresh_indicator.dart';
 
-class FavoritesScreenBody extends StatelessWidget {
-  const FavoritesScreenBody({
+class FavoritesBody extends StatelessWidget {
+  const FavoritesBody({
     super.key,
   });
 

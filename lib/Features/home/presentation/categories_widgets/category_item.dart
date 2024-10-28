@@ -11,7 +11,7 @@ class CategoriesScreenItemsWidget extends StatelessWidget {
     required this.state,
   });
   final CategoriesEntity item;
-  final CategoriesScreenBodyState state;
+  final CategoriesBodyState state;
 
   @override
   Widget build(BuildContext context) {

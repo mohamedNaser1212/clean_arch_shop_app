@@ -10,7 +10,7 @@ class VerticalCategoriesListView extends StatelessWidget {
     required this.state,
   });
 
-  final CategoriesScreenBodyState state;
+  final CategoriesBodyState state;
   final List<CategoriesEntity> categoryModel;
 
   @override

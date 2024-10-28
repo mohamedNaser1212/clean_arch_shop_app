@@ -5,14 +5,14 @@ import 'package:shop_app/Features/home/presentation/products_widgets/new_product
 import 'package:shop_app/Features/home/presentation/products_widgets/product_grid_view.dart';
 import '../cubit/get_home_data_cubit/get_home_data_cubit.dart';
 
-class HomeScreenBody extends StatefulWidget {
-  const HomeScreenBody({super.key});
+class HomeBody extends StatefulWidget {
+  const HomeBody({super.key});
 
   @override
-  State<HomeScreenBody> createState() => _HomeScreenBodyState();
+  State<HomeBody> createState() => _HomeBodyState();
 }
 
-class _HomeScreenBodyState extends State<HomeScreenBody> {
+class _HomeBodyState extends State<HomeBody> {
   @override
   Widget build(BuildContext context) {
     final cubit = GetHomeDataCubit.get(context);
@@ -39,7 +39,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                return CategoriesScreenBody(
+                return CategoriesBody(
                   isHorizontal: true,
                   itemHeight: 100.0,
                   itemWidth: 100.0,

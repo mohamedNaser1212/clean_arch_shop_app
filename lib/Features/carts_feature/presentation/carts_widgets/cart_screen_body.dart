@@ -12,8 +12,8 @@ import 'package:shop_app/core/service_locator/service_locator.dart';
 
 import '../cubit/get_carts_cubit/carts_cubit.dart';
 
-class CartScreenBody extends StatelessWidget {
-  const CartScreenBody({
+class CartBody extends StatelessWidget {
+  const CartBody({
     Key? key,
   }) : super(key: key);
 
@@ -44,10 +44,10 @@ class CartScreenBody extends StatelessWidget {
   Widget _cartScreenBuilder(context, state) {
     if (state is GetCartItemsSuccessState) {
       var cartModel = CartsCubit.get(context).cartEntity;
-    if (cartModel.isEmpty) {
-      return const EmptyCartTextWidget();
-    }
-    return CartRefreshIndicatorWidget(cartModel: cartModel);
+      if (cartModel.isEmpty) {
+        return const EmptyCartTextWidget();
+      }
+      return CartRefreshIndicatorWidget(cartModel: cartModel);
     } else if (state is GetCartItemsErrorState) {
       return Center(
         child: Text(state.error),

@@ -10,7 +10,7 @@ class HorizontalCategoriesListView extends StatelessWidget {
     required this.categoryModel,
   });
 
-  final CategoriesScreenBodyState state;
+  final CategoriesBodyState state;
   final List<CategoriesEntity> categoryModel;
   @override
   Widget build(BuildContext context) {

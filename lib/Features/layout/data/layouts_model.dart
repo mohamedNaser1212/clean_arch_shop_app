@@ -9,13 +9,13 @@ class LayoutModel {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const HomeScreenBody(),
-    CategoriesScreenBody(
+    const HomeBody(),
+    CategoriesBody(
       isHorizontal: false,
     ),
-    const FavoritesScreenBody(),
-    const CartScreenBody(),
-    const SettingsScreenBody(),
+    const FavoritesBody(),
+    const CartBody(),
+    const SettingsBody(),
   ];
 
   final List<BottomNavigationBarItem> _bottomNavigationBarItems = const [

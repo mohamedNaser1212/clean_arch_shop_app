@@ -8,24 +8,24 @@ import 'package:shop_app/Features/home/presentation/categories_widgets/horizonta
 import 'package:shop_app/Features/home/presentation/categories_widgets/vertical_categories_list_view.dart';
 
 // ignore: must_be_immutable
-class CategoriesScreenBody extends StatefulWidget {
-   CategoriesScreenBody({
+class CategoriesBody extends StatefulWidget {
+  CategoriesBody({
     super.key,
-    this.itemHeight ,
-    this.itemWidth ,
-   required this.isHorizontal,
+    this.itemHeight,
+    this.itemWidth,
+    required this.isHorizontal,
   });
 //       itemHeight: MediaQuery.of(context).size.height / 5,
 //       itemWidth: ,
-   double? itemHeight= 250;
-   double? itemWidth=double.infinity;
+  double? itemHeight = 250;
+  double? itemWidth = double.infinity;
   final bool isHorizontal;
 
   @override
-  State<CategoriesScreenBody> createState() => CategoriesScreenBodyState();
+  State<CategoriesBody> createState() => CategoriesBodyState();
 }
 
-class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
+class CategoriesBodyState extends State<CategoriesBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetHomeDataCubit, GetHomeDataState>(
@@ -40,7 +40,7 @@ class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
       builder: (context) {
         var categoryModel = GetHomeDataCubit.get(context).categoriesModel;
 
-        return widget.isHorizontal==true
+        return widget.isHorizontal == true
             ? HorizontalCategoriesListView(
                 state: this,
                 categoryModel: categoryModel,
@@ -53,8 +53,6 @@ class CategoriesScreenBodyState extends State<CategoriesScreenBody> {
       fallback: (context) => const LoadingTextWidget(),
     );
   }
-  
+
   void _listener(context, state) {}
-
 }
-
