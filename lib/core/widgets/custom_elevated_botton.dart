@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/authentication_feature/presentation/widgets/login_form.dart';
+import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_form.dart';
+import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_form_body.dart';
 import 'package:shop_app/core/widgets/reusable_elevated_botton.dart';
 
 import '../../Features/authentication_feature/data/model/login_request_model.dart';
@@ -59,12 +61,15 @@ class CustomElevatedButton extends StatelessWidget {
 
   factory CustomElevatedButton.updateButton({
     required BuildContext context,
-    required SettingsScreenState userState,
+    required SettingsFormState userState,
+    required SettingsFormBodyState formBodyState,
   }) {
     return CustomElevatedButton._(
       onPressed: () => _updateAction(
-        context,
-        userState,
+        
+        context: context,
+        userState: userState,
+        formBodyState: formBodyState,
       ),
       label: 'Update',
     );
@@ -111,24 +116,25 @@ class CustomElevatedButton extends StatelessWidget {
     );
   }
 
-  static void _updateAction(
-    BuildContext context,
-    SettingsScreenState userState,
-  ) {
+  static void _updateAction({
+    required BuildContext context,
+    required SettingsFormState userState,
+    required SettingsFormBodyState formBodyState,
+  }) {
     if (userState.formKey.currentState!.validate()) {
       final cubit = UpdateUserDataCubit.get(context);
       UpdateUserDataCubit.get(context).userEntity =
           UserInfoCubit.get(context).userEntity;
       if (cubit.checkDataChanges(
-        name: userState.nameController.text,
-        email: userState.emailController.text,
-        phone: userState.phoneController.text,
+        name: formBodyState.nameController.text,
+        email: formBodyState.emailController.text,
+        phone: formBodyState.phoneController.text,
       )) {
         cubit.updateUserData(
           updateUserRequestModel: UpdateUserRequestModel(
-            name: userState.nameController.text,
-            email: userState.emailController.text,
-            phone: userState.phoneController.text,
+            name: formBodyState.nameController.text,
+            email: formBodyState.emailController.text,
+            phone: formBodyState.phoneController.text,
           ),
         );
       } else {

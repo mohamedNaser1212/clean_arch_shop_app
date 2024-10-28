@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/Features/home/presentation/categories_widgets/categories_widget.dart';
 import 'package:shop_app/Features/home/presentation/products_widgets/home_body.dart';
-import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
-
+import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_screen_body.dart';
 import '../../carts_feature/presentation/screens/cart_screen.dart';
 import '../../favourites_feature/presentation/screens/favorites_screen.dart';
 
@@ -11,10 +10,10 @@ class LayoutModel {
 
   final List<Widget> _screens = [
     const HomeScreenBody(),
-     CategoriesScreenBody(),
+    CategoriesScreenBody(),
     const FavoritesScreen(),
     const CartScreen(),
-    const SettingsScreen(),
+    const SettingsScreenBody(),
   ];
 
   final List<BottomNavigationBarItem> _bottomNavigationBarItems = const [

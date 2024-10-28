@@ -1,19 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Features/settings_feature/presentation/screen/settings_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/Features/settings_feature/domain/settings_use_case/update_user_data_use_case.dart';
+import 'package:shop_app/Features/settings_feature/domain/settings_use_case/user_sign_out_use_case.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/sign_out_cubit/sign_out_cubit.dart';
+import 'package:shop_app/Features/settings_feature/presentation/cubit/user_info_cubit/update_user_data_cubit/update_user_data_cubit.dart';
 import 'package:shop_app/Features/settings_feature/presentation/settings_widgets/settings_form.dart';
+import 'package:shop_app/core/service_locator/service_locator.dart';
+import 'package:shop_app/core/user_info/cubit/user_info_cubit.dart';
+import 'package:shop_app/core/widgets/custom_progress_indicator.dart';
 
-class SettingsScreenBody extends StatelessWidget {
-  final SettingsScreenState userState;
-
+class SettingsScreenBody extends StatefulWidget {
   const SettingsScreenBody({
     Key? key,
-    required this.userState,
   }) : super(key: key);
 
   @override
+  State<SettingsScreenBody> createState() => _SettingsScreenBodyState();
+}
+
+class _SettingsScreenBodyState extends State<SettingsScreenBody> {
+  @override
+  void initState() {
+    super.initState();
+    UserInfoCubit.get(context).getUserData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SettingsForm(
-      userState: userState,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => UpdateUserDataCubit(
+            updateUserDataUseCase: getIt.get<UpdateUserDataUseCase>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => SignOutCubit(
+            userSignOutUseCase: getIt.get<UserSignOutUseCase>(),
+          ),
+        ),
+      ],
+      child: BlocBuilder<UserInfoCubit, UserInfoState>(
+        builder: (context, userState) {
+          return BlockInteractionLoadingWidget(
+            isLoading: userState is GetUserInfoLoadingState,
+            child: const SettingsForm(),
+          );
+        },
+      ),
     );
   }
 }
